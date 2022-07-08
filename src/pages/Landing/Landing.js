@@ -2,7 +2,7 @@
 import LoginForm from '../../components/LoginForm/LoginForm';
 import SignupForm from '../../components/SignupForm/SignupForm';
 import { useState } from 'react';
-import { Container } from '@mui/material';
+import { Container, Link } from '@mui/material';
 const Landing = () => {
     const [showLogin, setShowLogin] = useState(true)
     return (
@@ -14,13 +14,13 @@ const Landing = () => {
                     <>
                         <LoginForm /> 
                         <p>Not a user?</p>
-                        <button onClick={()=> setShowLogin(!showLogin)}>Sign up!</button>
+                        <Link href="#" onClick={()=> setShowLogin(!showLogin)}>Sign up!</Link>
                     </>
                     :
                     <>
                         <SignupForm />
                         <p>Already a user?</p>
-                        <button onClick={()=> setShowLogin(!showLogin)}>Log in!</button>
+                        <Link href="#" onClick={()=> setShowLogin(!showLogin)}>Log in!</Link>
                     </>
                 }
             </Container>

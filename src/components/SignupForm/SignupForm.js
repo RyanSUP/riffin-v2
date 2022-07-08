@@ -7,7 +7,7 @@ const SignupForm = () => {
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
     const [preferredUsername, setPreferredUsername] = useState("");
-    const { setUser } = useContext(UserContext);
+    const { authenticate } = useContext(UserContext);
 
     const onSubmit = (event) => {
         event.preventDefault();
@@ -22,7 +22,13 @@ const SignupForm = () => {
                 console.error(error);
             } else {
                 console.log(data)
-                setUser(data['user']);
+                authenticate(email, password)
+                .then(user => {
+                    console.log("Signed up! ", user)
+                })
+                .catch(error => {
+                    console.error("Failed to sign up: ", error)
+                });
             }
         });
     }
