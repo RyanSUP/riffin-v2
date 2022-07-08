@@ -1,11 +1,12 @@
 import { useState, useContext } from "react";
-import { AccountContext } from "./Account";
+import { UserContext } from "../App";
+import { useNavigate } from "react-router-dom";
 
 const LoginForm = () => {
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
-
-    const { authenticate } = useContext(AccountContext)
+    const { authenticate } = useContext(UserContext);
+    const navigate = useNavigate();
 
     const onSubmit = (event) => {
         event.preventDefault();
@@ -13,6 +14,7 @@ const LoginForm = () => {
         authenticate(email, password)
         .then(data => {
             console.log("Logged in! ", data)
+            navigate('/trending')
         })
         .catch(error => {
             console.error("Failed to login: ", error)
