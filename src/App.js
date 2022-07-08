@@ -7,6 +7,7 @@ import UserPool from "./utils/UserPool";
 
 import Landing from './pages/Landing/Landing';
 import Trending from './pages/Trending/Trending';
+import Nav from './components/Nav/Nav';
 
 
 const UserContext = createContext();
@@ -91,11 +92,14 @@ function App() {
                 path='/'
                 element=
                 {
-                    user ? (
-                        <Trending />
-                    ) : (
-                        <Landing />
-                    )
+                    <>
+                        <Nav />               
+                        {user ? (
+                            <Trending />
+                        ) : (
+                            <Landing />
+                        )}
+                    </>
                 }
             />
         </Routes>

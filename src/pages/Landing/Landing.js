@@ -7,7 +7,6 @@ const Landing = () => {
     const [showLogin, setShowLogin] = useState(true)
     return (
         <>  
-            <>Nav for non users</>
             <Container maxWidth="sm">
                 {showLogin 
                     ?
