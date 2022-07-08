@@ -1,7 +1,7 @@
 import { Route, Routes } from 'react-router-dom'
 import { createContext } from "react";
 import { CognitoUser, AuthenticationDetails } from "amazon-cognito-identity-js";
-import { useEffect, useState } from "react";
+import { useEffect, useState, useCallback } from "react";
 
 import UserPool from "./utils/UserPool";
 
@@ -15,22 +15,26 @@ function App() {
     const [user, setUser] = useState(null);
 
     // Check if there is a user session in local storage
-    const getSession = async () => {
-        return await new Promise((resolve, reject) => {
-            const user = UserPool.getCurrentUser();
-            if (user) {
-                user.getSession((error, session) => {
-                    if(error) {
-                        reject(error);
-                    } else {
-                        resolve(session);
-                    }
-                })
-            } else {
-                reject("No user");
-            }
-        })
-    }
+    const getUserSessionFromCognito = useCallback(()=> {
+        const getSession = async () => {
+            return await new Promise((resolve, reject) => {
+                if(user) {
+                    user.getSession((error, session) => {
+                        if(error) {
+                            reject(error);
+                        } else {
+                            resolve(session);
+                        }
+                    })
+                } else {
+                    reject('No user');
+                }
+            })
+        }
+
+        return getSession()
+
+    }, [user])
 
   const authenticate = async (Username, Password) => {
       return await new Promise((resolve, reject) => {
@@ -50,12 +54,11 @@ function App() {
           user.authenticateUser(authDetails, {
               onSuccess: (data) => {
                   console.log('onSuccess: ', data);
-                  setUser(data);
+                  setUser(user);
                   resolve(data);
               },
               onFailure: (error) => {
                   console.error('onFailure: ', error);
-                  setUser(null);
                   reject(error);
               },
               newPasswordRequired: (data) => {
@@ -67,7 +70,6 @@ function App() {
   };
 
   const logout = () => {
-      const user = UserPool.getCurrentUser();
       if(user) {
           user.signOut();
           setUser(null);
@@ -75,19 +77,14 @@ function App() {
   }
 
   useEffect(() => {
-    getSession()
-    .then(session => {
-        console.log("Session: ", session);
-        setUser(session);
-    })
-    .catch(error => {
-        console.error("Session error: ", error);
-    })
-  }, []);
+    const user = UserPool.getCurrentUser();
+    setUser(user)
+  }, [])
+
 
   return (
 
-    <UserContext.Provider value={{ authenticate, getSession, logout, user }}>
+    <UserContext.Provider value={{ authenticate, getUserSessionFromCognito, logout, user, setUser }}>
         <Routes>
             <Route 
                 exact
