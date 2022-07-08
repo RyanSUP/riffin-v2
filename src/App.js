@@ -5,8 +5,8 @@ import { useEffect, useState, useCallback } from "react";
 
 import UserPool from "./utils/UserPool";
 
-import Landing from './pages/Landing';
-import Trending from './pages/Trending';
+import Landing from './pages/Landing/Landing';
+import Trending from './pages/Trending/Trending';
 
 
 const UserContext = createContext();
@@ -36,38 +36,38 @@ function App() {
 
     }, [user])
 
-  const authenticate = async (Username, Password) => {
-      return await new Promise((resolve, reject) => {
-          // 1. Create a user object with email and pool info
-          const user = new CognitoUser({
-              Username,
-              Pool: UserPool
-          });
+    const authenticate = async (Username, Password) => {
+        return await new Promise((resolve, reject) => {
+            // 1. Create a user object with email and pool info
+            const user = new CognitoUser({
+                Username,
+                Pool: UserPool
+            });
 
-          // 2. Get the authdetails needed to authenticate the user
-          const authDetails = new AuthenticationDetails({
-              Username,
-              Password
-          });
+            // 2. Get the authdetails needed to authenticate the user
+            const authDetails = new AuthenticationDetails({
+                Username,
+                Password
+            });
 
-          // 3. Check if user is in the pool. The data returned will contain the access tokens.
-          user.authenticateUser(authDetails, {
-              onSuccess: (data) => {
-                  console.log('onSuccess: ', data);
-                  setUser(user);
-                  resolve(data);
-              },
-              onFailure: (error) => {
-                  console.error('onFailure: ', error);
-                  reject(error);
-              },
-              newPasswordRequired: (data) => {
-                  console.log('newPasswordRequired: ', data);
-                  resolve(data);
-              },
-          });
-      });
-  };
+            // 3. Check if user is in the pool. The data returned will contain the access tokens.
+            user.authenticateUser(authDetails, {
+                onSuccess: (data) => {
+                    console.log('onSuccess: ', data);
+                    setUser(user);
+                    resolve(data);
+                },
+                onFailure: (error) => {
+                    console.error('onFailure: ', error);
+                    reject(error);
+                },
+                newPasswordRequired: (data) => {
+                    console.log('newPasswordRequired: ', data);
+                    resolve(data);
+                },
+            });
+        });
+    };
 
   const logout = () => {
       if(user) {
