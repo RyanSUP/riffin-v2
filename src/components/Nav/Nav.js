@@ -10,10 +10,23 @@ import NavLinks from './NavLinks';
 import AvatarMenu from './AvatarMenu';
 import LoginButton from './LoginButton';
 import { useState } from 'react';
-const pages = ['Trending', 'My tabs', 'New tab'];
+import { useNavigate } from 'react-router-dom'
+const pages = [
+    {
+        "name": 'Trending',
+        "path": "/"
+    }
+    ,
+    {
+        "name": 'My tabs',
+        "path": "/id/tabs"
+    },
+    {
+        "name": 'New tab',
+        "path": "/id/tabs/new"
+    },
+]
 const settings = ['Logout'];
-
-
 
 const Nav = () => {
     const [anchorElNav, setAnchorElNav] = useState(null);
@@ -35,7 +48,12 @@ const Nav = () => {
     const handleCloseUserMenu = () => {
       setAnchorElUser(null);
     };
+    const navigate = useNavigate();
 
+    const handleClickOnPage = (path) => {
+        handleCloseNavMenu();
+        navigate(path);
+    }
 
   return (
     <AppBar position="static">
@@ -45,14 +63,15 @@ const Nav = () => {
             <NavLogo />
             <HamburgerMenu
                 handleOpenNavMenu={handleOpenNavMenu}
-                anchorElNav={anchorElNav}
                 handleCloseNavMenu={handleCloseNavMenu}
+                anchorElNav={anchorElNav}
+                handleClickOnPage={handleClickOnPage}
                 pages={pages}
             />
             <MobileNavLogo />
             <NavLinks 
                 pages={pages}
-                handleCloseNavMenu={handleCloseNavMenu}
+                handleClickOnPage={handleClickOnPage}
             />
             { user ?
                     <AvatarMenu 

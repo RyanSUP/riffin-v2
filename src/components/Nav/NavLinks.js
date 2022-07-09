@@ -7,11 +7,11 @@ const NavLinks = (props) => {
         <Box sx={{ flexGrow: 1, display: { xs: 'none', md: 'flex' } }}>
             {props.pages.map((page) => (
                 <Button
-                    key={page}
-                    onClick={props.handleCloseNavMenu}
+                    key={page['name']}
+                    onClick={()=> props.handleClickOnPage(page['path'])}
                     sx={{ my: 2, color: 'white', display: 'block' }}
                 >
-                    {page}
+                    {page['name']}
                 </Button>
             ))}
         </Box>    

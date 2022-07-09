@@ -37,8 +37,10 @@ const HamburgerMenu = (props) => {
                 }}
             >
                 {props.pages.map((page) => (
-                    <MenuItem key={page} onClick={props.handleCloseNavMenu}>
-                        <Typography textAlign="center">{page}</Typography>
+                    <MenuItem key={page['name']} onClick={()=> props.handleClickOnPage(page['path'])}>
+                        <Typography textAlign="center">
+                            {page['name']}
+                        </Typography>
                     </MenuItem>
                 ))}
             </Menu>

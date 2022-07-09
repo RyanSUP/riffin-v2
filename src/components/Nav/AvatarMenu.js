@@ -34,6 +34,7 @@ const AvatarMenu = (props) => {
                     >
                     {props.settings.map((setting) => (
                         <MenuItem key={setting} onClick={props.handleCloseUserMenu}>
+                            {/* //! Careful here! Currently I only have "logout" in this menu, but if I add any more to the array it will map all of them with the logout function. */}
                             <Typography onClick={logout} textAlign="center">{setting}</Typography>
                         </MenuItem>
                     ))}
