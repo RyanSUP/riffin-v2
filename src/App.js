@@ -86,22 +86,20 @@ function App() {
   return (
 
     <UserContext.Provider value={{ authenticate, getUserSessionFromCognito, logout, user, setUser }}>
+        <Nav />
         <Routes>
             <Route 
                 exact
                 path='/'
-                element=
-                {
-                    <>
-                        <Nav />               
-                        {user ? (
-                            <Trending />
-                        ) : (
-                            <Landing />
-                        )}
-                    </>
-                }
+                element={<Trending />}
             />
+            <Route
+                exact
+                path='/login'
+                element={<Landing />}
+            >
+
+            </Route>
         </Routes>
     </UserContext.Provider>
 

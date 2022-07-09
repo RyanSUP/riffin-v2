@@ -1,7 +1,6 @@
 import AppBar from '@mui/material/AppBar';
 import Toolbar from '@mui/material/Toolbar';
 import Container from '@mui/material/Container';
-import Button from '@mui/material/Button';
 import { UserContext } from '../../App';
 import { useContext } from 'react';
 import NavLogo from './NavLogo';
@@ -9,7 +8,8 @@ import HamburgerMenu from './HamburgerMenu';
 import MobileNavLogo from './MobileNavLogo';
 import NavLinks from './NavLinks';
 import AvatarMenu from './AvatarMenu';
-import { useState } from 'react'
+import LoginButton from './LoginButton';
+import { useState } from 'react';
 const pages = ['Trending', 'My tabs', 'New tab'];
 const settings = ['Logout'];
 
@@ -62,11 +62,7 @@ const Nav = () => {
                         settings={settings}
                     />
                 :
-                    <Button
-                      variant="contained"
-                    >   
-                        Login
-                    </Button>
+                    <LoginButton />
             }
         </Toolbar>
       </Container>

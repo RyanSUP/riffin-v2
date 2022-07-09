@@ -5,14 +5,16 @@ import Menu from '@mui/material/Menu';
 import Avatar from '@mui/material/Avatar';
 import Tooltip from '@mui/material/Tooltip';
 import MenuItem from '@mui/material/MenuItem';
-
+import { UserContext } from '../../App';
+import { useContext } from 'react';
 const AvatarMenu = (props) => {
+    const { logout } = useContext(UserContext);
     return (
         <Box sx={{ flexGrow: 0 }}>
                     <Tooltip title="Open settings">
-                    <IconButton onClick={props.handleOpenUserMenu} sx={{ p: 0 }}>
-                        <Avatar alt="Remy Sharp" src="/static/images/avatar/2.jpg" />
-                    </IconButton>
+                        <IconButton onClick={props.handleOpenUserMenu} sx={{ p: 0 }}>
+                            <Avatar alt="Remy Sharp" src="/static/images/avatar/2.jpg" />
+                        </IconButton>
                     </Tooltip>
                     <Menu
                     sx={{ mt: '45px' }}
@@ -32,7 +34,7 @@ const AvatarMenu = (props) => {
                     >
                     {props.settings.map((setting) => (
                         <MenuItem key={setting} onClick={props.handleCloseUserMenu}>
-                        <Typography textAlign="center">{setting}</Typography>
+                            <Typography onClick={logout} textAlign="center">{setting}</Typography>
                         </MenuItem>
                     ))}
                     </Menu>
