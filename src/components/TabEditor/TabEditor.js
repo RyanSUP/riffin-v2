@@ -30,7 +30,12 @@ const legalCharacters = {
     "d": handleDuplicate, // duplicate
     "Backspace" : handleRemoveCharacter,
   }
-
+  const arrows = {
+    "ArrowDown" : true,
+    "ArrowLeft" : true,
+    "ArrowRight" : true,
+    "ArrowUp" : true,
+  }
 const getStringFilledWithCharacter = (character) => {
     let valueString = ""
     for(let i = 0; i < 240; i++) {
@@ -44,20 +49,17 @@ const TabEditor = () => {
     const [inputGridValue, setInputGridValue] = useState(getStringFilledWithCharacter(' '));
     const [cursorPosition, setCursorPosition] = useState(0);
     const inputRef = useRef()
-    const inputTextArea = <textarea
-        value={inputGridValue}
-        onChange={handleChange}
-        onPaste={(e)=> e.preventDefault()} 
-        onClick={handleClick}
-        cols="40" 
-        rows="6" 
-        maxLength="251" 
-        id="riffin-editor-inputGrid"
-        ref={inputRef}
-    >
-    </textarea>
+
     function handleClick(e) {
         setCursorPosition(e.target.selectionStart)
+    }
+
+    function handleKeyDown(e) {
+        if(e.key in arrows) {
+            console.log(e.key, ' in arrows')
+            console.log('e.target.selectionStart: ', e.target.selectionStart)
+            setCursorPosition(e.target.selectionStart)
+        }
     }
 
     function handleChange(e) {
@@ -67,6 +69,7 @@ const TabEditor = () => {
             // Get the position of the cursor
             // Replace space at cursor with key
         const key = e.nativeEvent.data;
+        console.log('OnChange', e)
         e.preventDefault()  
         if(key in legalCharacters) {
             let currentValueAsArray =  [...inputGridValue]
@@ -80,10 +83,24 @@ const TabEditor = () => {
     useEffect(()=> {
         inputRef.current.selectionStart = cursorPosition
         inputRef.current.selectionEnd = cursorPosition
+        console.log('New cursorPosition: ', cursorPosition)
     }, [cursorPosition])
+
     return (
         <div id="riffin-editor">
-            {inputTextArea}
+            <textarea
+                value={inputGridValue}
+                onChange={handleChange}
+                onKeyUp={handleKeyDown}
+                onPaste={(e)=> e.preventDefault()} 
+                onClick={handleClick}
+                cols="40" 
+                rows="6" 
+                maxLength="251" 
+                id="riffin-editor-inputGrid"
+                ref={inputRef}
+            >
+            </textarea>
         </div> 
     );
 }
