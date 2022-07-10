@@ -8,6 +8,7 @@ import UserPool from "./utils/UserPool";
 import Landing from './pages/Landing/Landing';
 import Trending from './pages/Trending/Trending';
 import Nav from './components/Nav/Nav';
+import TabEditor from './components/TabEditor/TabEditor';
 
 
 const UserContext = createContext();
@@ -99,6 +100,12 @@ function App() {
                 element={<Landing />}
             >
 
+            </Route>
+            <Route
+                exact
+                path='/id/tabs/new'
+                element={<TabEditor />}
+            >
             </Route>
         </Routes>
     </UserContext.Provider>
