@@ -1,14 +1,25 @@
 import { useEffect, useState, useRef } from "react";
 
-const handleAddCharacter = () => {
-    console.log('add character')
-}
+
+const getStringFilledWithCharacter = (character) => {
+    let valueString = ""
+    for(let i = 0; i < 240; i++) {
+      if(i%40 === 0 && i !== 0) valueString += '\n'
+      valueString += character
+    }
+    return valueString
+  }
+
+const TabEditor = () => {
+
 const handleDuplicate = () => {
     console.log('duplicate character')
 }
-const handleRemoveCharacter = () => {
-    console.log('Remove character')
-}
+
+const firstColumnIndexes = [0, 41, 82, 123, 164, 205]
+const lastColumnIndexes =  [40, 81, 122, 163, 204]
+const secondToLastCol = [39, 80, 121, 162, 203]
+const LAST_INPUT_POSITION = 245
 
 const legalCharacters = {
     "~": handleAddCharacter, // vibrato
@@ -36,16 +47,6 @@ const legalCharacters = {
     "ArrowRight" : true,
     "ArrowUp" : true,
   }
-const getStringFilledWithCharacter = (character) => {
-    let valueString = ""
-    for(let i = 0; i < 240; i++) {
-      if(i%40 === 0 && i !== 0) valueString += '\n'
-      valueString += character
-    }
-    return valueString
-  }
-
-const TabEditor = () => {
     const [inputGridValue, setInputGridValue] = useState(getStringFilledWithCharacter(' '));
     const [cursorPosition, setCursorPosition] = useState(0);
     const inputRef = useRef()
@@ -54,30 +55,46 @@ const TabEditor = () => {
         setCursorPosition(e.target.selectionStart)
     }
 
+
     function handleKeyDown(e) {
         if(e.key in arrows) {
-            console.log(e.key, ' in arrows')
-            console.log('e.target.selectionStart: ', e.target.selectionStart)
             setCursorPosition(e.target.selectionStart)
         }
     }
 
     function handleChange(e) {
-        // Get input key
-        // Check against legal keys
-        // if legal:
-            // Get the position of the cursor
-            // Replace space at cursor with key
         const key = e.nativeEvent.data;
         console.log('OnChange', e)
-        e.preventDefault()  
+        e.preventDefault()
         if(key in legalCharacters) {
+            legalCharacters[key](key, e.target.selectionStart)
+        } else if(key === null) {
+            legalCharacters["Backspace"](e.target.selectionStart)
+        }  
+    }
+
+    function handleAddCharacter(char, selectionStart) {
+        if(cursorPosition === LAST_INPUT_POSITION) {
+            console.log('Cursor at last input position (245)')
+        } else if(lastColumnIndexes.includes(cursorPosition)) {
+            console.log('Curson on the last column')
+        } else {
             let currentValueAsArray =  [...inputGridValue]
-            currentValueAsArray[cursorPosition] = key
+            currentValueAsArray[cursorPosition] = char
             const updatedValue = currentValueAsArray.join('')
             setInputGridValue(updatedValue)
-        }   
-        setCursorPosition(e.target.selectionStart)
+            setCursorPosition(selectionStart)
+        }
+    }
+
+    function handleRemoveCharacter(selectionStart) {
+        console.log('removing')
+        if(firstColumnIndexes.includes(selectionStart)) return
+        let currentValueAsArray =  [...inputGridValue]
+        currentValueAsArray[selectionStart] = " "
+        const updatedValue = currentValueAsArray.join('')
+        setInputGridValue(updatedValue)
+        setCursorPosition(selectionStart)
     }
 
     useEffect(()=> {
@@ -85,6 +102,7 @@ const TabEditor = () => {
         inputRef.current.selectionEnd = cursorPosition
         console.log('New cursorPosition: ', cursorPosition)
     }, [cursorPosition])
+
 
     return (
         <div id="riffin-editor">
