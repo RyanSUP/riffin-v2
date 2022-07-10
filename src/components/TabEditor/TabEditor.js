@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect, useState, useRef } from "react";
 
 const handleAddCharacter = () => {
     console.log('add character')
@@ -31,7 +31,6 @@ const legalCharacters = {
     "Backspace" : handleRemoveCharacter,
   }
 
-//   ! I'm trying to capture the last key pressed so I can check the key value in the legalChartacters map. 
 const getStringFilledWithCharacter = (character) => {
     let valueString = ""
     for(let i = 0; i < 240; i++) {
@@ -42,9 +41,24 @@ const getStringFilledWithCharacter = (character) => {
   }
 
 const TabEditor = () => {
-    // ! Maybe rebuild entire text area each input?
-    const [inputTextArea, setInputTextArea] = useState();
-    const [inputGridValue, setInputGridValue] = useState();
+    const [inputGridValue, setInputGridValue] = useState(getStringFilledWithCharacter(' '));
+    const [cursorPosition, setCursorPosition] = useState(0);
+    const inputRef = useRef()
+    const inputTextArea = <textarea
+        value={inputGridValue}
+        onChange={handleChange}
+        onPaste={(e)=> e.preventDefault()} 
+        onClick={handleClick}
+        cols="40" 
+        rows="6" 
+        maxLength="251" 
+        id="riffin-editor-inputGrid"
+        ref={inputRef}
+    >
+    </textarea>
+    function handleClick(e) {
+        setCursorPosition(e.target.selectionStart)
+    }
 
     function handleChange(e) {
         // Get input key
@@ -55,31 +69,21 @@ const TabEditor = () => {
         const key = e.nativeEvent.data;
         e.preventDefault()  
         if(key in legalCharacters) {
-            const cursorPosition = e.target.selectionStart
             let currentValueAsArray =  [...inputGridValue]
             currentValueAsArray[cursorPosition] = key
             const updatedValue = currentValueAsArray.join('')
             setInputGridValue(updatedValue)
         }   
+        setCursorPosition(e.target.selectionStart)
     }
 
     useEffect(()=> {
-        setInputGridValue(getStringFilledWithCharacter(' '))
-
-    }, [])
-
+        inputRef.current.selectionStart = cursorPosition
+        inputRef.current.selectionEnd = cursorPosition
+    }, [cursorPosition])
     return (
         <div id="riffin-editor">
-            <textarea 
-                value={inputGridValue}
-                onChange={handleChange}
-                onPaste={(e)=> e.preventDefault()} 
-                cols="40" 
-                rows="6" 
-                maxLength="251" 
-                id="riffin-editor-inputGrid"
-            >
-            </textarea>
+            {inputTextArea}
         </div> 
     );
 }
