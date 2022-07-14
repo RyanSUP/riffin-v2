@@ -18,9 +18,7 @@ const mapOfLastColumnIndexes = {
     245: true,
 }
 
-const LAST_INPUT_POSITION = 245
-
-const getStringFilledWithCharacter = (character) => {
+const initTextAreaWithValue = (character) => {
     let charactersInString = [];
     for(let i = 0; i < 245; i++) {
         if(i in mapOfLastColumnIndexes) {
@@ -34,47 +32,45 @@ const getStringFilledWithCharacter = (character) => {
   }
 
 const TabEditor = () => {
-useEffect(()=> {
-    console.log('remount')
-})
-const handleDuplicate = () => {
-    console.log('duplicate character')
-}
-
-const legalCharacters = {
-    "~": handleAddCharacter, // vibrato
-    "/": handleAddCharacter, // slide
-    "^": handleAddCharacter, // bend
-    "x": handleAddCharacter, // mute
-    "p": handleAddCharacter, // pull off
-    "h": handleAddCharacter, // hammer on
-    "0": handleAddCharacter,
-    "1": handleAddCharacter,
-    "2": handleAddCharacter,
-    "3": handleAddCharacter,
-    "4": handleAddCharacter,
-    "5": handleAddCharacter,
-    "6": handleAddCharacter,
-    "7": handleAddCharacter,
-    "8": handleAddCharacter,
-    "9": handleAddCharacter,
-    "d": handleAddCharacter, // duplicate
-    "Backspace" : handleRemoveCharacter,
-  }
-  const arrows = {
-    "ArrowDown" : true,
-    "ArrowLeft" : true,
-    "ArrowRight" : true,
-    "ArrowUp" : true,
-  }
-    const [inputGridValue, setInputGridValue] = useState(getStringFilledWithCharacter(' '));
+    const [inputGridValue, setInputGridValue] = useState(initTextAreaWithValue(' '));
     const [cursor, setCursor] = useState({position: 0});
     const inputRef = useRef();
+
+    const legalCharacters = {
+        "~": handleAddCharacter, // vibrato
+        "/": handleAddCharacter, // slide
+        "^": handleAddCharacter, // bend
+        "x": handleAddCharacter, // mute
+        "p": handleAddCharacter, // pull off
+        "h": handleAddCharacter, // hammer on
+        "0": handleAddCharacter,
+        "1": handleAddCharacter,
+        "2": handleAddCharacter,
+        "3": handleAddCharacter,
+        "4": handleAddCharacter,
+        "5": handleAddCharacter,
+        "6": handleAddCharacter,
+        "7": handleAddCharacter,
+        "8": handleAddCharacter,
+        "9": handleAddCharacter,
+        "d": handleAddCharacter, // duplicate
+        "Backspace" : handleRemoveCharacter,
+    };
+
+    const arrows = {
+        "ArrowDown" : true,
+        "ArrowLeft" : true,
+        "ArrowRight" : true,
+        "ArrowUp" : true,
+    };
 
     function handleClick(e) {
         setCursor( {position: e.target.selectionStart} );
     }
 
+    function handleDuplicate() {
+        console.log('duplicate character')
+    }
 
     function handleKeyDown(e) {
         if(e.key in arrows) {
@@ -84,24 +80,29 @@ const legalCharacters = {
 
     function handleChange(e) {
         const key = e.nativeEvent.data;
-        // console.log('OnChange', e);
-        // e.preventDefault();  
+        e.preventDefault();  
         if(key in legalCharacters) {
             legalCharacters[key](key, e.target.selectionStart);
         } else if(key === null) {
             legalCharacters["Backspace"](e.target.selectionStart);
-        }  
+        }  else {
+            setCursor((prev) => { return { position: prev.position } })
+        }
+    }
+
+    function updateInputGridValueAtIndex(newValue, index) {
+        let currentValueAsArray =  [...inputGridValue]
+        currentValueAsArray[index] = newValue
+        const updatedValue = currentValueAsArray.join('')
+        setInputGridValue(updatedValue)
     }
 
     function handleAddCharacter(char) {
         if(cursor.position in mapOfLastColumnIndexes) {
             setCursor((prev) => { return { position: prev.position } })
         } else {
-            let currentValueAsArray =  [...inputGridValue]
-            currentValueAsArray[cursor.position] = char
-            const updatedValue = currentValueAsArray.join('')
-            setInputGridValue(updatedValue)
-            setCursor((prev) => { return { position: prev.position + 1 } })
+            updateInputGridValueAtIndex(char, cursor.position)
+            setCursor( { position: cursor.position + 1 } )
         }
     }
 
@@ -110,16 +111,9 @@ const legalCharacters = {
             setCursor( { position: cursor.position } )
         } else {
             let newCursorPosition = cursor.position - 1
-            let currentValueAsArray =  [...inputGridValue]
-            currentValueAsArray[newCursorPosition] = " "
-            const updatedValue = currentValueAsArray.join('')
-            setInputGridValue(updatedValue)
+            updateInputGridValueAtIndex(" ", newCursorPosition)
             setCursor( {position: newCursorPosition} )
         }
-    }
-
-    function printValue() {
-        console.dir(inputRef.current)
     }
 
     useEffect(()=> {
@@ -127,7 +121,6 @@ const legalCharacters = {
         inputRef.current.selectionEnd = cursor.position
         console.log('New cursorPosition: ', cursor.position)
     }, [cursor])
-
 
     return (
         <div id="riffin-editor">
@@ -145,7 +138,6 @@ const legalCharacters = {
                 ref={inputRef}
             >
             </textarea>
-            <button onClick={printValue}>Print value</button>
         </div> 
     );
 }
