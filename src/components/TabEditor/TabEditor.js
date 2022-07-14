@@ -1,17 +1,35 @@
 import { useEffect, useState, useRef } from "react";
 
+const mapOfFirstColumnIndexes = {
+    0: true,
+    41: true,
+    82: true,
+    123: true,
+    164: true,
+    205: true,
+}
 
-const firstColumnIndexes = [0, 41, 82, 123, 164, 205]
-const lastColumnIndexes =  [40, 81, 122, 163, 204]
-const secondToLastCol = [39, 80, 121, 162, 203]
+const mapOfLastColumnIndexes = {
+    40: true,
+    81: true,
+    122: true,
+    163: true,
+    204: true,
+    245: true,
+}
+
 const LAST_INPUT_POSITION = 245
 
 const getStringFilledWithCharacter = (character) => {
     let charactersInString = [];
     for(let i = 0; i < 245; i++) {
-        charactersInString.push(character);
+        if(mapOfLastColumnIndexes[i]) {
+            charactersInString.push('\n');
+        } else {
+            charactersInString.push(character);
+        }
+
     }
-    lastColumnIndexes.forEach((index) => charactersInString[index] = "\n" );
     return charactersInString.join('')
   }
 
@@ -78,7 +96,7 @@ const legalCharacters = {
     function handleAddCharacter(char) {
         if(cursor.position === LAST_INPUT_POSITION) {
             setCursor( {position: LAST_INPUT_POSITION} )
-        } else if(lastColumnIndexes.includes(cursor.position)) {
+        } else if(mapOfLastColumnIndexes[cursor.position]) {
             setCursor((prev) => { return { position: prev.position } })
         } else {
             let currentValueAsArray =  [...inputGridValue]
@@ -90,7 +108,7 @@ const legalCharacters = {
     }
 
     function handleRemoveCharacter() {
-        if(firstColumnIndexes.includes(cursor.position)) {
+        if(mapOfFirstColumnIndexes[cursor.position]) {
             console.log('backspace: includes first position')
             setCursor( { position: cursor.position } )
         } else {
