@@ -75,30 +75,32 @@ const legalCharacters = {
         }  
     }
 
-    function handleAddCharacter(char, selectionStart) {
-        console.log('ss', selectionStart)
-        console.log('c', cursor.position)
+    function handleAddCharacter(char) {
         if(cursor.position === LAST_INPUT_POSITION) {
             setCursor( {position: LAST_INPUT_POSITION} )
         } else if(lastColumnIndexes.includes(cursor.position)) {
-            setCursor( {position: selectionStart - 1} )
+            setCursor((prev) => { return { position: prev.position } })
         } else {
             let currentValueAsArray =  [...inputGridValue]
             currentValueAsArray[cursor.position] = char
             const updatedValue = currentValueAsArray.join('')
             setInputGridValue(updatedValue)
-            setCursor( {position: selectionStart} )
+            setCursor((prev) => { return { position: prev.position + 1 } })
         }
     }
 
-    function handleRemoveCharacter(selectionStart) {
-        console.log('removing')
-        if(firstColumnIndexes.includes(selectionStart)) return
-        let currentValueAsArray =  [...inputGridValue]
-        currentValueAsArray[selectionStart] = " "
-        const updatedValue = currentValueAsArray.join('')
-        setInputGridValue(updatedValue)
-        setCursor( {position: selectionStart} )
+    function handleRemoveCharacter() {
+        if(firstColumnIndexes.includes(cursor.position)) {
+            console.log('backspace: includes first position')
+            setCursor( { position: cursor.position } )
+        } else {
+            let newCursorPosition = cursor.position - 1
+            let currentValueAsArray =  [...inputGridValue]
+            currentValueAsArray[newCursorPosition] = " "
+            const updatedValue = currentValueAsArray.join('')
+            setInputGridValue(updatedValue)
+            setCursor( {position: newCursorPosition} )
+        }
     }
 
     function printValue() {
