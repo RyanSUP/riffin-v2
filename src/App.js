@@ -31,12 +31,12 @@ function App() {
                 } else {
                     reject('No user');
                 }
-            })
+            });
         }
 
         return getSession()
 
-    }, [user])
+    }, [user]);
 
     const authenticate = async (Username, Password) => {
         return await new Promise((resolve, reject) => {
@@ -80,7 +80,7 @@ function App() {
 
   useEffect(() => {
     const user = UserPool.getCurrentUser();
-    setUser(user)
+    setUser(user);
   }, [])
 
 

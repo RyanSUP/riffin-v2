@@ -1,25 +1,27 @@
 import { useEffect, useState, useRef } from "react";
 
 
-const getStringFilledWithCharacter = (character) => {
-    let valueString = ""
-    for(let i = 0; i < 240; i++) {
-      if(i%40 === 0 && i !== 0) valueString += '\n'
-      valueString += character
-    }
-    return valueString
-  }
-
-const TabEditor = () => {
-
-const handleDuplicate = () => {
-    console.log('duplicate character')
-}
-
 const firstColumnIndexes = [0, 41, 82, 123, 164, 205]
 const lastColumnIndexes =  [40, 81, 122, 163, 204]
 const secondToLastCol = [39, 80, 121, 162, 203]
 const LAST_INPUT_POSITION = 245
+
+const getStringFilledWithCharacter = (character) => {
+    let charactersInString = [];
+    for(let i = 0; i < 245; i++) {
+        charactersInString.push(character);
+    }
+    lastColumnIndexes.forEach((index) => charactersInString[index] = "\n" );
+    return charactersInString.join('')
+  }
+
+const TabEditor = () => {
+useEffect(()=> {
+    console.log('remount')
+})
+const handleDuplicate = () => {
+    console.log('duplicate character')
+}
 
 const legalCharacters = {
     "~": handleAddCharacter, // vibrato
@@ -38,7 +40,7 @@ const legalCharacters = {
     "7": handleAddCharacter,
     "8": handleAddCharacter,
     "9": handleAddCharacter,
-    "d": handleDuplicate, // duplicate
+    "d": handleAddCharacter, // duplicate
     "Backspace" : handleRemoveCharacter,
   }
   const arrows = {
@@ -48,42 +50,44 @@ const legalCharacters = {
     "ArrowUp" : true,
   }
     const [inputGridValue, setInputGridValue] = useState(getStringFilledWithCharacter(' '));
-    const [cursorPosition, setCursorPosition] = useState(0);
-    const inputRef = useRef()
+    const [cursor, setCursor] = useState({position: 0});
+    const inputRef = useRef();
 
     function handleClick(e) {
-        setCursorPosition(e.target.selectionStart)
+        setCursor( {position: e.target.selectionStart} );
     }
 
 
     function handleKeyDown(e) {
         if(e.key in arrows) {
-            setCursorPosition(e.target.selectionStart)
+            setCursor( {position: e.target.selectionStart} );
         }
     }
 
     function handleChange(e) {
         const key = e.nativeEvent.data;
-        console.log('OnChange', e)
-        e.preventDefault()
+        // console.log('OnChange', e);
+        // e.preventDefault();  
         if(key in legalCharacters) {
-            legalCharacters[key](key, e.target.selectionStart)
+            legalCharacters[key](key, e.target.selectionStart);
         } else if(key === null) {
-            legalCharacters["Backspace"](e.target.selectionStart)
+            legalCharacters["Backspace"](e.target.selectionStart);
         }  
     }
 
     function handleAddCharacter(char, selectionStart) {
-        if(cursorPosition === LAST_INPUT_POSITION) {
-            console.log('Cursor at last input position (245)')
-        } else if(lastColumnIndexes.includes(cursorPosition)) {
-            console.log('Curson on the last column')
+        console.log('ss', selectionStart)
+        console.log('c', cursor.position)
+        if(cursor.position === LAST_INPUT_POSITION) {
+            setCursor( {position: LAST_INPUT_POSITION} )
+        } else if(lastColumnIndexes.includes(cursor.position)) {
+            setCursor( {position: selectionStart - 1} )
         } else {
             let currentValueAsArray =  [...inputGridValue]
-            currentValueAsArray[cursorPosition] = char
+            currentValueAsArray[cursor.position] = char
             const updatedValue = currentValueAsArray.join('')
             setInputGridValue(updatedValue)
-            setCursorPosition(selectionStart)
+            setCursor( {position: selectionStart} )
         }
     }
 
@@ -94,19 +98,24 @@ const legalCharacters = {
         currentValueAsArray[selectionStart] = " "
         const updatedValue = currentValueAsArray.join('')
         setInputGridValue(updatedValue)
-        setCursorPosition(selectionStart)
+        setCursor( {position: selectionStart} )
+    }
+
+    function printValue() {
+        console.dir(inputRef.current)
     }
 
     useEffect(()=> {
-        inputRef.current.selectionStart = cursorPosition
-        inputRef.current.selectionEnd = cursorPosition
-        console.log('New cursorPosition: ', cursorPosition)
-    }, [cursorPosition])
+        inputRef.current.selectionStart = cursor.position
+        inputRef.current.selectionEnd = cursor.position
+        console.log('New cursorPosition: ', cursor.position)
+    }, [cursor])
 
 
     return (
         <div id="riffin-editor">
             <textarea
+                style={{resize: "none"}}
                 value={inputGridValue}
                 onChange={handleChange}
                 onKeyUp={handleKeyDown}
@@ -119,6 +128,7 @@ const legalCharacters = {
                 ref={inputRef}
             >
             </textarea>
+            <button onClick={printValue}>Print value</button>
         </div> 
     );
 }
