@@ -23,7 +23,7 @@ const LAST_INPUT_POSITION = 245
 const getStringFilledWithCharacter = (character) => {
     let charactersInString = [];
     for(let i = 0; i < 245; i++) {
-        if(mapOfLastColumnIndexes[i]) {
+        if(i in mapOfLastColumnIndexes) {
             charactersInString.push('\n');
         } else {
             charactersInString.push(character);
@@ -94,9 +94,7 @@ const legalCharacters = {
     }
 
     function handleAddCharacter(char) {
-        if(cursor.position === LAST_INPUT_POSITION) {
-            setCursor( {position: LAST_INPUT_POSITION} )
-        } else if(mapOfLastColumnIndexes[cursor.position]) {
+        if(cursor.position in mapOfLastColumnIndexes) {
             setCursor((prev) => { return { position: prev.position } })
         } else {
             let currentValueAsArray =  [...inputGridValue]
@@ -108,8 +106,7 @@ const legalCharacters = {
     }
 
     function handleRemoveCharacter() {
-        if(mapOfFirstColumnIndexes[cursor.position]) {
-            console.log('backspace: includes first position')
+        if(cursor.position in mapOfFirstColumnIndexes) {
             setCursor( { position: cursor.position } )
         } else {
             let newCursorPosition = cursor.position - 1
