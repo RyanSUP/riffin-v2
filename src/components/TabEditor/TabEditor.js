@@ -33,6 +33,7 @@ const initTextAreaWithValue = (character) => {
 
 const TabEditor = () => {
     const [inputGridValue, setInputGridValue] = useState(initTextAreaWithValue(' '));
+    const [dashTextAreaValue, setDashTextAreaValue] = useState(initTextAreaWithValue('-'));
     const [cursor, setCursor] = useState({position: 0});
     const inputRef = useRef();
 
@@ -97,11 +98,21 @@ const TabEditor = () => {
         setInputGridValue(updatedValue)
     }
 
+
+    function updateDashTextAreaValueAtIndex(newValue, index) {
+        let currentValueAsArray =  [...dashTextAreaValue]
+        currentValueAsArray[index] = newValue
+        const updatedValue = currentValueAsArray.join('')
+        setDashTextAreaValue(updatedValue)
+    }
+
+
     function handleAddCharacter(char) {
         if(cursor.position in mapOfLastColumnIndexes) {
             setCursor((prev) => { return { position: prev.position } })
         } else {
             updateInputGridValueAtIndex(char, cursor.position)
+            updateDashTextAreaValueAtIndex(" ", cursor.position)
             setCursor( { position: cursor.position + 1 } )
         }
     }
@@ -111,6 +122,7 @@ const TabEditor = () => {
             setCursor( { position: cursor.position } )
         } else {
             let newCursorPosition = cursor.position - 1
+            updateDashTextAreaValueAtIndex("-", newCursorPosition)
             updateInputGridValueAtIndex(" ", newCursorPosition)
             setCursor( {position: newCursorPosition} )
         }
@@ -136,6 +148,15 @@ const TabEditor = () => {
                 maxLength="251" 
                 id="riffin-editor-inputGrid"
                 ref={inputRef}
+            >
+            </textarea>
+            <textarea
+                style={ {resize: "none"} }
+                value={dashTextAreaValue}
+                cols="40" 
+                rows="6" 
+                maxLength="251" 
+                id="riffin-editor-dashGrid"
             >
             </textarea>
         </div> 
