@@ -31,8 +31,8 @@ const initTextAreaWithValue = (character) => {
     return charactersInString.join('')
   }
 
-const TabEditor = () => {
-    const [inputGridValue, setInputGridValue] = useState(initTextAreaWithValue(' '));
+const TablatureInput = () => {
+    const [inputTextAreaValue, setInputTextAreaValue] = useState(initTextAreaWithValue(' '));
     const [dashTextAreaValue, setDashTextAreaValue] = useState(initTextAreaWithValue('-'));
     const [cursor, setCursor] = useState({position: 0});
     const inputRef = useRef();
@@ -91,11 +91,11 @@ const TabEditor = () => {
         }
     }
 
-    function updateInputGridValueAtIndex(newValue, index) {
-        let currentValueAsArray =  [...inputGridValue]
+    function updateInputTextAreaValueAtIndex(newValue, index) {
+        let currentValueAsArray =  [...inputTextAreaValue]
         currentValueAsArray[index] = newValue
         const updatedValue = currentValueAsArray.join('')
-        setInputGridValue(updatedValue)
+        setInputTextAreaValue(updatedValue)
     }
 
 
@@ -111,7 +111,7 @@ const TabEditor = () => {
         if(cursor.position in mapOfLastColumnIndexes) {
             setCursor((prev) => { return { position: prev.position } })
         } else {
-            updateInputGridValueAtIndex(char, cursor.position)
+            updateInputTextAreaValueAtIndex(char, cursor.position)
             updateDashTextAreaValueAtIndex(" ", cursor.position)
             setCursor( { position: cursor.position + 1 } )
         }
@@ -123,9 +123,41 @@ const TabEditor = () => {
         } else {
             let newCursorPosition = cursor.position - 1
             updateDashTextAreaValueAtIndex("-", newCursorPosition)
-            updateInputGridValueAtIndex(" ", newCursorPosition)
+            updateInputTextAreaValueAtIndex(" ", newCursorPosition)
             setCursor( {position: newCursorPosition} )
         }
+    }
+
+    function handleSave(e) {
+        e.preventDefault()
+        printAllTextAreaValues()
+
+    }
+
+    function printAllTextAreaValues() {
+        console.log('==== New Print ====')
+        console.log(inputTextAreaValue)
+        console.log(dashTextAreaValue)
+        console.log('==== Merged ====')
+        
+        let mergedValues = Array(245)
+        if(inputTextAreaValue.length !== dashTextAreaValue.length) {
+            console.error('input and dash lengths do not match')
+        } else {
+            let inputValueAsArray = inputTextAreaValue.split('')
+            let dashValueAsArray = dashTextAreaValue.split('')
+            for(let i = 0; i < 245; i++) {
+                if (inputValueAsArray[i] === " ") {
+                    mergedValues.push(dashValueAsArray[i])
+                } else {
+                    mergedValues.push(inputValueAsArray[i])
+                }
+            }
+        }
+
+        console.log(mergedValues.join(''))
+        console.log("=== END ===")
+
     }
 
     useEffect(()=> {
@@ -134,11 +166,12 @@ const TabEditor = () => {
         console.log('New cursorPosition: ', cursor.position)
     }, [cursor])
 
+
     return (
-        <div id="riffin-editor">
+        <form id="riffin-editor">
             <textarea
                 style={{resize: "none"}}
-                value={inputGridValue}
+                value={inputTextAreaValue}
                 onChange={handleChange}
                 onKeyUp={handleKeyDown}
                 onPaste={(e)=> e.preventDefault()} 
@@ -151,6 +184,7 @@ const TabEditor = () => {
             >
             </textarea>
             <textarea
+                readOnly={true}
                 style={ {resize: "none"} }
                 value={dashTextAreaValue}
                 cols="40" 
@@ -159,8 +193,9 @@ const TabEditor = () => {
                 id="riffin-editor-dashGrid"
             >
             </textarea>
-        </div> 
+            <button onClick={handleSave}>Save</button>
+        </form> 
     );
 }
  
-export default TabEditor;
+export default TablatureInput;

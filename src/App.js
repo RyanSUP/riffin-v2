@@ -8,7 +8,7 @@ import UserPool from "./utils/UserPool";
 import Landing from './pages/Landing/Landing';
 import Trending from './pages/Trending/Trending';
 import Nav from './components/Nav/Nav';
-import TabEditor from './components/TabEditor/TabEditor';
+import TablatureInput from './components/TablatureInput/TablatureInput';
 
 
 const UserContext = createContext();
@@ -104,7 +104,7 @@ function App() {
             <Route
                 exact
                 path='/id/tabs/new'
-                element={<TabEditor />}
+                element={<TablatureInput />}
             >
             </Route>
         </Routes>
