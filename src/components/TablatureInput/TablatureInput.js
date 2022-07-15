@@ -128,17 +128,21 @@ const TablatureInput = () => {
         }
     }
 
-    function handleSave(e) {
+    function logValues(e) {
         e.preventDefault()
         printAllTextAreaValues()
 
     }
 
     function printAllTextAreaValues() {
+        console.log('==== === ===== ====')
         console.log('==== New Print ====')
+        console.log('==== === ===== ====')
         console.log(inputTextAreaValue)
         console.log(dashTextAreaValue)
+        console.log('==== ====== ====')
         console.log('==== Merged ====')
+        console.log('==== ====== ====')
         
         let mergedValues = Array(245)
         if(inputTextAreaValue.length !== dashTextAreaValue.length) {
@@ -156,7 +160,9 @@ const TablatureInput = () => {
         }
 
         console.log(mergedValues.join(''))
+        console.log("=== === ===")
         console.log("=== END ===")
+        console.log("=== === ===")
 
     }
 
@@ -193,7 +199,7 @@ const TablatureInput = () => {
                 id="riffin-editor-dashGrid"
             >
             </textarea>
-            <button onClick={handleSave}>Save</button>
+            <button onClick={logValues}>Log values</button>
         </form> 
     );
 }
