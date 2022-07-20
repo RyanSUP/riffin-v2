@@ -1,4 +1,6 @@
-import { useEffect, useState, useRef } from "react";
+import { useEffect, useState, useRef, useContext } from "react";
+import { UserContext } from '../../App';
+import { getIdTokenFromUser } from "../../utils/userUtils";
 
 const mapOfFirstColumnIndexes = {
     0: true,
@@ -36,6 +38,8 @@ const TablatureInput = () => {
     const [dashTextAreaValue, setDashTextAreaValue] = useState(initTextAreaWithValue('-'));
     const [cursor, setCursor] = useState({position: 0});
     const inputRef = useRef();
+    const [tablatureId, setTablatureId] = useState(null)
+    const { user } = useContext(UserContext);
 
     const legalCharacters = {
         "~": handleAddCharacter, // vibrato
@@ -166,6 +170,25 @@ const TablatureInput = () => {
 
     }
 
+    async function handleSaveTablature() {
+        const requestBody = {
+            "user": user.username
+        };
+
+        const idToken = getIdTokenFromUser(user)
+
+        const tabId = await fetch('https://gbgcg6xm2f.execute-api.us-east-1.amazonaws.com/dev/profile', {
+            method: 'POST',
+            headers: {
+                "Authorization": idToken,
+                "Content-Type": "application/json",
+            },
+            body: JSON.stringify(requestBody)
+        });
+
+        setTablatureId(tabId);
+    }
+
     useEffect(()=> {
         inputRef.current.selectionStart = cursor.position
         inputRef.current.selectionEnd = cursor.position
@@ -174,33 +197,49 @@ const TablatureInput = () => {
 
 
     return (
-        <form id="riffin-editor">
-            <textarea
-                style={{resize: "none"}}
-                value={inputTextAreaValue}
-                onChange={handleChange}
-                onKeyUp={handleKeyDown}
-                onPaste={(e)=> e.preventDefault()} 
-                onClick={handleClick}
-                cols="40" 
-                rows="6" 
-                maxLength="251" 
-                id="riffin-editor-inputGrid"
-                ref={inputRef}
-            >
-            </textarea>
-            <textarea
-                readOnly={true}
-                style={ {resize: "none"} }
-                value={dashTextAreaValue}
-                cols="40" 
-                rows="6" 
-                maxLength="251" 
-                id="riffin-editor-dashGrid"
-            >
-            </textarea>
-            <button onClick={logValues}>Log values</button>
-        </form> 
+        <>
+            {tablatureId !== null
+                ?
+                    <h1>New tab</h1>
+                :
+                    <h1>{tablatureId}</h1>
+            }
+            <form id="riffin-editor">
+                <textarea
+                    style={{resize: "none"}}
+                    value={inputTextAreaValue}
+                    onChange={handleChange}
+                    onKeyUp={handleKeyDown}
+                    onPaste={(e)=> e.preventDefault()} 
+                    onClick={handleClick}
+                    cols="40" 
+                    rows="6" 
+                    maxLength="251" 
+                    id="riffin-editor-inputGrid"
+                    ref={inputRef}
+                >
+                </textarea>
+                <textarea
+                    readOnly={true}
+                    style={ {resize: "none"} }
+                    value={dashTextAreaValue}
+                    cols="40" 
+                    rows="6" 
+                    maxLength="251" 
+                    id="riffin-editor-dashGrid"
+                >
+                </textarea>
+                <button onClick={logValues}>Log values</button>
+                {/* TODO
+                    Buttons
+                        Add bar
+                        delete
+                        save
+                        edit
+                */}
+            </form> 
+            <button onClick={handleSaveTablature}>Save Tab</button>
+        </>
     );
 }
  

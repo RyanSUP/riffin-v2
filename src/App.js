@@ -100,13 +100,14 @@ function App() {
                 path='/login'
                 element={<Landing />}
             >
-
             </Route>
             <Route
                 exact
                 path='/id/tabs/new'
                 element={
                     <ProtectedRoute user={user}>
+                        <TablatureInput />
+                        <TablatureInput />
                         <TablatureInput />
                     </ProtectedRoute>
                 }
