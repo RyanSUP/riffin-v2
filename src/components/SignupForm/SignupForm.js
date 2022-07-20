@@ -2,7 +2,8 @@ import { UserContext } from '../../App';
 import { useState, useContext } from "react";
 import UserPool from "../../utils/UserPool";
 import { Button, TextField, Stack } from "@mui/material"
-
+import * as profileServices from '../../services/profileServices';
+import { getIdTokenFromUser } from '../../utils/userUtils';
 const SignupForm = () => {
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
@@ -24,7 +25,15 @@ const SignupForm = () => {
                 console.log(data)
                 authenticate(email, password)
                 .then(user => {
-                    console.log("Signed up! ", user)
+                    let idToken = getIdTokenFromUser(user);
+                    let username = user.username;
+                    profileServices.create(username, idToken)
+                    .then( res => {
+                        console.log("🚀 ~ file: SignupForm.js ~ line 32 ~ UserPool.signUp ~ res", res)
+                    })
+                    .catch( error => {
+                        console.log("🚀 ~ file: SignupForm.js ~ line 36 ~ UserPool.signUp ~ error", error)
+                    })
                 })
                 .catch(error => {
                     console.error("Failed to sign up: ", error)

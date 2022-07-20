@@ -58,7 +58,7 @@ function App() {
                 onSuccess: (data) => {
                     console.log('onSuccess: ', data);
                     setUser(user);
-                    resolve(data);
+                    resolve(user);
                 },
                 onFailure: (error) => {
                     console.error('onFailure: ', error);
@@ -66,7 +66,7 @@ function App() {
                 },
                 newPasswordRequired: (data) => {
                     console.log('newPasswordRequired: ', data);
-                    resolve(data);
+                    resolve(user);
                 },
             });
         });
