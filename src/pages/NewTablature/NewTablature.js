@@ -12,15 +12,15 @@ const NewTablature = () => {
     const navigate = useNavigate()
 
     useEffect(()=> {
-        // TODO Send a fetch request to the server
+        // // TODO Send a fetch request to the server
         // // TODO SHow spinny while waiting for response
-        // TODO When successsful response is received, reroute to /tablature/:id
+        // // TODO When successsful response is received, reroute to /tablature/:id
         if(user) {
             const username = user.username;
             const idToken = getIdTokenFromUser(user);
             create(username, idToken)
             .then( res => {
-                navigate(`/tablature/${res._id._id}`)
+                navigate(`/tablature/${res._id}`)
             })
         }
     }, [user]);
