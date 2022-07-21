@@ -4,7 +4,7 @@ const create = async (username, idToken) => {
     const payload = {
         user: username
     }
-    let response = await fetch(`${BASE_URL}/profile`, {
+    const response = await fetch(`${BASE_URL}/tablature`, {
         method: 'POST',
         headers: {
             "Authorization": idToken,

@@ -10,6 +10,7 @@ import Trending from './pages/Trending/Trending';
 import Nav from './components/Nav/Nav';
 import TablatureInput from './components/TablatureInput/TablatureInput';
 import ProtectedRoute from './components/ProtectedRoute/ProtectedRoute';
+import NewTablature from './pages/NewTablature/NewTablature';
 
 
 const UserContext = createContext();
@@ -103,12 +104,10 @@ function App() {
             </Route>
             <Route
                 exact
-                path='/id/tabs/new'
+                path='/tablature/new'
                 element={
-                    <ProtectedRoute user={user}>
-                        <TablatureInput />
-                        <TablatureInput />
-                        <TablatureInput />
+                    <ProtectedRoute>
+                        <NewTablature />
                     </ProtectedRoute>
                 }
             >
