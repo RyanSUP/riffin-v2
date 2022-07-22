@@ -1,16 +1,13 @@
-import { useParams } from "react-router-dom";
+import { useLocation, useParams } from "react-router-dom";
 import { useState, useEffect } from "react";
 import TablatureInput from "../../components/TablatureInput/TablatureInput";
 const TablatureEditor = () => {
-    const [bars, setBars] = useState([])
+    let { state } = useLocation()
     let { id } = useParams();
-
-    const handleNewBar = () => {
-        setBars( prev => [...prev, <TablatureInput />])
-    }
+    const [tablature, setTablature] = useState(state.tablature)
 
     const printAllBars = () => {
-        bars.forEach( bar => {
+        tablature.bars.forEach( bar => {
             console.dir(bar)
         })
     }
@@ -18,8 +15,7 @@ const TablatureEditor = () => {
     return (
         <>
             {id}
-            <button onClick={handleNewBar}>New bar</button>
-            {[...bars]}
+            { tablature.bars?.map( bar => <TablatureInput />) }
             <button onClick={printAllBars}>Print all bars</button>
         </>
     );

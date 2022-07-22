@@ -18,7 +18,7 @@ const NewTablature = () => {
             create(username, idToken)
             .then( res => {
                 let tablature_id = res.tab._id
-                navigate(`/tablature/${tablature_id}`)
+                navigate(`/tablature/${tablature_id}`, { state: { tablature: res.tab } })
             })
         }
     }, [user]);
