@@ -11,6 +11,7 @@ import Nav from './components/Nav/Nav';
 import TablatureInput from './components/TablatureInput/TablatureInput';
 import ProtectedRoute from './components/ProtectedRoute/ProtectedRoute';
 import NewTablature from './pages/NewTablature/NewTablature';
+import TablatureEditor from './pages/TablatureEditor/TablatureEditor';
 
 
 const UserContext = createContext();
@@ -100,8 +101,7 @@ function App() {
                 exact
                 path='/login'
                 element={<Landing />}
-            >
-            </Route>
+            />
             <Route
                 exact
                 path='/tablature/new'
@@ -110,8 +110,12 @@ function App() {
                         <NewTablature />
                     </ProtectedRoute>
                 }
-            >
-            </Route>
+            />
+            <Route
+                exact
+                path={'/tablature/:id'}
+                element={ <TablatureEditor /> }
+            />
         </Routes>
     </UserContext.Provider>
 

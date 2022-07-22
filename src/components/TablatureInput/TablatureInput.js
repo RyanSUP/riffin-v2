@@ -1,6 +1,5 @@
 import { useEffect, useState, useRef, useContext } from "react";
 import { UserContext } from '../../App';
-import { getIdTokenFromUser } from "../../utils/userUtils";
 
 const mapOfFirstColumnIndexes = {
     0: true,
@@ -170,24 +169,6 @@ const TablatureInput = () => {
 
     }
 
-    async function handleSaveTablature() {
-        const requestBody = {
-            "user": user.username
-        };
-
-        const idToken = getIdTokenFromUser(user)
-
-        const tabId = await fetch('https://gbgcg6xm2f.execute-api.us-east-1.amazonaws.com/dev/profile', {
-            method: 'POST',
-            headers: {
-                "Authorization": idToken,
-                "Content-Type": "application/json",
-            },
-            body: JSON.stringify(requestBody)
-        });
-
-        setTablatureId(tabId);
-    }
 
     useEffect(()=> {
         inputRef.current.selectionStart = cursor.position
@@ -237,8 +218,7 @@ const TablatureInput = () => {
                         save
                         edit
                 */}
-            </form> 
-            <button onClick={handleSaveTablature}>Save Tab</button>
+            </form>
         </>
     );
 }

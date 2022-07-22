@@ -1,6 +1,6 @@
 import { useEffect, useContext } from "react";
 import { CircularProgress } from '@mui/material';
-import { create } from "../../services/tablatureServices";
+import { create, createBar } from "../../services/tablatureServices";
 import { UserContext } from '../../App';
 import { useNavigate } from "react-router-dom";
 import { getIdTokenFromUser } from "../../utils/userUtils";
@@ -17,7 +17,8 @@ const NewTablature = () => {
             const idToken = getIdTokenFromUser(user);
             create(username, idToken)
             .then( res => {
-                navigate(`/tablature/${res._id}`)
+                let tablature_id = res.tab._id
+                navigate(`/tablature/${tablature_id}`)
             })
         }
     }, [user]);
