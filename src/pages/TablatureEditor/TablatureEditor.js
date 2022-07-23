@@ -1,7 +1,7 @@
 import { useLocation, useParams } from "react-router-dom";
 import { useState, useContext } from "react";
 import TablatureInput from "../../components/TablatureInput/TablatureInput";
-import { update } from "../../services/tablatureServices";
+import { update, deleteTab } from "../../services/tablatureServices";
 import { UserContext } from '../../App';
 import { getIdTokenFromUser } from "../../utils/userUtils";
 
@@ -65,7 +65,6 @@ const TablatureEditor = () => {
     }
 
     const handleSaveTablature = () => {
-        // Send a put request to /tablature/:id
         const idToken = getIdTokenFromUser(user);
         update(tablature, idToken)
         .then( res => {
@@ -73,6 +72,13 @@ const TablatureEditor = () => {
         })
     }
 
+    const handleDeleteTablature = () => {
+        const idToken = getIdTokenFromUser(user);
+        deleteTab(tablature._id, idToken)
+        .then( res => {
+            console.log(res)
+        })
+    }
     return (
         <>
             {id}
@@ -82,6 +88,7 @@ const TablatureEditor = () => {
             <button onClick={printAllBars}>Print all bars</button>
             <button onClick={handleAddBar}>Add bar</button>
             <button onClick={handleSaveTablature}>Save</button>
+            <button onClick={handleDeleteTablature}>Delete</button>
         </>
     );
 }
