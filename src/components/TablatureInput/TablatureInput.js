@@ -32,9 +32,11 @@ const initTextAreaWithValue = (character) => {
     return charactersInString.join('')
   }
 
-const TablatureInput = () => {
-    const [inputTextAreaValue, setInputTextAreaValue] = useState(initTextAreaWithValue(' '));
-    const [dashTextAreaValue, setDashTextAreaValue] = useState(initTextAreaWithValue('-'));
+const TablatureInput = (props) => {
+    const [textAreaValues, setTextAreaValues] = useState({
+        inputs: initTextAreaWithValue(' '),
+        dashes: initTextAreaWithValue('-')
+    })
     const [cursor, setCursor] = useState({position: 0});
     const inputRef = useRef();
     const [tablatureId, setTablatureId] = useState(null)
@@ -95,18 +97,18 @@ const TablatureInput = () => {
     }
 
     function updateInputTextAreaValueAtIndex(newValue, index) {
-        let currentValueAsArray =  [...inputTextAreaValue]
+        let currentValueAsArray =  [...textAreaValues.inputs]
         currentValueAsArray[index] = newValue
         const updatedValue = currentValueAsArray.join('')
-        setInputTextAreaValue(updatedValue)
+        return updatedValue
     }
 
 
     function updateDashTextAreaValueAtIndex(newValue, index) {
-        let currentValueAsArray =  [...dashTextAreaValue]
+        let currentValueAsArray =  [...textAreaValues.dashes]
         currentValueAsArray[index] = newValue
         const updatedValue = currentValueAsArray.join('')
-        setDashTextAreaValue(updatedValue)
+        return updatedValue
     }
 
 
@@ -114,8 +116,9 @@ const TablatureInput = () => {
         if(cursor.position in mapOfLastColumnIndexes) {
             setCursor((prev) => { return { position: prev.position } })
         } else {
-            updateInputTextAreaValueAtIndex(char, cursor.position)
-            updateDashTextAreaValueAtIndex(" ", cursor.position)
+            let inputs = updateInputTextAreaValueAtIndex(char, cursor.position)
+            let dashes = updateDashTextAreaValueAtIndex(" ", cursor.position)
+            setTextAreaValues( {inputs, dashes } )
             setCursor( { position: cursor.position + 1 } )
         }
     }
@@ -133,42 +136,12 @@ const TablatureInput = () => {
 
     function logValues(e) {
         e.preventDefault()
-        printAllTextAreaValues()
-
     }
 
-    function printAllTextAreaValues() {
-        console.log('==== === ===== ====')
-        console.log('==== New Print ====')
-        console.log('==== === ===== ====')
-        console.log(inputTextAreaValue)
-        console.log(dashTextAreaValue)
-        console.log('==== ====== ====')
-        console.log('==== Merged ====')
-        console.log('==== ====== ====')
-        
-        let mergedValues = Array(245)
-        if(inputTextAreaValue.length !== dashTextAreaValue.length) {
-            console.error('input and dash lengths do not match')
-        } else {
-            let inputValueAsArray = inputTextAreaValue.split('')
-            let dashValueAsArray = dashTextAreaValue.split('')
-            for(let i = 0; i < 245; i++) {
-                if (inputValueAsArray[i] === " ") {
-                    mergedValues.push(dashValueAsArray[i])
-                } else {
-                    mergedValues.push(inputValueAsArray[i])
-                }
-            }
-        }
-
-        console.log(mergedValues.join(''))
-        console.log("=== === ===")
-        console.log("=== END ===")
-        console.log("=== === ===")
-
-    }
-
+    
+    useEffect(()=> {
+        props.updateBarValues(props.index, textAreaValues.inputs, textAreaValues.dashes)
+    }, [textAreaValues])
 
     useEffect(()=> {
         inputRef.current.selectionStart = cursor.position
@@ -188,7 +161,7 @@ const TablatureInput = () => {
             <form id="riffin-editor">
                 <textarea
                     style={{resize: "none"}}
-                    value={inputTextAreaValue}
+                    value={textAreaValues.inputs}
                     onChange={handleChange}
                     onKeyUp={handleKeyDown}
                     onPaste={(e)=> e.preventDefault()} 
@@ -203,7 +176,7 @@ const TablatureInput = () => {
                 <textarea
                     readOnly={true}
                     style={ {resize: "none"} }
-                    value={dashTextAreaValue}
+                    value={textAreaValues.dashes}
                     cols="40" 
                     rows="6" 
                     maxLength="251" 

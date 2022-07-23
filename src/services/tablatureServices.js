@@ -15,16 +15,15 @@ const create = async (username, idToken) => {
     return response.json()
 }
 
-const createBar = async (tab_id, idToken) => {
-    const payload = {
-        id: tab_id,
-    }
+const update = async (tab, idToken) => {
+    const payload = { tab }
     
-    const response = await fetch(`${BASE_URL}/tablature/:id`, {
+    const response = await fetch(`${BASE_URL}/tablature/${tab._id}`, {
         method: 'PUT',
         headers: {
             "Authorization": idToken,
             "Content-Type": "application/json",
+
         },
         body: JSON.stringify(payload)
     })
@@ -33,5 +32,5 @@ const createBar = async (tab_id, idToken) => {
 
 export {
     create,
-    createBar
+    update
 }
