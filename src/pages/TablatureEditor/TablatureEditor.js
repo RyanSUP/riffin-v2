@@ -64,6 +64,12 @@ const TablatureEditor = () => {
         setTablature( { ...tablature } )
     }
 
+    const handleDeleteBar = (barIndex) => {
+        const newBars = tablature.bars.filter( (bar, i) => i !== barIndex)
+        tablature.bars = newBars
+        setTablature( {...tablature} )
+    }
+
     const handleSaveTablature = () => {
         const idToken = getIdTokenFromUser(user);
         update(tablature, idToken)
@@ -79,11 +85,13 @@ const TablatureEditor = () => {
             console.log(res)
         })
     }
+
     return (
         <>
             {id}
             { tablature.bars?.map( 
-                (bar, i) => <TablatureInput updateBarValues={updateBarValues} index={i} key={i} /> 
+                (bar, i) => 
+                    <TablatureInput handleDeleteBar={handleDeleteBar} updateBarValues={updateBarValues} index={i} key={bar.label} /> 
             )}
             <button onClick={printAllBars}>Print all bars</button>
             <button onClick={handleAddBar}>Add bar</button>

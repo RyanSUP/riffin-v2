@@ -39,8 +39,6 @@ const TablatureInput = (props) => {
     })
     const [cursor, setCursor] = useState({position: 0});
     const inputRef = useRef();
-    const [tablatureId, setTablatureId] = useState(null)
-    const { user } = useContext(UserContext);
 
     const legalCharacters = {
         "~": handleAddCharacter, // vibrato
@@ -136,6 +134,34 @@ const TablatureInput = (props) => {
 
     function logValues(e) {
         e.preventDefault()
+        console.log('==== === ===== ====')
+            console.log('==== New Print ====')
+            console.log('==== === ===== ====')
+            console.log(textAreaValues.inputs)
+            console.log(textAreaValues.dashes)
+            console.log('==== ====== ====')
+            console.log('==== Merged ====')
+            console.log('==== ====== ====')
+            
+            let mergedValues = Array(245)
+            if(textAreaValues.inputs.length !== textAreaValues.dashes.length) {
+                console.error('input and dash lengths do not match')
+            } else {
+                let inputValueAsArray = textAreaValues.inputs.split('')
+                let dashValueAsArray = textAreaValues.dashes.split('')
+                for(let i = 0; i < 245; i++) {
+                    if (inputValueAsArray[i] === " ") {
+                        mergedValues.push(dashValueAsArray[i])
+                    } else {
+                        mergedValues.push(inputValueAsArray[i])
+                    }
+                }
+            }
+
+            console.log(mergedValues.join(''))
+            console.log("=== === ===")
+            console.log("=== END ===")
+            console.log("=== === ===")
     }
 
     
@@ -149,16 +175,13 @@ const TablatureInput = (props) => {
         console.log('New cursorPosition: ', cursor.position)
     }, [cursor])
 
+    const handleDeleteSelf = () => {
+        props.handleDeleteBar(props.index)
+    }
 
     return (
         <>
-            {tablatureId !== null
-                ?
-                    <h1>New tab</h1>
-                :
-                    <h1>{tablatureId}</h1>
-            }
-            <form id="riffin-editor">
+            <form className="riffin-editor">
                 <textarea
                     style={{resize: "none"}}
                     value={textAreaValues.inputs}
@@ -192,6 +215,7 @@ const TablatureInput = (props) => {
                         edit
                 */}
             </form>
+            <button onClick={handleDeleteSelf}>Delete bar</button>
         </>
     );
 }
