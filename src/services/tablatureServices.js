@@ -1,8 +1,9 @@
 const BASE_URL = process.env.REACT_APP_STACK_URL
 
-const create = async (username, idToken) => {
+// TODO Update payload data in airtable
+const create = async (tablature, idToken) => {
     const payload = {
-        user: username
+        tablature
     }
     const response = await fetch(`${BASE_URL}/tablature`, {
         method: 'POST',

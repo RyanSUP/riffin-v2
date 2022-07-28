@@ -1,15 +1,56 @@
-import { useLocation, useParams } from "react-router-dom";
-import { useState, useContext } from "react";
+import { useLocation, useParams, useNavigate } from "react-router-dom";
+import { useState, useContext, useEffect } from "react";
 import TablatureInput from "../../components/TablatureInput/TablatureInput";
-import { update, deleteTab } from "../../services/tablatureServices";
+import { update, deleteTab, create } from "../../services/tablatureServices";
 import { UserContext } from '../../App';
 import { getIdTokenFromUser } from "../../utils/userUtils";
+import { CircularProgress } from '@mui/material';
+
+// TODO Pass to TablatureInput and remove from TablatureInput file
+const mapOfFirstColumnIndexes = {
+    0: true,
+    41: true,
+    82: true,
+    123: true,
+    164: true,
+    205: true,
+}
+
+// TODO Pass to TablatureInput and remove from TablatureInput file
+const mapOfLastColumnIndexes = {
+    40: true,
+    81: true,
+    122: true,
+    163: true,
+    204: true,
+    245: true,
+}
+const initTextAreaWithValue = (character) => {
+    let charactersInString = [];
+    for(let i = 0; i < 245; i++) {
+        if(i in mapOfLastColumnIndexes) {
+            charactersInString.push('\n');
+        } else {
+            charactersInString.push(character);
+        }
+
+    }
+    return charactersInString.join('')
+}
 
 const TablatureEditor = () => {
-    const { user } = useContext(UserContext);
+    const navigate = useNavigate()
     let { state } = useLocation()
-    let { id } = useParams();
-    const [tablature, setTablature] = useState(state.tablature)
+    const { user } = useContext(UserContext);
+    const [isSaving, setIsSaving] = useState(false)
+    const [tablature, setTablature] = useState( {
+        isPublic: false,
+        name: "A tasy lick",
+        bars: [],
+        tags: [],
+        isBassTab: false,
+        _id: null
+    })
 
     const printAllBars = () => {
         tablature.bars.forEach( bar => {
@@ -48,13 +89,11 @@ const TablatureEditor = () => {
         let barLabel = `Bar ${tablature.bars.length + 1}`
         let barTemplate = {
             label: barLabel,
-            inputs: [],
-            dashes: [],
+            inputs: initTextAreaWithValue(' '),
+            dashes: initTextAreaWithValue('-'),
         }
 
         tablature.bars.push(barTemplate)
-        console.log(tablature.bars)
-
         setTablature( { ...tablature } )
     }
 
@@ -70,14 +109,30 @@ const TablatureEditor = () => {
         setTablature( {...tablature} )
     }
 
+    // TODO Once a tablature is created, redirect to the show route (/tablature/:id). Reference NewTablature's navigate.
     const handleSaveTablature = () => {
         const idToken = getIdTokenFromUser(user);
-        update(tablature, idToken)
-        .then( res => {
-            console.log(res)
-        })
+        if(tablature._id) {
+            setIsSaving(true)
+            update(tablature, idToken)
+            .then( res => {
+                console.log(res)
+                setIsSaving(false)
+                setTablature( {...tablature} )
+            })
+        } else {
+            setIsSaving(true)
+            const { _id, ...tablaturePayload} = tablature
+            create(tablaturePayload, idToken)
+            .then( res => {
+                setIsSaving(false)
+                setTablature( res )
+                navigate(`/tablature/${res._id}`, { state: res })
+            })
+        }
     }
 
+    // TODO Only show if tablature is saved to DB (ie has an _id)
     const handleDeleteTablature = () => {
         const idToken = getIdTokenFromUser(user);
         deleteTab(tablature._id, idToken)
@@ -86,17 +141,37 @@ const TablatureEditor = () => {
         })
     }
 
+    useEffect(() => {
+        if(user) {
+            let username = user.username;
+            setTablature((prev) => { return {...prev, owner: username} })
+        }
+    }, [user])
+
     return (
         <>
-            {id}
-            { tablature.bars?.map( 
-                (bar, i) => 
-                    <TablatureInput handleDeleteBar={handleDeleteBar} updateBarValues={updateBarValues} index={i} key={bar.label} /> 
-            )}
-            <button onClick={printAllBars}>Print all bars</button>
-            <button onClick={handleAddBar}>Add bar</button>
-            <button onClick={handleSaveTablature}>Save</button>
-            <button onClick={handleDeleteTablature}>Delete</button>
+            {isSaving
+                ? <CircularProgress />
+                :
+                <>
+                    { tablature.bars?.map( 
+                        (bar, i) => 
+                            <TablatureInput
+                                textAreaValues={{
+                                    inputs: bar.inputs, 
+                                    dashes: bar.dashes
+                                }} 
+                                handleDeleteBar={handleDeleteBar} 
+                                updateBarValues={updateBarValues} 
+                                index={i} key={bar._id || bar.label} 
+                            /> 
+                    )}
+                    <button onClick={printAllBars}>Print all bars</button>
+                    <button onClick={handleAddBar}>Add bar</button>
+                    <button onClick={handleSaveTablature}>Save</button>
+                    <button onClick={handleDeleteTablature}>Delete</button>
+                </>
+            }
         </>
     );
 }

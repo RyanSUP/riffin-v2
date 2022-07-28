@@ -107,14 +107,18 @@ function App() {
                 path='/tablature/new'
                 element={
                     <ProtectedRoute>
-                        <NewTablature />
+                        <TablatureEditor />
                     </ProtectedRoute>
                 }
             />
             <Route
                 exact
                 path={'/tablature/:id'}
-                element={ <TablatureEditor /> }
+                element={
+                    <ProtectedRoute>
+                        <TablatureEditor />
+                    </ProtectedRoute>
+                }
             />
         </Routes>
     </UserContext.Provider>

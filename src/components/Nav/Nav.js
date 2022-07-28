@@ -23,7 +23,7 @@ const pages = [
     },
     {
         "name": 'New tab',
-        "path": "/id/tabs/new"
+        "path": "/tablature/new"
     },
 ]
 const settings = ['Logout'];

@@ -19,24 +19,8 @@ const mapOfLastColumnIndexes = {
     245: true,
 }
 
-const initTextAreaWithValue = (character) => {
-    let charactersInString = [];
-    for(let i = 0; i < 245; i++) {
-        if(i in mapOfLastColumnIndexes) {
-            charactersInString.push('\n');
-        } else {
-            charactersInString.push(character);
-        }
-
-    }
-    return charactersInString.join('')
-  }
-
 const TablatureInput = (props) => {
-    const [textAreaValues, setTextAreaValues] = useState({
-        inputs: initTextAreaWithValue(' '),
-        dashes: initTextAreaWithValue('-')
-    })
+    const [textAreaValues, setTextAreaValues] = useState(props.textAreaValues)
     const [cursor, setCursor] = useState({position: 0});
     const inputRef = useRef();
 
