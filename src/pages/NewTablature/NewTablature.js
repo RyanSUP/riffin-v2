@@ -1,8 +1,8 @@
 import { useEffect, useContext } from "react";
 import { CircularProgress } from '@mui/material';
-import { create, createBar } from "../../services/tablatureServices";
-import { UserContext } from '../../App';
+import { create } from "../../services/tablatureServices";
 import { useNavigate } from "react-router-dom";
+import { UserContext } from '../../App';
 import { getIdTokenFromUser } from "../../utils/userUtils";
 
 
