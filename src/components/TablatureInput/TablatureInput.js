@@ -123,11 +123,12 @@ const TablatureInput = (props) => {
 
     function handleRemoveCharacter() {
         if(cursor.position in mapOfFirstColumnIndexes) {
-            setCursor( { position: cursor.position } )
+            setCursor((prev) => { return { position: prev.position } })
         } else {
             let newCursorPosition = cursor.position - 1
-            updateDashTextAreaValueAtIndex("-", newCursorPosition)
-            updateInputTextAreaValueAtIndex(" ", newCursorPosition)
+            let inputs = updateInputTextAreaValueAtIndex(" ", newCursorPosition)
+            let dashes = updateDashTextAreaValueAtIndex("-", newCursorPosition)
+            setTextAreaValues( {inputs, dashes} )
             setCursor( {position: newCursorPosition} )
         }
     }
