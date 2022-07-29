@@ -4,58 +4,21 @@ import { UserContext } from '../../App';
 import Bar from "../../components/Bar/Bar";
 import { update } from "../../services/tablatureServices";
 
-const mapOfFirstColumnIndexes = {
-    0: true,
-    41: true,
-    82: true,
-    123: true,
-    164: true,
-    205: true,
-}
-
-const mapOfLastColumnIndexes = {
-    40: true,
-    81: true,
-    122: true,
-    163: true,
-    204: true,
-    245: true,
-}
-
-const legalCharacters = {
-    "~": "handleAddCharacter", // vibrato
-    "/": "handleAddCharacter", // slide
-    "^": "handleAddCharacter", // bend
-    "x": "handleAddCharacter", // mute
-    "p": "handleAddCharacter", // pull off
-    "h": "handleAddCharacter", // hammer on
-    "0": "handleAddCharacter",
-    "1": "handleAddCharacter",
-    "2": "handleAddCharacter",
-    "3": "handleAddCharacter",
-    "4": "handleAddCharacter",
-    "5": "handleAddCharacter",
-    "6": "handleAddCharacter",
-    "7": "handleAddCharacter",
-    "8": "handleAddCharacter",
-    "9": "handleAddCharacter",
-    "d": "handleAddCharacter", // duplicate
-    "Backspace" : "handleRemoveCharacter",
-}
-
-const arrows = {
-    "ArrowDown" : true,
-    "ArrowLeft" : true,
-    "ArrowRight" : true,
-    "ArrowUp" : true,
-}
-
-// pure function that takes in the selectedBar object, cursorPosition and event, and returns an updated bar object.
-const updateSelectedBar = (selectedBarObject, cursorPosition, event) => {
 
 
 
-}
+
+// function handleRemoveCharacter() {
+//     if(cursor.position in mapOfFirstColumnIndexes) {
+//         setCursor((prev) => { return { position: prev.position } })
+//     } else {
+//         let newCursorPosition = cursor.position - 1
+//         let inputs = updateInputTextAreaValueAtIndex(" ", newCursorPosition)
+//         let dashes = updateDashTextAreaValueAtIndex("-", newCursorPosition)
+//         setTextAreaValues( {inputs, dashes} )
+//         setCursor( {position: newCursorPosition} )
+//     }
+// }
 
 const TablatureEditorPLUS = () => {
     const [selectedBar, setSelectedBar] = useState(null)
@@ -68,22 +31,103 @@ const TablatureEditorPLUS = () => {
         tags: [],
         isBassTab: false,
     })
-    
+
     const { user } = useContext(UserContext)
+
+    const mapOfFirstColumnIndexes = {
+        0: true,
+        41: true,
+        82: true,
+        123: true,
+        164: true,
+        205: true,
+    }
+    
+    const mapOfLastColumnIndexes = {
+        40: true,
+        81: true,
+        122: true,
+        163: true,
+        204: true,
+        245: true,
+    }
+    
+    const legalCharacters = {
+        "~": handleAddCharacter, // vibrato
+        "/": handleAddCharacter, // slide
+        "^": handleAddCharacter, // bend
+        "x": handleAddCharacter, // mute
+        "p": handleAddCharacter, // pull off
+        "h": handleAddCharacter, // hammer on
+        "0": handleAddCharacter,
+        "1": handleAddCharacter,
+        "2": handleAddCharacter,
+        "3": handleAddCharacter,
+        "4": handleAddCharacter,
+        "5": handleAddCharacter,
+        "6": handleAddCharacter,
+        "7": handleAddCharacter,
+        "8": handleAddCharacter,
+        "9": handleAddCharacter,
+        "d": handleAddCharacter, // duplicate
+        "Backspace" : "handleRemoveCharacter",
+    }
+    
+    const arrows = {
+        "ArrowDown" : true,
+        "ArrowLeft" : true,
+        "ArrowRight" : true,
+        "ArrowUp" : true,
+    }
+
+    function getUpdatedTextAreaValues(area, character) {
+        const bar = tablatureDocument.bars[selectedBar.index]
+        let currentValueAsArray =  [...bar[area]]
+        currentValueAsArray[cursorPosition.position] = character
+        const updatedValue = currentValueAsArray.join('')
+        return updatedValue
+    }
+
+    function handleAddCharacter(character) {
+        if(cursorPosition in mapOfLastColumnIndexes) {
+            setCursorPosition((prev) => { return { position: prev.position } })
+        } else {
+            // ! I might have to update the reference of every bar.
+            const bar = tablatureDocument.bars[selectedBar.index]
+            const newBar = { ...bar }
+            newBar.inputs = getUpdatedTextAreaValues('inputs', character)
+            newBar.dashes = getUpdatedTextAreaValues('dashes', " ")
+            tablatureDocument.bars[selectedBar.index] = newBar
+            setTablatureDocument( {...tablatureDocument} )
+            setCursorPosition( { position: cursorPosition.position + 1 } )
+        }
+    }
+    
     // TODO LIST ---
     const deleteTablatureFromDatabase = () => console.log('deleteTablatureFromDatabase')
     const setTablatureInDatabase = () => console.log('setTablatureInDatabase')
-    const setBarInTablature = () => console.log('setBarInTablature')
     // TODO ^^^^ ---
-    
+
+    const setBarInTablature = (event) => {
+        const key = event.nativeEvent.data;
+        event.preventDefault();  
+        if(key in legalCharacters) {
+            legalCharacters[key](key)
+        } else if(key === null) {
+            // legalCharacters["Backspace"](e.target.selectionStart);
+        }  else {
+            setCursorPosition((prev) => { return { position: prev.position } })
+        }
+    }
+
     const handleKeyUpInBar = (event) => {
         if(event.key in arrows) {
             setCursorPosition( {position: event.target.selectionStart} );
         }
     }  
     
-    const handleClickedBar = (event, barIndex) => {
-        setSelectedBar(barIndex)
+    const handleClickedBar = (event, barIndex, barRef) => {
+        setSelectedBar( {inputRef: barRef, index: barIndex} )
         setCursorPosition( {position: event.target.selectionStart} );
     }
 
@@ -132,6 +176,15 @@ const TablatureEditorPLUS = () => {
     useEffect(() => { 
         tablatureDocument['_id'] ? setIsSaved(true) : setIsSaved(false)
     }, [tablatureDocument])
+
+    // Prevent crusor from jumping to end of input.
+    useEffect(()=> {
+        if(selectedBar) {
+            selectedBar.inputRef.current.selectionStart = cursorPosition.position
+            selectedBar.inputRef.current.selectionEnd = cursorPosition.position
+            console.log('New cursorPosition: ', cursorPosition.position)
+        }
+    }, [cursorPosition, selectedBar])
 
     return (
         <>

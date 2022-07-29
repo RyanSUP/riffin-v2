@@ -1,6 +1,7 @@
+import { useRef } from "react";
+
 const Bar = ( {index, bar, handleClickedBar, setBarInTablature, handleKeyUpInBar} ) => {
-    
-    const callSetBarInTablature = (event) => console.log('callSetBarInTablature', event)
+    const inputRef = useRef()
 
     return (
         <>
@@ -8,15 +9,15 @@ const Bar = ( {index, bar, handleClickedBar, setBarInTablature, handleKeyUpInBar
                 <textarea
                     style={{resize: "none"}}
                     value={bar.inputs}
-                    // onChange={handleChange}
+                    onChange={ (event) => setBarInTablature(event) }
                     onKeyUp={ (event) => handleKeyUpInBar(event) }
                     onPaste={ (event)=> event.preventDefault() } 
-                    onClick={ (event)=> handleClickedBar(event, index) }
+                    onClick={ (event)=> handleClickedBar(event, index, inputRef) }
                     cols="40" 
                     rows="6" 
                     maxLength="251" 
                     id="riffin-editor-inputGrid"
-                    // ref={inputRef}
+                    ref={inputRef}
                 >
                 </textarea>
                 <textarea
