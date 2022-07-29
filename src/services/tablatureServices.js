@@ -44,8 +44,19 @@ const deleteTab = async (tab_id, idToken) => {
     return response.json()
 }
 
+const getUsersTablature = async (username, idToken) => { 
+    const response = await fetch(`${BASE_URL}/profile/${username}`, {
+        method: 'GET',
+        headers: {
+            "Authorization": idToken,
+        }
+    })
+    return response.json()
+}
+
 export {
     create,
     update,
-    deleteTab as delete
+    deleteTab as delete,
+    getUsersTablature
 }
