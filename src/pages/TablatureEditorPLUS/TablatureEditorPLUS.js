@@ -59,7 +59,7 @@ const updateSelectedBar = (selectedBarObject, cursorPosition, event) => {
 
 const TablatureEditorPLUS = () => {
     const [selectedBar, setSelectedBar] = useState(null)
-    const [cursorPosition, setCursorPosition] = useState(null)
+    const [cursorPosition, setCursorPosition] = useState( {position: null} ) // This can't be a number or it will cause referenceing errors.
     const [isSaved, setIsSaved] = useState(null)
     const [tablatureDocument, setTablatureDocument] = useState({
         isPublic: false,
@@ -73,13 +73,29 @@ const TablatureEditorPLUS = () => {
     // TODO LIST ---
     const deleteTablatureFromDatabase = () => console.log('deleteTablatureFromDatabase')
     const setTablatureInDatabase = () => console.log('setTablatureInDatabase')
-    const deleteBarFromTablature = () => console.log('deleteBarFromTablature')
     const setBarInTablature = () => console.log('setBarInTablature')
-    const handleClickedBar = () => console.log('handleClickedBar')    
     // TODO ^^^^ ---
+    const handleKeyUpInBar = () => console.log('handleKeyUpInBar')    
+    
+    const handleClickedBar = (event, barIndex) => {
+        setSelectedBar(barIndex)
+        setCursorPosition( {position: event.target.selectionStart} );
+    }
 
+    const deleteBarFromTablature = (barIndex) => {
+        const newBars = []
+        tablatureDocument.bars.forEach( (bar, i) => {
+            if(barIndex !== i) {
+                newBars.push( {...bar} )
+            }
+        })
+
+        tablatureDocument.bars = newBars
+        setTablatureDocument( {...tablatureDocument} )
+    }
+    
+    // TODO This function needs to get a unique id for each bar, that way the keys are unique.
     const addBarToTablature = () => {
-
         const initTextAreaWithValue = (character) => {
             let charactersInString = [];
             for(let i = 0; i < 245; i++) {
@@ -88,22 +104,20 @@ const TablatureEditorPLUS = () => {
                 } else {
                     charactersInString.push(character);
                 }
-        
             }
             return charactersInString.join('')
-        }
-
-        const barLabel = `Bar ${tablatureDocument.bars.length + 1}`
-        const newBar = {
-            label: barLabel,
-            inputs: initTextAreaWithValue(' '),
-            dashes: initTextAreaWithValue('-'),
         }
 
         const previousBars = []
         tablatureDocument.bars.forEach( (bar) => {
             previousBars.push( {...bar} )
         })
+
+        const newBar = {
+            label: `Bar ${tablatureDocument.bars.length + 1}`,
+            inputs: initTextAreaWithValue(' '),
+            dashes: initTextAreaWithValue('-'),
+        }
 
         tablatureDocument.bars = [...previousBars, newBar]
         setTablatureDocument( { ...tablatureDocument } )
@@ -117,6 +131,19 @@ const TablatureEditorPLUS = () => {
     return (
         <>
             <button onClick={addBarToTablature}>Add bar</button>
+            {tablatureDocument.bars.map( (bar, i) =>
+                <>
+                    <Bar 
+                        key={bar.label} // TODO Get unique id form database for key
+                        index={i}
+                        bar={bar}
+                        setBarInTablature={setBarInTablature}
+                        handleClickedBar={handleClickedBar}
+                        handleKeyUpInBar={handleKeyUpInBar}
+                    />
+                    <button onClick={ () => deleteBarFromTablature(i) }>Delete bar</button>
+                </>
+            )}
         </>
         
     );
