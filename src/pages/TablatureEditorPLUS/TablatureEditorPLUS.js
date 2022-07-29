@@ -2,23 +2,7 @@ import { useState, useContext, useEffect } from "react";
 import { UserContext } from '../../App';
 
 import Bar from "../../components/Bar/Bar";
-import { update } from "../../services/tablatureServices";
 
-
-
-
-
-// function handleRemoveCharacter() {
-//     if(cursor.position in mapOfFirstColumnIndexes) {
-//         setCursor((prev) => { return { position: prev.position } })
-//     } else {
-//         let newCursorPosition = cursor.position - 1
-//         let inputs = updateInputTextAreaValueAtIndex(" ", newCursorPosition)
-//         let dashes = updateDashTextAreaValueAtIndex("-", newCursorPosition)
-//         setTextAreaValues( {inputs, dashes} )
-//         setCursor( {position: newCursorPosition} )
-//     }
-// }
 
 const TablatureEditorPLUS = () => {
     const [selectedBar, setSelectedBar] = useState(null)
@@ -70,7 +54,7 @@ const TablatureEditorPLUS = () => {
         "8": handleAddCharacter,
         "9": handleAddCharacter,
         "d": handleAddCharacter, // duplicate
-        "Backspace" : "handleRemoveCharacter",
+        "Backspace" : handleRemoveCharacter,
     }
     
     const arrows = {
@@ -80,10 +64,10 @@ const TablatureEditorPLUS = () => {
         "ArrowUp" : true,
     }
 
-    function getUpdatedTextAreaValues(area, character) {
+    function getUpdatedTextAreaValues(area, character, insertionIndex) {
         const bar = tablatureDocument.bars[selectedBar.index]
         let currentValueAsArray =  [...bar[area]]
-        currentValueAsArray[cursorPosition.position] = character
+        currentValueAsArray[insertionIndex] = character
         const updatedValue = currentValueAsArray.join('')
         return updatedValue
     }
@@ -95,11 +79,26 @@ const TablatureEditorPLUS = () => {
             // ! I might have to update the reference of every bar.
             const bar = tablatureDocument.bars[selectedBar.index]
             const newBar = { ...bar }
-            newBar.inputs = getUpdatedTextAreaValues('inputs', character)
-            newBar.dashes = getUpdatedTextAreaValues('dashes', " ")
+            newBar.inputs = getUpdatedTextAreaValues('inputs', character, cursorPosition.position)
+            newBar.dashes = getUpdatedTextAreaValues('dashes', ' ', cursorPosition.position)
             tablatureDocument.bars[selectedBar.index] = newBar
             setTablatureDocument( {...tablatureDocument} )
             setCursorPosition( { position: cursorPosition.position + 1 } )
+        }
+    }
+
+    function handleRemoveCharacter() {
+        if(cursorPosition.position in mapOfFirstColumnIndexes) {
+            setCursorPosition((prev) => { return { position: prev.position } })
+        } else {
+            const bar = tablatureDocument.bars[selectedBar.index]
+            const newBar = { ...bar }
+            let newCursorPosition = cursorPosition.position - 1
+            newBar.inputs = getUpdatedTextAreaValues('inputs', ' ', newCursorPosition)
+            newBar.dashes = getUpdatedTextAreaValues('dashes', ' ', newCursorPosition)
+            tablatureDocument.bars[selectedBar.index] = newBar
+            setTablatureDocument( {...tablatureDocument} )
+            setCursorPosition( {position: newCursorPosition} )
         }
     }
     
@@ -114,7 +113,7 @@ const TablatureEditorPLUS = () => {
         if(key in legalCharacters) {
             legalCharacters[key](key)
         } else if(key === null) {
-            // legalCharacters["Backspace"](e.target.selectionStart);
+            legalCharacters["Backspace"]();
         }  else {
             setCursorPosition((prev) => { return { position: prev.position } })
         }
