@@ -73,10 +73,9 @@ const TablatureEditorPLUS = () => {
     }
 
     function handleAddCharacter(character) {
-        if(cursorPosition in mapOfLastColumnIndexes) {
+        if(cursorPosition.position in mapOfLastColumnIndexes) {
             setCursorPosition((prev) => { return { position: prev.position } })
         } else {
-            // ! I might have to update the reference of every bar.
             const bar = tablatureDocument.bars[selectedBar.index]
             const newBar = { ...bar }
             newBar.inputs = getUpdatedTextAreaValues('inputs', character, cursorPosition.position)
