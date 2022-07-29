@@ -1,6 +1,5 @@
 const BASE_URL = process.env.REACT_APP_STACK_URL
 
-// TODO Update payload data in airtable
 const create = async (tablature, idToken) => {
     const payload = {
         tablature
