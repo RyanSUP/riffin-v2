@@ -1,9 +1,9 @@
-import { useState, useContext, useEffect } from "react";
-import { UserContext } from '../../App';
-import * as tablatureServices from "../../services/tablatureServices";
+import { useState, useContext, useEffect } from "react"
+import { UserContext } from '../../App'
+import * as tablatureServices from "../../services/tablatureServices"
 import * as userUtils from "../../utils/userUtils"
-;
-import Bar from "../../components/Bar/Bar";
+import Bar from "../../components/Bar/Bar"
+import { CircularProgress } from '@mui/material';
 
 
 const TablatureEditorPLUS = () => {
@@ -221,23 +221,27 @@ const TablatureEditorPLUS = () => {
 
     return (
         <>
-            <button onClick={addBarToTablature}>Add bar</button>
-            {tablatureDocument.bars.map( (bar, i) =>
+            {isLoading ? <CircularProgress /> : 
                 <>
-                    <Bar 
-                        key={bar.label} // TODO Get unique id form database for key
-                        index={i}
-                        bar={bar}
-                        setBarInTablature={setBarInTablature}
-                        handleClickedBar={handleClickedBar}
-                        handleKeyUpInBar={handleKeyUpInBar}
-                    />
-                    <button onClick={ () => deleteBarFromTablature(i) }>Delete bar</button>
+                    <button onClick={addBarToTablature}>Add bar</button>
+                    {tablatureDocument.bars.map( (bar, i) =>
+                        <>
+                            <Bar 
+                                key={bar.label} // TODO Get unique id form database for key
+                                index={i}
+                                bar={bar}
+                                setBarInTablature={setBarInTablature}
+                                handleClickedBar={handleClickedBar}
+                                handleKeyUpInBar={handleKeyUpInBar}
+                            />
+                            <button onClick={ () => deleteBarFromTablature(i) }>Delete bar</button>
+                        </>
+                    )}
+                    <button onClick={setTablatureInDatabase}>Save Tablature</button>
+                    {isSaved &&
+                        <button onClick={deleteTablatureFromDatabase}>Delete tablature</button>
+                    }
                 </>
-            )}
-            <button onClick={setTablatureInDatabase}>Save Tablature</button>
-            {isSaved &&
-                <button onClick={deleteTablatureFromDatabase}>Delete tablature</button>
             }
         </>
         
