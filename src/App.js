@@ -2,16 +2,13 @@ import { Route, Routes } from 'react-router-dom'
 import { createContext } from "react";
 import { CognitoUser, AuthenticationDetails } from "amazon-cognito-identity-js";
 import { useEffect, useState, useCallback } from "react";
-
+import TablatureEditorPLUS from './pages/TablatureEditorPLUS/TablatureEditorPLUS';
 import UserPool from "./utils/UserPool";
 
 import Landing from './pages/Landing/Landing';
 import Trending from './pages/Trending/Trending';
 import Nav from './components/Nav/Nav';
-import TablatureInput from './components/TablatureInput/TablatureInput';
 import ProtectedRoute from './components/ProtectedRoute/ProtectedRoute';
-import NewTablature from './pages/NewTablature/NewTablature';
-import TablatureEditor from './pages/TablatureEditor/TablatureEditor';
 
 
 const UserContext = createContext();
@@ -107,11 +104,11 @@ function App() {
                 path='/tablature/new'
                 element={
                     <ProtectedRoute>
-                        <TablatureEditor />
+                        <TablatureEditorPLUS />
                     </ProtectedRoute>
                 }
             />
-            <Route
+            {/* <Route
                 exact
                 path={'/tablature/:id'}
                 element={
@@ -119,7 +116,7 @@ function App() {
                         <TablatureEditor />
                     </ProtectedRoute>
                 }
-            />
+            /> */}
         </Routes>
     </UserContext.Provider>
 
