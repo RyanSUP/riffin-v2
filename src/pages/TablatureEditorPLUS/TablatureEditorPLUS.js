@@ -104,9 +104,14 @@ const TablatureEditorPLUS = () => {
         }
     }
     
-    // TODO LIST ---
-    const deleteTablatureFromDatabase = () => console.log('deleteTablatureFromDatabase')
-    // TODO ^^^^ ---
+    const deleteTablatureFromDatabase = () => {
+        const idToken = userUtils.getIdTokenFromUser(user);
+        tablatureServices.delete(tablatureDocument._id, idToken)
+        .then( res => {
+            console.log(res)
+        })
+    }
+
     const setTablatureInDatabase = () => {
         const idToken = userUtils.getIdTokenFromUser(user);
         if(tablatureDocument._id) {
@@ -231,6 +236,9 @@ const TablatureEditorPLUS = () => {
                 </>
             )}
             <button onClick={setTablatureInDatabase}>Save Tablature</button>
+            {isSaved &&
+                <button onClick={deleteTablatureFromDatabase}>Delete tablature</button>
+            }
         </>
         
     );
