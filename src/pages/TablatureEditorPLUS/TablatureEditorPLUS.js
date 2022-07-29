@@ -214,14 +214,6 @@ const TablatureEditorPLUS = () => {
         }
     }, [user])
 
-    useEffect(() => {
-        if(tablatureDocument._id) {
-            setIsSaved(true)
-        } else {
-            setIsSaved(false)
-        }
-    }, [tablatureDocument])
-
     return (
         <>
             <button onClick={addBarToTablature}>Add bar</button>
