@@ -75,7 +75,12 @@ const TablatureEditorPLUS = () => {
     const setTablatureInDatabase = () => console.log('setTablatureInDatabase')
     const setBarInTablature = () => console.log('setBarInTablature')
     // TODO ^^^^ ---
-    const handleKeyUpInBar = () => console.log('handleKeyUpInBar')    
+    
+    const handleKeyUpInBar = (event) => {
+        if(event.key in arrows) {
+            setCursorPosition( {position: event.target.selectionStart} );
+        }
+    }  
     
     const handleClickedBar = (event, barIndex) => {
         setSelectedBar(barIndex)
