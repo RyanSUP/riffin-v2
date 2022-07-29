@@ -1,13 +1,16 @@
 import { useState, useContext, useEffect } from "react";
 import { UserContext } from '../../App';
-
+import * as tablatureServices from "../../services/tablatureServices";
+import * as userUtils from "../../utils/userUtils"
+;
 import Bar from "../../components/Bar/Bar";
 
 
 const TablatureEditorPLUS = () => {
     const [selectedBar, setSelectedBar] = useState(null)
     const [cursorPosition, setCursorPosition] = useState( {position: null} ) // This can't be a number or it will cause referenceing errors.
-    const [isSaved, setIsSaved] = useState(null)
+    const [isSaved, setIsSaved] = useState(null) // Is the document already in the database
+    const [isLoading, setIsLoading] = useState(false) // is the document currently waiting for a response
     const [tablatureDocument, setTablatureDocument] = useState({
         isPublic: false,
         name: "A tasy lick",
@@ -103,8 +106,28 @@ const TablatureEditorPLUS = () => {
     
     // TODO LIST ---
     const deleteTablatureFromDatabase = () => console.log('deleteTablatureFromDatabase')
-    const setTablatureInDatabase = () => console.log('setTablatureInDatabase')
     // TODO ^^^^ ---
+    const setTablatureInDatabase = () => {
+        const idToken = userUtils.getIdTokenFromUser(user);
+        if(tablatureDocument._id) {
+            setIsLoading(true)
+            tablatureServices.update(tablatureDocument, idToken)
+            .then( res => {
+                console.log(res)
+                setIsLoading(false)
+                setTablatureDocument( {...tablatureDocument} )
+            })
+        } else {
+            setIsLoading(true)
+            const { _id, ...tablaturePayload} = tablatureDocument
+            tablatureServices.create(tablaturePayload, idToken)
+            .then( res => {
+                setIsLoading(false)
+                setTablatureDocument( res )
+                // navigate(`/tablature/${res._id}`, { state: res })
+            })
+        }
+    }
 
     const setBarInTablature = (event) => {
         const key = event.nativeEvent.data;
@@ -184,6 +207,21 @@ const TablatureEditorPLUS = () => {
         }
     }, [cursorPosition, selectedBar])
 
+    useEffect(() => {
+        if(user) {
+            let username = user.username;
+            setTablatureDocument((prev) => { return {...prev, owner: username} })
+        }
+    }, [user])
+
+    useEffect(() => {
+        if(tablatureDocument._id) {
+            setIsSaved(true)
+        } else {
+            setIsSaved(false)
+        }
+    }, [tablatureDocument])
+
     return (
         <>
             <button onClick={addBarToTablature}>Add bar</button>
@@ -200,6 +238,7 @@ const TablatureEditorPLUS = () => {
                     <button onClick={ () => deleteBarFromTablature(i) }>Delete bar</button>
                 </>
             )}
+            <button onClick={setTablatureInDatabase}>Save Tablature</button>
         </>
         
     );

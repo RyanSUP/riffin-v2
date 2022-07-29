@@ -48,5 +48,5 @@ const deleteTab = async (tab_id, idToken) => {
 export {
     create,
     update,
-    deleteTab
+    deleteTab as delete
 }
