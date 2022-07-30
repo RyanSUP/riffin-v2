@@ -15,6 +15,11 @@ import * as userUtils from "./utils/userUtils"
 const UserContext = createContext();
 
 function App() {
+    //TODO ---
+    // State Needed :
+    // allUsersTags
+    // favoriteTablature
+    //TODO ---
     const [user, setUser] = useState(null)
     const [usersTablature, setUsersTablature] = useState([])
 
@@ -128,15 +133,15 @@ function App() {
                     </ProtectedRoute>
                 }
             />
-            {/* <Route
+            <Route
                 exact
                 path={'/tablature/:id'}
                 element={
                     <ProtectedRoute>
-                        <TablatureEditor />
+                        <TablatureEditorPLUS />
                     </ProtectedRoute>
                 }
-            /> */}
+            />
         </Routes>
     </UserContext.Provider>
 

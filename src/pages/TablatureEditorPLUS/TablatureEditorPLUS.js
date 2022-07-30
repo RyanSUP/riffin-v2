@@ -1,4 +1,5 @@
 import { useState, useContext, useEffect } from "react"
+import { useNavigate, useLocation } from "react-router-dom"
 import { UserContext } from '../../App'
 import * as tablatureServices from "../../services/tablatureServices"
 import * as userUtils from "../../utils/userUtils"
@@ -18,8 +19,10 @@ const TablatureEditorPLUS = () => {
         tags: [],
         isBassTab: false,
     })
-
     const { user } = useContext(UserContext)
+    const { state } = useLocation()
+
+    let navigate = useNavigate()
 
     const mapOfFirstColumnIndexes = {
         0: true,
@@ -110,6 +113,8 @@ const TablatureEditorPLUS = () => {
         .then( res => {
             console.log(res)
         })
+        // TODO Delete tablature from state
+        // TODO Navigate to trending
     }
 
     const setTablatureInDatabase = () => {
@@ -122,15 +127,17 @@ const TablatureEditorPLUS = () => {
                 setIsLoading(false)
                 setTablatureDocument( {...tablatureDocument} )
             })
+            // TODO Update tablature in state
         } else {
             setIsLoading(true)
             const { _id, ...tablaturePayload} = tablatureDocument
             tablatureServices.create(tablaturePayload, idToken)
-            .then( res => {
+            .then( tablatureFromResponse => {
                 setIsLoading(false)
-                setTablatureDocument( res )
-                // navigate(`/tablature/${res._id}`, { state: res })
+                setTablatureDocument( tablatureFromResponse )
+                navigate(`/tablature/${tablatureFromResponse._id}`, { state: tablatureFromResponse })
             })
+            // TODO Add tablature to state
         }
     }
 
@@ -202,6 +209,10 @@ const TablatureEditorPLUS = () => {
     useEffect(() => { 
         tablatureDocument['_id'] ? setIsSaved(true) : setIsSaved(false)
     }, [tablatureDocument])
+
+    useEffect(() => {
+        console.log('state', state)
+    }, [state])
 
     // Prevent crusor from jumping to end of input.
     useEffect(()=> {
