@@ -1,10 +1,11 @@
 import { useState, useContext, useEffect } from "react"
-import { useNavigate, useLocation } from "react-router-dom"
+import { useNavigate, useLocation, useParams } from "react-router-dom"
 import { UserContext } from '../../App'
 import * as tablatureServices from "../../services/tablatureServices"
 import * as userUtils from "../../utils/userUtils"
 import Bar from "../../components/Bar/Bar"
 import { CircularProgress } from '@mui/material';
+
 
 
 const TablatureEditorPLUS = () => {
@@ -21,7 +22,7 @@ const TablatureEditorPLUS = () => {
     })
     const { user } = useContext(UserContext)
     const { state } = useLocation()
-
+    const { id } = useParams()
     let navigate = useNavigate()
 
     const mapOfFirstColumnIndexes = {
@@ -210,6 +211,15 @@ const TablatureEditorPLUS = () => {
         tablatureDocument['_id'] ? setIsSaved(true) : setIsSaved(false)
     }, [tablatureDocument])
 
+    useEffect(() => {
+        tablatureServices.getTablatureById(id)
+        .then( res => {
+            setTablatureDocument(res.tablature)
+        })
+        // TODOcheck if user owns tablature before pinging backend
+    },[id])
+
+    // Get tablature from a state redirect
     useEffect(() => {
         console.log('state', state)
     }, [state])

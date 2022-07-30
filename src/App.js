@@ -21,7 +21,7 @@ function App() {
     // favoriteTablature
     //TODO ---
     const [user, setUser] = useState(null)
-    const [usersTablature, setUsersTablature] = useState([])
+    const [usersTablature, setUsersTablature] = useState(null)
 
     // TODO ---
     const updateTabInUsersTablature = () => console.log('updateTabInUsersTablature')
@@ -34,7 +34,6 @@ function App() {
         const {usersTablature, usersFavoriteTablature} = await tablatureServices.getUsersTablature(user.username, idToken)
         setUsersTablature(usersTablature)
     }
-
 
     // Check if there is a user session in local storage
     const getUserSessionFromCognito = useCallback(()=> {

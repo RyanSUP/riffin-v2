@@ -1,3 +1,5 @@
+// TODO Normalize naming of properties - will be less confusing when working on the backend.
+
 const BASE_URL = process.env.REACT_APP_STACK_URL
 
 const create = async (tablature, idToken) => {
@@ -54,9 +56,15 @@ const getUsersTablature = async (username, idToken) => {
     return response.json()
 }
 
+const getTablatureById = async (id) => {
+    const response = await fetch(`${BASE_URL}/tablature/${id}`, {method: 'GET'})
+    return response.json()
+}
+
 export {
     create,
     update,
     deleteTab as delete,
-    getUsersTablature
+    getUsersTablature,
+    getTablatureById
 }
