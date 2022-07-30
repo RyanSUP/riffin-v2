@@ -9,6 +9,7 @@ import { CircularProgress } from '@mui/material';
 
 
 const TablatureEditorPLUS = () => {
+    const [incrementId, setIncrementId] = useState(0)
     const [selectedBar, setSelectedBar] = useState(null)
     const [cursorPosition, setCursorPosition] = useState( {position: null} ) // This can't be a number or it will cause referenceing errors.
     const [isSaved, setIsSaved] = useState(null) // Is the document already in the database
@@ -20,8 +21,9 @@ const TablatureEditorPLUS = () => {
         tags: [],
         isBassTab: false,
     })
+
+
     const { user } = useContext(UserContext)
-    const { state } = useLocation()
     const { id } = useParams()
     let navigate = useNavigate()
 
@@ -135,8 +137,7 @@ const TablatureEditorPLUS = () => {
             tablatureServices.create(tablaturePayload, idToken)
             .then( tablatureFromResponse => {
                 setIsLoading(false)
-                setTablatureDocument( tablatureFromResponse )
-                navigate(`/tablature/${tablatureFromResponse._id}`, { state: tablatureFromResponse })
+                navigate(`/tablature/${tablatureFromResponse._id}`)
             })
             // TODO Add tablature to state
         }
@@ -204,6 +205,8 @@ const TablatureEditorPLUS = () => {
 
         tablatureDocument.bars = [...previousBars, newBar]
         setTablatureDocument( { ...tablatureDocument } )
+        setIncrementId( incrementId + 1)
+        console.log(incrementId)
     }
 
     // Check if the document is new
@@ -212,17 +215,18 @@ const TablatureEditorPLUS = () => {
     }, [tablatureDocument])
 
     useEffect(() => {
-        tablatureServices.getTablatureById(id)
-        .then( res => {
-            setTablatureDocument(res.tablature)
-        })
-        // TODOcheck if user owns tablature before pinging backend
+        if(id) {
+            tablatureServices.getTablatureById(id)
+            .then( res => {
+                if(res["error"]) {
+                    // TODO Navigate back to where the user came from
+                    navigate(`/trending`)
+                }
+                setTablatureDocument(res.tablature)
+            })
+        }
     },[id])
 
-    // Get tablature from a state redirect
-    useEffect(() => {
-        console.log('state', state)
-    }, [state])
 
     // Prevent crusor from jumping to end of input.
     useEffect(()=> {
@@ -246,9 +250,8 @@ const TablatureEditorPLUS = () => {
                 <>
                     <button onClick={addBarToTablature}>Add bar</button>
                     {tablatureDocument.bars.map( (bar, i) =>
-                        <>
+                        <div key={incrementId}>
                             <Bar 
-                                key={bar.label} // TODO Get unique id form database for key
                                 index={i}
                                 bar={bar}
                                 setBarInTablature={setBarInTablature}
@@ -256,7 +259,7 @@ const TablatureEditorPLUS = () => {
                                 handleKeyUpInBar={handleKeyUpInBar}
                             />
                             <button onClick={ () => deleteBarFromTablature(i) }>Delete bar</button>
-                        </>
+                        </div>
                     )}
                     <button onClick={setTablatureInDatabase}>Save Tablature</button>
                     {isSaved &&
