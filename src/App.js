@@ -1,4 +1,4 @@
-import { Route, Routes } from 'react-router-dom'
+import { Route, Routes, useNavigate } from 'react-router-dom'
 import { createContext } from "react";
 import { CognitoUser, AuthenticationDetails } from "amazon-cognito-identity-js";
 import { useEffect, useState, useCallback } from "react";
@@ -23,6 +23,7 @@ function App() {
     //TODO ---
     const [user, setUser] = useState(null)
     const [usersTablature, setUsersTablature] = useState(null)
+    let navigate = useNavigate()
 
     // TODO ---
     const updateTabInUsersTablature = () => console.log('updateTabInUsersTablature')
@@ -77,6 +78,7 @@ function App() {
                 onSuccess: (data) => {
                     console.log('onSuccess: ', data);
                     setUser(user);
+                    navigate(`/profile/${user.username}`)
                     resolve(user);
                 },
                 onFailure: (error) => {
@@ -95,6 +97,7 @@ function App() {
         if(user) {
             user.signOut();
             setUser(null);
+            navigate('/login')
         }
     }
 

@@ -220,7 +220,7 @@ const TablatureEditorPLUS = () => {
     const handleIsBassCheckbox = (event) => {
         const udpatedTablature = { 
             ...tablatureDocument, 
-            isBassTab: event.target.value, 
+            isBassTab: !tablatureDocument.isBassTab, 
         }
         setTablatureDocument(udpatedTablature)
     }
@@ -228,7 +228,7 @@ const TablatureEditorPLUS = () => {
     const handleIsPublicCheckbox = (event) => {
         const udpatedTablature = { 
             ...tablatureDocument, 
-            isPublic: event.target.value, 
+            isPublic: !tablatureDocument.isPublic, 
         }
         setTablatureDocument(udpatedTablature)
     }
