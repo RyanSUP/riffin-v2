@@ -1,6 +1,7 @@
 import { useContext, useEffect, useState } from "react"
 import { useParams } from "react-router-dom"
 import { UserContext } from '../../App'
+import TablatureCard from "../../components/TablatureCard/TablatureCard"
 import * as tablatureServices from "../../services/tablatureServices"
 import * as userUtils from "../../utils/userUtils"
 
@@ -36,7 +37,7 @@ const Profile = (props) => {
     
     return (
         <>
-            {tablature?.map(tablature => <p key={tablature._id}>{tablature._id}</p>)}
+            {tablature?.map(tablature => <TablatureCard key={tablature._id} tablature={tablature} />)}
         </>
     );
 }
