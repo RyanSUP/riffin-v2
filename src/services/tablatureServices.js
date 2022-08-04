@@ -71,6 +71,11 @@ const getTablatureById = async (id) => {
     return response.json()
 }
 
+const getTrendingTablature = async () => {
+    const response = await fetch(`${BASE_URL}/tablature`, {method: 'GET'})
+    return response.json()
+}
+
 export {
     create,
     update,
@@ -78,4 +83,5 @@ export {
     getUsersTablature,
     getTablatureById,
     getUsersPublicTablature,
+    getTrendingTablature
 }

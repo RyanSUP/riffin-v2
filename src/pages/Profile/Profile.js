@@ -6,12 +6,13 @@ import * as tablatureServices from "../../services/tablatureServices"
 import * as userUtils from "../../utils/userUtils"
 
 // TODO ---
-// If user is the same as :id, then show tablature from state (usersTablature and usersFavoriteTablature). Otherwise make a request to get all of the users public tablature.
 // Show loading wheel while user is undefined.
+// I need to get all of the users information (profile name, avatar, etc) and public tabs, not just public tabs.
 // TODO ---
 
 const Profile = (props) => {
     const [tablature, setTablature] = useState([])
+    const [viewingOtherUsersProfile, setViewingOtherUsersProfile] = useState(null)
     const { user } = useContext(UserContext)
     const { id } = useParams()
 
@@ -26,17 +27,24 @@ const Profile = (props) => {
         if(user) {
             if(id === user.username) {
                 setTablature(props.usersTablature)
+                setViewingOtherUsersProfile(false)
             } else {
                 getUsersTablature()
                 .then( res => {
                     setTablature(res.usersTablature)
                 })
+                setViewingOtherUsersProfile(true)
             }
         }
     }, [id, user, props.usersTablature])
     
     return (
         <>
+            {/* TODO show different cards dependin on if a user is viewing their own page or someone eleses */}
+            {viewingOtherUsersProfile &&
+                <p>{}</p>
+            }
+            <p>searchbar goes here</p>
             {tablature?.map(tablature => <TablatureCard key={tablature._id} tablature={tablature} />)}
         </>
     );

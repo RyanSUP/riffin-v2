@@ -3,7 +3,7 @@ const TablatureCard = (props) => {
         <>
             <p>{props.tablature.name}</p>
             {props.tablature.bars.map( (bar, i) => (
-                <>
+                <div key={i}>
                     <textarea 
                         value={bar.inputs} 
                         readOnly={true}
@@ -20,7 +20,7 @@ const TablatureCard = (props) => {
                         rows="6" 
                         maxLength="251" 
                     />
-                </>
+                </div>
             ))
 
             }

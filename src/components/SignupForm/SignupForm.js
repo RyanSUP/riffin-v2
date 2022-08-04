@@ -27,7 +27,7 @@ const SignupForm = () => {
                 .then(user => {
                     let idToken = getIdTokenFromUser(user);
                     let username = user.username;
-                    profileServices.create(username, idToken)
+                    profileServices.create(username, preferredUsername, idToken)
                     .then( res => {
                         console.log("🚀 ~ file: SignupForm.js ~ line 32 ~ UserPool.signUp ~ res", res)
                     })

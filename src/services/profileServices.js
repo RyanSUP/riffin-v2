@@ -1,9 +1,11 @@
 const BASE_URL = process.env.REACT_APP_STACK_URL
 
-const create = async (username, idToken) => {
+const create = async (username, preferredUsername, idToken) => {
     const payload = {
-        user: username
+        user: username,
+        preferredUsername
     }
+    
     let response = await fetch(`${BASE_URL}/profile`, {
         method: 'POST',
         headers: {
