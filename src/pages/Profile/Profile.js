@@ -1,6 +1,8 @@
 import { useContext, useEffect, useState } from "react"
 import { useParams } from "react-router-dom"
 import { UserContext } from '../../App'
+import * as tablatureServices from "../../services/tablatureServices"
+import * as userUtils from "../../utils/userUtils"
 
 // TODO ---
 // If user is the same as :id, then show tablature from state (usersTablature and usersFavoriteTablature). Otherwise make a request to get all of the users public tablature.
@@ -12,24 +14,29 @@ const Profile = (props) => {
     const { user } = useContext(UserContext)
     const { id } = useParams()
 
-    useEffect(() => {
+
+
+    useEffect( () => {
+        const getUsersTablature = async () => {
+            const idToken = userUtils.getIdTokenFromUser(user);
+            return await tablatureServices.getUsersPublicTablature(id, idToken)
+        }
+
         if(user) {
             if(id === user.username) {
                 setTablature(props.usersTablature)
             } else {
-                console.log('make request')
+                getUsersTablature()
+                .then( res => {
+                    setTablature(res.usersTablature)
+                })
             }
         }
     }, [id, user, props.usersTablature])
     
     return (
         <>
-            {(user?.username === id)
-                ?
-                    <p>This is the current user's page!</p>
-                :
-                    <p>This is someone elses page!</p>
-            }
+            {tablature?.map(tablature => <p key={tablature._id}>{tablature._id}</p>)}
         </>
     );
 }

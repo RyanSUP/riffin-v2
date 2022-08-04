@@ -99,9 +99,11 @@ function App() {
     }
 
     useEffect(() => {
-        const user = UserPool.getCurrentUser();
-        setUser(user);
-    }, [])
+        if(!user) {
+            const userFromPool = UserPool.getCurrentUser();
+            setUser(userFromPool);
+        }
+    }, [user])
 
     useEffect(() => {
         if(user) {

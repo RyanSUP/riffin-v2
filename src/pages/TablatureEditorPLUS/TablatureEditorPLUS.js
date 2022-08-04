@@ -1,5 +1,5 @@
 import { useState, useContext, useEffect } from "react"
-import { useNavigate, useLocation, useParams } from "react-router-dom"
+import { useNavigate, useParams } from "react-router-dom"
 import { UserContext } from '../../App'
 import * as tablatureServices from "../../services/tablatureServices"
 import * as userUtils from "../../utils/userUtils"
@@ -209,12 +209,37 @@ const TablatureEditorPLUS = () => {
         console.log(incrementId)
     }
 
+    const handleNameInput = (event) => {
+        const udpatedTablature = { 
+            ...tablatureDocument, 
+            name: event.target.value, 
+        }
+        setTablatureDocument(udpatedTablature)
+    }
+
+    const handleIsBassCheckbox = (event) => {
+        const udpatedTablature = { 
+            ...tablatureDocument, 
+            isBassTab: event.target.value, 
+        }
+        setTablatureDocument(udpatedTablature)
+    }
+
+    const handleIsPublicCheckbox = (event) => {
+        const udpatedTablature = { 
+            ...tablatureDocument, 
+            isPublic: event.target.value, 
+        }
+        setTablatureDocument(udpatedTablature)
+    }
+
     // Check if the document is new
     useEffect(() => { 
         tablatureDocument['_id'] ? setIsSaved(true) : setIsSaved(false)
     }, [tablatureDocument])
 
     useEffect(() => {
+        // TODO CHeck if tablature is in usersTablature before hitting backend
         if(id) {
             tablatureServices.getTablatureById(id)
             .then( res => {
@@ -248,6 +273,29 @@ const TablatureEditorPLUS = () => {
         <>
             {isLoading ? <CircularProgress /> : 
                 <>
+                    <form>
+                        <input 
+                            type="text" 
+                            name="name" 
+                            value={tablatureDocument.name}
+                            onChange={handleNameInput}
+                            placeholder="A tasty lick"
+                        />
+                        <label for="isBassTab">Bass tab?</label>
+                        <input 
+                            type="checkbox" 
+                            name="isBassTab" 
+                            value={tablatureDocument.isBassTab}
+                            onChange={handleIsBassCheckbox}
+                        />
+                        <label for="isPublic">public?</label>
+                        <input 
+                            type="checkbox" 
+                            name="isPublic" 
+                            value={tablatureDocument.isPublic}
+                            onChange={handleIsPublicCheckbox}
+                        />
+                    </form>
                     <button onClick={addBarToTablature}>Add bar</button>
                     {tablatureDocument.bars.map( (bar, i) =>
                         <div key={incrementId}>

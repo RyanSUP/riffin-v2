@@ -57,7 +57,7 @@ const getUsersTablature = async (username, idToken) => {
 }
 
 const getUsersPublicTablature = async (username, idToken) => { 
-    const response = await fetch(`${BASE_URL}/profile/${username}/public`, {
+    const response = await fetch(`${BASE_URL}/profile/public/${username}`, {
         method: 'GET',
         headers: {
             "Authorization": idToken,
