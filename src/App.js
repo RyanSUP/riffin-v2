@@ -97,6 +97,7 @@ function App() {
         if(user) {
             user.signOut();
             setUser(null);
+            setUsersTablature(null)
             navigate('/login')
         }
     }
