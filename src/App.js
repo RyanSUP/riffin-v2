@@ -29,7 +29,7 @@ function App() {
     const addTabToUsersTablature = () => console.log('addTabToUsersTablature')
     const removeTabFromUsersTablature = () => console.log('removeTabFromUsersTablature')
     // TODO ---
-    
+
     const getUsersTablature = async () => {
         const idToken = userUtils.getIdTokenFromUser(user);
         const {usersTablature, usersFavoriteTablature} = await tablatureServices.getUsersTablature(user.username, idToken)
@@ -103,16 +103,14 @@ function App() {
         setUser(user);
     }, [])
 
-    // Get tablature info when user logs in
     useEffect(() => {
-        // TODO Write a tablature service to get all tabs belonging to this user
+        getUsersTablature()
     }, [user])
 
   return (
 
     <UserContext.Provider value={{ authenticate, getUserSessionFromCognito, logout, user, setUser }}>
         <Nav />
-        <button onClick={getUsersTablature}>Get data</button>
         <Routes>
             <Route 
                 exact
