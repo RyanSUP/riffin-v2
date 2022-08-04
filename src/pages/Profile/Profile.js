@@ -1,4 +1,4 @@
-import { useContext } from "react"
+import { useContext, useEffect, useState } from "react"
 import { useParams } from "react-router-dom"
 import { UserContext } from '../../App'
 
@@ -7,9 +7,20 @@ import { UserContext } from '../../App'
 // Show loading wheel while user is undefined.
 // TODO ---
 
-const Profile = () => {
+const Profile = (props) => {
+    const [tablature, setTablature] = useState([])
     const { user } = useContext(UserContext)
     const { id } = useParams()
+
+    useEffect(() => {
+        if(user) {
+            if(id === user.username) {
+                setTablature(props.usersTablature)
+            } else {
+                console.log('make request')
+            }
+        }
+    }, [id, user, props.usersTablature])
     
     return (
         <>

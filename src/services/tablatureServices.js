@@ -56,6 +56,16 @@ const getUsersTablature = async (username, idToken) => {
     return response.json()
 }
 
+const getUsersPublicTablature = async (username, idToken) => { 
+    const response = await fetch(`${BASE_URL}/profile/${username}/public`, {
+        method: 'GET',
+        headers: {
+            "Authorization": idToken,
+        }
+    })
+    return response.json()
+}
+
 const getTablatureById = async (id) => {
     const response = await fetch(`${BASE_URL}/tablature/${id}`, {method: 'GET'})
     return response.json()
@@ -66,5 +76,6 @@ export {
     update,
     deleteTab as delete,
     getUsersTablature,
-    getTablatureById
+    getTablatureById,
+    getUsersPublicTablature,
 }

@@ -104,7 +104,9 @@ function App() {
     }, [])
 
     useEffect(() => {
-        getUsersTablature()
+        if(user) {
+            getUsersTablature()
+        }
     }, [user])
 
   return (
@@ -120,7 +122,7 @@ function App() {
             <Route 
                 exact
                 path='/profile/:id'
-                element={<Profile />}
+                element={<Profile usersTablature={usersTablature} />}
             />
             <Route
                 exact
