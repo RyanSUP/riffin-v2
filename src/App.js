@@ -10,6 +10,7 @@ import Trending from './pages/Trending/Trending';
 import Nav from './components/Nav/Nav';
 import ProtectedRoute from './components/ProtectedRoute/ProtectedRoute';
 import * as userUtils from "./utils/userUtils"
+import Profile from './pages/Profile/Profile';
 
 
 const UserContext = createContext();
@@ -117,6 +118,11 @@ function App() {
                 exact
                 path='/'
                 element={<Trending />}
+            />
+            <Route 
+                exact
+                path='/profile/:id'
+                element={<Profile />}
             />
             <Route
                 exact
