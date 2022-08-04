@@ -11,21 +11,7 @@ import AvatarMenu from './AvatarMenu';
 import LoginButton from './LoginButton';
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom'
-const pages = [
-    {
-        "name": 'Trending',
-        "path": "/"
-    }
-    ,
-    {
-        "name": 'My tabs',
-        "path": "/id/tabs"
-    },
-    {
-        "name": 'New tab',
-        "path": "/tablature/new"
-    },
-]
+
 const settings = ['Logout'];
 
 const Nav = () => {
@@ -34,6 +20,22 @@ const Nav = () => {
     
     const { user } = useContext(UserContext);
   
+    const pages = [
+      {
+          "name": 'Trending',
+          "path": "/"
+      }
+      ,
+      {
+          "name": 'My tabs',
+          "path": `/profile/${user?.username}`
+      },
+      {
+          "name": 'New tab',
+          "path": "/tablature/new"
+      },
+  ]
+
     const handleOpenNavMenu = (event) => {
       setAnchorElNav(event.currentTarget);
     };

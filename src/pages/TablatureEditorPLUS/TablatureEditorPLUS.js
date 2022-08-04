@@ -281,14 +281,14 @@ const TablatureEditorPLUS = () => {
                             onChange={handleNameInput}
                             placeholder="A tasty lick"
                         />
-                        <label for="isBassTab">Bass tab?</label>
+                        <label htmlFor="isBassTab">Bass tab?</label>
                         <input 
                             type="checkbox" 
                             name="isBassTab" 
                             value={tablatureDocument.isBassTab}
                             onChange={handleIsBassCheckbox}
                         />
-                        <label for="isPublic">public?</label>
+                        <label htmlFor="isPublic">public?</label>
                         <input 
                             type="checkbox" 
                             name="isPublic" 
