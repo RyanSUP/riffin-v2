@@ -273,29 +273,27 @@ const TablatureEditorPLUS = () => {
         <>
             {isLoading ? <CircularProgress /> : 
                 <>
-                    <form>
-                        <input 
-                            type="text" 
-                            name="name" 
-                            value={tablatureDocument.name}
-                            onChange={handleNameInput}
-                            placeholder="A tasty lick"
-                        />
-                        <label htmlFor="isBassTab">Bass tab?</label>
-                        <input 
-                            type="checkbox" 
-                            name="isBassTab" 
-                            value={tablatureDocument.isBassTab}
-                            onChange={handleIsBassCheckbox}
-                        />
-                        <label htmlFor="isPublic">public?</label>
-                        <input 
-                            type="checkbox" 
-                            name="isPublic" 
-                            value={tablatureDocument.isPublic}
-                            onChange={handleIsPublicCheckbox}
-                        />
-                    </form>
+                    <input 
+                        type="text" 
+                        name="name" 
+                        value={tablatureDocument.name}
+                        onChange={handleNameInput}
+                        placeholder="A tasty lick"
+                    />
+                    <label htmlFor="isBassTab">Bass tab?</label>
+                    <input 
+                        type="checkbox" 
+                        name="isBassTab" 
+                        value={tablatureDocument.isBassTab}
+                        onChange={handleIsBassCheckbox}
+                    />
+                    <label htmlFor="isPublic">public?</label>
+                    <input 
+                        type="checkbox" 
+                        name="isPublic" 
+                        value={tablatureDocument.isPublic}
+                        onChange={handleIsPublicCheckbox}
+                    />
                     <button onClick={addBarToTablature}>Add bar</button>
                     {tablatureDocument.bars.map( (bar, i) =>
                         <div key={incrementId}>
