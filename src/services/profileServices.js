@@ -17,7 +17,7 @@ const create = async (username, preferredUsername, idToken) => {
     return response.json()
 }
 
-const getUsersTablature = async (username, idToken) => { 
+const getProfileOfLoggedInUser = async (username, idToken) => { 
     const response = await fetch(`${BASE_URL}/profile/${username}`, {
         method: 'GET',
         headers: {
@@ -40,5 +40,5 @@ const getUsersPublicInfo = async (username, idToken) => {
 export {
     create,
     getUsersPublicInfo,
-    getUsersTablature
+    getProfileOfLoggedInUser
 }

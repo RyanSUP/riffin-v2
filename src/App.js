@@ -16,13 +16,9 @@ import Profile from './pages/Profile/Profile';
 const UserContext = createContext();
 
 function App() {
-    //TODO ---
-    // State Needed :
-    // allUsersTags
-    // favoriteTablature
-    //TODO ---
+
+    // User needs profile info attached to it
     const [user, setUser] = useState(null)
-    const [usersTablature, setUsersTablature] = useState(null)
     let navigate = useNavigate()
 
     // TODO ---
@@ -30,12 +26,6 @@ function App() {
     const addTabToUsersTablature = () => console.log('addTabToUsersTablature')
     const removeTabFromUsersTablature = () => console.log('removeTabFromUsersTablature')
     // TODO ---
-
-    const getUsersTablature = async () => {
-        const idToken = userUtils.getIdTokenFromUser(user);
-        const {usersTablature, usersFavoriteTablature} = await profileServices.getUsersTablature(user.username, idToken)
-        setUsersTablature(usersTablature)
-    }
 
     // Check if there is a user session in local storage
     const getUserSessionFromCognito = useCallback(()=> {
@@ -78,8 +68,8 @@ function App() {
                 onSuccess: (data) => {
                     console.log('onSuccess: ', data);
                     setUser(user);
-                    navigate(`/profile/${user.username}`)
                     resolve(user);
+                    navigate(`/profile/${user.username}`)
                 },
                 onFailure: (error) => {
                     console.error('onFailure: ', error);
@@ -97,23 +87,30 @@ function App() {
         if(user) {
             user.signOut();
             setUser(null);
-            setUsersTablature(null)
             navigate('/login')
         }
     }
 
     useEffect(() => {
+
         if(!user) {
-            const userFromPool = UserPool.getCurrentUser();
-            setUser(userFromPool);
+            const userFromPool = UserPool.getCurrentUser()
+            setUser(userFromPool)
+        }
+        
+        if(user) {
+            const idToken = userUtils.getIdTokenFromUser(user)
+            profileServices.getProfileOfLoggedInUser(user.username, idToken)
+            .then( (response)=> {
+                const profile = response.profile
+                setUser( prev => {
+                    return { profile, ...prev }
+                })
+            })
+
         }
     }, [user])
 
-    useEffect(() => {
-        if(user) {
-            getUsersTablature()
-        }
-    }, [user])
 
   return (
 
@@ -128,7 +125,7 @@ function App() {
             <Route 
                 exact
                 path='/profile/:id'
-                element={<Profile usersTablature={usersTablature} />}
+                element={<Profile />}
             />
             <Route
                 exact

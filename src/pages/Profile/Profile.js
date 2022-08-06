@@ -4,15 +4,13 @@ import { UserContext } from '../../App'
 import TablatureCard from "../../components/TablatureCard/TablatureCard"
 import * as profileServices from "../../services/profileServices"
 import * as userUtils from "../../utils/userUtils"
+import { CircularProgress } from '@mui/material';
 
-// TODO ---
-// Show loading wheel while user is undefined.
-// Set tablature state depending on if viewing own profile or another users
-// TODO ---
-
-// GET PROFILE INTO STATE
 const Profile = (props) => {
-    const [tablature, setTablature] = useState([])
+    const [profile, setProfile] = useState({
+        preferredUsername: "",
+        usersTablature: [],
+    })
     const [viewingOtherUsersProfile, setViewingOtherUsersProfile] = useState(null)
     const { user } = useContext(UserContext)
     const { id } = useParams()
@@ -27,12 +25,15 @@ const Profile = (props) => {
 
         if(user) {
             if(id === user.username) {
-                setTablature(props.usersTablature)
+                setProfile({
+                    preferredUsername: "NEED TO GET USERS PROFILE INFO TO PUT NAME HERE!",
+                    usersTablature: props.usersTablature,
+                })
                 setViewingOtherUsersProfile(false)
             } else {
                 getUsersPublicInfo()
                 .then( res => {
-                    setTablature(res.usersTablature)
+                    setProfile(res)
                 })
                 setViewingOtherUsersProfile(true)
             }
@@ -41,12 +42,20 @@ const Profile = (props) => {
     
     return (
         <>
-            {/* TODO show different cards dependin on if a user is viewing their own page or someone eleses */}
-            {viewingOtherUsersProfile &&
-                <p>{}</p>
+            {profile.preferredUsername === ""
+                ?
+                    <CircularProgress />
+                :
+                <>
+                    <p>{profile.preferredUsername}</p>
+                    {/* TODO show different cards dependin on if a user is viewing their own page or someone eleses */}
+                    {viewingOtherUsersProfile &&
+                        <button>Follow</button>
+                    }
+                    <p>searchbar goes here</p>
+                    {/* {profile.usersTablature.map(tablature => <TablatureCard key={tablature._id} tablature={tablature} />)} */}
+                </>
             }
-            <p>searchbar goes here</p>
-            {tablature?.map(tablature => <TablatureCard key={tablature._id} tablature={tablature} />)}
         </>
     );
 }
