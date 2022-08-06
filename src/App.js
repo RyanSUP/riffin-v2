@@ -1,39 +1,31 @@
-import { Route, Routes } from 'react-router-dom'
+import { Route, Routes, useNavigate } from 'react-router-dom'
 import { createContext } from "react";
 import { CognitoUser, AuthenticationDetails } from "amazon-cognito-identity-js";
 import { useEffect, useState, useCallback } from "react";
 import TablatureEditorPLUS from './pages/TablatureEditorPLUS/TablatureEditorPLUS';
 import UserPool from "./utils/UserPool";
-import * as tablatureServices from "./services/tablatureServices"
+import * as profileServices from "./services/profileServices"
 import Landing from './pages/Landing/Landing';
 import Trending from './pages/Trending/Trending';
 import Nav from './components/Nav/Nav';
 import ProtectedRoute from './components/ProtectedRoute/ProtectedRoute';
 import * as userUtils from "./utils/userUtils"
+import Profile from './pages/Profile/Profile';
 
 
 const UserContext = createContext();
 
 function App() {
-    //TODO ---
-    // State Needed :
-    // allUsersTags
-    // favoriteTablature
-    //TODO ---
+
+    // User needs profile info attached to it
     const [user, setUser] = useState(null)
-    const [usersTablature, setUsersTablature] = useState(null)
+    let navigate = useNavigate()
 
     // TODO ---
     const updateTabInUsersTablature = () => console.log('updateTabInUsersTablature')
     const addTabToUsersTablature = () => console.log('addTabToUsersTablature')
     const removeTabFromUsersTablature = () => console.log('removeTabFromUsersTablature')
     // TODO ---
-    
-    const getUsersTablature = async () => {
-        const idToken = userUtils.getIdTokenFromUser(user);
-        const {usersTablature, usersFavoriteTablature} = await tablatureServices.getUsersTablature(user.username, idToken)
-        setUsersTablature(usersTablature)
-    }
 
     // Check if there is a user session in local storage
     const getUserSessionFromCognito = useCallback(()=> {
@@ -77,6 +69,7 @@ function App() {
                     console.log('onSuccess: ', data);
                     setUser(user);
                     resolve(user);
+                    navigate(`/profile/${user.username}`)
                 },
                 onFailure: (error) => {
                     console.error('onFailure: ', error);
@@ -94,29 +87,45 @@ function App() {
         if(user) {
             user.signOut();
             setUser(null);
+            navigate('/login')
         }
     }
 
     useEffect(() => {
-        const user = UserPool.getCurrentUser();
-        setUser(user);
-    }, [])
 
-    // Get tablature info when user logs in
-    useEffect(() => {
-        // TODO Write a tablature service to get all tabs belonging to this user
+        if(!user) {
+            const userFromPool = UserPool.getCurrentUser()
+            setUser(userFromPool)
+        }
+        
+        if(user) {
+            const idToken = userUtils.getIdTokenFromUser(user)
+            profileServices.getProfileOfLoggedInUser(user.username, idToken)
+            .then( (response)=> {
+                const profile = response.profile
+                setUser( prev => {
+                    return { profile, ...prev }
+                })
+            })
+
+        }
     }, [user])
+
 
   return (
 
     <UserContext.Provider value={{ authenticate, getUserSessionFromCognito, logout, user, setUser }}>
         <Nav />
-        <button onClick={getUsersTablature}>Get data</button>
         <Routes>
             <Route 
                 exact
                 path='/'
                 element={<Trending />}
+            />
+            <Route 
+                exact
+                path='/profile/:id'
+                element={<Profile />}
             />
             <Route
                 exact
