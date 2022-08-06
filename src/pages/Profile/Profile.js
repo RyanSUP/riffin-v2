@@ -25,11 +25,13 @@ const Profile = (props) => {
 
         if(user) {
             if(id === user.username) {
-                setProfile({
-                    preferredUsername: "NEED TO GET USERS PROFILE INFO TO PUT NAME HERE!",
-                    usersTablature: props.usersTablature,
-                })
-                setViewingOtherUsersProfile(false)
+                if(user.profile) {
+                    setProfile({
+                        preferredUsername: user.profile.preferredUsername,
+                        usersTablature: user.profile.tablature,
+                    })
+                    setViewingOtherUsersProfile(false)
+                }
             } else {
                 getUsersPublicInfo()
                 .then( res => {
@@ -38,7 +40,7 @@ const Profile = (props) => {
                 setViewingOtherUsersProfile(true)
             }
         }
-    }, [id, user, props.usersTablature])
+    }, [id, user])
     
     return (
         <>
@@ -53,7 +55,7 @@ const Profile = (props) => {
                         <button>Follow</button>
                     }
                     <p>searchbar goes here</p>
-                    {/* {profile.usersTablature.map(tablature => <TablatureCard key={tablature._id} tablature={tablature} />)} */}
+                    {profile.usersTablature.map(tablature => <TablatureCard key={tablature._id} tablature={tablature} />)}
                 </>
             }
         </>
