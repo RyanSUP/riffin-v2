@@ -17,6 +17,28 @@ const create = async (username, preferredUsername, idToken) => {
     return response.json()
 }
 
+const getUsersTablature = async (username, idToken) => { 
+    const response = await fetch(`${BASE_URL}/profile/${username}`, {
+        method: 'GET',
+        headers: {
+            "Authorization": idToken,
+        }
+    })
+    return response.json()
+}
+
+const getUsersPublicInfo = async (username, idToken) => { 
+    const response = await fetch(`${BASE_URL}/profile/public/${username}`, {
+        method: 'GET',
+        headers: {
+            "Authorization": idToken,
+        }
+    })
+    return response.json()
+}
+
 export {
-    create
+    create,
+    getUsersPublicInfo,
+    getUsersTablature
 }

@@ -4,7 +4,7 @@ import { CognitoUser, AuthenticationDetails } from "amazon-cognito-identity-js";
 import { useEffect, useState, useCallback } from "react";
 import TablatureEditorPLUS from './pages/TablatureEditorPLUS/TablatureEditorPLUS';
 import UserPool from "./utils/UserPool";
-import * as tablatureServices from "./services/tablatureServices"
+import * as profileServices from "./services/profileServices"
 import Landing from './pages/Landing/Landing';
 import Trending from './pages/Trending/Trending';
 import Nav from './components/Nav/Nav';
@@ -33,7 +33,7 @@ function App() {
 
     const getUsersTablature = async () => {
         const idToken = userUtils.getIdTokenFromUser(user);
-        const {usersTablature, usersFavoriteTablature} = await tablatureServices.getUsersTablature(user.username, idToken)
+        const {usersTablature, usersFavoriteTablature} = await profileServices.getUsersTablature(user.username, idToken)
         setUsersTablature(usersTablature)
     }
 

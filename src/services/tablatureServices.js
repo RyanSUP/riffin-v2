@@ -46,26 +46,6 @@ const deleteTab = async (tab_id, idToken) => {
     return response.json()
 }
 
-const getUsersTablature = async (username, idToken) => { 
-    const response = await fetch(`${BASE_URL}/profile/${username}`, {
-        method: 'GET',
-        headers: {
-            "Authorization": idToken,
-        }
-    })
-    return response.json()
-}
-
-const getUsersPublicTablature = async (username, idToken) => { 
-    const response = await fetch(`${BASE_URL}/profile/public/${username}`, {
-        method: 'GET',
-        headers: {
-            "Authorization": idToken,
-        }
-    })
-    return response.json()
-}
-
 const getTablatureById = async (id) => {
     const response = await fetch(`${BASE_URL}/tablature/${id}`, {method: 'GET'})
     return response.json()
@@ -80,8 +60,6 @@ export {
     create,
     update,
     deleteTab as delete,
-    getUsersTablature,
     getTablatureById,
-    getUsersPublicTablature,
     getTrendingTablature
 }
