@@ -55,7 +55,7 @@ const Profile = (props) => {
                         <button>Follow</button>
                     }
                     <p>searchbar goes here</p>
-                    {profile.usersTablature.map(tablature => <TablatureCard key={tablature._id} tablature={tablature} />)}
+                    {profile.usersTablature.map(tablature => <TablatureCard key={tablature._id} tablature={tablature} profile={profile} />)}
                 </>
             }
         </>
