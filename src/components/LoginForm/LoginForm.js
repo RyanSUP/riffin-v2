@@ -1,5 +1,8 @@
+// Services
 import { useState, useContext } from "react";
 import { UserContext } from "../../App";
+
+// Components
 import { Button, TextField, Stack } from "@mui/material"
 
 const LoginForm = () => {
@@ -7,6 +10,10 @@ const LoginForm = () => {
     const [password, setPassword] = useState("");
     const { authenticate } = useContext(UserContext);
 
+    /**
+     * Handles login form submit.
+     * @param {Object} event 
+     */
     const onSubmit = (event) => {
         event.preventDefault();
 

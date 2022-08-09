@@ -1,3 +1,4 @@
+// Components
 import { Avatar, Typography, Grid } from "@mui/material";
 
 const TablatureCardFooter = (props) => {

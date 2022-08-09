@@ -1,9 +1,9 @@
-import { Box, Container } from "@mui/material";
+// Components
+import { Box } from "@mui/material";
 import TablatureCardHeader from "./TabaltureCardHeader";
 import TablatureCardBody from "./TablatureCardBody";
 import TablatureCardFooter from "./TablatureCardFooter";
 
-// Takes in a varient property - trending or selfProfile. Displays parts based on varient
 const cardStyles = {
     width: "400px"
 }
@@ -15,7 +15,6 @@ const TablatureCard = (props) => {
             <TablatureCardBody bars={props.tablature.bars} />
             <TablatureCardFooter preferredUsername={props.profile.preferredUsername} />
         </Box>
-
     );
 }
  

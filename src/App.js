@@ -20,7 +20,6 @@ import Profile from './pages/Profile/Profile';
 const UserContext = createContext();
 
 function App() {
-
     const [user, setUser] = useState(null); // Cognito User object that also holds profile data from MongoDB
     let navigate = useNavigate();
 

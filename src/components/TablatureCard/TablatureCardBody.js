@@ -1,8 +1,3 @@
-import { Container } from "@mui/material";
-const barContainer = {
-    position: 'relative'
-}
-
 const inputsStyle = {
     background: "transparent",
     margin: 0,

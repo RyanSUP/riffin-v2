@@ -1,15 +1,23 @@
+// Services
 import { UserContext } from '../../App';
 import { useState, useContext } from "react";
 import UserPool from "../../utils/UserPool";
-import { Button, TextField, Stack } from "@mui/material"
-import * as profileServices from '../../services/profileServices';
 import { getIdTokenFromUser } from '../../utils/userUtils';
+import * as profileServices from '../../services/profileServices';
+
+// Components
+import { Button, TextField, Stack } from "@mui/material";
+
 const SignupForm = () => {
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
     const [preferredUsername, setPreferredUsername] = useState("");
     const { authenticate } = useContext(UserContext);
 
+    /**
+     * handles the sign up form submit
+     * @param {Object} event 
+     */
     const onSubmit = (event) => {
         event.preventDefault();
         let attributes = [
@@ -17,7 +25,8 @@ const SignupForm = () => {
                 Name: "preferred_username",
                 Value: preferredUsername,
             }
-        ];
+        ]; // These are custom attributes that were set when the Cognito user pool was created.
+
         UserPool.signUp(email, password, attributes, null, (error, data) => {
             if (error) {
                 console.error(error);

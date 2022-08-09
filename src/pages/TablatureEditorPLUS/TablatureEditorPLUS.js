@@ -1,19 +1,22 @@
+// ! This is the form used to create / edit tablature. It's not well documented at the moment.
+
+// Services
 import { useState, useContext, useEffect } from "react"
 import { useNavigate, useParams } from "react-router-dom"
 import { UserContext } from '../../App'
 import * as tablatureServices from "../../services/tablatureServices"
 import * as userUtils from "../../utils/userUtils"
+
+// Components
 import Bar from "../../components/Bar/Bar"
 import { CircularProgress } from '@mui/material';
-
-
 
 const TablatureEditorPLUS = () => {
     const [incrementId, setIncrementId] = useState(0)
     const [selectedBar, setSelectedBar] = useState(null)
     const [cursorPosition, setCursorPosition] = useState( {position: null} ) // This can't be a number or it will cause referenceing errors.
-    const [isSaved, setIsSaved] = useState(null) // Is the document already in the database
-    const [isLoading, setIsLoading] = useState(false) // is the document currently waiting for a response
+    const [isSaved, setIsSaved] = useState(null) // Is the document already in the database?
+    const [isLoading, setIsLoading] = useState(false) // is the document currently waiting for a response?
     const [tablatureDocument, setTablatureDocument] = useState({
         isPublic: false,
         name: "A tasy lick",
@@ -21,7 +24,6 @@ const TablatureEditorPLUS = () => {
         tags: [],
         isBassTab: false,
     })
-
 
     const { user } = useContext(UserContext)
     const { id } = useParams()
