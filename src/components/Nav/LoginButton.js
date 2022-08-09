@@ -1,8 +1,11 @@
-import Button from '@mui/material/Button';
+// Services
 import { useNavigate } from 'react-router-dom';
-// On click, show me landing page
+
+// Components
+import Button from '@mui/material/Button';
+
 const LoginButton = () => {
-    const navigate = useNavigate()
+    const navigate = useNavigate();
     return (
         <Button
             variant="contained"
