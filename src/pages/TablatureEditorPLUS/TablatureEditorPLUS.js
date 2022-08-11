@@ -66,6 +66,7 @@ const TablatureEditorPLUS = () => {
         "9": handleAddCharacter,
         "d": handleAddCharacter, // duplicate
         "Backspace" : handleRemoveCharacter,
+        "insertLineBreak" : handlePressingEnter, // Move cursor to the next line (string)
     }
     
     const arrows = {
@@ -73,6 +74,22 @@ const TablatureEditorPLUS = () => {
         "ArrowLeft" : true,
         "ArrowRight" : true,
         "ArrowUp" : true,
+    }
+
+    function handlePressingEnter() {
+        console.log('pressingEnter')
+        setCursorPosition( (prev) => {
+            let pos
+            if(prev.position >= 205) {
+                pos = prev.position - (41 * 5) + 1
+            } else {
+                pos = prev.position + 41
+            }
+            const newPosition = {
+                position: pos
+            }
+            return newPosition
+        });
     }
 
     function getUpdatedTextAreaValues(area, character, insertionIndex) {
@@ -105,7 +122,7 @@ const TablatureEditorPLUS = () => {
             const newBar = { ...bar }
             let newCursorPosition = cursorPosition.position - 1
             newBar.inputs = getUpdatedTextAreaValues('inputs', ' ', newCursorPosition)
-            newBar.dashes = getUpdatedTextAreaValues('dashes', ' ', newCursorPosition)
+            newBar.dashes = getUpdatedTextAreaValues('dashes', '-', newCursorPosition)
             tablatureDocument.bars[selectedBar.index] = newBar
             setTablatureDocument( {...tablatureDocument} )
             setCursorPosition( {position: newCursorPosition} )
@@ -147,11 +164,17 @@ const TablatureEditorPLUS = () => {
 
     const setBarInTablature = (event) => {
         const key = event.nativeEvent.data;
+        console.log(event.nativeEvent.inputType)
         event.preventDefault();  
         if(key in legalCharacters) {
+            console.log(key)
             legalCharacters[key](key)
         } else if(key === null) {
-            legalCharacters["Backspace"]();
+            if(event.nativeEvent.inputType === "deleteContentBackward") {
+                legalCharacters["Backspace"]();
+            } else if(event.nativeEvent.inputType === "insertLineBreak") {
+                legalCharacters["insertLineBreak"]();
+            }
         }  else {
             setCursorPosition((prev) => { return { position: prev.position } })
         }
