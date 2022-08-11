@@ -66,7 +66,7 @@ const TablatureEditorPLUS = () => {
         "9": handleAddCharacter,
         "d": handleAddCharacter, // duplicate
         "Backspace" : handleRemoveCharacter,
-        "insertLineBreak" : handlePressingEnter,
+        "insertLineBreak" : handlePressingEnter, // Move cursor to the next line (string)
     }
     
     const arrows = {
