@@ -1,25 +1,14 @@
-// Services
-import { useEffect, useState } from "react";
-import * as tablatureServices from "../../services/tablatureServices"
+import TablatureCard from "../../components/TablatureCard/TablatureCard";
 
-const Trending = () => {
-    const [trendingTablature, setTrendingTablature] = useState(null);
-
-    /**
-     * Fetch all public tablature and put it in state.
-     */
-    useEffect(() => {
-       if(!trendingTablature) {
-            tablatureServices.getTrendingTablature()
-            .then( res => {
-                setTrendingTablature(res.publicTablature);
-            });
-       } 
-    },[trendingTablature]);
-
+const Trending = (props) => {
     return (
         <>
-            <>I'm the trending component!</>
+            {props.trendingTablature?.map( (tablatureDocument, index) => (
+                <TablatureCard tablature={tablatureDocument} key={index} />
+                // <>{tablatureDocument.name}</>
+            ))
+
+            }
         </>
     );
 }
