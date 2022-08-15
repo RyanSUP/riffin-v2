@@ -140,7 +140,7 @@ function App() {
             />
             <Route 
                 path='/profile/:cognitoUsername' 
-                element={user ? <ProfileContent /> : <Navigate to='/login'/>} 
+                element={<ProfileContent />} 
             />
             <Route 
                 path='/tablature/:tabId' 
