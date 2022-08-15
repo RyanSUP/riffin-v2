@@ -6,6 +6,7 @@ import { useEffect, useState, useCallback } from "react";
 import UserPool from "./utils/UserPool";
 import * as profileServices from "./services/profileServices"
 import * as userUtils from "./utils/userUtils"
+// import ProtectedRoute from "./components/ProtectedRoute/ProtectedRoute.js"
 
 // Components
 import Nav from './components/Nav/Nav';
@@ -139,7 +140,7 @@ function App() {
             />
             <Route 
                 path='/profile/:cognitoUsername' 
-                element={<ProfileContent />} 
+                element={user ? <ProfileContent /> : <Navigate to='/login'/>} 
             />
             <Route 
                 path='/tablature/:tabId' 

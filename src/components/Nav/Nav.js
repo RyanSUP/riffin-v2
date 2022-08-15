@@ -27,12 +27,12 @@ const Nav = () => {
       "path": "/trending"
     },
     {
-      "name": 'My tabs',
+      "name": 'My Tabs',
       "path": `/profile/${user?.username}`
     },
     {
-      "name": 'New tab',
-      "path": "/tablature/new"
+      "name": 'New Tab',
+      "path": user ? '/tablature/new' : '/login'
     },
   ]; // The links on the navbar
 
