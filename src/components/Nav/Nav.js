@@ -28,7 +28,7 @@ const Nav = () => {
     },
     {
       "name": 'My Tabs',
-      "path": `/profile/${user?.username}`
+      "path": user ? `/profile/${user?.username}` : '/login'
     },
     {
       "name": 'New Tab',
