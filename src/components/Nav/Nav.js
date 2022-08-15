@@ -24,7 +24,7 @@ const Nav = () => {
   const pages = [
     {
       "name": 'Trending',
-      "path": "/"
+      "path": "/trending"
     },
     {
       "name": 'My tabs',

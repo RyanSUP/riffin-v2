@@ -42,16 +42,12 @@ const getProfileOfLoggedInUser = async (cogniteUsername, idToken) => {
 
 /**
  * Request to get a profile's public information, such as public tablature and preferredUsername.
- * @param {string} cogniteUsername - refering to the Cognito user.username
- * @param {string} idToken 
+ * @param {string} username - refering to the Cognito user.username
  * @returns {Object} public profile info
  */
-const getUsersPublicInfo = async (cogniteUsername, idToken) => { 
-    const response = await fetch(`${BASE_URL}/profile/public/${cogniteUsername}`, {
-        method: 'GET',
-        headers: {
-            "Authorization": idToken,
-        }
+const getUsersPublicInfo = async (username) => { 
+    const response = await fetch(`${BASE_URL}/profile/public/${username}`, {
+        method: 'GET'
     });
     return response.json();
 }

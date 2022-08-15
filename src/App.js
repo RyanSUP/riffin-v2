@@ -1,5 +1,5 @@
 // Services
-import { Route, Routes, useNavigate } from 'react-router-dom'
+import { Route, Routes, useNavigate, Navigate } from 'react-router-dom'
 import { createContext } from "react";
 import { CognitoUser, AuthenticationDetails } from "amazon-cognito-identity-js";
 import { useEffect, useState, useCallback } from "react";
@@ -9,25 +9,19 @@ import * as userUtils from "./utils/userUtils"
 
 // Components
 import Nav from './components/Nav/Nav';
-import ProtectedRoute from './components/ProtectedRoute/ProtectedRoute';
-import TablatureEditorPLUS from './pages/TablatureEditorPLUS/TablatureEditorPLUS';
-
-// Pages
+import TrendingContent from './components/TrendingContent/TrendingContent';
+import ProfileContent from './components/ProfileContent/ProfileContent';
+import SingleTablatureContent from './components/SingleTablatureContent/SingleTablatureContent';
 import Landing from './pages/Landing/Landing';
-import Trending from './pages/Trending/Trending';
-import Profile from './pages/Profile/Profile';
+
+
 
 const UserContext = createContext();
 
 function App() {
     const [user, setUser] = useState(null); // Cognito User object that also holds profile data from MongoDB
-    let navigate = useNavigate();
 
-    // TODO ---
-    const updateTabInUsersTablature = () => console.log('updateTabInUsersTablature');
-    const addTabToUsersTablature = () => console.log('addTabToUsersTablature');
-    const removeTabFromUsersTablature = () => console.log('removeTabFromUsersTablature');
-    // TODO ---
+    let navigate = useNavigate();
 
     /**
      * Returns session data from local storage if it exists.
@@ -80,7 +74,7 @@ function App() {
                     console.log('onSuccess: ', data);
                     setUser(user);
                     resolve(user);
-                    navigate(`/profile/${user.username}`)
+                    navigate('/trending')
                 },
                 onFailure: (error) => {
                     console.error('onFailure: ', error);
@@ -136,37 +130,24 @@ function App() {
         <Nav />
         <Routes>
             <Route 
-                exact
-                path='/'
-                element={<Trending />}
+                path='/login' 
+                element={<Landing />} 
+            />            
+            <Route 
+                path='/trending' 
+                element={<TrendingContent />} 
             />
             <Route 
-                exact
-                path='/profile/:id'
-                element={<Profile />}
+                path='/profile/:cognitoUsername' 
+                element={<ProfileContent />} 
             />
-            <Route
-                exact
-                path='/login'
-                element={<Landing />}
+            <Route 
+                path='/tablature/:tabId' 
+                element={<SingleTablatureContent />} 
             />
-            <Route
-                exact
-                path='/tablature/new'
-                element={
-                    <ProtectedRoute>
-                        <TablatureEditorPLUS />
-                    </ProtectedRoute>
-                }
-            />
-            <Route
-                exact
-                path={'/tablature/:id'}
-                element={
-                    <ProtectedRoute>
-                        <TablatureEditorPLUS />
-                    </ProtectedRoute>
-                }
+            <Route 
+                path="*"
+                element={<Navigate to="/trending" replace />}
             />
         </Routes>
     </UserContext.Provider>
