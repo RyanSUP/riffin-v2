@@ -2,13 +2,13 @@ const BASE_URL = process.env.REACT_APP_STACK_URL
 
 /**
  * Request to create a new tablature document in MongoDB.
- * @param {Object} tablature 
+ * @param {Object} tablatureObject 
  * @param {string} idToken 
  * @returns {Object} The newly created tablature document
  */
-const create = async (tablature, idToken) => {
+const create = async (tablatureObject, idToken) => {
     const payload = {
-        tablature
+        tablatureObject
     }
     const response = await fetch(`${BASE_URL}/tablature`, {
         method: 'POST',
@@ -23,14 +23,16 @@ const create = async (tablature, idToken) => {
 
 /**
  * Request to update a tablature document in MongoDB.
- * @param {Object} tab
+ * @param {Object} tablatureObject
  * @param {string} idToken 
  * @returns {Object} { status: "" }
  */
-const update = async (tab, idToken) => {
-    const payload = { tab }
+const update = async (tablatureObject, idToken) => {
+    const payload = { 
+        tablatureObject 
+    }
     
-    const response = await fetch(`${BASE_URL}/tablature/${tab._id}`, {
+    const response = await fetch(`${BASE_URL}/tablature/${tablatureObject._id}`, {
         method: 'PUT',
         headers: {
             "Authorization": idToken,
@@ -64,11 +66,11 @@ const deleteTab = async (tab_id, idToken) => {
 
 /**
  * Request to get a tablature by id.
- * @param {string} id 
+ * @param {string} tab_id 
  * @returns {Object}
  */
-const getTablatureById = async (id) => {
-    const response = await fetch(`${BASE_URL}/tablature/${id}`, {method: 'GET'})
+const getTablatureById = async (tab_id) => {
+    const response = await fetch(`${BASE_URL}/tablature/${tab_id}`, {method: 'GET'})
     return response.json()
 }
 
