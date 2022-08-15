@@ -1,15 +1,18 @@
-import { useEffect, useState, useContext } from 'react';
-import TablatureCard from '../TablatureCard/TablatureCard';
+// Services
 import * as profileServices from '../../services/profileServices';
-import { useParams } from 'react-router-dom';
-import { UserContext } from '../../App';
 import * as userUtils from "../../utils/userUtils";
 
+// Components / hooks
+import { useEffect, useState, useContext } from 'react';
+import TablatureCard from '../TablatureCard/TablatureCard';
+import { useParams } from 'react-router-dom';
+import { UserContext } from '../../App';
 
-const ProfileContent = (props) => {
+
+const ProfileContent = () => {
     const [tablatures, setTablatures] = useState(null)
     const [preferredUsername, setPreferredUsername] = useState(null)
-    const { cognitoUsername } = useParams() // Since the route is setup as /:profileName, we can extract the profileName url parameter with this hook.
+    const { cognitoUsername } = useParams()
     const { user } = useContext(UserContext)
 
 

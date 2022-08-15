@@ -1,9 +1,12 @@
+// Services
+import * as tablatureServices from '../../services/tablatureServices'
+
+// Components / hooks
 import { useEffect, useState } from 'react'
 import TablatureCard from '../TablatureCard/TablatureCard';
-import * as tablatureServices from '../../services/tablatureServices'
 import { CircularProgress } from '@mui/material';
 
-const TrendingContent = (props) => {
+const TrendingContent = () => {
     const [trendingTablature, setTrendingTablature] = useState()
 
 
