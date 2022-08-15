@@ -26,6 +26,7 @@ const TrendingContent = (props) => {
                     {trendingTablature.map( (tabData, index) => (
                         <TablatureCard 
                             tablature={tabData}
+                            nameOfOwner={tabData.owner.prefferedUsername}
                         />
                     ))}
                 </>

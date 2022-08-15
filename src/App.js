@@ -12,6 +12,7 @@ import Nav from './components/Nav/Nav';
 import TrendingContent from './components/TrendingContent/TrendingContent';
 import ProfileContent from './components/ProfileContent/ProfileContent';
 import SingleTablatureContent from './components/SingleTablatureContent/SingleTablatureContent';
+import Landing from './pages/Landing/Landing';
 
 
 
@@ -73,7 +74,7 @@ function App() {
                     console.log('onSuccess: ', data);
                     setUser(user);
                     resolve(user);
-                    navigate(`/profile/${user.username}`)
+                    navigate('/trending')
                 },
                 onFailure: (error) => {
                     console.error('onFailure: ', error);
@@ -129,11 +130,15 @@ function App() {
         <Nav />
         <Routes>
             <Route 
+                path='/login' 
+                element={<Landing />} 
+            />            
+            <Route 
                 path='/trending' 
                 element={<TrendingContent />} 
             />
             <Route 
-                path='/profile/:profileName' 
+                path='/profile/:cognitoUsername' 
                 element={<ProfileContent />} 
             />
             <Route 

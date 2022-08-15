@@ -13,7 +13,7 @@ const TablatureCard = (props) => {
         <Box style={cardStyles}>
             <TablatureCardHeader name={props.tablature.name} />
             <TablatureCardBody bars={props.tablature.bars} />
-            <TablatureCardFooter preferredUsername={props.tablature.owner.preferredUsername} />
+            <TablatureCardFooter preferredUsername={props.nameOfOwner} />
         </Box>
     );
 }
