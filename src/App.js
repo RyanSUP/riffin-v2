@@ -14,6 +14,7 @@ import TrendingContent from './components/TrendingContent/TrendingContent';
 import ProfileContent from './components/ProfileContent/ProfileContent';
 import SingleTablatureContent from './components/SingleTablatureContent/SingleTablatureContent';
 import Landing from './pages/Landing/Landing';
+import { Grid } from '@mui/material';
 
 
 
@@ -129,28 +130,48 @@ function App() {
 
     <UserContext.Provider value={{ authenticate, getUserSessionFromCognito, logout, user, setUser }}>
         <Nav />
-        <Routes>
-            <Route 
-                path='/login' 
-                element={<Landing />} 
-            />            
-            <Route 
-                path='/trending' 
-                element={<TrendingContent />} 
-            />
-            <Route 
-                path='/profile/:cognitoUsername' 
-                element={<ProfileContent />} 
-            />
-            <Route 
-                path='/tablature/:tabId' 
-                element={<SingleTablatureContent />} 
-            />
-            <Route 
-                path="*"
-                element={<Navigate to="/trending" replace />}
-            />
-        </Routes>
+        {/* HEADER */}
+        {/* NAV */}
+        {/* Content */}
+        {/* Ad space */}
+        <Grid container spacing={2}>
+            <Grid item xs={12}>
+                header
+            </Grid>
+            <Grid item xs={1}>
+                {/* TODO Tim create nav area and plop it here */}
+                nav area
+            </Grid>
+            <Grid item xs={10}>
+                <Routes>
+                    <Route 
+                        path='/login' 
+                        element={<Landing />} 
+                    />            
+                    <Route 
+                        path='/trending' 
+                        element={<TrendingContent />} 
+                    />
+                    <Route 
+                        path='/profile/:cognitoUsername' 
+                        element={<ProfileContent />} 
+                    />
+                    <Route 
+                        path='/tablature/:tabId' 
+                        element={<SingleTablatureContent />} 
+                    />
+                    <Route 
+                        path="*"
+                        element={<Navigate to="/trending" replace />}
+                    />
+                </Routes>
+            </Grid>
+            <Grid item xs={1}>
+                Ad
+            </Grid>
+        </Grid>
+
+     
     </UserContext.Provider>
 
   );

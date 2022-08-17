@@ -16,14 +16,14 @@ const dashesStyle = {
 }
 
 const scrollWrapper = {
-    overflowY: "scroll"
+    overflowY: "scroll",
 }
 
 const TablatureCardBody = (props) => {
     return (
         <div style={ scrollWrapper }>
             {props.bars.map( (bar, i) => (
-                <div key={i}>
+                <div key={i} style={ {position: "relative"} }>
                     <textarea 
                         value={bar.inputs} 
                         readOnly={true}
