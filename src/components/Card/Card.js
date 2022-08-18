@@ -33,15 +33,24 @@ const Card = (props) => {
                         isExpanded={isExpanded}
                         handleExpand={handleExpand}
                     />
+                    {isExpanded &&
+                        <MetaData 
+                            preferredUsername={props.authorData.preferredUsername}
+                            tags={props.tabData.tags}
+                            navigateToProfile={navigateToProfile}
+                        />
+                    }
                     <Content 
                         bars={props.tabData.bars} 
                         isExpanded={isExpanded} 
                     />
-                    <MetaData 
-                        preferredUsername={props.authorData.preferredUsername}
-                        tags={props.tabData.tags}
-                        navigateToProfile={navigateToProfile}
-                    />
+                    {!isExpanded &&
+                        <MetaData 
+                            preferredUsername={props.authorData.preferredUsername}
+                            tags={props.tabData.tags}
+                            navigateToProfile={navigateToProfile}
+                        />
+                    }
                 </Container>
             </Paper>
         </Grid>
