@@ -156,6 +156,7 @@ function App() {
                 />
                 <Route path="/tablature/:tabId" element={<TrendingContent />} />
                 <Route path="/new" element={<TablatureEditorPLUS />} />
+                <Route path="/edit/:tabId" element={<TablatureEditorPLUS />} />
                 <Route path="*" element={<Navigate to="/trending" replace />} />
               </Routes>
             </Grid>

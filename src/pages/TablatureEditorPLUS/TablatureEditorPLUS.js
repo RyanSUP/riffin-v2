@@ -175,7 +175,7 @@ const TablatureEditorPLUS = () => {
         .create(tablaturePayload, idToken)
         .then((tablatureFromResponse) => {
           setIsLoading(false);
-          navigate(`/tablature/${tablatureFromResponse._id}`);
+          navigate(`/edit/${tablatureFromResponse._id}`);
         });
       // TODO Add tablature to state
     }
