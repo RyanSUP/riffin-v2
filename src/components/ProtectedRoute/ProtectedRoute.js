@@ -5,18 +5,11 @@ import { Navigate } from "react-router-dom";
 import { UserContext } from "../../App";
 
 const ProtectedRoute = (props) => {
-    const { user } = useContext(UserContext);
+  const { user } = useContext(UserContext);
 
-    return (
-        <> 
-            {user === null
-                ?
-                    <Navigate to="/login" replace />    
-                :
-                    props.children
-            }
-        </>
-    );
-}
- 
+  return (
+    <>{user === null ? <Navigate to="/login" replace /> : props.children}</>
+  );
+};
+
 export default ProtectedRoute;
