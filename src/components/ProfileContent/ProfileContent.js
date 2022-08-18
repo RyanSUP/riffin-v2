@@ -4,14 +4,15 @@ import * as userUtils from "../../utils/userUtils";
 
 // Components / hooks
 import { useEffect, useState, useContext } from 'react';
-import TablatureCard from '../TablatureCard/TablatureCard';
+import Card from '../Card/Card'
 import { useParams } from 'react-router-dom';
 import { UserContext } from '../../App';
+import { Grid } from '@mui/material';
 
 
 const ProfileContent = () => {
     const [tablatures, setTablatures] = useState(null)
-    const [preferredUsername, setPreferredUsername] = useState(null)
+    const [authorData, setAuthorData] = useState(null)
     const { cognitoUsername } = useParams()
     const { user } = useContext(UserContext)
 
@@ -29,27 +30,31 @@ const ProfileContent = () => {
                 const usersFavoriteTablature = res.profile.favoriteTablature
                 const combinedTabArrays = [].concat(usersTablature, usersFavoriteTablature)
                 setTablatures(combinedTabArrays)
-                setPreferredUsername(user.profile.preferredUsername)
+                setAuthorData({
+                    preferredUsername: user.profile?.preferredUsername,
+                    user: user.username
+                })
             })
         } else {
             profileServices.getUsersPublicInfo(cognitoUsername)
             .then( res => {
                 setTablatures(res.usersTablature)
-                setPreferredUsername(res.preferredUsername)
+                setAuthorData(res.authorInfo)
             })
         }
     }, [cognitoUsername, user])
 
     return (
-        <>
-            {tablatures?.map( (tabData, i) => (
-                <TablatureCard 
-                    tablature={tabData}
-                    nameOfOwner={preferredUsername}
-                    key={i} 
-                />
+        <Grid container spacing={1}>
+            {tablatures?.map( (tablature, index) => (
+                <Grid item key={index}>
+                    <Card 
+                        tabData={tablature}
+                        authorData={authorData}
+                    />
+                </Grid>
             ))}
-        </>
+        </Grid>
     );
 }
  

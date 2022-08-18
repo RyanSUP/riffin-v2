@@ -12,7 +12,6 @@ import * as userUtils from "./utils/userUtils"
 import Nav from './components/Nav/Nav';
 import TrendingContent from './components/TrendingContent/TrendingContent';
 import ProfileContent from './components/ProfileContent/ProfileContent';
-import SingleTablatureContent from './components/SingleTablatureContent/SingleTablatureContent';
 import Landing from './pages/Landing/Landing';
 import TablatureEditorPLUS from './pages/TablatureEditorPLUS/TablatureEditorPLUS'
 import { Grid } from '@mui/material';
@@ -156,7 +155,7 @@ function App() {
                     />
                     <Route 
                         path='/tablature/:tabId' 
-                        element={<SingleTablatureContent />} 
+                        element={<TrendingContent />} 
                     />
                     <Route 
                         path='/new' 
