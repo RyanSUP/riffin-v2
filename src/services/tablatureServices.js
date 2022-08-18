@@ -2,13 +2,13 @@ const BASE_URL = process.env.REACT_APP_STACK_URL;
 
 /**
  * Request to create a new tablature document in MongoDB.
- * @param {Object} tablatureObject
+ * @param {Object} tablature
  * @param {string} idToken
  * @returns {Object} The newly created tablature document
  */
-const create = async (tablatureObject, idToken) => {
+const create = async (tablature, idToken) => {
   const payload = {
-    tablatureObject,
+    tablature,
   };
   const response = await fetch(`${BASE_URL}/tablature`, {
     method: "POST",
