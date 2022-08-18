@@ -6,6 +6,8 @@ import { useEffect, useState, useCallback } from "react";
 import UserPool from "./utils/UserPool";
 import * as profileServices from "./services/profileServices"
 import * as userUtils from "./utils/userUtils"
+import { ThemeProvider } from '@mui/material/styles';
+import theme from './Theme'
 // import ProtectedRoute from "./components/ProtectedRoute/ProtectedRoute.js"
 
 // Components
@@ -127,7 +129,8 @@ function App() {
 
 
   return (
-
+    <>
+    <ThemeProvider theme={theme}>
     <UserContext.Provider value={{ authenticate, getUserSessionFromCognito, logout, user, setUser }}>
         <Nav /> 
 
@@ -174,7 +177,8 @@ function App() {
 
      
     </UserContext.Provider>
-
+    </ThemeProvider>
+    </>
   );
 }
 
