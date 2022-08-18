@@ -32,7 +32,7 @@ const Nav = () => {
     },
     {
       "name": 'New Tab',
-      "path": user ? '/tablature/new' : '/login'
+      "path": user ? '/new' : '/login'
     },
   ]; // The links on the navbar
 

@@ -12,8 +12,8 @@ import * as userUtils from "./utils/userUtils"
 import Nav from './components/Nav/Nav';
 import TrendingContent from './components/TrendingContent/TrendingContent';
 import ProfileContent from './components/ProfileContent/ProfileContent';
-import SingleTablatureContent from './components/SingleTablatureContent/SingleTablatureContent';
 import Landing from './pages/Landing/Landing';
+import TablatureEditorPLUS from './pages/TablatureEditorPLUS/TablatureEditorPLUS'
 import { Grid } from '@mui/material';
 
 
@@ -129,20 +129,17 @@ function App() {
   return (
 
     <UserContext.Provider value={{ authenticate, getUserSessionFromCognito, logout, user, setUser }}>
-        <Nav />
-        {/* HEADER */}
-        {/* NAV */}
-        {/* Content */}
-        {/* Ad space */}
-        <Grid container spacing={2}>
+        <Nav /> 
+
+        <Grid container>
             <Grid item xs={12}>
                 header
             </Grid>
-            <Grid item xs={1}>
+            <Grid item xs={2}>
                 {/* TODO Tim create nav area and plop it here */}
                 nav area
             </Grid>
-            <Grid item xs={10}>
+            <Grid item xs={8}>
                 <Routes>
                     <Route 
                         path='/login' 
@@ -158,7 +155,11 @@ function App() {
                     />
                     <Route 
                         path='/tablature/:tabId' 
-                        element={<SingleTablatureContent />} 
+                        element={<TrendingContent />} 
+                    />
+                    <Route 
+                        path='/new' 
+                        element={<TablatureEditorPLUS />} 
                     />
                     <Route 
                         path="*"
@@ -166,7 +167,7 @@ function App() {
                     />
                 </Routes>
             </Grid>
-            <Grid item xs={1}>
+            <Grid item xs={2}>
                 Ad
             </Grid>
         </Grid>
