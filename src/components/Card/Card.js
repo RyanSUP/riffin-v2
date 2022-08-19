@@ -30,7 +30,7 @@ const Card = (props) => {
   const handleExpand = () => setIsExpanded(!isExpanded);
 
   return (
-    <Grid item lg={isExpanded ? 10 : 6} xs={12} style={gridItemStyles}>
+    <Grid item lg={isExpanded ? 12 : 6} xs={12} style={gridItemStyles}>
       <Paper style={cardStyles}>
           <Header
             tabName={props.tabData.name}
