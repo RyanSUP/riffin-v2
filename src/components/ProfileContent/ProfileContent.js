@@ -46,13 +46,16 @@ const ProfileContent = () => {
   }, [cognitoUsername, user]);
 
   return (
-    <Grid container spacing={1}>
-      {tablatures?.map((tablature, index) => (
-        <Grid item key={index}>
-          <Card tabData={tablature} authorData={authorData} />
-        </Grid>
+    <Grid container spacing={2} >
+    {tablatures?.map((tablature, index) => 
+      (
+        <Card
+          key={index}
+          tabData={tablature}
+          authorData={authorData}
+        />
       ))}
-    </Grid>
+  </Grid>
   );
 };
 
