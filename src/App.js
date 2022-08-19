@@ -15,7 +15,7 @@ import Nav from "./components/Nav/Nav";
 import TrendingContent from "./components/TrendingContent/TrendingContent";
 import ProfileContent from "./components/ProfileContent/ProfileContent";
 import Landing from "./pages/Landing/Landing";
-import TablatureEditorPLUS from "./pages/TablatureEditorPLUS/TablatureEditorPLUS";
+import Editor from "./pages/Editor/Editor";
 import { Grid } from "@mui/material";
 
 const UserContext = createContext();
@@ -155,8 +155,8 @@ function App() {
                   element={<ProfileContent />}
                 />
                 <Route path="/tablature/:tabId" element={<TrendingContent />} />
-                <Route path="/new" element={<TablatureEditorPLUS />} />
-                <Route path="/edit/:tabId" element={<TablatureEditorPLUS />} />
+                <Route path="/new" element={<Editor />} />
+                <Route path="/edit/:tabId" element={<Editor />} />
                 <Route path="*" element={<Navigate to="/trending" replace />} />
               </Routes>
             </Grid>
