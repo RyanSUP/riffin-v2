@@ -10,7 +10,6 @@ const wrapperBoxStyles = {
 
 const tagBoxStyles = {
   display: "flex",
-  justifyContent: "space-between",
   width: "50%",
   alignItems: "end",
   overflow: "hidden",
@@ -32,17 +31,17 @@ const MetaData = (props) => {
     <Box style={wrapperBoxStyles}>
         <Box style={tagBoxStyles}>
           <Chip 
-            label="Deletable" 
+            label="Tag" 
             size="small" 
             onDelete={()=> console.log("Delete")} 
           />
           <Chip 
-            label="Deletable" 
+            label="Tag" 
             size="small" 
             onDelete={()=> console.log("Delete")} 
           />
           <Chip 
-            label="Deletable" 
+            label="Tag" 
             size="small" 
             onDelete={()=> console.log("Delete")} 
           />
