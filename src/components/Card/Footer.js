@@ -4,8 +4,6 @@ import { Avatar, Box, Link, Chip } from "@mui/material";
 const wrapperBoxStyles = {
   display: "flex",
   justifyContent: "space-between",
-  marginBottom: "5px"
-
 }
 
 const tagBoxStyles = {
@@ -26,7 +24,7 @@ const userLinkStyles = {
   marginRight: "12px"
 }
 
-const MetaData = (props) => {
+const Footer = (props) => {
   return (
     <Box style={wrapperBoxStyles}>
         <Box style={tagBoxStyles}>
@@ -60,4 +58,4 @@ const MetaData = (props) => {
   );
 };
 
-export default MetaData;
+export default Footer;

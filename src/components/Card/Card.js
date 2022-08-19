@@ -4,7 +4,7 @@ import Header from "./Header";
 import { UserContext } from "../../App";
 import { useContext, useState } from "react";
 import Content from "./Content";
-import MetaData from "./MetaData";
+import Footer from "./Footer";
 import { Box } from "@mui/system";
 
 // props: tabData, authorData
@@ -38,22 +38,14 @@ const Card = (props) => {
             isExpanded={isExpanded}
             handleExpand={handleExpand}
           />
-          {isExpanded && (
-            <MetaData
-              preferredUsername={props.authorData.preferredUsername}
-              tags={props.tabData.tags}
-            />
-          )}
           <Box style={contentBoxStyles}>
             <Content bars={props.tabData.bars} isExpanded={isExpanded} />
           </Box>
-          {!isExpanded && (
-            <MetaData
-              preferredUsername={props.authorData.preferredUsername}
-              user={props.authorData.user}
-              tags={props.tabData.tags}
-            />
-          )}
+          <Footer
+            preferredUsername={props.authorData.preferredUsername}
+            user={props.authorData.user}
+            tags={props.tabData.tags}
+          />
       </Paper>
     </Grid>
   );
