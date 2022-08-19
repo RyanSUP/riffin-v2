@@ -23,6 +23,7 @@ const Header = (props) => {
         <HeaderButtonGroup
           disableLike={props.ownedByUser}
           handleExpand={props.handleExpand}
+          isExpanded={props.isExpanded}
         />
       </Box>
 

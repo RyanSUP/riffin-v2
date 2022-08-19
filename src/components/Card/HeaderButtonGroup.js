@@ -1,7 +1,8 @@
 import { Box, IconButton } from "@mui/material";
 import OpenInFullIcon from "@mui/icons-material/OpenInFull";
 import ShareIcon from "@mui/icons-material/Share";
-import FavoriteBorderIcon from '@mui/icons-material/FavoriteBorder';
+import FavoriteBorderIcon from "@mui/icons-material/FavoriteBorder";
+import CloseFullscreenRoundedIcon from "@mui/icons-material/CloseFullscreenRounded";
 
 const HeaderButtonGroup = (props) => {
   return (
@@ -13,7 +14,12 @@ const HeaderButtonGroup = (props) => {
           <ShareIcon />
         </IconButton>
         <IconButton onClick={props.handleExpand}>
-          <OpenInFullIcon />
+          {props.isExpanded 
+            ?
+              <CloseFullscreenRoundedIcon />
+            :
+              <OpenInFullIcon />
+          }
         </IconButton>
     </Box>
   );
