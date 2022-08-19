@@ -4,6 +4,7 @@ import HeaderButtonGroup from "./HeaderButtonGroup";
 const boxStyles = {
   display: "flex",
   justifyContent: "space-between",
+  marginBottom: "5px"
 }
 
 const tabNameStyles ={

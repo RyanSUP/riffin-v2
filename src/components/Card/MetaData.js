@@ -4,6 +4,8 @@ import { Avatar, Box, Link, Chip } from "@mui/material";
 const wrapperBoxStyles = {
   display: "flex",
   justifyContent: "space-between",
+  marginBottom: "5px"
+
 }
 
 const tagBoxStyles = {
