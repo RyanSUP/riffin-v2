@@ -1,21 +1,61 @@
 // Components
-import { Avatar, Grid, Button } from "@mui/material";
+import { Avatar, Box, Link, Chip } from "@mui/material";
+
+const wrapperBoxStyles = {
+  display: "flex",
+  justifyContent: "space-between",
+}
+
+const tagBoxStyles = {
+  display: "flex",
+  justifyContent: "space-between",
+  width: "50%",
+  alignItems: "end",
+  overflow: "hidden",
+}
+
+const userBoxStyles = {
+  display: "flex",
+  width: "50%",
+  justifyContent: "end"
+}
+
+const userLinkStyles = {
+  alignSelf: "end",
+  marginRight: "12px"
+}
 
 const MetaData = (props) => {
   return (
-    <Grid container>
-      <Grid item xs={6}>
-        Tags will show here
-      </Grid>
-      <Grid item xs={3}>
-        <Button size="small" variant="text" onClick={props.navigateToProfile}>
-          by {props.preferredUsername}
-        </Button>
-      </Grid>
-      <Grid item xs={3}>
-        <Avatar />
-      </Grid>
-    </Grid>
+    <Box style={wrapperBoxStyles}>
+        <Box style={tagBoxStyles}>
+          <Chip 
+            label="Deletable" 
+            size="small" 
+            onDelete={()=> console.log("Delete")} 
+          />
+          <Chip 
+            label="Deletable" 
+            size="small" 
+            onDelete={()=> console.log("Delete")} 
+          />
+          <Chip 
+            label="Deletable" 
+            size="small" 
+            onDelete={()=> console.log("Delete")} 
+          />
+        </Box>
+        <Box style={userBoxStyles}>
+          <Link 
+            underline="hover"
+            style={userLinkStyles} 
+            href={`/profile/${props.user}`}
+          >
+            by {props.preferredUsername}
+          </Link>
+          <Avatar />
+        </Box>
+    </Box>
   );
 };
 

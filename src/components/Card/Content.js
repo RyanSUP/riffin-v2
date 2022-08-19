@@ -1,3 +1,5 @@
+import { Box } from "@mui/material";
+
 const inputsStyle = {
   background: "transparent",
   margin: 0,
@@ -5,6 +7,8 @@ const inputsStyle = {
   resize: "none",
   textAlign: "center",
   zIndex: 2,
+  outline: "none",
+  border: "none",
 };
 
 const dashesStyle = {
@@ -12,17 +16,26 @@ const dashesStyle = {
   position: "absolute",
   resize: "none",
   textAlign: "center",
-  left: 0,
+  left: "50%",
+  translate: "-50%",
   zIndex: 1,
+  outline: "none",
+  border: "none",
 };
 
 const scrollWrapper = {
   overflowY: "scroll",
 };
 
+const boxStyles = {
+  margin: "10px 0",
+  width: "100%",
+  textAlign: "center",
+}
+
 const Content = (props) => {
   return (
-    <>
+    <Box style={boxStyles}>
       {props.isExpanded ? (
         <div style={scrollWrapper}>
           {props.bars.map((bar, i) => (
@@ -68,7 +81,7 @@ const Content = (props) => {
           </div>
         </>
       )}
-    </>
+    </Box>
   );
 };
 

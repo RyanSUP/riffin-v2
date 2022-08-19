@@ -35,7 +35,7 @@ const TrendingContent = () => {
       {trendingTablature === null ? (
         <CircularProgress />
       ) : (
-        <Grid container spacing={2}>
+        <Grid container spacing={2} >
           {tablatureFromRoute && (
             <Card
               key={-1}

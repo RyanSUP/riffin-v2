@@ -1,19 +1,30 @@
-import { Grid } from "@mui/material";
+import { Box, Typography } from "@mui/material";
 import HeaderButtonGroup from "./HeaderButtonGroup";
+
+const boxStyles = {
+  display: "flex",
+  justifyContent: "space-between",
+}
+
+const tabNameStyles ={
+  overflow: "hidden",
+  whiteSpace: "nowrap",
+  textOverflow: "ellipsis",
+  display: "inline", 
+  alignSelf: "center",
+  width: "50%",
+}
 
 const Header = (props) => {
   return (
-    <Grid container>
-      <Grid item xs={4}>
-        <p>{props.tabName}</p>
-      </Grid>
-      <Grid item xs={8}>
+      <Box style={boxStyles}>
+        <Typography style={tabNameStyles} >{props.tabName}</Typography>
         <HeaderButtonGroup
           disableLike={props.ownedByUser}
           handleExpand={props.handleExpand}
         />
-      </Grid>
-    </Grid>
+      </Box>
+
   );
 };
 

@@ -1,11 +1,11 @@
 // Components
-import { Grid, Paper, Container } from "@mui/material";
+import { Grid, Paper } from "@mui/material";
 import Header from "./Header";
 import { UserContext } from "../../App";
 import { useContext, useState } from "react";
 import Content from "./Content";
 import MetaData from "./MetaData";
-import { useNavigate } from "react-router-dom";
+import { Box } from "@mui/system";
 
 // props: tabData, authorData
 const Card = (props) => {
@@ -13,22 +13,25 @@ const Card = (props) => {
     props.isExpanded ? props.isExpanded : false
   );
   const { user } = useContext(UserContext);
-  const navigate = useNavigate();
+
+  const gridItemStyles = {
+    padding: "16px"
+  }
+
+  const contentBoxStyles = {
+    display: "flex",
+    justifyContent: "center"
+  }
 
   const cardStyles = {
-    padding: "5px",
+    padding: "15px",
   };
 
   const handleExpand = () => setIsExpanded(!isExpanded);
 
-  const navigateToProfile = () => {
-    navigate(`/profile/${props.authorData.user}`);
-  };
-
   return (
-    <Grid item lg={isExpanded ? 10 : 5} xs={12}>
+    <Grid item lg={isExpanded ? 10 : 6} xs={12} style={gridItemStyles}>
       <Paper style={cardStyles}>
-        <Container>
           <Header
             tabName={props.tabData.name}
             ownedByUser={user.username === props.authorData.user}
@@ -39,18 +42,18 @@ const Card = (props) => {
             <MetaData
               preferredUsername={props.authorData.preferredUsername}
               tags={props.tabData.tags}
-              navigateToProfile={navigateToProfile}
             />
           )}
-          <Content bars={props.tabData.bars} isExpanded={isExpanded} />
+          <Box style={contentBoxStyles}>
+            <Content bars={props.tabData.bars} isExpanded={isExpanded} />
+          </Box>
           {!isExpanded && (
             <MetaData
               preferredUsername={props.authorData.preferredUsername}
+              user={props.authorData.user}
               tags={props.tabData.tags}
-              navigateToProfile={navigateToProfile}
             />
           )}
-        </Container>
       </Paper>
     </Grid>
   );
