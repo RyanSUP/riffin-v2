@@ -138,12 +138,14 @@ const Editor = () => {
 
   useEffect(() => {
     if (tabId) {
+      setIsLoading(true)
       tablatureServices.getTablatureById(tabId).then((res) => {
         if (res["error"]) {
           // TODO Navigate back to where the user came from
           navigate(`/trending`);
         }
         setTablature(res.tablature);
+        setIsLoading(false)
       });
     }
   }, [tabId]);
@@ -158,10 +160,10 @@ const Editor = () => {
   }, [user]);
 
   useEffect(() => {
-    if(tablature.bars.length === 0) {
+    if(!tabId && tablature.bars.length === 0) {
       addBarToTablature()
     }
-  }, [tablature])
+  }, [tablature, tabId, addBarToTablature])
 
   return (
     <>
