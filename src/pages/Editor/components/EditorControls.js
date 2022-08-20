@@ -19,7 +19,7 @@ export default function SpeedDialTooltipOpen(props) {
   }
 
   const handleSave = () => {
-    props.saveTablatureToDatabasae()
+    props.saveTablatureToDatabase()
     handleClose()
   }
 

@@ -44,7 +44,6 @@ const Editor = () => {
   
     const saveNewTablature = (idToken) => {
       setIsLoading(true);
-      // const { _id, ...tablaturePayload } = tablature;
       tablatureServices
         .create(tablature, idToken)
         .then((tablatureFromResponse) => {
