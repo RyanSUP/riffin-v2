@@ -5,46 +5,48 @@ import * as tablatureServices from "../../services/tablatureServices";
 import * as userUtils from "../../utils/userUtils";
 import { CircularProgress } from "@mui/material";
 import BarController from './components/BarController';
+import EditorControls from './components/EditorControls'
+
+import Box from '@mui/material/Box';
 
 const Editor = () => {
-  const [isSaved, setIsSaved] = useState(null); // Is the document already in the database?
+  const [showDeleteButton, setShowDeleteButton] = useState(false); // Is the document already in the database?
   // TODO Rename: isWaitingForResponse
   const [isLoading, setIsLoading] = useState(false); // is the document currently waiting for a response?
-  
-  const [tablatureDocument, setTablatureDocument] = useState({
+  const [tablature, setTablature] = useState({
     isPublic: false,
-    name: "A tasy lick",
+    name: "A tasty lick",
     bars: [],
     tags: [],
     isBassTab: false,
   });
    const { user } = useContext(UserContext);
-  const { id } = useParams();
+  const { tabId } = useParams();
   let navigate = useNavigate();
   
   const deleteTablatureFromDatabase = () => {
     const idToken = userUtils.getIdTokenFromUser(user);
-    tablatureServices.delete(tablatureDocument._id, idToken).then((res) => {
+    tablatureServices.delete(tablature._id, idToken).then((res) => {
       console.log(res);
     });
     // TODO Navigate to trending
   };
 
-  const handleSave = () => {
+  const saveTablatureToDatabase = () => {
     const updateExistingTablature = (idToken) => {
       setIsLoading(true);
-      tablatureServices.update(tablatureDocument, idToken).then((res) => {
+      tablatureServices.update(tablature, idToken).then((res) => {
         console.log(res);
         setIsLoading(false);
-        setTablatureDocument({ ...tablatureDocument });
+        setTablature({ ...tablature });
       });
     }
   
     const saveNewTablature = (idToken) => {
       setIsLoading(true);
-      const { _id, ...tablaturePayload } = tablatureDocument;
+      // const { _id, ...tablaturePayload } = tablature;
       tablatureServices
-        .create(tablaturePayload, idToken)
+        .create(tablature, idToken)
         .then((tablatureFromResponse) => {
           setIsLoading(false);
           navigate(`/edit/${tablatureFromResponse._id}`);
@@ -52,7 +54,7 @@ const Editor = () => {
     }
 
     const idToken = userUtils.getIdTokenFromUser(user);
-    if (tablatureDocument._id) {
+    if (tablature._id) {
       updateExistingTablature(idToken);
     } else {
       saveNewTablature(idToken);
@@ -62,14 +64,14 @@ const Editor = () => {
   const deleteBarFromTablature = (barIndex) => {
     // TODO Find a way for this be done through BarController?
     const newBars = [];
-    tablatureDocument.bars.forEach((bar, i) => {
+    tablature.bars.forEach((bar, i) => {
       if (barIndex !== i) {
         newBars.push({ ...bar });
       }
     });
 
-    tablatureDocument.bars = newBars;
-    setTablatureDocument({ ...tablatureDocument });
+    tablature.bars = newBars;
+    setTablature({ ...tablature });
   };
 
   const addBarToTablature = () => {
@@ -96,114 +98,95 @@ const Editor = () => {
     };
 
     const previousBars = [];
-    tablatureDocument.bars.forEach((bar) => {
+    tablature.bars.forEach((bar) => {
       previousBars.push({ ...bar });
     });
 
     const newBar = {
-      label: `Bar ${tablatureDocument.bars.length + 1}`,
+      label: `Bar ${tablature.bars.length + 1}`,
       inputs: initTextAreaWithValue(" "),
       dashes: initTextAreaWithValue("-"),
     };
 
-    tablatureDocument.bars = [...previousBars, newBar];
-    setTablatureDocument({ ...tablatureDocument });
+    tablature.bars = [...previousBars, newBar];
+    setTablature({ ...tablature });
   };
 
-  const handleIsBassCheckbox = (event) => {
+  const setPublic = () => {
     const udpatedTablature = {
-      ...tablatureDocument,
-      isBassTab: !tablatureDocument.isBassTab,
+      ...tablature,
+      isPublic: !tablature.isPublic,
     };
-    setTablatureDocument(udpatedTablature);
-  };
-
-  const handleIsPublicCheckbox = (event) => {
-    const udpatedTablature = {
-      ...tablatureDocument,
-      isPublic: !tablatureDocument.isPublic,
-    };
-    setTablatureDocument(udpatedTablature);
+    setTablature(udpatedTablature);
   };
 
   // Check if the document is new
   useEffect(() => {
-    tablatureDocument["_id"] ? setIsSaved(true) : setIsSaved(false);
-  }, [tablatureDocument]);
+    tablature["_id"] ? setShowDeleteButton(true) : setShowDeleteButton(false);
+  }, [tablature]);
 
   useEffect(() => {
-    if (id) {
-      tablatureServices.getTablatureById(id).then((res) => {
+    if (tabId) {
+      tablatureServices.getTablatureById(tabId).then((res) => {
         if (res["error"]) {
           // TODO Navigate back to where the user came from
           navigate(`/trending`);
         }
-        setTablatureDocument(res.tablature);
+        setTablature(res.tablature);
       });
     }
-  }, [id]);
+  }, [tabId]);
 
   const handleNameInput = (event) => {
     const udpatedTablature = {
-      ...tablatureDocument,
+      ...tablature,
       name: event.target.value,
     };
-    setTablatureDocument(udpatedTablature);
+    setTablature(udpatedTablature);
   };
 
-  const updateTablatureDocument = () => {
-    setTablatureDocument({ ...tablatureDocument });
+  const refreshTablatureObject = () => {
+    setTablature({ ...tablature });
   }
   
   useEffect(() => {
     if (user) {
       let username = user.username;
-      setTablatureDocument((prev) => {
+      setTablature((prev) => {
         return { ...prev, owner: username };
       });
     }
   }, [user]);
 
+  
   return (
     <>
       {isLoading ? ( <CircularProgress /> ) : (
-        <>
+        // ! Change the height once the new nav area is implemented
+        <Box sx={{ height: '50vh', transform: 'translateZ(0px)', flexGrow: 1 }}>
           <input
             type="text"
             name="name"
-            value={tablatureDocument.name}
+            value={tablature.name}
             onChange={handleNameInput}
             placeholder="A tasty lick"
           />
-          <label htmlFor="isBassTab">Bass tab?</label>
-          <input
-            type="checkbox"
-            name="isBassTab"
-            value={tablatureDocument.isBassTab}
-            onChange={handleIsBassCheckbox}
-          />
-          <label htmlFor="isPublic">public?</label>
-          <input
-            type="checkbox"
-            name="isPublic"
-            value={tablatureDocument.isPublic}
-            onChange={handleIsPublicCheckbox}
-          />
-          <button onClick={addBarToTablature}>Add bar</button>
 
           <BarController 
-            bars={tablatureDocument.bars} 
-            updateTablatureDocument={updateTablatureDocument}
+            bars={tablature.bars} 
+            refreshTablatureObject={refreshTablatureObject}
             deleteBarFromTablature={deleteBarFromTablature}
           />
 
-          <button onClick={handleSave}>Save Tablature</button>
-          {isSaved && (
-            <button onClick={deleteTablatureFromDatabase}>
-              Delete tablature
-            </button>
-          )}
-        </>
+          <EditorControls
+            deleteTablatureFromDatabase={deleteTablatureFromDatabase}
+            allowDelete={showDeleteButton}
+            setPublic={setPublic}
+            isPublic={tablature.isPublic}
+            saveTablatureToDatabase={saveTablatureToDatabase}
+            addBarToTablature={addBarToTablature}
+          />
+        </Box>
       )}
     </>
   );
