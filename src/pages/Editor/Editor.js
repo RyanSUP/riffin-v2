@@ -103,6 +103,7 @@ const Editor = () => {
 
     const newBar = {
       label: `Bar ${tablature.bars.length + 1}`,
+      tempKey: Date(),
       inputs: initTextAreaWithValue(" "),
       dashes: initTextAreaWithValue("-"),
     };
@@ -163,7 +164,7 @@ const Editor = () => {
     if(!tabId && tablature.bars.length === 0) {
       addBarToTablature()
     }
-  }, [tablature, tabId, addBarToTablature])
+  }, [tablature, tabId])
 
   return (
     <>

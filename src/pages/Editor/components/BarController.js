@@ -94,7 +94,7 @@ const BarController = (props) => {
         cursorPosition.position
       );
       props.bars[selectedBar.index] = newBar;
-      props.updateTablatureDocument()
+      props.refreshTablatureObject()
       setCursorPosition({ position: cursorPosition.position + 1 });
     }
   }
@@ -168,7 +168,7 @@ const BarController = (props) => {
     <>
     {props.bars.map((bar, i) => 
       (
-        <div>
+        <div key={(bar._id) ? bar._id : bar.tempKey}>
           <Bar
             index={i}
             barData={bar}
