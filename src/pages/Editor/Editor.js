@@ -120,6 +120,18 @@ const Editor = () => {
     setTablature(udpatedTablature);
   };
 
+  const handleNameInput = (event) => {
+    const udpatedTablature = {
+      ...tablature,
+      name: event.target.value,
+    };
+    setTablature(udpatedTablature);
+  };
+
+  const refreshTablatureObject = () => {
+    setTablature({ ...tablature });
+  }
+
   // Check if the document is new
   useEffect(() => {
     tablature["_id"] ? setShowDeleteButton(true) : setShowDeleteButton(false);
@@ -136,18 +148,6 @@ const Editor = () => {
       });
     }
   }, [tabId]);
-
-  const handleNameInput = (event) => {
-    const udpatedTablature = {
-      ...tablature,
-      name: event.target.value,
-    };
-    setTablature(udpatedTablature);
-  };
-
-  const refreshTablatureObject = () => {
-    setTablature({ ...tablature });
-  }
   
   useEffect(() => {
     if (user) {
@@ -158,7 +158,12 @@ const Editor = () => {
     }
   }, [user]);
 
-  
+  useEffect(() => {
+    if(tablature.bars.length === 0) {
+      addBarToTablature()
+    }
+  }, [tablature])
+
   return (
     <>
       {isLoading ? ( <CircularProgress /> ) : (

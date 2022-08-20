@@ -177,9 +177,11 @@ const BarController = (props) => {
             handleKeyUpInBar={handleKeyUpInBar}
             readOnly={false}
           />
-          <button onClick={() => props.deleteBarFromTablature(i)}>
-            Delete bar
-          </button>
+          {props.bars.length > 1 &&
+            <button onClick={() => props.deleteBarFromTablature(i)}>
+              Delete bar
+            </button>
+          }
         </div>
       ))}
     </>

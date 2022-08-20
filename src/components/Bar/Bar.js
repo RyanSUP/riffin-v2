@@ -25,6 +25,7 @@ const Bar = (props) => {
     zIndex: 1,
     outline: "none",
     border: "none",
+    color: "darkgrey"
   };
 
   return (
