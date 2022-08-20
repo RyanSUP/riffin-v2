@@ -21,7 +21,8 @@ const Header = (props) => {
       <Box style={boxStyles}>
         <Typography style={tabNameStyles} >{props.tabName}</Typography>
         <HeaderButtonGroup
-          disableLike={props.ownedByUser}
+          handleEdit={props.handleEdit}
+          showOwnerControls={props.ownedByUser}
           handleExpand={props.handleExpand}
           isExpanded={props.isExpanded}
         />

@@ -6,6 +6,7 @@ import { useContext, useState } from "react";
 import Content from "./Content";
 import Footer from "./Footer";
 import { Box } from "@mui/system";
+import { useNavigate } from "react-router-dom";
 
 // props: tabData, authorData
 const Card = (props) => {
@@ -13,6 +14,7 @@ const Card = (props) => {
     props.isExpanded ? props.isExpanded : false
   );
   const { user } = useContext(UserContext);
+  const navigate = useNavigate()
 
   const gridItemStyles = {
     padding: "16px"
@@ -27,6 +29,8 @@ const Card = (props) => {
     padding: "15px",
   };
 
+  const handleEdit = () => navigate(`/edit/${props.tabData._id}`)
+
   const handleExpand = () => setIsExpanded(!isExpanded);
 
   return (
@@ -37,6 +41,7 @@ const Card = (props) => {
             ownedByUser={user.username === props.authorData.user}
             isExpanded={isExpanded}
             handleExpand={handleExpand}
+            handleEdit={handleEdit}
           />
           <Box style={contentBoxStyles}>
             <Content bars={props.tabData.bars} isExpanded={isExpanded} />
