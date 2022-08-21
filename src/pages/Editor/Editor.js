@@ -103,7 +103,7 @@ const Editor = () => {
 
     const newBar = {
       label: `Bar ${tablature.bars.length + 1}`,
-      tempKey: Date(),
+      tempKey: Date() + Math.random(),
       inputs: initTextAreaWithValue(" "),
       dashes: initTextAreaWithValue("-"),
     };

@@ -1,5 +1,8 @@
+import { Grid, Tooltip, IconButton, Box } from "@mui/material";
 import { useState, useEffect } from "react";
 import Bar from "../../../components/Bar/Bar";
+import DeleteIcon from '@mui/icons-material/Delete';
+
 
 const BarGroup = (props) => {
   const [selectedBar, setSelectedBar] = useState(null);
@@ -119,7 +122,7 @@ const BarGroup = (props) => {
         newCursorPosition
       );
       props.bars[selectedBar.index] = newBar;
-      props.updateTablatureDocument()
+      props.refreshTablatureObject()
       setCursorPosition({ position: newCursorPosition });
     }
   }
@@ -164,11 +167,38 @@ const BarGroup = (props) => {
     }
   };
 
+  const handleLabelInput = (event, barIndex) => {
+    event.preventDefault()
+    const updatedBar = {
+      ...props.bars[barIndex],
+      label: event.target.value,
+    };
+    props.bars[barIndex] = updatedBar
+    props.refreshTablatureObject()
+  }
+
   return (
-    <>
+    <Grid container sx={{justifyContent: 'center'}}>
     {props.bars.map((bar, i) => 
       (
-        <div key={(bar._id) ? bar._id : bar.tempKey}>
+        <Grid item key={(bar._id) ? bar._id : bar.tempKey}>
+          <Box sx={{display: 'flex', justifyContent: 'space-between'}}>
+            <input 
+              style={{"marginLeft": "10px"}}
+              type="text"
+              name="name"
+              value={bar.label}
+              onChange={(event) => handleLabelInput(event, i)}
+              placeholder="a new bar"
+            />
+            {props.bars.length > 1 &&
+              <Tooltip title="Delete bar" size="small">
+                <IconButton onClick={()=> props.deleteBarFromTablature(i)}>
+                  <DeleteIcon />
+                </IconButton>
+              </Tooltip>
+            }
+          </Box>
           <Bar
             index={i}
             barData={bar}
@@ -177,14 +207,9 @@ const BarGroup = (props) => {
             handleKeyUpInBar={handleKeyUpInBar}
             readOnly={false}
           />
-          {props.bars.length > 1 &&
-            <button onClick={() => props.deleteBarFromTablature(i)}>
-              Delete bar
-            </button>
-          }
-        </div>
+        </Grid>
       ))}
-    </>
+    </Grid>
   );
 }
  
