@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 import Bar from "../../../components/Bar/Bar";
 
-const BarController = (props) => {
+const BarGroup = (props) => {
   const [selectedBar, setSelectedBar] = useState(null);
   const [cursorPosition, setCursorPosition] = useState({ position: null }); // This can't be a number or it will cause referenceing errors.
   const mapOfFirstColumnIndexes = {
@@ -188,4 +188,4 @@ const BarController = (props) => {
   );
 }
  
-export default BarController;
+export default BarGroup;

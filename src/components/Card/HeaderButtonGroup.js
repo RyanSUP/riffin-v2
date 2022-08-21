@@ -15,8 +15,8 @@ const HeaderButtonGroup = (props) => {
           <ShareIcon />
         </IconButton>
         {props.showOwnerControls &&
-          <IconButton>
-            <EditIcon onClick={props.handleEdit} />
+          <IconButton onClick={props.handleEdit}>
+            <EditIcon />
           </IconButton>
         }
         <IconButton onClick={props.handleExpand}>

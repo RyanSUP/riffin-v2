@@ -4,8 +4,8 @@ import { UserContext } from "../../App";
 import * as tablatureServices from "../../services/tablatureServices";
 import * as userUtils from "../../utils/userUtils";
 import { CircularProgress } from "@mui/material";
-import BarController from './components/BarController';
-import EditorControls from './components/EditorControls'
+import BarGroup from './components/BarGroup';
+import Controls from './components/Controls'
 
 import Box from '@mui/material/Box';
 
@@ -169,31 +169,32 @@ const Editor = () => {
   return (
     <>
       {isLoading ? ( <CircularProgress /> ) : (
-        // ! Change the height once the new nav area is implemented
-        <Box sx={{ height: '50vh', transform: 'translateZ(0px)', flexGrow: 1 }}>
-          <input
-            type="text"
-            name="name"
-            value={tablature.name}
-            onChange={handleNameInput}
-            placeholder="A tasty lick"
-          />
+        <>
+          <Box sx={{display: 'flex', justifyContent: 'space-between'}}>
+            <input
+              type="text"
+              name="name"
+              value={tablature.name}
+              onChange={handleNameInput}
+              placeholder="A tasty lick"
+            />
 
-          <BarController 
+            <Controls 
+              deleteTablatureFromDatabase={deleteTablatureFromDatabase}
+              allowDelete={showDeleteButton}
+              setPublic={setPublic}
+              isPublic={tablature.isPublic}
+              saveTablatureToDatabase={saveTablatureToDatabase}
+              addBarToTablature={addBarToTablature}    
+            />
+          </Box>
+
+          <BarGroup
             bars={tablature.bars} 
             refreshTablatureObject={refreshTablatureObject}
             deleteBarFromTablature={deleteBarFromTablature}
           />
-
-          <EditorControls
-            deleteTablatureFromDatabase={deleteTablatureFromDatabase}
-            allowDelete={showDeleteButton}
-            setPublic={setPublic}
-            isPublic={tablature.isPublic}
-            saveTablatureToDatabase={saveTablatureToDatabase}
-            addBarToTablature={addBarToTablature}
-          />
-        </Box>
+        </>
       )}
     </>
   );
