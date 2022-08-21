@@ -1,4 +1,4 @@
-import { Box } from "@mui/material";
+import { Box, Typography } from "@mui/material";
 import Bar from "../Bar/Bar";
 
 const scrollWrapper = {
@@ -18,7 +18,10 @@ const Content = (props) => {
         (
           <div style={scrollWrapper}>
             {props.bars.map((bar, i) => (
-              <Bar barData={bar} readOnly={true} />
+              <>
+                <Typography>{bar.label}</Typography>
+                <Bar barData={bar} readOnly={true} />
+              </>
             ))}
           </div>
         ) : ( <Bar barData={props.bars[0]} readOnly={true} /> )
