@@ -178,7 +178,7 @@ const BarGroup = (props) => {
   }
 
   return (
-    <Grid container sx={{justifyContent: 'center'}}>
+    <Grid container>
     {props.bars.map((bar, i) => 
       (
         <Grid item key={(bar._id) ? bar._id : bar.tempKey}>
