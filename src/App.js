@@ -9,7 +9,9 @@ import * as userUtils from "./utils/userUtils"
 // import ProtectedRoute from "./components/ProtectedRoute/ProtectedRoute.js"
 
 // Components
-import Nav from './components/Nav/Nav';
+// import Nav from './components/Nav/Nav';
+import OfficialNav from './components/OfficialNav/OfficialNav';
+import OfficialNavPlus from './components/OfficialNavPlus/OfficialNavPlus';
 import TrendingContent from './components/TrendingContent/TrendingContent';
 import ProfileContent from './components/ProfileContent/ProfileContent';
 import SingleTablatureContent from './components/SingleTablatureContent/SingleTablatureContent';
@@ -129,7 +131,7 @@ function App() {
   return (
 
     <UserContext.Provider value={{ authenticate, getUserSessionFromCognito, logout, user, setUser }}>
-        <Nav />
+        <OfficialNav />
         {/* HEADER */}
         {/* NAV */}
         {/* Content */}
@@ -140,7 +142,7 @@ function App() {
             </Grid>
             <Grid item xs={1}>
                 {/* TODO Tim create nav area and plop it here */}
-                nav area
+                <OfficialNavPlus />
             </Grid>
             <Grid item xs={10}>
                 <Routes>

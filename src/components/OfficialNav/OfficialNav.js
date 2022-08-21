@@ -5,15 +5,15 @@ import { useState } from 'react';
 import { useNavigate } from 'react-router-dom'
 
 // Components
-// import AppBar from '@mui/material/AppBar';
-// import Toolbar from '@mui/material/Toolbar';
-// import Container from '@mui/material/Container';
-// import NavLogo from './NavLogo';
-// import HamburgerMenu from './HamburgerMenu';
-// import MobileNavLogo from './MobileNavLogo';
+import AppBar from '@mui/material/AppBar';
+import Toolbar from '@mui/material/Toolbar';
+import Container from '@mui/material/Container';
+import NavLogo from './OfficialNavLogo';
+import HamburgerMenu from './OfficialHamburgerMenu';
+import MobileNavLogo from './OfficialMobileNavLogo';
 import NavLinks from './OfficialNavLinks';
-// import AvatarMenu from './AvatarMenu';
-// import LoginButton from './LoginButton';
+import AvatarMenu from './OfficialAvatarMenu';
+import LoginButton from './OfficialLoginButton';
 
 const OfficialNav = () => {
   const [anchorElNav, setAnchorElNav] = useState(null);
@@ -62,38 +62,38 @@ const OfficialNav = () => {
     navigate(path);
   }
 
-  // return (
-  //   <AppBar position="static">
-  //     <Container maxWidth="xl">
-  //       <Toolbar disableGutters>
+  return (
+    <AppBar position="static">
+      <Container maxWidth="xl">
+        <Toolbar disableGutters>
 
-  //         <NavLogo />
-  //         <HamburgerMenu
-  //           handleOpenNavMenu={handleOpenNavMenu}
-  //           handleCloseNavMenu={handleCloseNavMenu}
-  //           anchorElNav={anchorElNav}
-  //           handleClickOnPage={handleClickOnPage}
-  //           pages={pages}
-  //         />
-  //         <MobileNavLogo />
-  //         <NavLinks
-  //           pages={pages}
-  //           handleClickOnPage={handleClickOnPage}
-  //         />
-  //         {user ?
-  //           <AvatarMenu
-  //             handleOpenUserMenu={handleOpenUserMenu}
-  //             anchorElUser={anchorElUser}
-  //             handleCloseUserMenu={handleCloseUserMenu}
-  //             settings={settings}
-  //           />
-  //           :
-  //           <LoginButton />
-  //         }
-  //       </Toolbar>
-  //     </Container>
-  //   </AppBar>
-  // );
+          <NavLogo />
+          <HamburgerMenu
+            handleOpenNavMenu={handleOpenNavMenu}
+            handleCloseNavMenu={handleCloseNavMenu}
+            anchorElNav={anchorElNav}
+            handleClickOnPage={handleClickOnPage}
+            pages={pages}
+          />
+          <MobileNavLogo />
+          <NavLinks
+            pages={pages}
+            handleClickOnPage={handleClickOnPage}
+          />
+          {user ?
+            <AvatarMenu
+              handleOpenUserMenu={handleOpenUserMenu}
+              anchorElUser={anchorElUser}
+              handleCloseUserMenu={handleCloseUserMenu}
+              settings={settings}
+            />
+            :
+            <LoginButton />
+          }
+        </Toolbar>
+      </Container>
+    </AppBar>
+  );
 }
 
 export default OfficialNav;
