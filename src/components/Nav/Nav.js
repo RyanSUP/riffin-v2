@@ -1,38 +1,38 @@
 // Services
-import { useContext } from 'react';
-import { UserContext } from '../../App';
-import { useState } from 'react';
-import { useNavigate } from 'react-router-dom'
+import { useContext } from "react";
+import { UserContext } from "../../App";
+import { useState } from "react";
+import { useNavigate } from "react-router-dom";
 
 // Components
-import AppBar from '@mui/material/AppBar';
-import Toolbar from '@mui/material/Toolbar';
-import Container from '@mui/material/Container';
-import NavLogo from './NavLogo';
-import HamburgerMenu from './HamburgerMenu';
-import MobileNavLogo from './MobileNavLogo';
-import NavLinks from './NavLinks';
-import AvatarMenu from './AvatarMenu';
-import LoginButton from './LoginButton';
+import AppBar from "@mui/material/AppBar";
+import Toolbar from "@mui/material/Toolbar";
+import Container from "@mui/material/Container";
+import NavLogo from "./NavLogo";
+import HamburgerMenu from "./HamburgerMenu";
+import MobileNavLogo from "./MobileNavLogo";
+import NavLinks from "./NavLinks";
+import AvatarMenu from "./AvatarMenu";
+import LoginButton from "./LoginButton";
 
 const Nav = () => {
   const [anchorElNav, setAnchorElNav] = useState(null);
   const [anchorElUser, setAnchorElUser] = useState(null);
   const { user } = useContext(UserContext);
   const navigate = useNavigate();
-  const settings = ['Logout']; // The links inside the dropdown when a user clicks their avatar
+  const settings = ["Logout"]; // The links inside the dropdown when a user clicks their avatar
   const pages = [
     {
-      "name": 'Trending',
-      "path": "/trending"
+      name: "Trending",
+      path: "/trending",
     },
     {
-      "name": 'My Tabs',
-      "path": user ? `/profile/${user?.username}` : '/login'
+      name: "My Tabs",
+      path: user ? `/profile/${user?.username}` : "/login",
     },
     {
-      "name": 'New Tab',
-      "path": user ? '/tablature/new' : '/login'
+      name: "New Tab",
+      path: user ? "/new" : "/login",
     },
   ]; // The links on the navbar
 
@@ -60,13 +60,12 @@ const Nav = () => {
   const handleClickOnPage = (path) => {
     handleCloseNavMenu();
     navigate(path);
-  }
+  };
 
   return (
     <AppBar position="static">
       <Container maxWidth="xl">
         <Toolbar disableGutters>
-
           <NavLogo />
           <HamburgerMenu
             handleOpenNavMenu={handleOpenNavMenu}
@@ -76,24 +75,21 @@ const Nav = () => {
             pages={pages}
           />
           <MobileNavLogo />
-          <NavLinks
-            pages={pages}
-            handleClickOnPage={handleClickOnPage}
-          />
-          {user ?
+          <NavLinks pages={pages} handleClickOnPage={handleClickOnPage} />
+          {user ? (
             <AvatarMenu
               handleOpenUserMenu={handleOpenUserMenu}
               anchorElUser={anchorElUser}
               handleCloseUserMenu={handleCloseUserMenu}
               settings={settings}
             />
-            :
+          ) : (
             <LoginButton />
-          }
+          )}
         </Toolbar>
       </Container>
     </AppBar>
   );
-}
+};
 
 export default Nav;
