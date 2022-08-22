@@ -140,11 +140,10 @@ function App() {
             <Grid item xs={12}>
                 header
             </Grid>
-            <Grid item xs={1}>
-                {/* TODO Tim create nav area and plop it here */}
+            <Grid item xs={2}>                
                 <OfficialNavPlus />
             </Grid>
-            <Grid item xs={10}>
+            <Grid item xs={8}>
                 <Routes>
                     <Route 
                         path='/login' 
@@ -168,7 +167,7 @@ function App() {
                     />
                 </Routes>
             </Grid>
-            <Grid item xs={1}>
+            <Grid item xs={2}>
                 Ad
             </Grid>
         </Grid>
