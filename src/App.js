@@ -11,13 +11,13 @@ import theme from "./Theme";
 // import ProtectedRoute from "./components/ProtectedRoute/ProtectedRoute.js"
 
 // Components
-import Nav from './components/Nav/Nav';
-import TablatureEditorPLUS from './pages/TablatureEditorPLUS/TablatureEditorPLUS';
+import Nav from "./components/Nav/Nav";
+import TrendingContent from "./components/TrendingContent/TrendingContent";
+import ProfileContent from "./components/ProfileContent/ProfileContent";
+import Landing from "./pages/Landing/Landing";
+import Editor from "./pages/Editor/Editor";
+import { Grid } from "@mui/material";
 import OfficialNavPlus from './components/OfficialNavPlus/OfficialNavPlus';
-import TrendingContent from './components/TrendingContent/TrendingContent';
-import ProfileContent from './components/ProfileContent/ProfileContent';
-import Landing from './pages/Landing/Landing';
-import { Grid } from '@mui/material';
 
 
 const UserContext = createContext();
@@ -156,7 +156,8 @@ function App() {
                   element={<ProfileContent />}
                 />
                 <Route path="/tablature/:tabId" element={<TrendingContent />} />
-                <Route path="/new" element={<TablatureEditorPLUS />} />
+                <Route path="/new" element={<Editor />} />
+                <Route path="/edit/:tabId" element={<Editor />} />
                 <Route path="*" element={<Navigate to="/trending" replace />} />
               </Routes>
             </Grid>

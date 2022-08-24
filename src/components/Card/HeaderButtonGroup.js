@@ -1,14 +1,33 @@
-import { Button } from "@mui/material";
+import { Box, IconButton } from "@mui/material";
 import OpenInFullIcon from "@mui/icons-material/OpenInFull";
 import ShareIcon from "@mui/icons-material/Share";
+import FavoriteBorderIcon from "@mui/icons-material/FavoriteBorder";
+import CloseFullscreenRoundedIcon from "@mui/icons-material/CloseFullscreenRounded";
+import EditIcon from '@mui/icons-material/Edit';
 
 const HeaderButtonGroup = (props) => {
   return (
-    <>
-      <Button disabled={props.disableLike}>🤘</Button>
-      <Button startIcon={<ShareIcon />} />
-      <Button startIcon={<OpenInFullIcon onClick={props.handleExpand} />} />
-    </>
+    <Box sx={{display: "inline"}}>
+        <IconButton disabled={props.showOwnerControls}>
+          <FavoriteBorderIcon />
+        </IconButton>
+        <IconButton>
+          <ShareIcon />
+        </IconButton>
+        {props.showOwnerControls &&
+          <IconButton onClick={props.handleEdit}>
+            <EditIcon />
+          </IconButton>
+        }
+        <IconButton onClick={props.handleExpand}>
+          {props.isExpanded 
+            ?
+              <CloseFullscreenRoundedIcon />
+            :
+              <OpenInFullIcon />
+          }
+        </IconButton>
+    </Box>
   );
 };
 

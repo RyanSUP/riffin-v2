@@ -23,14 +23,11 @@ const create = async (tablature, idToken) => {
 
 /**
  * Request to update a tablature document in MongoDB.
- * @param {Object} tablature
+ * @param {Object} tab
  * @param {string} idToken
  * @returns {Object} { status: "" }
  */
 const update = async (tablature, idToken) => {
-  const payload = {
-    tablature,
-  };
 
   const response = await fetch(`${BASE_URL}/tablature/${tablature._id}`, {
     method: "PUT",
@@ -38,7 +35,7 @@ const update = async (tablature, idToken) => {
       Authorization: idToken,
       "Content-Type": "application/json",
     },
-    body: JSON.stringify(payload),
+    body: JSON.stringify(tablature),
   });
   return response.json();
 };
