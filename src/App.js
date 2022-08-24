@@ -17,6 +17,8 @@ import ProfileContent from "./components/ProfileContent/ProfileContent";
 import Landing from "./pages/Landing/Landing";
 import Editor from "./pages/Editor/Editor";
 import { Grid } from "@mui/material";
+import OfficialNavPlus from './components/OfficialNavPlus/OfficialNavPlus';
+
 
 const UserContext = createContext();
 
@@ -136,15 +138,14 @@ function App() {
             setUser,
           }}
         >
-          <Nav />
+         <Nav />
 
           <Grid container>
             <Grid item xs={12}>
               header
             </Grid>
-            <Grid item xs={2}>
-              {/* TODO Tim create nav area and plop it here */}
-              nav area
+            <Grid item xs={2}>                
+                <OfficialNavPlus />
             </Grid>
             <Grid item xs={8}>
               <Routes>
