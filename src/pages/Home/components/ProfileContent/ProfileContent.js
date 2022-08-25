@@ -48,7 +48,7 @@ const ProfileContent = () => {
   }, [cognitoUsername, user]);
 
   return (
-    <div data-testid="profileContent">
+    <div data-testid="ProfileContent">
       <p>profileContent</p>
       <Grid container spacing={2} >
         {tablatures?.map((tablature, index) => 

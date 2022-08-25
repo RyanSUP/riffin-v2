@@ -3,7 +3,6 @@ import React from 'react'
 
 import  App from './App';
 import {BrowserRouter} from 'react-router-dom'
-import userEvent from "@testing-library/user-event";
 
 test('App renders the Home component on initialization', ()=> {
   render(<App />, {wrapper: BrowserRouter})
