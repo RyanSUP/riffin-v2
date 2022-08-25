@@ -1,8 +1,9 @@
 import { useState, useContext, useEffect } from 'react'
 import { useNavigate, useParams } from "react-router-dom";
-import { UserContext } from "../../App";
-import * as tablatureServices from "../../services/tablatureServices";
-import * as userUtils from "../../utils/userUtils";
+import { UserContext } from "../../../../containers/CognitoContextProvider/CognitoContextProvider";
+
+import * as tablatureServices from "../../../../services/tablatureServices";
+import * as userUtils from "../../../../utils/userUtils";
 import { CircularProgress } from "@mui/material";
 import BarGroup from './components/BarGroup';
 import Controls from './components/Controls'

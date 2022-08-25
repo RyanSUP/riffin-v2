@@ -6,7 +6,8 @@ import AddCircleIcon from '@mui/icons-material/AddCircle';
 import TrendingUpIcon from '@mui/icons-material/TrendingUp';
 import CollectionsIcon from '@mui/icons-material/Collections';
 
-import { UserContext } from '../../App'
+import { UserContext } from "../../../../containers/CognitoContextProvider/CognitoContextProvider";
+
 
 function LinkArea() {
   // latest, trending, collection

@@ -2,15 +2,17 @@
 
 // Services
 import { useState, useEffect, useContext } from "react";
-import { UserContext } from "../../App";
+import { UserContext } from "../../../../containers/CognitoContextProvider/CognitoContextProvider";
+
+
 import { useNavigate } from "react-router-dom";
 
 // Components
 import { Container, Link } from "@mui/material";
-import LoginForm from "../../components/LoginForm/LoginForm";
-import SignupForm from "../../components/SignupForm/SignupForm";
+import LoginForm from "./components/LoginForm/LoginForm";
+import SignupForm from "./components/SignupForm/SignupForm";
 
-const Landing = () => {
+const LoginSingupForm = () => {
   const [showLogin, setShowLogin] = useState(true);
   const { user } = useContext(UserContext);
   const navigate = useNavigate();
@@ -47,4 +49,4 @@ const Landing = () => {
   );
 };
 
-export default Landing;
+export default LoginSingupForm;

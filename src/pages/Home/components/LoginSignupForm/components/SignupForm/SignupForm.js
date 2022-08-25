@@ -1,9 +1,10 @@
 // Services
-import { UserContext } from "../../App";
+import { UserContext } from "../../../../../../containers/CognitoContextProvider/CognitoContextProvider";
+
 import { useState, useContext } from "react";
-import UserPool from "../../utils/UserPool";
-import { getIdTokenFromUser } from "../../utils/userUtils";
-import * as profileServices from "../../services/profileServices";
+import UserPool from "../../../../../../utils/UserPool";
+import { getIdTokenFromUser } from "../../../../../../utils/userUtils";
+import * as profileServices from "../../../../../../services/profileServices";
 
 // Components
 import { Button, TextField, Stack } from "@mui/material";

@@ -1,6 +1,7 @@
 // Services
 import { useContext } from "react";
-import { UserContext } from "../../App";
+import { UserContext } from "../../../../containers/CognitoContextProvider/CognitoContextProvider";
+
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 

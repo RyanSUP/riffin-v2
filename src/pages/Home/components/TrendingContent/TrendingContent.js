@@ -1,9 +1,9 @@
 // Services
-import * as tablatureServices from "../../services/tablatureServices";
+import * as tablatureServices from "../../../../services/tablatureServices";
 
 // Components / hooks
 import { useEffect, useState } from "react";
-import Card from "../Card/Card";
+import Card from "../../../../components/Card/Card";
 import { CircularProgress, Grid } from "@mui/material";
 import { useParams } from "react-router-dom";
 

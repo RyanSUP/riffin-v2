@@ -1,6 +1,6 @@
 import { Grid, Tooltip, IconButton, Box } from "@mui/material";
 import { useState, useEffect } from "react";
-import Bar from "../../../components/Bar/Bar";
+import Bar from "../../../../../components/Bar/Bar";
 import DeleteIcon from '@mui/icons-material/Delete';
 
 

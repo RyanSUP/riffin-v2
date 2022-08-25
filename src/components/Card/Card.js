@@ -1,7 +1,7 @@
 // Components
 import { Grid, Paper } from "@mui/material";
 import Header from "./Header";
-import { UserContext } from "../../App";
+import { UserContext } from "../../containers/CognitoContextProvider/CognitoContextProvider";
 import { useContext, useState } from "react";
 import Content from "./Content";
 import Footer from "./Footer";
