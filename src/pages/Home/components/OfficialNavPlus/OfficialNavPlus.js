@@ -8,7 +8,7 @@ const navStyle = {
 
 function OfficialNavPlus() {
   return (
-    <div style={ navStyle }>
+    <div style={ navStyle } data-testid="OfficialNavPlus">
       <LinkArea />
       <TagArea />
     </div>

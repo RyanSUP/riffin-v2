@@ -8,7 +8,7 @@ import * as profileServices from "services/profileServices";
 import * as userUtils from "utils/userUtils";
 import UserPool from "utils/UserPool";
 
-const UserContext = createContext();
+const UserContext = createContext({});
 
 const CognitoUserProvider = (props) => {
   const [user, setUser] = useState(null); // Cognito User object that also holds profile data from MongoDB

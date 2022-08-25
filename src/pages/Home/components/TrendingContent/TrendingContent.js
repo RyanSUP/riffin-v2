@@ -33,7 +33,7 @@ const TrendingContent = () => {
   }, [tabId, tablatureFromRoute]);
 
   return (
-    <div data-testid="trendingContent">
+    <div data-testid="TrendingContent">
       {trendingTablature === null ? (
         <CircularProgress />
       ) : (

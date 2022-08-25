@@ -1,5 +1,4 @@
 // Components
-import Nav from "./components/Nav/Nav";
 import OfficialNavPlus from './components/OfficialNavPlus/OfficialNavPlus';
 import ContentRoutes from "./components/ContentRoutes/ContentRoutes";
 
@@ -9,7 +8,6 @@ import { Grid } from "@mui/material";
 const Home = () => {
   return (
     <div data-testid="Home">
-      <Nav />
       <Grid container>
         <Grid item xs={12}>
           header

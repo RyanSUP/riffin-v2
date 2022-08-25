@@ -14,8 +14,6 @@ function LinkArea() {
   // latest, trending, collection
   const navigate = useNavigate()
   const { user } = useContext(UserContext)
-  console.log(user)
-
   const navToLatest = () => navigate('/trending')
   const navToTrending = () => navigate('/trending')
   const navToCollection = () => {
@@ -42,9 +40,10 @@ function LinkArea() {
   return (
     <Stack direction="column">
       {/* change latest button */}                         
-      {navLinks.map((link)=> {
+      {navLinks.map((link, i)=> {
         return(
           <Button 
+            key={i}
             endIcon={ link.icon }
             onClick={ link.onClick }            
           >

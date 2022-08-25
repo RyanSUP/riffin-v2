@@ -6,7 +6,6 @@ import { CognitoUserProvider } from 'containers/CognitoUserProvider/CognitoUserP
 import Home from "pages/Home/Home";
 
 function App() {
- console.log('')
   return (
       <ThemeProvider theme={theme}>
         <CognitoUserProvider>
