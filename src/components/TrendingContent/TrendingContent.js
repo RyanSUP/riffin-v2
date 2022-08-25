@@ -31,11 +31,11 @@ const TrendingContent = () => {
   }, [tabId, tablatureFromRoute]);
 
   return (
-    <>
+    <div data-testid="trendingContent">
       {trendingTablature === null ? (
         <CircularProgress />
       ) : (
-        <Grid container spacing={2} >
+        <Grid container spacing={2}>
           {tablatureFromRoute && (
             <Card
               key={-1}
@@ -63,7 +63,7 @@ const TrendingContent = () => {
           })}
         </Grid>
       )}
-    </>
+    </div>
   );
 };
 

@@ -27,7 +27,7 @@ const LoginForm = () => {
   };
 
   return (
-    <form onSubmit={onSubmit}>
+    <form onSubmit={onSubmit} data-testid="loginForm">
       <Stack spacing={2}>
         <TextField
           label="Email"
