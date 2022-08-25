@@ -1,16 +1,12 @@
-// This component acts as the landing page for users that are not signed in.
-
-// Services
+// Components / hooks
 import { useState, useEffect, useContext } from "react";
-import { UserContext } from "../../../../containers/CognitoContextProvider/CognitoContextProvider";
-
-
+import { UserContext } from "containers/CognitoContextProvider/CognitoContextProvider";
 import { useNavigate } from "react-router-dom";
-
-// Components
-import { Container, Link } from "@mui/material";
 import LoginForm from "./components/LoginForm/LoginForm";
 import SignupForm from "./components/SignupForm/SignupForm";
+
+// MUI
+import { Container, Link } from "@mui/material";
 
 const LoginSingupForm = () => {
   const [showLogin, setShowLogin] = useState(true);

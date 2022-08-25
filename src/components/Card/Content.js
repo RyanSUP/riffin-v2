@@ -1,5 +1,8 @@
+// Components and hooks
+import Bar from "components/Bar/Bar";
+
+// MUI
 import { Box, Typography } from "@mui/material";
-import Bar from "../Bar/Bar";
 
 const scrollWrapper = {
   overflowY: "scroll",

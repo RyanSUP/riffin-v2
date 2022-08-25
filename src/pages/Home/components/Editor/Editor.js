@@ -1,14 +1,18 @@
+// Components / hooks
 import { useState, useContext, useEffect } from 'react'
 import { useNavigate, useParams } from "react-router-dom";
-import { UserContext } from "../../../../containers/CognitoContextProvider/CognitoContextProvider";
+import { UserContext } from "containers/CognitoContextProvider/CognitoContextProvider";
 
-import * as tablatureServices from "../../../../services/tablatureServices";
-import * as userUtils from "../../../../utils/userUtils";
+// MUI
+import Box from '@mui/material/Box';
 import { CircularProgress } from "@mui/material";
+
+// Services / utils
+import * as tablatureServices from "services/tablatureServices";
+import * as userUtils from "utils/userUtils";
 import BarGroup from './components/BarGroup';
 import Controls from './components/Controls'
 
-import Box from '@mui/material/Box';
 
 const Editor = () => {
   const [showDeleteButton, setShowDeleteButton] = useState(false); // Is the document already in the database?

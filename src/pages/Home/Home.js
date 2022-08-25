@@ -1,8 +1,10 @@
 // Components
 import Nav from "./components/Nav/Nav";
-import { Grid } from "@mui/material";
 import OfficialNavPlus from './components/OfficialNavPlus/OfficialNavPlus';
 import ContentRoutes from "./components/ContentRoutes/ContentRoutes";
+
+// MUI
+import { Grid } from "@mui/material";
 
 const Home = () => {
   return (

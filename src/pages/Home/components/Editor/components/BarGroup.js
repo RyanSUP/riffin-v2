@@ -1,8 +1,10 @@
-import { Grid, Tooltip, IconButton, Box } from "@mui/material";
+// Componeonts / hooks
 import { useState, useEffect } from "react";
-import Bar from "../../../../../components/Bar/Bar";
-import DeleteIcon from '@mui/icons-material/Delete';
+import Bar from "components/Bar/Bar";
 
+// MUI
+import { Grid, Tooltip, IconButton, Box } from "@mui/material";
+import DeleteIcon from '@mui/icons-material/Delete';
 
 const BarGroup = (props) => {
   const [selectedBar, setSelectedBar] = useState(null);

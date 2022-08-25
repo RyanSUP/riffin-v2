@@ -1,5 +1,8 @@
-import { Box, Typography } from "@mui/material";
+// Components and hooks
 import HeaderButtonGroup from "./HeaderButtonGroup";
+
+// MUI
+import { Box, Typography } from "@mui/material";
 
 const boxStyles = {
   display: "flex",

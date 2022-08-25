@@ -1,9 +1,12 @@
+// Components and hooks
 import { createContext, useState, useCallback, useEffect } from "react";
-import * as profileServices from "../../services/profileServices";
 import { useNavigate } from "react-router-dom";
-import UserPool from "../../utils/UserPool";
-import * as userUtils from "../../utils/userUtils";
+
+// Services / utils
 import { CognitoUser, AuthenticationDetails } from "amazon-cognito-identity-js";
+import * as profileServices from "services/profileServices";
+import * as userUtils from "utils/userUtils";
+import UserPool from "utils/UserPool";
 
 const UserContext = createContext();
 

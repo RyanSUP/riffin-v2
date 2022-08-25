@@ -1,12 +1,12 @@
-import React from 'react'
+// Components / hooks
 import LinkArea from './LinkArea'
 import TagArea from './TagArea'
 
-function OfficialNavPlus() {
-  const navStyle = {
-    margin: 5
-  }
+const navStyle = {
+  margin: 5
+}
 
+function OfficialNavPlus() {
   return (
     <div style={ navStyle }>
       <LinkArea />

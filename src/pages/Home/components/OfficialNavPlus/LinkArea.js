@@ -1,13 +1,14 @@
-import { React, useContext} from 'react'
+// Components / hooks
+import { useContext} from 'react'
 import { useNavigate } from 'react-router-dom';
+import { UserContext } from "containers/CognitoContextProvider/CognitoContextProvider";
+
+// MUI
 import Stack from '@mui/material/Stack';
 import Button from '@mui/material/Button';
 import AddCircleIcon from '@mui/icons-material/AddCircle';
 import TrendingUpIcon from '@mui/icons-material/TrendingUp';
 import CollectionsIcon from '@mui/icons-material/Collections';
-
-import { UserContext } from "../../../../containers/CognitoContextProvider/CognitoContextProvider";
-
 
 function LinkArea() {
   // latest, trending, collection
@@ -37,7 +38,6 @@ function LinkArea() {
       "icon": (<CollectionsIcon />)
     }
   ]
-
 
   return (
     <Stack direction="column">

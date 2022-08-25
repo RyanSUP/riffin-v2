@@ -1,3 +1,4 @@
+// Components / hooks
 import { Route, Routes, Navigate } from "react-router-dom";
 import TrendingContent from "../TrendingContent/TrendingContent";
 import ProfileContent from "../ProfileContent/ProfileContent";

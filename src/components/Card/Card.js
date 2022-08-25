@@ -1,12 +1,15 @@
-// Components
-import { Grid, Paper } from "@mui/material";
-import Header from "./Header";
-import { UserContext } from "../../containers/CognitoContextProvider/CognitoContextProvider";
+// Components and hooks
+import { UserContext } from "containers/CognitoContextProvider/CognitoContextProvider";
 import { useContext, useState } from "react";
+import { useNavigate } from "react-router-dom";
+import Header from "./Header";
 import Content from "./Content";
 import Footer from "./Footer";
+
+//MUI
+import { Grid, Paper } from "@mui/material";
 import { Box } from "@mui/system";
-import { useNavigate } from "react-router-dom";
+
 
 // props: tabData, authorData
 const Card = (props) => {

@@ -1,4 +1,4 @@
-// Components
+// MUI
 import { Avatar, Box, Link, Chip } from "@mui/material";
 
 const wrapperBoxStyles = {

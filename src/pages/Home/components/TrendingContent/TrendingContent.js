@@ -1,11 +1,13 @@
-// Services
-import * as tablatureServices from "../../../../services/tablatureServices";
-
 // Components / hooks
 import { useEffect, useState } from "react";
-import Card from "../../../../components/Card/Card";
-import { CircularProgress, Grid } from "@mui/material";
+import Card from "components/Card/Card";
 import { useParams } from "react-router-dom";
+
+// Services
+import * as tablatureServices from "services/tablatureServices";
+
+// MUI
+import { CircularProgress, Grid } from "@mui/material";
 
 const TrendingContent = () => {
   const [trendingTablature, setTrendingTablature] = useState(null);

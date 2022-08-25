@@ -1,12 +1,14 @@
-// Services
-import * as profileServices from "../../../../services/profileServices";
-import * as userUtils from "../../../../utils/userUtils";
-
 // Components / hooks
 import { useEffect, useState, useContext } from "react";
-import Card from "../../../../components/Card/Card";
+import Card from "components/Card/Card";
 import { useParams } from "react-router-dom";
-import { UserContext } from "../../../../containers/CognitoContextProvider/CognitoContextProvider";
+import { UserContext } from "containers/CognitoContextProvider/CognitoContextProvider";
+
+// Services
+import * as profileServices from "services/profileServices";
+import * as userUtils from "utils/userUtils";
+
+// MUI
 import { Grid } from "@mui/material";
 
 const ProfileContent = () => {
