@@ -23,7 +23,7 @@ test('Home redirects non users to the login page when clicking the Collection bu
   render(<Home />, {wrapper: BrowserRouter})
   const user = userEvent.setup()
   await user.click(screen.getByText(/collection/i))
-  expect(screen.getByTestId('loginForm')).toBeInTheDocument()
+  expect(screen.getByTestId('LoginForm')).toBeInTheDocument()
 })
 
 test('Home shows non users the trending content when clicking the Latest button', async ()=> {
@@ -65,7 +65,7 @@ test('Home shows users profile content when clicking the Collections button', as
   expect(screen.getByTestId('ProfileContent')).toBeInTheDocument()
 })
 
-test('Home content area swaps between showing trending and profile content based on button clicks', async ()=> {
+test('Home content area swaps between showing trending and profile content based on button clicks and user status', async ()=> {
   const providerProps = {
     value: {
       user: {
@@ -79,8 +79,26 @@ test('Home content area swaps between showing trending and profile content based
   customRender(<Home />, {providerProps})
 
   const user = userEvent.setup()
+
+  // Test profile link
   await user.click(screen.getByText(/collection/i))
   expect(screen.getByTestId('ProfileContent')).toBeInTheDocument()
+
+  // Test trending link
+  await user.click(screen.getByText(/trending/i))
+  expect(screen.getByTestId('TrendingContent')).toBeInTheDocument()
+})
+
+test('Home content area swaps between showing trending and login content based on button clicks and non-user status', async ()=> {
+
+  render(<Home />, {wrapper: BrowserRouter})
+  const user = userEvent.setup()
+
+  // Test profile link
+  await user.click(screen.getByText(/collection/i))
+  expect(screen.getByTestId('LoginForm')).toBeInTheDocument()
+
+  // Test trending link
   await user.click(screen.getByText(/trending/i))
   expect(screen.getByTestId('TrendingContent')).toBeInTheDocument()
 })
