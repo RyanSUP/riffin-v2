@@ -1,6 +1,6 @@
 // Components / hooks
 import { useState, useEffect, useContext } from "react";
-import { UserContext } from "containers/CognitoContextProvider/CognitoContextProvider";
+import { UserContext } from "containers/CognitoUserProvider/CognitoUserProvider";
 import { useNavigate } from "react-router-dom";
 import LoginForm from "./components/LoginForm/LoginForm";
 import SignupForm from "./components/SignupForm/SignupForm";

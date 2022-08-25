@@ -1,7 +1,7 @@
 // ! Not concerned with udpating nav imports since it will be depreciated soon.
 // Services
 import { useContext } from "react";
-import { UserContext } from "../../../../containers/CognitoContextProvider/CognitoContextProvider";
+import { UserContext } from "../../../../containers/CognitoUserProvider/CognitoUserProvider";
 
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";

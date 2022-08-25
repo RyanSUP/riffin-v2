@@ -2,7 +2,7 @@
 import { useEffect, useState, useContext } from "react";
 import Card from "components/Card/Card";
 import { useParams } from "react-router-dom";
-import { UserContext } from "containers/CognitoContextProvider/CognitoContextProvider";
+import { UserContext } from "containers/CognitoUserProvider/CognitoUserProvider";
 
 // Services
 import * as profileServices from "services/profileServices";

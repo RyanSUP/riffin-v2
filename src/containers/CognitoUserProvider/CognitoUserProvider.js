@@ -10,7 +10,7 @@ import UserPool from "utils/UserPool";
 
 const UserContext = createContext();
 
-const CognitoUserContext = (props) => {
+const CognitoUserProvider = (props) => {
   const [user, setUser] = useState(null); // Cognito User object that also holds profile data from MongoDB
 
   let navigate = useNavigate();
@@ -128,4 +128,4 @@ const CognitoUserContext = (props) => {
   );
 }
  
-export { CognitoUserContext, UserContext }
+export { CognitoUserProvider, UserContext }

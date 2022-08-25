@@ -1,5 +1,5 @@
 // Components and hooks
-import { UserContext } from "containers/CognitoContextProvider/CognitoContextProvider";
+import { UserContext } from "containers/CognitoUserProvider/CognitoUserProvider";
 import { useContext, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import Header from "./Header";
@@ -41,7 +41,7 @@ const Card = (props) => {
       <Paper style={cardStyles}>
           <Header
             tabName={props.tabData.name}
-            ownedByUser={user.username === props.authorData.user}
+            ownedByUser={user?.username === props.authorData.user}
             isExpanded={isExpanded}
             handleExpand={handleExpand}
             handleEdit={handleEdit}

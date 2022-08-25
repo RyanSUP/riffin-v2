@@ -2,7 +2,7 @@
 
 import { useContext } from "react";
 import { Navigate } from "react-router-dom";
-import { UserContext } from "containers/CognitoContextProvider/CognitoContextProvider";
+import { UserContext } from "containers/CognitoUserProvider/CognitoUserProvider";
 
 const ProtectedRoute = (props) => {
   const { user } = useContext(UserContext);

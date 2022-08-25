@@ -1,5 +1,5 @@
 // Services
-import { UserContext } from "../../../../containers/CognitoContextProvider/CognitoContextProvider";
+import { UserContext } from "../../../../containers/CognitoUserProvider/CognitoUserProvider";
 
 import { useContext } from "react";
 

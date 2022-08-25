@@ -1,6 +1,6 @@
 // Services
 import { useState, useContext } from "react";
-import { UserContext } from "../../../../../../containers/CognitoContextProvider/CognitoContextProvider";
+import { UserContext } from "../../../../../../containers/CognitoUserProvider/CognitoUserProvider";
 
 
 // Components

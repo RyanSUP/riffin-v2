@@ -1,7 +1,7 @@
 // Components / hooks
 import { useContext} from 'react'
 import { useNavigate } from 'react-router-dom';
-import { UserContext } from "containers/CognitoContextProvider/CognitoContextProvider";
+import { UserContext } from "containers/CognitoUserProvider/CognitoUserProvider";
 
 // MUI
 import Stack from '@mui/material/Stack';
