@@ -50,18 +50,19 @@ const TrendingContent = () => {
             />
           )}
           {trendingTablature.map((tablature, index) => {
-            if (tabId !== tablature._id) {
-              return (
-                <Card
-                  key={index}
-                  tabData={tablature}
-                  authorData={{
-                    user: tablature.owner.user,
-                    preferredUsername: tablature.owner.preferredUsername,
-                  }}
-                />
-              );
+            if (tabId === tablature._id) {
+              return <></>
             }
+            return (
+              <Card
+                key={index}
+                tabData={tablature}
+                authorData={{
+                  user: tablature.owner.user,
+                  preferredUsername: tablature.owner.preferredUsername,
+                }}
+              />
+            );
           })}
         </Grid>
       )}
