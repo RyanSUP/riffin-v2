@@ -8,11 +8,9 @@ import CollectionsIcon from '@mui/icons-material/Collections';
 
 import { UserContext } from '../../App'
 
-function LinkArea() {
-  // latest, trending, collection
+function LinkArea() {  
   const navigate = useNavigate()
   const { user } = useContext(UserContext)
-  console.log(user)
 
   const navToLatest = () => navigate('/trending')
   const navToTrending = () => navigate('/trending')

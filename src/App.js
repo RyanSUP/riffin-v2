@@ -12,6 +12,7 @@ import theme from "./Theme";
 
 // Components
 import Nav from './components/Nav/Nav';
+import Header from './components/Header/Header';
 import TablatureEditorPLUS from './pages/TablatureEditorPLUS/TablatureEditorPLUS';
 import OfficialNavPlus from './components/OfficialNavPlus/OfficialNavPlus';
 import TrendingContent from './components/TrendingContent/TrendingContent';
@@ -139,6 +140,7 @@ function App() {
           }}
         >
          <Nav />
+         <Header />
 
           <Grid container>
             <Grid item xs={12}>
