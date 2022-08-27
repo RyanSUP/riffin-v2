@@ -18,7 +18,7 @@ test('Controls load on initialization', ()=> {
   render(<Editor />, {wrapper: BrowserRouter})
   expect(screen.getByLabelText(/save/i)).toBeInTheDocument()
   expect(screen.getByLabelText(/new bar/i)).toBeInTheDocument()
-  expect(screen.getByLabelText(/make private/i)).toBeInTheDocument()
+  expect(screen.getByLabelText(/make public/i)).toBeInTheDocument()
 })
 
 test('Clicking new bar button adds a bar to the bargroup', async () => {
@@ -36,13 +36,13 @@ test('Clicking new bar button adds a bar to the bargroup', async () => {
 test('user can toggle between public and private', async () => {
   render(<Editor />, {wrapper: BrowserRouter})
   const user = userEvent.setup()
-  expect(screen.getByLabelText(/make private/i)).toBeInTheDocument()
-  await user.click(screen.getByLabelText(/make private/i))
   expect(screen.getByLabelText(/make public/i)).toBeInTheDocument()
-  expect(screen.queryByLabelText(/make private/i)).not.toBeInTheDocument()
   await user.click(screen.getByLabelText(/make public/i))
   expect(screen.getByLabelText(/make private/i)).toBeInTheDocument()
   expect(screen.queryByLabelText(/make public/i)).not.toBeInTheDocument()
+  await user.click(screen.getByLabelText(/make private/i))
+  expect(screen.getByLabelText(/make public/i)).toBeInTheDocument()
+  expect(screen.queryByLabelText(/make private/i)).not.toBeInTheDocument()
 })
 
 test('delete a bar removes a bar from the bars array', async () => {

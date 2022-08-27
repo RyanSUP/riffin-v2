@@ -8,7 +8,7 @@ test('save button renders', () => {
 
 test('make private button renders when isPublic is true', () => {
   render(<Controls isPublic={true} />)
-  expect(screen.getByLabelText(/make public/i)).toBeInTheDocument()
+  expect(screen.getByLabelText(/make private/i)).toBeInTheDocument()
 })
 
 test('new bar button renders', () => {
@@ -26,7 +26,7 @@ test('does not show delete button when alloDelete is false', ()=> {
   expect(screen.queryByLabelText(/delete/i)).not.toBeInTheDocument()
 })
 
-test('make public button renders when isPublic is false', ()=> {
+test('"make public" button renders when isPublic is false', ()=> {
   render(<Controls isPublic={false} />)
-  expect(screen.getByLabelText(/make private/i)).toBeInTheDocument()
+  expect(screen.getByLabelText(/make public/i)).toBeInTheDocument()
 })

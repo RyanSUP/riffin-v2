@@ -27,8 +27,8 @@ export default function SpeedDialTooltipOpen(props) {
   const actions = [
     { icon: <PlaylistAddIcon />, title: 'New bar', action: handleAddBar},
     { 
-      icon: props.isPublic ? <VisibilityOffIcon /> : <RemoveRedEyeIcon />, 
-      title: props.isPublic ? 'Make public' : 'Make private', 
+      icon: props.isPublic ? <RemoveRedEyeIcon />: <VisibilityOffIcon />,
+      title: props.isPublic ?  'Make private' : 'Make public', 
       action: handleSetPublic 
     },
     { icon: <SaveIcon />, title: 'Save', action: handleSave },
