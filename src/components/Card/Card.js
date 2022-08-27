@@ -41,7 +41,7 @@ const Card = (props) => {
       <Paper style={cardStyles}>
           <Header
             tabName={props.tabData.name}
-            ownedByUser={user?.username === props.authorData.user}
+            showOwnerControls={user?.username === props.authorData.user}
             isExpanded={isExpanded}
             handleExpand={handleExpand}
             handleEdit={handleEdit}
