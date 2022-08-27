@@ -1,3 +1,19 @@
-test.todo('has email and password fields')
-test.todo('has "LOGIN" button')
-test.todo('form validation when we get to that point')
+// test.todo('has email and password fields')
+// test.todo('has "LOGIN" button')
+// test.todo('form validation when we get to that point')
+
+import { render, screen } from "@testing-library/react";
+import userEvent from "@testing-library/user-event";
+import { BrowserRouter } from "react-router-dom";
+import LoginForm from "./LoginForm";
+
+test('has email and password fields', () => {
+  render(<LoginForm />, {wrapper: BrowserRouter})
+  expect(screen.getByLabelText('Email')).toBeInTheDocument();
+  expect(screen.getByLabelText('Password')).toBeInTheDocument();
+})
+
+test('has "LOGIN" button', () => {
+  render(<LoginForm />, {wrapper: BrowserRouter})
+  expect(screen.getByTestId('login-button')).toBeInTheDocument()
+})
