@@ -1,5 +1,3 @@
-test.todo('non users are shown login form when hitting the /login route')
-test.todo('users are redirected to trending when hitting the /login route')
 test.todo('login form is paired with a "Sign up!" button')
 test.todo('signup form is paired with a "Log in!" button')
 test.todo('clicking the "Sign up!" button shows the signup form')
