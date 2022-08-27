@@ -5,6 +5,8 @@ import userEvent from "@testing-library/user-event";
 import React from 'react'
 import Home from "./Home";
 
+// Helper functions ---- 
+
 const testIfTrendingContentIsInTheDocument = () => {
   expect(screen.getByTestId('TrendingContent')).toBeInTheDocument()
   expect(screen.queryByTestId('LoginForm')).not.toBeInTheDocument()
@@ -23,6 +25,21 @@ const testIfProfileContentIsInTheDocument = () => {
   expect(screen.queryByTestId('LoginForm')).not.toBeInTheDocument()
 }
 
+const customRender = (ui, {providerProps}) => {
+  return render(
+    <UserContext.Provider {...providerProps}>{ui}</UserContext.Provider>,
+    {wrapper: BrowserRouter},
+  )
+}
+
+// Todo ----
+
+test.todo('Home rendes Header on initial load')
+test.todo('Home renders ad space on initial load')
+
+
+// Unit tests ----
+
 test('Home renders trending content area on initial load', async ()=> {
   render(<Home />, {wrapper: BrowserRouter})
   testIfTrendingContentIsInTheDocument()
@@ -32,10 +49,6 @@ test('Home renders OfficialNavPlus on intial load', async ()=> {
   render(<Home />, {wrapper: BrowserRouter})
   expect(screen.getByTestId('OfficialNavPlus')).toBeInTheDocument()
 })
-
-test.todo('Home rendes Header on initial load')
-
-test.todo('Home renders ad space on initial load')
 
 test('Home redirects non users to the login page when clicking the Collection button', async ()=> {
   render(<Home />, {wrapper: BrowserRouter})
@@ -57,13 +70,6 @@ test('Home shows non users the trending content when clicking the Trending butto
   await user.click(screen.getByText(/trending/i))
   testIfTrendingContentIsInTheDocument()
 })
-
-const customRender = (ui, {providerProps}) => {
-  return render(
-    <UserContext.Provider {...providerProps}>{ui}</UserContext.Provider>,
-    {wrapper: BrowserRouter},
-  )
-}
 
 test('Home shows users their profile content when clicking the Collections button', async ()=> {
   const providerProps = {
@@ -115,6 +121,8 @@ test('Home shows users trending content when clicking the Latest button', async 
   await user.click(screen.getByText(/latest/i))
   testIfTrendingContentIsInTheDocument()
 })
+
+// Integration tests ----
 
 test('Content area properly swaps between ProfileContent, TrendingContent, and LoginForm for users who are logged in', async ()=> {
   const providerProps = {
