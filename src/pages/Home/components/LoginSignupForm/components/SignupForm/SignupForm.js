@@ -1,12 +1,11 @@
-// Services
-import { UserContext } from "../../../../../../containers/CognitoUserProvider/CognitoUserProvider";
+// Services / utils
+import * as profileServices from "services/profileServices";
+import UserPool from "utils/UserPool";
+import { getIdTokenFromUser } from "utils/userUtils";
 
+// Components / hooks
+import { UserContext } from "containers/CognitoUserProvider/CognitoUserProvider";
 import { useState, useContext } from "react";
-import UserPool from "../../../../../../utils/UserPool";
-import { getIdTokenFromUser } from "../../../../../../utils/userUtils";
-import * as profileServices from "../../../../../../services/profileServices";
-
-// Components
 import { Button, TextField, Stack } from "@mui/material";
 
 const SignupForm = () => {

@@ -2,13 +2,13 @@
 import { Route, Routes, Navigate } from "react-router-dom";
 import TrendingContent from "../TrendingContent/TrendingContent";
 import ProfileContent from "../ProfileContent/ProfileContent";
-import Landing from "../LoginSignupForm/LoginSignupForm";
+import LoginSignupForm from "../LoginSignupForm/LoginSignupForm";
 import Editor from "../Editor/Editor";
 
 const ContentRoutes = () => {
   return (
     <Routes>
-      <Route path="/login" element={<Landing />} />
+      <Route path="/login" element={<LoginSignupForm />} />
       <Route path="/trending" element={<TrendingContent />} />
       <Route
         path="/profile/:cognitoUsername"

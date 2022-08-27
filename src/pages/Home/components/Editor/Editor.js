@@ -10,8 +10,8 @@ import { CircularProgress } from "@mui/material";
 // Services / utils
 import * as tablatureServices from "services/tablatureServices";
 import * as userUtils from "utils/userUtils";
-import BarGroup from './components/BarGroup';
-import Controls from './components/Controls'
+import BarGroup from './components/BarGroup/BarGroup';
+import Controls from './components/Controls/Controls'
 
 
 const Editor = () => {

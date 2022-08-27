@@ -2,9 +2,9 @@
 import { UserContext } from "containers/CognitoUserProvider/CognitoUserProvider";
 import { useContext, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import Header from "./Header";
-import Content from "./Content";
-import Footer from "./Footer";
+import Header from "./components/Header/Header";
+import Content from "./components/Content/Content";
+import Footer from "./components/Footer/Footer";
 
 //MUI
 import { Grid, Paper } from "@mui/material";

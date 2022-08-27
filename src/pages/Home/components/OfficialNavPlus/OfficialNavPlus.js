@@ -1,6 +1,6 @@
 // Components / hooks
-import LinkArea from './LinkArea'
-import TagArea from './TagArea'
+import LinkArea from './components/LinkArea/LinkArea'
+import TagArea from './components/TagArea/TagArea'
 
 const navStyle = {
   margin: 5

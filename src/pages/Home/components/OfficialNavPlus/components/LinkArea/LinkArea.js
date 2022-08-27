@@ -19,6 +19,7 @@ function LinkArea() {
   const navToCollection = () => {
     user ? navigate(`/profile/${user?.username}`) : navigate('/login')
   }
+  
   const navLinks = [
     {
       "label": "Latest",

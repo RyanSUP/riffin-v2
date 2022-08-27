@@ -1,7 +1,6 @@
 // Services
 import { useState, useContext } from "react";
-import { UserContext } from "../../../../../../containers/CognitoUserProvider/CognitoUserProvider";
-
+import { UserContext } from "containers/CognitoUserProvider/CognitoUserProvider";
 
 // Components
 import { Button, TextField, Stack } from "@mui/material";

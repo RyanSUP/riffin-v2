@@ -1,0 +1,7 @@
+test.todo('/login renders LoginSignupForm component')
+test.todo('/trending renders TrendingContent component')
+test.todo('/profile/:cognitoUsername renders ProfileContent component')
+test.todo('/tablature/:tabId renders TrendingContent component')
+test.todo('/new renders Editor component')
+test.todo('/edit/:tabId renders Editor component')
+test.todo('non existing route renders TrendingContent component')

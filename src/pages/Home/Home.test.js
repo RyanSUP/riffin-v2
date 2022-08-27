@@ -10,14 +10,14 @@ test('Home renders trending content area on initial load', async ()=> {
   expect(screen.getByTestId('TrendingContent')).toBeInTheDocument()
 })
 
-test('Home renders the sanckbar nav menu', async ()=> {
+test('Home renders the sanckbar nav menu on intial load', async ()=> {
   render(<Home />, {wrapper: BrowserRouter})
   expect(screen.getByTestId('OfficialNavPlus')).toBeInTheDocument()
 })
 
-test.todo('Home rendes the Header component')
+test.todo('Home rendes the Header component on initial load')
 
-test.todo('Home renders the ad space')
+test.todo('Home renders the ad space on initial load')
 
 test('Home redirects non users to the login page when clicking the Collection button', async ()=> {
   render(<Home />, {wrapper: BrowserRouter})

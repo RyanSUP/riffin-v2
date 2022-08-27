@@ -49,7 +49,6 @@ const ProfileContent = () => {
 
   return (
     <div data-testid="ProfileContent">
-      <p>profileContent</p>
       <Grid container spacing={2} >
         {tablatures?.map((tablature, index) => 
           (
