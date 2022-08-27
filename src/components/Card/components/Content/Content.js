@@ -21,10 +21,10 @@ const Content = (props) => {
         (
           <div style={scrollWrapper}>
             {props.bars.map((bar, i) => (
-              <>
+              <div key={i}>
                 <Typography>{bar.label}</Typography>
                 <Bar barData={bar} readOnly={true} />
-              </>
+              </div>
             ))}
           </div>
         ) : ( <Bar barData={props.bars[0]} readOnly={true} /> )

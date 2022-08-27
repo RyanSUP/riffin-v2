@@ -28,21 +28,14 @@ const Footer = (props) => {
   return (
     <Box style={wrapperBoxStyles}>
         <Box style={tagBoxStyles}>
-          <Chip 
-            label="Tag" 
-            size="small" 
-            onDelete={()=> console.log("Delete")} 
-          />
-          <Chip 
-            label="Tag" 
-            size="small" 
-            onDelete={()=> console.log("Delete")} 
-          />
-          <Chip 
-            label="Tag" 
-            size="small" 
-            onDelete={()=> console.log("Delete")} 
-          />
+          {props.tags.map((tag, i) =>(
+            <Chip 
+              key={i}
+              label={tag} 
+              size="small" 
+              onDelete={()=> console.log("Delete")} 
+            />
+          ))}
         </Box>
         <Box style={userBoxStyles}>
           <Link 
