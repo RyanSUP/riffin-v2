@@ -80,7 +80,7 @@ const SignupForm = () => {
           value={password}
         />
         <Button variant="contained" type="submit">
-          Signup
+          <span data-testid="signup-button">Signup</span>
         </Button>
       </Stack>
     </form>
