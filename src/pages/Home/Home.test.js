@@ -41,31 +41,56 @@ test.todo('Home renders ad space on initial load')
 // Unit tests ----
 
 test('Home renders trending content area on initial load', async ()=> {
-  render(<Home />, {wrapper: BrowserRouter})
+  const providerProps = {
+    value: {
+      user: null
+    }
+  }
+  customRender(<Home />, {providerProps})
   testIfTrendingContentIsInTheDocument()
 })
 
 test('Home renders OfficialNavPlus on intial load', async ()=> {
-  render(<Home />, {wrapper: BrowserRouter})
+  const providerProps = {
+    value: {
+      user: null
+    }
+  }
+  customRender(<Home />, {providerProps})
   expect(screen.getByTestId('OfficialNavPlus')).toBeInTheDocument()
 })
 
 test('Home redirects non users to the login page when clicking the Collection button', async ()=> {
-  render(<Home />, {wrapper: BrowserRouter})
+  const providerProps = {
+    value: {
+      user: null
+    }
+  }
+  customRender(<Home />, {providerProps})
   const user = userEvent.setup()
   await user.click(screen.getByText(/collection/i))
   testIfLoginFormIsInTheDocument()
 })
 
 test('Home shows non users the trending content when clicking the Latest button', async ()=> {
-  render(<Home />, {wrapper: BrowserRouter})
+  const providerProps = {
+    value: {
+      user: null
+    }
+  }
+  customRender(<Home />, {providerProps})
   const user = userEvent.setup()
   await user.click(screen.getByText(/latest/i))
   testIfTrendingContentIsInTheDocument()
 })
 
 test('Home shows non users the trending content when clicking the Trending button', async ()=> {
-  render(<Home />, {wrapper: BrowserRouter})
+  const providerProps = {
+    value: {
+      user: null
+    }
+  }
+  customRender(<Home />, {providerProps})
   const user = userEvent.setup()
   await user.click(screen.getByText(/trending/i))
   testIfTrendingContentIsInTheDocument()
