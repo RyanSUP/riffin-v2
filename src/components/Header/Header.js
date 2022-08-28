@@ -2,6 +2,7 @@ import React from 'react'
 import { useContext, useState } from "react";
 import { UserContext } from "../../App";
 import { useNavigate } from "react-router-dom";
+import Box from "@mui/material/Box"
 
 
 import HeaderLogo from './HeaderLogo'
@@ -15,12 +16,12 @@ const Header = () => {
   const { user } = useContext(UserContext)
 
   return (
-    <>
+    <Box sx={{ display: 'flex', flexDirection: 'row', justifyContent: 'space-between'}}>
       <HeaderLogo />
       <TagInput />
       <HeaderLinks />      
       {/* <AvatarMenu /> */}
-    </>
+    </Box>
   )
 }
 

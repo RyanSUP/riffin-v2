@@ -62,11 +62,14 @@ const HeaderLinks = () => {
           return link.belongsTo === "create"
         })} 
       />
+      {user ?
       <AvatarMenu 
         headerLinks={headerLinks.filter((link) => {
           return link.belongsTo === "avatar"
         })}
       />
+      : <LoginButton />
+      }
     </>
 
   )
