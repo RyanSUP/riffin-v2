@@ -1,12 +1,15 @@
-// Components
-import { Grid, Paper } from "@mui/material";
-import Header from "./Header";
-import { UserContext } from "../../App";
+// Components and hooks
+import { UserContext } from "containers/CognitoUserProvider/CognitoUserProvider";
 import { useContext, useState } from "react";
-import Content from "./Content";
-import Footer from "./Footer";
-import { Box } from "@mui/system";
 import { useNavigate } from "react-router-dom";
+import Header from "./components/Header/Header";
+import Content from "./components/Content/Content";
+import Footer from "./components/Footer/Footer";
+
+//MUI
+import { Grid, Paper } from "@mui/material";
+import { Box } from "@mui/system";
+
 
 // props: tabData, authorData
 const Card = (props) => {
@@ -38,7 +41,7 @@ const Card = (props) => {
       <Paper style={cardStyles}>
           <Header
             tabName={props.tabData.name}
-            ownedByUser={user.username === props.authorData.user}
+            showOwnerControls={user?.username === props.authorData.user}
             isExpanded={isExpanded}
             handleExpand={handleExpand}
             handleEdit={handleEdit}
