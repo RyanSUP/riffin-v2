@@ -3,6 +3,7 @@ import { useContext, useState } from "react";
 import { UserContext } from "../../App";
 import { useNavigate } from "react-router-dom";
 
+
 import HeaderLogo from './HeaderLogo'
 import TagInput from './TagInput';
 import HeaderLinks from './HeaderLinks';
@@ -17,8 +18,8 @@ const Header = () => {
     <>
       <HeaderLogo />
       <TagInput />
-      <HeaderLinks />
-      <AvatarMenu />
+      <HeaderLinks />      
+      {/* <AvatarMenu /> */}
     </>
   )
 }

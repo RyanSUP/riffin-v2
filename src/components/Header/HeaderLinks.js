@@ -1,97 +1,74 @@
 import { React, useContext, useState, useEffect} from 'react'
 import { useNavigate } from 'react-router-dom';
+import CustomizedMenus from './CreateMenu'
 import AddCircleIcon from '@mui/icons-material/AddCircle';
-
+import { Button } from '@mui/material';
+import Avatar from "@mui/material/Avatar";
+import AvatarMenu from './AvatarMenu';
 import { UserContext } from '../../App'
 import LoginButton from '../Nav/LoginButton'
-import { Button } from '@mui/material';
-import Avatar from '@mui/material/Avatar';
+import { Logout } from '@mui/icons-material';
 
 const HeaderLinks = () => {
   const navigate = useNavigate()
-  const { user } = useContext(UserContext)
+  const { user, logout } = useContext(UserContext)
   const [ links, setLinks ] = useState([])
 
   const navToNew = () => navigate('/new')
   const navToLogin = () => navigate('/login')
   const navToProfile = () => navigate(`/profile/${user?.username}`)
   
-  //  // set state for header links
-  // use effect - check if user
-  // if user return user links
-  // else return non-user links
-
-  
-  const headerLinks = [
+  const headerLinks = [    
     {
-      "name": "Avatar",
-      "onClick" : navToProfile,
-      "icon": (<Avatar />),
-      "isUser" : true
+      "name": "New Guitar Tab",
+      "onClick": () => navigate('/new'),
+      "icon": (<AddCircleIcon />),
+      "belongsTo" : "create"
     },
     {
-      "name": "New",
-      "onClick": navToNew,
+      "name": "New Bass Tab",
+      "onClick": () => navigate('/new'),
       "icon": (<AddCircleIcon />),
-      "isUser" : true
+      "belongsTo" : "create"
     },
     {
       "name": "Login",
-      "onClick": navToLogin,
-      "icon": (<LoginButton />),
-      "isUser" : false
+      "onClick": () => navigate('/login'),
+      "icon": (<AddCircleIcon />),
+      "belongsTo": "avatar"
+    },
+    {
+      "name": "Logout",
+      "onClick": () => logout(),
+      "icon": (<AddCircleIcon />),
+      "belongsTo": "avatar"
     }
   ]
 
   useEffect(() => {
     if (user) { 
-      const userLinks = headerLinks.filter((link) => link.isUser === true)
-      console.log(`userLinks ${userLinks}`)
+      const userLinks = headerLinks.filter((link) => link.isUser === true)      
       setLinks(userLinks)
     } else if (!user) {
-      const nonUserLinks = headerLinks.filter((link) => link.isUser === false)
-      console.log(`nonUserLinks ${nonUserLinks}`)
+      const nonUserLinks = headerLinks.filter((link) => link.isUser === false)      
       setLinks(nonUserLinks)
     }
   }, [user])
 
   return (
     <>
-      {links.map((link) => {
-        return (
-          <Button
-          endIcon = {link.icon}
-          onClick = {link.onClick}
-          >
-          </Button>
-        )
-      })
-      }
+      <CustomizedMenus
+        headerLinks={headerLinks.filter((link) => {
+          return link.belongsTo === "create"
+        })} 
+      />
+      <AvatarMenu 
+        headerLinks={headerLinks.filter((link) => {
+          return link.belongsTo === "avatar"
+        })}
+      />
     </>
-    // <>
-    //   {user ? userLinks.map((link) => {
-    //     if (link.property === "user") {
 
-    //       return (
-    //         <Button
-    //         endIcon={ link.icon }
-    //         onClick={ link.onClick }
-    //       >
-    //       </Button>
-    //     )
-    //   }
-    //   }) : userLinks.map((link) => {
-    //     if (link.property === "nonUser")
-    //     return (
-    //       <Button
-    //         icon={ link.icon }
-    //         onClick={ link.onClick }
-    //       >
-    //       </Button>
-    //     )
-    //   })
-    //   }
-    // </>
   )
 }
 
