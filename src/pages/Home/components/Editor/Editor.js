@@ -1,5 +1,5 @@
 // Components / hooks
-import { useState, useContext, useEffect } from 'react'
+import { useState, useContext, useEffect, useCallback } from 'react'
 import { useNavigate, useParams } from "react-router-dom";
 import { UserContext } from "containers/CognitoUserProvider/CognitoUserProvider";
 
@@ -78,7 +78,7 @@ const Editor = () => {
     setTablature({ ...tablature });
   };
 
-  const addBarToTablature = () => {
+  const addBarToTablature = useCallback(() => {
     // TODO Find a way for this be done through BarController?
     const mapOfLastColumnIndexes = {
       40: true,
@@ -115,7 +115,7 @@ const Editor = () => {
 
     tablature.bars = [...previousBars, newBar];
     setTablature({ ...tablature });
-  };
+  }, [tablature]);
 
   const setPublic = () => {
     const udpatedTablature = {
@@ -154,7 +154,7 @@ const Editor = () => {
         setIsLoading(false)
       });
     }
-  }, [tabId]);
+  }, [tabId, navigate]);
   
   useEffect(() => {
     if (user) {
@@ -169,7 +169,7 @@ const Editor = () => {
     if(!tabId && tablature.bars.length === 0) {
       addBarToTablature()
     }
-  }, [tablature, tabId])
+  }, [tablature, tabId, addBarToTablature])
 
   return (
     <div data-testid="Editor">
