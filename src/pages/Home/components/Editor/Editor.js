@@ -172,7 +172,7 @@ const Editor = () => {
   }, [tablature, tabId])
 
   return (
-    <>
+    <div data-testid="Editor">
       {isLoading ? ( <CircularProgress /> ) : (
         <>
           <Box sx={{display: 'flex', justifyContent: 'space-between'}}>
@@ -201,7 +201,7 @@ const Editor = () => {
           />
         </>
       )}
-    </>
+    </div>
   );
 }
  

@@ -24,7 +24,6 @@ const TrendingContent = () => {
 
   useEffect(() => {
     if (tabId && tablatureFromRoute === null) {
-      console.log(tabId);
       tablatureServices.getTablatureById(tabId).then((res) => {
         console.log(res);
         setTablatureFromRoute(res.tablature);

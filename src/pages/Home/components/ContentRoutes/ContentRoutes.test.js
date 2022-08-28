@@ -1,7 +1,46 @@
-test.todo('/login renders LoginSignupForm component')
-test.todo('/trending renders TrendingContent component')
-test.todo('/profile/:cognitoUsername renders ProfileContent component')
-test.todo('/tablature/:tabId renders TrendingContent component')
-test.todo('/new renders Editor component')
-test.todo('/edit/:tabId renders Editor component')
-test.todo('non existing route renders TrendingContent component')
+import { render, screen } from "@testing-library/react";
+import {MemoryRouter} from 'react-router-dom'
+import { UserContext } from "containers/CognitoUserProvider/CognitoUserProvider";
+import userEvent from "@testing-library/user-event";
+import ContentRoutes from './ContentRoutes'
+
+const renderContentRoutesWithMemoryWrapper = (entries) => render(
+  <MemoryRouter initialEntries={entries}>
+    <ContentRoutes />
+  </MemoryRouter>
+)
+
+test('/login renders LoginSignupForm component', ()=> {
+  renderContentRoutesWithMemoryWrapper(['/login'])
+  expect(screen.getByText('Login')).toBeInTheDocument()
+})
+
+test('/trending renders TrendingContent component', ()=> {
+  renderContentRoutesWithMemoryWrapper(['/trending'])
+  expect(screen.getByTestId('TrendingContent')).toBeInTheDocument()
+})
+
+test('/profile/:cognitoUsername renders ProfileContent component', ()=> {
+  renderContentRoutesWithMemoryWrapper(['/profile/2'])
+  expect(screen.getByTestId('ProfileContent')).toBeInTheDocument()
+})
+
+test('/tablature/:tabId renders TrendingContent component', ()=> {
+  renderContentRoutesWithMemoryWrapper(['/tablature/2'])
+  expect(screen.getByTestId('TrendingContent')).toBeInTheDocument()
+})
+
+test('/new renders Editor component', ()=> {
+  renderContentRoutesWithMemoryWrapper(['/new'])
+  expect(screen.getByTestId("Editor")).toBeInTheDocument();
+})
+
+test('/edit/:tabId renders Editor component', ()=> {
+  renderContentRoutesWithMemoryWrapper(['/edit/2'])
+  expect(screen.getByTestId("Editor")).toBeInTheDocument();
+})
+
+test('non existing route renders TrendingContent component', ()=> {
+  renderContentRoutesWithMemoryWrapper(['/babycriminal'])
+  expect(screen.getByTestId('TrendingContent')).toBeInTheDocument()
+})
