@@ -2,8 +2,6 @@ import { React, useContext, useState, useEffect} from 'react'
 import { useNavigate } from 'react-router-dom';
 import CustomizedMenus from './CreateMenu'
 import AddCircleIcon from '@mui/icons-material/AddCircle';
-import { Button } from '@mui/material';
-import Avatar from "@mui/material/Avatar";
 import AvatarMenu from './AvatarMenu';
 import { UserContext } from '../../App'
 import LoginButton from '../Nav/LoginButton'
@@ -14,9 +12,6 @@ const HeaderLinks = () => {
   const { user, logout } = useContext(UserContext)
   const [ links, setLinks ] = useState([])
 
-  const navToNew = () => navigate('/new')
-  const navToLogin = () => navigate('/login')
-  const navToProfile = () => navigate(`/profile/${user?.username}`)
   
   const headerLinks = [    
     {
