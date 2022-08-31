@@ -6,6 +6,7 @@ import AvatarMenu from './AvatarMenu';
 import { UserContext } from '../../App'
 import LoginButton from '../Nav/LoginButton'
 import { Logout } from '@mui/icons-material';
+import Box from "@mui/material/Box"
 
 const HeaderLinks = () => {
   const navigate = useNavigate()
@@ -50,13 +51,23 @@ const HeaderLinks = () => {
     }
   }, [user])
 
+  const buttonStyles = {
+    paddingLeft: '10px',
+    paddingRight: '10px',
+    display: 'inline-block',    
+    justifyContent: 'space-even'
+  }
+
   return (
-    <>
+    <>    
+    <Box style={buttonStyles}>
       <CustomizedMenus
-        headerLinks={headerLinks.filter((link) => {
-          return link.belongsTo === "create"
-        })} 
+      headerLinks={headerLinks.filter((link) => {
+        return link.belongsTo === "create"
+      })} 
       />
+    </Box>
+    <Box style={buttonStyles}>
       {user ?
       <AvatarMenu 
         headerLinks={headerLinks.filter((link) => {
@@ -65,8 +76,8 @@ const HeaderLinks = () => {
       />
       : <LoginButton />
       }
+    </Box>
     </>
-
   )
 }
 
