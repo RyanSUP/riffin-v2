@@ -22,6 +22,7 @@ const tabNameStyles ={
 }
 
 const Header = (props) => {
+  
   return (
       <Box style={boxStyles}>
         <Typography style={tabNameStyles} >{props.tabName}</Typography>
