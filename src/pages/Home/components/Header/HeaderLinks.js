@@ -1,11 +1,10 @@
-import { React, useContext, useState, useEffect} from 'react'
+import { React, useContext } from 'react'
 import { useNavigate } from 'react-router-dom';
 import CustomizedMenus from './CreateMenu'
 import AddCircleIcon from '@mui/icons-material/AddCircle';
 import AvatarMenu from './AvatarMenu';
 import { UserContext } from 'containers/CognitoUserProvider/CognitoUserProvider'
 import LoginButton from './LoginButton'
-import { Logout } from '@mui/icons-material';
 import Box from "@mui/material/Box"
 
 const HeaderLinks = () => {

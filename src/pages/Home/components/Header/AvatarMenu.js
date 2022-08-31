@@ -1,6 +1,5 @@
 // Services
-import { UserContext } from "containers/CognitoUserProvider/CognitoUserProvider";
-import { useState, useContext } from "react";
+import { useState} from "react";
 
 // Components
 import Box from "@mui/material/Box";
