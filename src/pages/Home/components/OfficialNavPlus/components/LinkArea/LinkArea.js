@@ -10,10 +10,11 @@ import AddCircleIcon from '@mui/icons-material/AddCircle';
 import TrendingUpIcon from '@mui/icons-material/TrendingUp';
 import CollectionsIcon from '@mui/icons-material/Collections';
 
-function LinkArea() {
-  // latest, trending, collection
+
+function LinkArea() {  
   const navigate = useNavigate()
   const { user } = useContext(UserContext)
+
   const navToLatest = () => navigate('/trending')
   const navToTrending = () => navigate('/trending')
   const navToCollection = () => {
