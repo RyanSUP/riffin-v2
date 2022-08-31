@@ -1,11 +1,15 @@
-// Components
-import { Grid, Paper, Container } from "@mui/material";
-import Header from "./Header";
-import { UserContext } from "../../App";
+// Components and hooks
+import { UserContext } from "containers/CognitoUserProvider/CognitoUserProvider";
 import { useContext, useState } from "react";
-import Content from "./Content";
-import MetaData from "./MetaData";
 import { useNavigate } from "react-router-dom";
+import Header from "./components/Header/Header";
+import Content from "./components/Content/Content";
+import Footer from "./components/Footer/Footer";
+
+//MUI
+import { Grid, Paper } from "@mui/material";
+import { Box } from "@mui/system";
+
 
 // props: tabData, authorData
 const Card = (props) => {
@@ -13,44 +17,43 @@ const Card = (props) => {
     props.isExpanded ? props.isExpanded : false
   );
   const { user } = useContext(UserContext);
-  const navigate = useNavigate();
+  const navigate = useNavigate()
+
+  const gridItemStyles = {
+    padding: "16px"
+  }
+
+  const contentBoxStyles = {
+    display: "flex",
+    justifyContent: "center"
+  }
 
   const cardStyles = {
-    padding: "5px",
+    padding: "15px",
   };
+
+  const handleEdit = () => navigate(`/edit/${props.tabData._id}`)
 
   const handleExpand = () => setIsExpanded(!isExpanded);
 
-  const navigateToProfile = () => {
-    navigate(`/profile/${props.authorData.user}`);
-  };
-
   return (
-    <Grid item lg={isExpanded ? 10 : 5} xs={12}>
+    <Grid item lg={isExpanded ? 12 : 6} xs={12} style={gridItemStyles}>
       <Paper style={cardStyles}>
-        <Container>
           <Header
             tabName={props.tabData.name}
-            ownedByUser={user.username === props.authorData.user}
+            showOwnerControls={user?.username === props.authorData.user}
             isExpanded={isExpanded}
             handleExpand={handleExpand}
+            handleEdit={handleEdit}
           />
-          {isExpanded && (
-            <MetaData
-              preferredUsername={props.authorData.preferredUsername}
-              tags={props.tabData.tags}
-              navigateToProfile={navigateToProfile}
-            />
-          )}
-          <Content bars={props.tabData.bars} isExpanded={isExpanded} />
-          {!isExpanded && (
-            <MetaData
-              preferredUsername={props.authorData.preferredUsername}
-              tags={props.tabData.tags}
-              navigateToProfile={navigateToProfile}
-            />
-          )}
-        </Container>
+          <Box style={contentBoxStyles}>
+            <Content bars={props.tabData.bars} isExpanded={isExpanded} />
+          </Box>
+          <Footer
+            preferredUsername={props.authorData.preferredUsername}
+            user={props.authorData.user}
+            tags={props.tabData.tags}
+          />
       </Paper>
     </Grid>
   );
