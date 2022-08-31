@@ -27,14 +27,15 @@ const HeaderLinks = () => {
     {
       "name": "Login",
       "onClick": () => navigate('/login'),
-      "icon": (<AddCircleIcon />),
-      "belongsTo": "avatar"
+      "icon": (<AddCircleIcon />),      
+      "belongsTo": "avatar",
     },
     {
       "name": "Logout",
       "onClick": () => logout(),
       "icon": (<AddCircleIcon />),
-      "belongsTo": "avatar"
+      "belongsTo": "avatar",
+      "isLoggedInUser": true
     }
   ]
 
@@ -58,7 +59,7 @@ const HeaderLinks = () => {
       {user ?
       <AvatarMenu 
         headerLinks={headerLinks.filter((link) => {
-          return link.belongsTo === "avatar"
+          return link.belongsTo === "avatar" && link.isLoggedInUser === true
         })}
       />
       : <LoginButton />
