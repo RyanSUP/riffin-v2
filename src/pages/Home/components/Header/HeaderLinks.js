@@ -11,8 +11,6 @@ import Box from "@mui/material/Box"
 const HeaderLinks = () => {
   const navigate = useNavigate()
   const { user, logout } = useContext(UserContext)
-  const [ links, setLinks ] = useState([])
-
   
   const headerLinks = [    
     {
@@ -40,16 +38,6 @@ const HeaderLinks = () => {
       "belongsTo": "avatar"
     }
   ]
-
-  useEffect(() => {
-    if (user) { 
-      const userLinks = headerLinks.filter((link) => link.isUser === true)      
-      setLinks(userLinks)
-    } else if (!user) {
-      const nonUserLinks = headerLinks.filter((link) => link.isUser === false)      
-      setLinks(nonUserLinks)
-    }
-  }, [user])
 
   const buttonStyles = {
     paddingLeft: '10px',

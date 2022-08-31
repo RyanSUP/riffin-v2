@@ -5,16 +5,16 @@ import { useState, useContext } from "react";
 // Components
 import Box from "@mui/material/Box";
 import IconButton from "@mui/material/IconButton";
-import Typography from "@mui/material/Typography";
+
 import Menu from "@mui/material/Menu";
 import Avatar from "@mui/material/Avatar";
 import Tooltip from "@mui/material/Tooltip";
 import MenuItem from "@mui/material/MenuItem";
 
 const AvatarMenu = (props) => {
-  const { logout } = useContext(UserContext);  
+  // const { logout } = useContext(UserContext);  
   const [anchorElUser, setAnchorElUser] = useState(null);
-  const { user } = useContext(UserContext);  
+  // const { user } = useContext(UserContext);  
 
   // Handles opening the user avatar menu
   const handleOpenUserMenu = (event) => {
