@@ -4,10 +4,12 @@ import ToolTipIconButton from "components/TooltipIconButton/ToolTipIconButton";
 
 const ToggledIconButton = (props) => {
   const [showIconA, setShowIconA] = useState(props.startOnA)
+  
   const handleClick = () => {
     props.handleClick()
     setShowIconA(!showIconA)
   }
+
   return (
     <>
       {showIconA

@@ -2,12 +2,12 @@
 import EditIconButton from "../EditIconButton/EditIconButton";
 import FavoriteIconButton from "../FavoriteIconButton/FavoriteIconButton";
 import ShareIconButton from "../ShareIconButton/ShareIconButton";
+import ToggledIconButton from "components/ToggledIconButton/ToggledIconButton";
 
 // MUI
 import { Box, Typography } from "@mui/material";
 import OpenInFullIcon from "@mui/icons-material/OpenInFull";
 import CloseFullscreenRoundedIcon from "@mui/icons-material/CloseFullscreenRounded";
-import ToggledIconButton from "components/ToggledIconButton/ToggledIconButton";
 
 const boxStyles = {
   display: "flex",

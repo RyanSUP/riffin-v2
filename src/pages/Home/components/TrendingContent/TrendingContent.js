@@ -7,7 +7,7 @@ import * as tablatureServices from "services/tablatureServices";
 
 // MUI
 import { CircularProgress } from "@mui/material";
-import CardGrid from "containers/CardGrid/CardGrid";
+import CardGrid from "components/CardGrid/CardGrid";
 
 const TrendingContent = () => {
   const [trendingTablature, setTrendingTablature] = useState(null);

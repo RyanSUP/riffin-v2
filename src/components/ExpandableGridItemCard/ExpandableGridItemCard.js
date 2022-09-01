@@ -1,16 +1,16 @@
-import { Grid } from "@mui/material";
+// Components / hooks
 import { useState } from "react";
 import Card from "components/Card/Card";
-const ExpandableCardContainer = (props) => {
+
+// MUI
+import { Grid } from "@mui/material";
+
+const ExpandableGridItemCard = (props) => {
   const [isExpanded, setIsExpanded] = useState(false);
   const handleExpand = () => setIsExpanded(!isExpanded);
 
-  const gridItemStyles = {
-    padding: "16px"
-  }
-
   return (
-    <Grid item lg={isExpanded ? 12 : 6} xs={12} style={gridItemStyles}>
+    <Grid item lg={isExpanded ? 12 : 6} xs={12} >
       <Card
         handleExpand={handleExpand}
         tabData={props.tabData}
@@ -21,4 +21,4 @@ const ExpandableCardContainer = (props) => {
   );
 }
  
-export default ExpandableCardContainer;
+export default ExpandableGridItemCard;

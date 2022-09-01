@@ -1,6 +1,4 @@
 // Components and hooks
-import { UserContext } from "containers/CognitoUserProvider/CognitoUserProvider";
-import { useNavigate } from "react-router-dom";
 import Header from "./components/Header/Header";
 import Content from "./components/Content/Content";
 import Footer from "./components/Footer/Footer";
@@ -9,10 +7,7 @@ import Footer from "./components/Footer/Footer";
 import { Paper } from "@mui/material";
 import { Box } from "@mui/system";
 
-
-// props: tabData, authorData
 const Card = (props) => {
-  const navigate = useNavigate()
 
   const contentBoxStyles = {
     display: "flex",
