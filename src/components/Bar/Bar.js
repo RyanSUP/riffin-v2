@@ -1,5 +1,7 @@
 // Services
 import { useRef } from "react";
+import { darkTheme } from "Theme";
+
 
 const Bar = (props) => {
   const inputRef = useRef(); // This is used to know which bar the user has selected.
@@ -13,9 +15,11 @@ const Bar = (props) => {
     zIndex: 2,
     outline: "none",
     border: "none",
+    color: darkTheme.palette.primary.main
   };
   
   const dashesStyle = {
+    background: "transparent",
     margin: 0,
     position: "absolute",
     resize: "none",
@@ -25,7 +29,7 @@ const Bar = (props) => {
     zIndex: 1,
     outline: "none",
     border: "none",
-    color: "darkgrey"
+    color: darkTheme.palette.background.default
   };
 
   return (
