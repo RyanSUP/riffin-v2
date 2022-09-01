@@ -1,10 +1,13 @@
+// Components / hooks
+import EditIconButton from "../EditIconButton/EditIconButton";
+import FavoriteIconButton from "../FavoriteIconButton/FavoriteIconButton";
+import ShareIconButton from "../ShareIconButton/ShareIconButton";
+
 // MUI
-import { Box, Typography, IconButton } from "@mui/material";
+import { Box, Typography } from "@mui/material";
 import OpenInFullIcon from "@mui/icons-material/OpenInFull";
-import ShareIcon from "@mui/icons-material/Share";
-import FavoriteBorderIcon from "@mui/icons-material/FavoriteBorder";
 import CloseFullscreenRoundedIcon from "@mui/icons-material/CloseFullscreenRounded";
-import EditIcon from '@mui/icons-material/Edit';
+import ToggledIconButton from "components/ToggledIconButton/ToggledIconButton";
 
 const boxStyles = {
   display: "flex",
@@ -22,30 +25,23 @@ const tabNameStyles ={
 }
 
 const Header = (props) => {
-  
   return (
-      <Box style={boxStyles}>
-        <Typography style={tabNameStyles} >{props.tabName}</Typography>
-        <Box sx={{display: "inline"}}>
-        <IconButton disabled={props.showOwnerControls}>
-          <FavoriteBorderIcon />
-        </IconButton>
-        <IconButton>
-          <ShareIcon />
-        </IconButton>
-        {props.showOwnerControls &&
-          <IconButton onClick={props.handleEdit}>
-            <EditIcon />
-          </IconButton>
+    <Box style={boxStyles}>
+      <Typography style={tabNameStyles} >{props.tabData.name}</Typography>
+      <Box sx={{display: "inline"}}>
+        <FavoriteIconButton isDisabled={props.isOwnedByUser} />
+        <ShareIconButton />
+        {props.isOwnedByUser &&
+          <EditIconButton tab_id={props.tabData._id}/>
         }
-        <IconButton onClick={props.handleExpand}>
-          {props.isExpanded 
-            ?
-              <CloseFullscreenRoundedIcon />
-            :
-              <OpenInFullIcon />
-          }
-        </IconButton>
+        <ToggledIconButton
+          iconA={<CloseFullscreenRoundedIcon />}
+          titleA={""}
+          iconB={<OpenInFullIcon />}
+          titleB={"Expand"}
+          startOnA={props.isExpanded}
+          handleClick={props.handleExpand}
+        />
       </Box>
     </Box>
   );

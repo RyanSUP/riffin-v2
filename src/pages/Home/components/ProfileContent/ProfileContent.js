@@ -1,6 +1,5 @@
 // Components / hooks
 import { useEffect, useState, useContext } from "react";
-import Card from "components/Card/Card";
 import { useParams } from "react-router-dom";
 import { UserContext } from "containers/CognitoUserProvider/CognitoUserProvider";
 import CardGrid from "containers/CardGrid/CardGrid";
@@ -37,7 +36,7 @@ const ProfileContent = () => {
               return tab
             }))
         });
-      } else if(user) {
+      } else {
         profileServices.getUsersPublicInfo(cognitoUsername)
         .then((res) => {
           setTablature(res.usersTablature.map((tab) => {
