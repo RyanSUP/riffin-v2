@@ -1,5 +1,5 @@
 // Components / hooks
-import ExpandableCardContainer from "components/ExpandableGridItemCard/ExpandableGridItemCard";
+import ExpandableGridItemCard from "components/ExpandableGridItemCard/ExpandableGridItemCard";
 import { useContext } from "react";
 import { UserContext } from "containers/CognitoUserProvider/CognitoUserProvider";
 
@@ -12,7 +12,7 @@ const CardGrid = (props) => {
   return (
     <Grid container spacing={2}>
       {props.tablature.map((tab, index) => (
-        <ExpandableCardContainer 
+        <ExpandableGridItemCard 
           tabData={tab}
           key={index}
           user={user}
