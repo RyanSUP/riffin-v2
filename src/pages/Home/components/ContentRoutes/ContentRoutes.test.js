@@ -1,7 +1,5 @@
 import { render, screen } from "@testing-library/react";
 import {MemoryRouter} from 'react-router-dom'
-import { UserContext } from "containers/CognitoUserProvider/CognitoUserProvider";
-import userEvent from "@testing-library/user-event";
 import ContentRoutes from './ContentRoutes'
 
 const renderContentRoutesWithMemoryWrapper = (entries) => render(

@@ -1,7 +1,7 @@
 // MUI
 import { IconButton, Tooltip } from "@mui/material";
 
-const ToolTipIconButton = (props) => {
+const TooltipIconButton = (props) => {
   return (
     <Tooltip title={props.title}>
       <IconButton onClick={props.onClick}>
@@ -11,4 +11,4 @@ const ToolTipIconButton = (props) => {
   );
 }
  
-export default ToolTipIconButton;
+export default TooltipIconButton;

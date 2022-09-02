@@ -1,10 +1,17 @@
 // Components / hooks
 import { useState } from "react";
-import ToolTipIconButton from "components/TooltipIconButton/ToolTipIconButton";
+import TooltipIconButton from "components/TooltipIconButton/TooltipIconButton";
 
 const ToggledIconButton = (props) => {
-  const [showIconA, setShowIconA] = useState(props.startOnA)
-  
+  const [showIconA, setShowIconA] = useState(
+    props.startOnA === undefined || props.startOnA === true
+    ? true
+    : false
+  )
+
+  const titleA = props.titleA === undefined ? "" : props.titleA
+  const titleB = props.titleB === undefined ? "" : props.titleB
+
   const handleClick = () => {
     props.handleClick()
     setShowIconA(!showIconA)
@@ -14,14 +21,14 @@ const ToggledIconButton = (props) => {
     <>
       {showIconA
         ?
-          <ToolTipIconButton
-            title={props.titleA}
+          <TooltipIconButton
+            title={titleA}
             icon={props.iconA}
             onClick={handleClick}
           />
         :
-          <ToolTipIconButton
-            title={props.titleB}
+          <TooltipIconButton
+            title={titleB}
             icon={props.iconB}
             onClick={handleClick}
           />
