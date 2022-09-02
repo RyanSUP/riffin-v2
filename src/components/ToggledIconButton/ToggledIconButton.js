@@ -1,6 +1,6 @@
 // Components / hooks
 import { useState } from "react";
-import TooltipIconButton from "components/TooltipIconButton/TooltipIconButton";
+import TooltipIconButton from "../TooltipIconButton/TooltipIconButton";
 
 const ToggledIconButton = (props) => {
   const [showIconA, setShowIconA] = useState(
