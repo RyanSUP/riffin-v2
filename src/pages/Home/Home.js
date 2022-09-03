@@ -1,7 +1,9 @@
 // Components
 import OfficialNavPlus from './components/OfficialNavPlus/OfficialNavPlus';
 import ContentRoutes from "./components/ContentRoutes/ContentRoutes";
-import Header from './components/Header/Header';
+import HeaderLinks from './components/HeaderLinks/HeaderLinks';
+import HeaderLogo from './components/HeaderLogo/HeaderLogo';
+import TagBar from './components/TagBar/TagBar';
 import { useState } from 'react';
 
 // MUI
@@ -26,29 +28,48 @@ const Home = () => {
   return (
     <div data-testid="Home">
       <Grid container>
+
         <Grid item xs={12}>
-          <Header 
-            addTag={addTag}
-            deleteTag={deleteTag}
-            clearTags={clearTags}
-            tags={tags}
-            tagBarTitle={tagBarTitle}
-          />
+          <Grid container>
+
+            <Grid item xs={2}>
+              <HeaderLogo />
+            </Grid>
+
+            <Grid item xs={8}>        
+              <TagBar 
+                addTag={addTag}
+                deleteTag={deleteTag}
+                clearTags={clearTags}
+                tags={tags}
+                tagBarTitle={tagBarTitle}
+              />
+            </Grid>
+
+            <Grid item xs={2}>        
+              <HeaderLinks />      
+            </Grid>
+            
+          </Grid> 
         </Grid>
+
         <Grid item xs={2}>                
           <OfficialNavPlus 
             addTag={addTag}
           />
         </Grid>
+
         <Grid item xs={8}>
           <ContentRoutes 
             setTagBarTitle={setTagBarTitle}
             tags={tags}
           />
         </Grid>
+
         <Grid item xs={2}>
           Ad
         </Grid>
+
       </Grid>
     </div>
   );
