@@ -11,8 +11,6 @@ const Home = () => {
   const [tags, setTags] = useState([])
   const [tagBarTitle, setTagBarTitle] = useState("Search")
 
-  const changeTagBarTitle = (newTitle) => setTagBarTitle(newTitle)
-
   const addTag = (tag) => {
     if(tags.includes(tag) || tag === '' || tag === ' ') {
       return
@@ -44,7 +42,7 @@ const Home = () => {
         </Grid>
         <Grid item xs={8}>
           <ContentRoutes 
-            changeTagBarTitle={setTagBarTitle}
+            setTagBarTitle={setTagBarTitle}
             tags={tags}
           />
         </Grid>

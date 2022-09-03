@@ -173,12 +173,12 @@ const Editor = (props) => {
   }, [tablature, tabId, addBarToTablature])
 
   useEffect(() => {
-    props.changeTagBarTitle('add tags to this tab!')
+    props.setTagBarTitle('add tags to this tab!')
   }, [props])
 
   useEffect(() => {
     return () => {
-      props.changeTagBarTitle('Search')
+      props.setTagBarTitle('Search')
     };
   }, [props]);
 
