@@ -1,10 +1,11 @@
 // Services
 import { useRef } from "react";
-import { darkTheme } from "Theme";
-
+// MUI hook that gives components access to theme stored in ThemeProvider
+import { useTheme } from "@mui/material/styles";
 
 const Bar = (props) => {
   const inputRef = useRef(); // This is used to know which bar the user has selected.
+  const theme = useTheme(); // theme obtained with invoking this hook
   
   const inputsStyle = {
     background: "transparent",
@@ -15,7 +16,7 @@ const Bar = (props) => {
     zIndex: 2,
     outline: "none",
     border: "none",
-    color: darkTheme.palette.primary.main
+    color: theme.palette.primary.main
   };
   
   const dashesStyle = {
@@ -29,7 +30,7 @@ const Bar = (props) => {
     zIndex: 1,
     outline: "none",
     border: "none",
-    color: darkTheme.palette.background.default
+    color: theme.palette.background.default
   };
 
   return (
