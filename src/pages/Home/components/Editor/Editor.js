@@ -38,6 +38,7 @@ const Editor = (props) => {
   };
 
   const saveTablatureToDatabase = () => {
+    tablature.tags = props.tags
     const updateExistingTablature = (idToken) => {
       setIsLoading(true);
       tablatureServices.update(tablature, idToken).then((res) => {

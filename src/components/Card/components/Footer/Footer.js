@@ -33,7 +33,6 @@ const Footer = (props) => {
               key={i}
               label={tag} 
               size="small" 
-              onDelete={()=> console.log("Delete")} 
             />
           ))}
         </Box>

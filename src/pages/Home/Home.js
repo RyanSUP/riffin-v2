@@ -45,6 +45,7 @@ const Home = () => {
         <Grid item xs={8}>
           <ContentRoutes 
             changeTagBarTitle={setTagBarTitle}
+            tags={tags}
           />
         </Grid>
         <Grid item xs={2}>
