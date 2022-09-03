@@ -1,32 +1,33 @@
 import { render, screen } from "@testing-library/react"
+import { BrowserRouter } from "react-router-dom"
 import Header from './Header'
 
-test('header does not render edit button if showOwnerControls is false', ()=> {
-  render(<Header showOwnerControls={false} />)
+test('header does not render edit button if isOwnedByUser is false', ()=> {
+  render(<Header tabData={{name: 'test'}} user={{username: 'test'}} isOwnedByUser={false} />)
   expect(screen.queryByTestId('EditIcon')).not.toBeInTheDocument()
 })
 
 test('header renders like button', ()=> {
-  render(<Header />)
+  render(<Header tabData={{name: 'test'}} user={{username: 'test'}} />)
   expect(screen.getByTestId('FavoriteBorderIcon')).toBeInTheDocument()
 })
 
 test('header renders share button', ()=> {
-  render(<Header />)
+  render(<Header tabData={{name: 'test'}} user={{username: 'test'}} />)
   expect(screen.getByTestId('ShareIcon')).toBeInTheDocument()
 })
 
 test('header renders OpenInFullIcon when isExpanded is false', ()=> {
-  render(<Header isExpanded={false} />)
+  render(<Header tabData={{name: 'test'}} user={{username: 'test'}} isExpanded={false} />)
   expect(screen.getByTestId('OpenInFullIcon')).toBeInTheDocument()
 })
 
-test('header renders edit button if showOwnerControls is true', ()=> {
-  render(<Header showOwnerControls={true} />)
+test('header renders edit button if isOwnedByUser is true', ()=> {
+  render(<Header tabData={{name: 'test'}} user={{username: 'test'}} isOwnedByUser={true} />, {wrapper: BrowserRouter})
   expect(screen.getByTestId('EditIcon')).toBeInTheDocument()
 })
 
 test('header renders CloseFullscreenRoundedIcon when isExpanded is true', async ()=> {
-  render(<Header isExpanded={true}/>)
+  render(<Header tabData={{name: 'test'}} user={{username: 'test'}} isExpanded={true}/>)
   expect(screen.getByTestId('CloseFullscreenRoundedIcon')).toBeInTheDocument()
 })

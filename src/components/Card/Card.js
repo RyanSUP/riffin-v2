@@ -1,27 +1,13 @@
 // Components and hooks
-import { UserContext } from "containers/CognitoUserProvider/CognitoUserProvider";
-import { useContext, useState } from "react";
-import { useNavigate } from "react-router-dom";
 import Header from "./components/Header/Header";
 import Content from "./components/Content/Content";
 import Footer from "./components/Footer/Footer";
 
 //MUI
-import { Grid, Paper } from "@mui/material";
+import { Paper } from "@mui/material";
 import { Box } from "@mui/system";
 
-
-// props: tabData, authorData
 const Card = (props) => {
-  const [isExpanded, setIsExpanded] = useState(
-    props.isExpanded ? props.isExpanded : false
-  );
-  const { user } = useContext(UserContext);
-  const navigate = useNavigate()
-
-  const gridItemStyles = {
-    padding: "16px"
-  }
 
   const contentBoxStyles = {
     display: "flex",
@@ -32,30 +18,23 @@ const Card = (props) => {
     padding: "15px",
   };
 
-  const handleEdit = () => navigate(`/edit/${props.tabData._id}`)
-
-  const handleExpand = () => setIsExpanded(!isExpanded);
-
   return (
-    <Grid item lg={isExpanded ? 12 : 6} xs={12} style={gridItemStyles}>
-      <Paper style={cardStyles}>
-          <Header
-            tabName={props.tabData.name}
-            showOwnerControls={user?.username === props.authorData.user}
-            isExpanded={isExpanded}
-            handleExpand={handleExpand}
-            handleEdit={handleEdit}
-          />
-          <Box style={contentBoxStyles}>
-            <Content bars={props.tabData.bars} isExpanded={isExpanded} />
-          </Box>
-          <Footer
-            preferredUsername={props.authorData.preferredUsername}
-            user={props.authorData.user}
-            tags={props.tabData.tags}
-          />
-      </Paper>
-    </Grid>
+    <Paper style={cardStyles}>
+      <Header
+        tabData={props.tabData}
+        isOwnedByUser={props.user.username === props.tabData.owner.user}
+        isExpanded={props.isExpanded}
+        handleExpand={props.handleExpand}
+      />
+      <Box style={contentBoxStyles}>
+        <Content bars={props.tabData.bars} isExpanded={props.isExpanded} />
+      </Box>
+      <Footer
+        preferredUsername={props.tabData.owner.preferredUsername}
+        user={props.tabData.owner.user}
+        tags={props.tabData.tags}
+      />
+    </Paper>
   );
 };
 

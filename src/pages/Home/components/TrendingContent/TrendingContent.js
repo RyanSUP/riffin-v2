@@ -1,13 +1,13 @@
 // Components / hooks
 import { useEffect, useState } from "react";
-import Card from "components/Card/Card";
 import { useParams } from "react-router-dom";
 
 // Services
 import * as tablatureServices from "services/tablatureServices";
 
 // MUI
-import { CircularProgress, Grid } from "@mui/material";
+import { CircularProgress } from "@mui/material";
+import CardGrid from "components/CardGrid/CardGrid";
 
 const TrendingContent = () => {
   const [trendingTablature, setTrendingTablature] = useState(null);
@@ -36,34 +36,9 @@ const TrendingContent = () => {
       {trendingTablature === null ? (
         <CircularProgress />
       ) : (
-        <Grid container spacing={2}>
-          {tablatureFromRoute && (
-            <Card
-              key={-1}
-              tabData={tablatureFromRoute}
-              authorData={{
-                user: tablatureFromRoute.owner.user,
-                preferredUsername: tablatureFromRoute.owner.preferredUsername,
-              }}
-              isExpanded={true}
-            />
-          )}
-          {trendingTablature.map((tablature, index) => {
-            if (tabId === tablature._id) {
-              return <></>
-            }
-            return (
-              <Card
-                key={index}
-                tabData={tablature}
-                authorData={{
-                  user: tablature.owner.user,
-                  preferredUsername: tablature.owner.preferredUsername,
-                }}
-              />
-            );
-          })}
-        </Grid>
+        <CardGrid 
+          tablature={trendingTablature}
+        />
       )}
     </div>
   );
