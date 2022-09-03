@@ -5,7 +5,7 @@ import TagBar from './TagBar/TagBar'
 import { Grid } from '@mui/material';
 
 
-const Header = () => {
+const Header = (props) => {
 
   return (
     <Grid container>
@@ -13,7 +13,12 @@ const Header = () => {
         <HeaderLogo />
       </Grid>
       <Grid item xs={8}>        
-        <TagBar />
+        <TagBar 
+          addTag={props.addTag}
+          deleteTag={props.deleteTag}
+          clearTags={props.clearTags}
+          tags={props.tags}
+        />
       </Grid>
       <Grid item xs={2}>        
         <HeaderLinks />      

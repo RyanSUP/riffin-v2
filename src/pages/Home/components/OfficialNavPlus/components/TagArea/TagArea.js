@@ -2,19 +2,36 @@
 import Stack from '@mui/material/Stack';
 import Button from '@mui/material/Button';
 
-function TagArea() {
+const presetTags = [
+  "Tasters",
+  "Basters",
+  "Slick Licks",
+  "Rock",
+  "Zep",
+  "Metal",
+  "Slap Bass",
+  "Country",
+  "Blues",
+  "Folk",
+  "Pop",
+  "Hip Hop",
+  "R&B",
+  "Metallica",
+  "AC/DC",
+]
+
+function TagArea(props) {
   return (
     <Stack direction="column">
-      <Button variant="text">Tag</Button>        
-      <Button variant="text">Tag</Button>        
-      <Button variant="text">Tag</Button>        
-      <Button variant="text">Tag</Button>        
-      <Button variant="text">Tag</Button>        
-      <Button variant="text">Tag</Button>        
-      <Button variant="text">Tag</Button>        
-      <Button variant="text">Tag</Button>        
-      <Button variant="text">Tag</Button>        
-      <Button variant="text">Tag</Button>        
+      {presetTags.map((tag, i) => (
+        <Button 
+          key={i} 
+          variant="text" 
+          onClick={() => props.addTag(tag)}
+        >
+          {tag}
+        </Button>        
+      ))}        
     </Stack>
   )
 }

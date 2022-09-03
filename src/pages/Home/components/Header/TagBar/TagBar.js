@@ -2,23 +2,18 @@ import { useState } from 'react'
 import { Box } from "@mui/system"
 import { Button, Chip } from "@mui/material"
 
-function TagBar() {
-  const [tags, setTags] = useState([])
+function TagBar(props) {
   const [searchInputValue, setSearchInputValue] = useState("")
 
   const handleSubmit = (event) => {
     event.preventDefault()
-    const previousTags = [...tags, searchInputValue]
-    setTags(previousTags)
+    props.addTag(searchInputValue)
     setSearchInputValue("")
   }
 
-  const handleDelete = (deleteIndex) => {
-    const updatedTags = tags.filter((tag, i) => i !== deleteIndex)
-    setTags(updatedTags)
-  }
+  const handleDelete = (tagToDelete) => props.deleteTag(tagToDelete)
 
-  const clearTags = () => setTags([])
+  const handleClearTags = () => props.clearTags()
 
   const searchInputStyles = {
     outline: 'none',
@@ -47,8 +42,8 @@ function TagBar() {
   return (
     <>
     <Box style={inputContainer}>
-      {tags.map((tag, i) => (
-        <Chip key={i} label={tag} variant="outlined" onDelete={() => handleDelete(i)} />
+      {props.tags.map((tag, i) => (
+        <Chip key={i} label={tag} variant="outlined" onDelete={() => handleDelete(tag)} />
       ))}
       <form onSubmit={handleSubmit} style={formStyles}>
         <input
@@ -59,8 +54,8 @@ function TagBar() {
           onChange={(e) => setSearchInputValue(e.target.value)}
         ></input>
       </form>
-      {tags.length > 0 &&
-        <Button onClick={clearTags}>X</Button>
+      {props.tags.length > 0 &&
+        <Button onClick={handleClearTags}>X</Button>
       }
     </Box>    
     </>
