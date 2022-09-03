@@ -14,7 +14,7 @@ import BarGroup from './components/BarGroup/BarGroup';
 import Controls from './components/Controls/Controls'
 
 
-const Editor = () => {
+const Editor = (props) => {
   const [showDeleteButton, setShowDeleteButton] = useState(false); // Is the document already in the database?
   // TODO Rename: isWaitingForResponse
   const [isLoading, setIsLoading] = useState(false); // is the document currently waiting for a response?
@@ -170,6 +170,16 @@ const Editor = () => {
       addBarToTablature()
     }
   }, [tablature, tabId, addBarToTablature])
+
+  useEffect(() => {
+    props.changeTagBarTitle('add tags to this tab!')
+  }, [props])
+
+  useEffect(() => {
+    return () => {
+      props.changeTagBarTitle('Search')
+    };
+  }, [props]);
 
   return (
     <div data-testid="Editor">

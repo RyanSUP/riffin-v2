@@ -9,6 +9,9 @@ import { Grid } from "@mui/material";
 
 const Home = () => {
   const [tags, setTags] = useState([])
+  const [tagBarTitle, setTagBarTitle] = useState("Search")
+
+  const changeTagBarTitle = (newTitle) => setTagBarTitle(newTitle)
 
   const addTag = (tag) => {
     if(tags.includes(tag) || tag === '' || tag === ' ') {
@@ -31,6 +34,7 @@ const Home = () => {
             deleteTag={deleteTag}
             clearTags={clearTags}
             tags={tags}
+            tagBarTitle={tagBarTitle}
           />
         </Grid>
         <Grid item xs={2}>                
@@ -39,7 +43,9 @@ const Home = () => {
           />
         </Grid>
         <Grid item xs={8}>
-          <ContentRoutes />
+          <ContentRoutes 
+            changeTagBarTitle={setTagBarTitle}
+          />
         </Grid>
         <Grid item xs={2}>
           Ad

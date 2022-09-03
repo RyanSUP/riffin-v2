@@ -50,7 +50,7 @@ function TagBar(props) {
           style={searchInputStyles}
           value={searchInputValue}
           type="text"
-          placeholder="search"
+          placeholder={props.tagBarTitle}
           onChange={(e) => setSearchInputValue(e.target.value)}
         ></input>
       </form>

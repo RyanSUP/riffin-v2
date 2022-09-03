@@ -18,6 +18,7 @@ const Header = (props) => {
           deleteTag={props.deleteTag}
           clearTags={props.clearTags}
           tags={props.tags}
+          tagBarTitle={props.tagBarTitle}
         />
       </Grid>
       <Grid item xs={2}>        
