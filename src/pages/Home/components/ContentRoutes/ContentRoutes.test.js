@@ -2,9 +2,12 @@ import { render, screen } from "@testing-library/react";
 import {MemoryRouter} from 'react-router-dom'
 import ContentRoutes from './ContentRoutes'
 
+const setTagBarTitle = () => null
+const tags = []
+
 const renderContentRoutesWithMemoryWrapper = (entries) => render(
   <MemoryRouter initialEntries={entries}>
-    <ContentRoutes />
+    <ContentRoutes tags={tags} setTagBarTitle={setTagBarTitle} />
   </MemoryRouter>
 )
 
