@@ -1,10 +1,10 @@
 import { React, useContext } from 'react'
 import { useNavigate } from 'react-router-dom';
-import CustomizedMenus from './CreateMenu'
+import CustomizedMenus from './CreateMenu/CreateMenu'
 import AddCircleIcon from '@mui/icons-material/AddCircle';
-import AvatarMenu from './AvatarMenu';
+import AvatarMenu from './AvatarMenu/AvatarMenu';
 import { UserContext } from 'containers/CognitoUserProvider/CognitoUserProvider'
-import LoginButton from './LoginButton'
+import LoginButton from './LoginButton/LoginButton'
 import Box from "@mui/material/Box"
 
 const HeaderLinks = () => {

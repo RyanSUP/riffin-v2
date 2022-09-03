@@ -3,26 +3,29 @@ import userEvent from "@testing-library/user-event";
 import { BrowserRouter } from "react-router-dom";
 import Editor from "./Editor";
 
+const setTagBarTitle = () => null
+const tags = []
+
 test('A tasty lick label loads on initialization', ()=> {
-  render(<Editor />, {wrapper: BrowserRouter})
+  render(<Editor tags={tags} setTagBarTitle={setTagBarTitle} />, {wrapper: BrowserRouter})
   expect(screen.getByPlaceholderText("A tasty lick")).toBeInTheDocument();
 })
 
 test('A bar should load on initialization', () => {
-  render(<Editor />, {wrapper: BrowserRouter})
+  render(<Editor tags={tags} setTagBarTitle={setTagBarTitle} />, {wrapper: BrowserRouter})
   const length = screen.getAllByPlaceholderText("a new bar").length
   expect(length).toBe(1)
 })
 
 test('Controls load on initialization', ()=> {
-  render(<Editor />, {wrapper: BrowserRouter})
+  render(<Editor tags={tags} setTagBarTitle={setTagBarTitle} />, {wrapper: BrowserRouter})
   expect(screen.getByLabelText(/save/i)).toBeInTheDocument()
   expect(screen.getByLabelText(/new bar/i)).toBeInTheDocument()
   expect(screen.getByLabelText(/make public/i)).toBeInTheDocument()
 })
 
 test('Clicking new bar button adds a bar to the bargroup', async () => {
-  render(<Editor />, {wrapper: BrowserRouter})
+  render(<Editor tags={tags} setTagBarTitle={setTagBarTitle} />, {wrapper: BrowserRouter})
   const user = userEvent.setup()
   
   for(let i = 1; i < 5; i++) {
@@ -34,7 +37,7 @@ test('Clicking new bar button adds a bar to the bargroup', async () => {
 })
 
 test('user can toggle between public and private', async () => {
-  render(<Editor />, {wrapper: BrowserRouter})
+  render(<Editor tags={tags} setTagBarTitle={setTagBarTitle} />, {wrapper: BrowserRouter})
   const user = userEvent.setup()
   expect(screen.getByLabelText(/make public/i)).toBeInTheDocument()
   await user.click(screen.getByLabelText(/make public/i))
@@ -46,7 +49,7 @@ test('user can toggle between public and private', async () => {
 })
 
 test('delete a bar removes a bar from the bars array', async () => {
-  render(<Editor />, {wrapper: BrowserRouter})
+  render(<Editor tags={tags} setTagBarTitle={setTagBarTitle} />, {wrapper: BrowserRouter})
   const user = userEvent.setup()
   
   for(let i = 1; i < 5; i++) {

@@ -6,11 +6,13 @@ const navStyle = {
   margin: 5
 }
 
-function OfficialNavPlus() {
+function OfficialNavPlus(props) {
   return (
     <div style={ navStyle } data-testid="OfficialNavPlus">
       <LinkArea />
-      <TagArea />
+      <TagArea 
+        addTag={props.addTag}
+      />
     </div>
   )
 }

@@ -5,7 +5,7 @@ import ProfileContent from "../ProfileContent/ProfileContent";
 import LoginSignupForm from "../LoginSignupForm/LoginSignupForm";
 import Editor from "../Editor/Editor";
 
-const ContentRoutes = () => {
+const ContentRoutes = (props) => {
   return (
     <Routes>
       <Route path="/login" element={<LoginSignupForm />} />
@@ -15,8 +15,12 @@ const ContentRoutes = () => {
         element={<ProfileContent />}
       />
       <Route path="/tablature/:tabId" element={<TrendingContent />} />
-      <Route path="/new" element={<Editor />} />
-      <Route path="/edit/:tabId" element={<Editor />} />
+      <Route path="/new" element={
+        <Editor tags={props.tags} setTagBarTitle={props.setTagBarTitle} />
+      }/>
+      <Route path="/edit/:tabId" element={
+        <Editor tags={props.tags} setTagBarTitle={props.setTagBarTitle} />} 
+      />
       <Route path="*" element={<Navigate to="/trending" replace />} />
     </Routes>
   );
