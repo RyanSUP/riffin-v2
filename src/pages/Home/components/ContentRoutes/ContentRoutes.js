@@ -9,6 +9,7 @@ const ContentRoutes = (props) => {
   return (
     <Routes>
       <Route path="/login" element={<LoginSignupForm />} />
+      <Route path="/latest" element={<TrendingContent />} />
       <Route path="/trending" element={<TrendingContent />} />
       <Route
         path="/profile/:cognitoUsername"

@@ -1,5 +1,5 @@
 // Components
-import OfficialNavPlus from './components/OfficialNavPlus/OfficialNavPlus';
+import Sidebar from './components/Sidebar/Sidebar';
 import ContentRoutes from "./components/ContentRoutes/ContentRoutes";
 import HeaderLinks from './components/HeaderLinks/HeaderLinks';
 import HeaderLogo from './components/HeaderLogo/HeaderLogo';
@@ -54,7 +54,7 @@ const Home = () => {
         </Grid>
 
         <Grid item xs={2}>                
-          <OfficialNavPlus 
+          <Sidebar 
             addTag={addTag}
           />
         </Grid>
