@@ -17,10 +17,10 @@ const ContentRoutes = (props) => {
       />
       <Route path="/tablature/:tabId" element={<TrendingContent />} />
       <Route path="/new" element={
-        <Editor tags={props.tags} setTagBarTitle={props.setTagBarTitle} />
+        <Editor tags={props.tags} />
       }/>
       <Route path="/edit/:tabId" element={
-        <Editor tags={props.tags} setTagBarTitle={props.setTagBarTitle} />} 
+        <Editor tags={props.tags} />} 
       />
       <Route path="*" element={<Navigate to="/trending" replace />} />
     </Routes>

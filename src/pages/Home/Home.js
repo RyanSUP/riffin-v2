@@ -11,7 +11,6 @@ import { Divider, Grid } from "@mui/material";
 
 const Home = () => {
   const [tags, setTags] = useState([])
-  const [tagBarTitle, setTagBarTitle] = useState("Search")
 
   const addTag = (tag) => {
     if(tags.includes(tag) || tag === '' || tag === ' ') {
@@ -41,7 +40,6 @@ const Home = () => {
                 deleteTag={deleteTag}
                 clearTags={clearTags}
                 tags={tags}
-                tagBarTitle={tagBarTitle}
               />
             </Grid>
 
@@ -64,7 +62,6 @@ const Home = () => {
 
         <Grid item xs={8}>
           <ContentRoutes 
-            setTagBarTitle={setTagBarTitle}
             tags={tags}
           />
         </Grid>

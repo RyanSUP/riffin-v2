@@ -8,7 +8,7 @@ const tags = []
 
 const renderContentRoutesWithMemoryWrapper = (entries) => render(
   <MemoryRouter initialEntries={entries}>
-    <ContentRoutes tags={tags} setTagBarTitle={setTagBarTitle} />
+    <ContentRoutes tags={tags} />
   </MemoryRouter>
 )
 
