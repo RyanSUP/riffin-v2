@@ -10,7 +10,7 @@ import { Container, Divider, Stack } from '@mui/material'
 function Sidebar(props) {
   return (
     <Container data-testid="Sidebar">
-      <Stack direction="column">
+      <Stack direction="column" sx={{my: 2}}>
         <TrendingButton />
         <LatestButton />
         <CollectionButton />

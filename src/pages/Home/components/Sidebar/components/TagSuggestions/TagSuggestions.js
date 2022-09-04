@@ -28,7 +28,7 @@ function TagSuggestions(props) {
           key={i} 
           variant="text" 
           onClick={() => props.addTag(tag)}
-          sx={{justifyContent: 'start'}}
+          sx={{justifyContent: 'start', pl: '16px'}}
         >
           {tag}
         </Button>        
