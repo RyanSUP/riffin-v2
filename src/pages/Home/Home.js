@@ -17,8 +17,7 @@ const Home = () => {
     if(tags.includes(tag) || tag === '' || tag === ' ') {
       return
     }
-    const previousTags = [...tags, tag]
-    setTags(previousTags)
+    setTags((prev)=> [...prev, tag])
   }
 
   const deleteTag = (tagToDelete) => setTags(tags.filter((tag) => tag !== tagToDelete))
