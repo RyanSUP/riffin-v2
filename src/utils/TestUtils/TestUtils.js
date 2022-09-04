@@ -18,3 +18,11 @@ export const renderWithUserContext = (ui) => {
     {wrapper: BrowserRouter},
   )
 }
+
+export const wrapInUserContext = (ui) => {
+  return (
+    <BrowserRouter>
+      <UserContext.Provider {...mockUser}>{ui}</UserContext.Provider>
+    </BrowserRouter>
+  )
+}
