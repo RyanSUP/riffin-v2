@@ -11,8 +11,8 @@ function Sidebar(props) {
   return (
     <Container data-testid="Sidebar">
       <Stack direction="column" sx={{my: 2}}>
-        <TrendingButton />
         <LatestButton />
+        <TrendingButton />
         <CollectionButton />
       </Stack>
       <Divider variant="middle" sx={{m: 2}}/>
