@@ -12,6 +12,7 @@ const UserContext = createContext({});
 
 const CognitoUserProvider = (props) => {
   const [user, setUser] = useState(null); // Cognito User object that also holds profile data from MongoDB
+  const [userIsLoading, setUserIsLoading] = useState(true);
 
   let navigate = useNavigate();
 
@@ -94,10 +95,15 @@ const CognitoUserProvider = (props) => {
    * Handle changes to user state.
    */
   useEffect(() => {
+    setUserIsLoading(true)
     // If user is not set, check if there is user data in session storage. This allows users to return to the app without having to log back in each time.
     if (!user) {
       const userFromPool = UserPool.getCurrentUser();
+      setUserIsLoading(false)
       setUser(userFromPool);
+    }
+    if (user && user.profile) {
+      setUserIsLoading(false)
     }
 
     // Fetch Profile from the backend if it doesn't exist in user state. Profile is the MongoDB Document associated with the user.
@@ -109,10 +115,27 @@ const CognitoUserProvider = (props) => {
         .then((response) => {
           const profile = response.profile;
           userFromPool["profile"] = profile;
+          const tabsWithOwnerInfo = profile.tablature.map((tab)=> {
+            const owner = {
+              _id: tab._id,
+              preferredUsername: profile.preferredUsername,
+              user: user.username,
+            }
+            tab.owner = owner
+            return tab
+          })
+          userFromPool.profile.tablature = tabsWithOwnerInfo
+          setUserIsLoading(false)
           setUser(userFromPool);
         });
     }
   }, [user]);
+
+  const getCurrentUsersTablature = () => console.log(user)
+  const addToCurrentUsersTablature = (tablature) => {
+    setUser(prev => prev.profile.tablature = [...prev.profile.tablature, tablature])
+  } 
+
   return (
     <UserContext.Provider
       value={{
@@ -121,6 +144,9 @@ const CognitoUserProvider = (props) => {
         logout,
         user,
         setUser,
+        getCurrentUsersTablature,
+        addToCurrentUsersTablature,
+        userIsLoading
       }}
     >
       {props.children}
