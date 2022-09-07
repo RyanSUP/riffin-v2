@@ -9,6 +9,7 @@ const ContentRoutes = (props) => {
   return (
     <Routes>
       <Route path="/login" element={<LoginSignupForm />} />
+      <Route path="/latest" element={<TrendingContent />} />
       <Route path="/trending" element={<TrendingContent />} />
       <Route
         path="/profile/:cognitoUsername"
@@ -16,10 +17,10 @@ const ContentRoutes = (props) => {
       />
       <Route path="/tablature/:tabId" element={<TrendingContent />} />
       <Route path="/new" element={
-        <Editor tags={props.tags} setTagBarTitle={props.setTagBarTitle} />
+        <Editor tags={props.tags} />
       }/>
       <Route path="/edit/:tabId" element={
-        <Editor tags={props.tags} setTagBarTitle={props.setTagBarTitle} />} 
+        <Editor tags={props.tags} />} 
       />
       <Route path="*" element={<Navigate to="/trending" replace />} />
     </Routes>

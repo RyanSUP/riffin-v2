@@ -1,10 +1,15 @@
-import { useState } from 'react'
+// Components / hooks
+import { useState, useEffect } from 'react'
+import { useLocation} from 'react-router-dom'
+
+// MUI
 import { Box } from "@mui/system"
 import { Button, Chip } from "@mui/material"
 
 function TagBar(props) {
   const [searchInputValue, setSearchInputValue] = useState("")
-
+  const location = useLocation()
+  const [placeholder, setPlaceholder] = useState()
   const handleSubmit = (event) => {
     event.preventDefault()
     props.addTag(searchInputValue)
@@ -39,6 +44,14 @@ function TagBar(props) {
     alignItems: "center"
   }
 
+  useEffect(()=> {
+    if(location.pathname.startsWith("/new")) {
+      setPlaceholder("add a tag")
+    } else {
+      setPlaceholder("Search")
+    }
+  }, [location])
+
   return (
     <>
     <Box style={inputContainer}>
@@ -50,7 +63,7 @@ function TagBar(props) {
           style={searchInputStyles}
           value={searchInputValue}
           type="text"
-          placeholder={props.tagBarTitle}
+          placeholder={placeholder}
           onChange={(e) => setSearchInputValue(e.target.value)}
         ></input>
       </form>

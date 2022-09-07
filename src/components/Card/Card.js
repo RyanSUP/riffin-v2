@@ -2,12 +2,15 @@
 import Header from "./components/Header/Header";
 import Content from "./components/Content/Content";
 import Footer from "./components/Footer/Footer";
+import { useContext } from "react";
+import { UserContext } from "containers/CognitoUserProvider/CognitoUserProvider";
 
 //MUI
 import { Paper } from "@mui/material";
 import { Box } from "@mui/system";
 
 const Card = (props) => {
+  const { user } = useContext(UserContext);
 
   const contentBoxStyles = {
     display: "flex",
@@ -22,7 +25,7 @@ const Card = (props) => {
     <Paper style={cardStyles}>
       <Header
         tabData={props.tabData}
-        isOwnedByUser={props.user.username === props.tabData.owner.user}
+        isOwnedByUser={user?.username === props.tabData.owner.user}
         isExpanded={props.isExpanded}
         handleExpand={props.handleExpand}
       />

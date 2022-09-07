@@ -20,7 +20,7 @@ const presetTags = [
   "AC/DC",
 ]
 
-function TagArea(props) {
+function TagSuggestions(props) {
   return (
     <Stack direction="column">
       {presetTags.map((tag, i) => (
@@ -28,6 +28,7 @@ function TagArea(props) {
           key={i} 
           variant="text" 
           onClick={() => props.addTag(tag)}
+          sx={{justifyContent: 'start', pl: '16px'}}
         >
           {tag}
         </Button>        
@@ -36,4 +37,4 @@ function TagArea(props) {
   )
 }
 
-export default TagArea
+export default TagSuggestions
