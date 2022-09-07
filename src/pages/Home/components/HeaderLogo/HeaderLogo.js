@@ -1,12 +1,17 @@
-import React from 'react'
-
+import React from "react";
+import { useTheme } from "@mui/material/styles";
 
 const HeaderLogo = () => {
-  return (
-    <>
-      RIFFIN  
-    </>
-  );
-}
+  const theme = useTheme();
 
-export default HeaderLogo
+  const logoStyle = {
+    fontSize: theme.typography.h1.fontSize,
+    fontWeight: theme.typography.h1.fontWeight,
+    padding: "30px",
+    margin: "10px",
+  };
+
+  return <div style={logoStyle}>Riffin</div>;
+};
+
+export default HeaderLogo;
