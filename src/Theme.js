@@ -11,8 +11,18 @@ const darkTheme = createTheme({
       main: "#8FBCBB",
     },
   },
+  components: {
+    MuiChip: {
+      styleOverrides: {
+        root: {
+          backgroundColor: "#BF616A",
+          fontWeight: 800,
+        },
+      },
+    },
+  },
   typography: {
-    // Main header
+    // Main Header
     h1: {
       fontFamily: "Inter",
       fontWeight: 800,
@@ -113,9 +123,7 @@ const darkTheme = createTheme({
   },
 });
 
-const lightTheme = createTheme({
-  
-});
+const lightTheme = createTheme({});
 
 const theme = createTheme({
   breakpoints: {
