@@ -20,6 +20,13 @@ const darkTheme = createTheme({
         },
       },
     },
+    Box: {
+      styleOverrides: {
+        root: {
+          // background: "transparent",
+        }
+      }
+    }
   },
   typography: {
     // Main Header

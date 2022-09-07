@@ -2,6 +2,7 @@ import { useState } from "react";
 import { Box } from "@mui/system";
 import { Button, Chip } from "@mui/material";
 
+
 function TagBar(props) {
   const [searchInputValue, setSearchInputValue] = useState("");
 
@@ -16,6 +17,7 @@ function TagBar(props) {
   const handleClearTags = () => props.clearTags();
 
   const searchInputStyles = {
+    background: "transparent",
     outline: "none",
     boarder: "none",
     width: "100%",
