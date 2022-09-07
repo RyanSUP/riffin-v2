@@ -6,9 +6,9 @@ const HeaderLogo = () => {
 
   const logoStyle = {
     fontSize: theme.typography.h1.fontSize,
-    fontWeight: theme.typography.h1.fontWeight,
     padding: "30px",
     margin: "10px",
+    textAlign: "center",
   };
 
   return <div style={logoStyle}>Riffin</div>;
