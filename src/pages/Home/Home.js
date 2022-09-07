@@ -1,5 +1,5 @@
 // Components
-import OfficialNavPlus from './components/OfficialNavPlus/OfficialNavPlus';
+import Sidebar from './components/Sidebar/Sidebar';
 import ContentRoutes from "./components/ContentRoutes/ContentRoutes";
 import HeaderLinks from './components/HeaderLinks/HeaderLinks';
 import HeaderLogo from './components/HeaderLogo/HeaderLogo';
@@ -7,18 +7,16 @@ import TagBar from './components/TagBar/TagBar';
 import { useState } from 'react';
 
 // MUI
-import { Grid } from "@mui/material";
+import { Divider, Grid } from "@mui/material";
 
 const Home = () => {
   const [tags, setTags] = useState([])
-  const [tagBarTitle, setTagBarTitle] = useState("Search")
 
   const addTag = (tag) => {
     if(tags.includes(tag) || tag === '' || tag === ' ') {
       return
     }
-    const previousTags = [...tags, tag]
-    setTags(previousTags)
+    setTags((prev)=> [...prev, tag])
   }
 
   const deleteTag = (tagToDelete) => setTags(tags.filter((tag) => tag !== tagToDelete))
@@ -42,7 +40,6 @@ const Home = () => {
                 deleteTag={deleteTag}
                 clearTags={clearTags}
                 tags={tags}
-                tagBarTitle={tagBarTitle}
               />
             </Grid>
 
@@ -53,15 +50,18 @@ const Home = () => {
           </Grid> 
         </Grid>
 
+        <Grid item xs={12}>
+          <Divider variant="middle" />
+        </Grid>
+
         <Grid item xs={2}>                
-          <OfficialNavPlus 
+          <Sidebar 
             addTag={addTag}
           />
         </Grid>
 
         <Grid item xs={8}>
           <ContentRoutes 
-            setTagBarTitle={setTagBarTitle}
             tags={tags}
           />
         </Grid>

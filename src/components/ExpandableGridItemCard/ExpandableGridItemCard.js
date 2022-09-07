@@ -15,7 +15,6 @@ const ExpandableGridItemCard = (props) => {
         handleExpand={handleExpand}
         tabData={props.tabData}
         isExpanded={isExpanded}
-        user={props.user}
       />
     </Grid>
   );

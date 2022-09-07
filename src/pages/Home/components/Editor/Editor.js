@@ -172,16 +172,6 @@ const Editor = (props) => {
     }
   }, [tablature, tabId, addBarToTablature])
 
-  useEffect(() => {
-    props.setTagBarTitle('add tags to this tab!')
-  }, [props])
-
-  useEffect(() => {
-    return () => {
-      props.setTagBarTitle('Search')
-    };
-  }, [props]);
-
   return (
     <div data-testid="Editor">
       {isLoading ? ( <CircularProgress /> ) : (
