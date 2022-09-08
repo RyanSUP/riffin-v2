@@ -34,10 +34,10 @@ test('switches from iconA to iconB when icon button is clicked', async ()=> {
   render(<ToggledIconButton 
     iconA={<CloseFullscreenRoundedIcon />}
     iconB={<OpenInFullIcon />}
-    handleClick={()=> null}
+    handleClickA={()=> null}
+    handleClickB={()=> null}
   />)
   const user = userEvent.setup()
   await user.click(screen.getByTestId('CloseFullscreenRoundedIcon'))
   expect(screen.getByTestId('OpenInFullIcon')).toBeInTheDocument()
 })
-

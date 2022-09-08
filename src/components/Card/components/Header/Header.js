@@ -30,20 +30,22 @@ const Header = (props) => {
       <Typography style={tabNameStyles} >{props.tabData.name}</Typography>
       <Box sx={{display: "inline"}}>
         <FavoriteIconButton 
-          isDisabled={props.isOwnedByUser} 
           tab_id={props.tabData._id}
+          tabOwner={props.tabData.owner.user}
         />
         <ShareIconButton />
         {props.isOwnedByUser &&
           <EditIconButton tab_id={props.tabData._id}/>
         }
         <ToggledIconButton
+          isDisabled={false}
           iconA={<CloseFullscreenRoundedIcon />}
           titleA={""}
           iconB={<OpenInFullIcon />}
           titleB={"Expand"}
           startOnA={props.isExpanded}
-          handleClick={props.handleExpand}
+          handleClickA={props.handleExpand}
+          handleClickB={props.handleExpand}
         />
       </Box>
     </Box>

@@ -9,15 +9,16 @@ import { getIdTokenFromUser } from "utils/userUtils";
 import { handleLikingTablature } from 'services/profileServices'
 
 // MUI
-import { IconButton } from "@mui/material";
 import FavoriteBorderIcon from "@mui/icons-material/FavoriteBorder";
 import FavoriteIcon from '@mui/icons-material/Favorite';
+import ToggledIconButton from "components/ToggledIconButton/ToggledIconButton";
 
 const FavoriteIconButton = (props) => {
   const navigate = useNavigate()
   const { user } = useContext(UserContext)
   const { addToUsersLikedTablature, removeFromUsersLikedTablature } = useContext(TablatureContext)
-  const [likedByCurrentUser, setLikedByCurrentUser] = useState(user?.profile?.favoriteTabHash[props.tab_id] ? true : false)
+  const [likedByCurrentUser, setLikedByCurrentUser] = useState()
+  const [ownedByUser, setOwnedByUser] = useState()
 
   const handleClick = (action) => {
     if(user) {
@@ -38,27 +39,22 @@ const FavoriteIconButton = (props) => {
     if(user) {
       const likeStatus = user.profile?.favoriteTabHash[props.tab_id] ? true : false
       setLikedByCurrentUser(likeStatus)
+      setOwnedByUser(user.username === props.tabOwner)
     }
-  }, [user, props.tab_id])
+  }, [user, props])
 
   return (
     <>
-      {likedByCurrentUser 
-        ?
-          <IconButton 
-            disabled={props.isDisabled} 
-            onClick={() => handleClick('unlike')}
-          >
-            <FavoriteIcon />
-          </IconButton>
-        :
-          <IconButton 
-            disabled={props.isDisabled} 
-            onClick={() => handleClick('like')}
-          >
-            <FavoriteBorderIcon />
-          </IconButton>
-      }
+      <ToggledIconButton
+        isDisabled={ownedByUser}
+        startOnA={likedByCurrentUser}
+        iconA={<FavoriteIcon />}
+        titleA={""}
+        handleClickA={() => handleClick('unlike')}
+        iconB={<FavoriteBorderIcon />}
+        titleB={""}
+        handleClickB={() => handleClick('like')}
+      />
     </>
   );
 }
