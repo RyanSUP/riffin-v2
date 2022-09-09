@@ -32,10 +32,12 @@ const Header = (props) => {
         {props.tabData.likeCount > 0 &&
           <span>{props.tabData.likeCount}</span>
         }
-        <FavoriteIconButton 
-          tab_id={props.tabData._id}
-          tabOwner={props.tabData.owner.user}
-        />
+        {props.tabData.isPublic &&
+          <FavoriteIconButton 
+            tab_id={props.tabData._id}
+            tabOwner={props.tabData.owner.user}
+          />
+        }
         <ShareIconButton />
         {props.isOwnedByUser &&
           <EditIconButton tab_id={props.tabData._id}/>
