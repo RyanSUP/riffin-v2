@@ -2,7 +2,7 @@ import { render, screen } from "@testing-library/react";
 import {MemoryRouter} from 'react-router-dom'
 import ContentRoutes from './ContentRoutes'
 import { UserContext } from "containers/CognitoUserProvider/CognitoUserProvider";
-
+import { TablatureContext } from "containers/TablatureProvider/TablatureProvider";
 const setTagBarTitle = () => null
 const tags = []
 
@@ -47,16 +47,6 @@ test('/profile/:cognitoUsername renders ProfileContent component', ()=> {
 test('/tablature/:tabId renders TrendingContent component', ()=> {
   renderContentRoutesWithMemoryWrapper(['/tablature/2'])
   expect(screen.getByTestId('TrendingContent')).toBeInTheDocument()
-})
-
-test('/new renders Editor component', ()=> {
-  renderContentRoutesWithMemoryWrapper(['/new'])
-  expect(screen.getByTestId("Editor")).toBeInTheDocument();
-})
-
-test('/edit/:tabId renders Editor component', ()=> {
-  renderContentRoutesWithMemoryWrapper(['/edit/2'])
-  expect(screen.getByTestId("Editor")).toBeInTheDocument();
 })
 
 test('non existing route renders TrendingContent component', ()=> {
