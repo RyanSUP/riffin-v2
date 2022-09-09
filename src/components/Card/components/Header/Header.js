@@ -29,6 +29,9 @@ const Header = (props) => {
     <Box style={boxStyles}>
       <Typography style={tabNameStyles} >{props.tabData.name}</Typography>
       <Box sx={{display: "inline"}}>
+        {props.tabData.likeCount > 0 &&
+          <span>{props.tabData.likeCount}</span>
+        }
         <FavoriteIconButton 
           tab_id={props.tabData._id}
           tabOwner={props.tabData.owner.user}
