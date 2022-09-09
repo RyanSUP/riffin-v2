@@ -27,6 +27,8 @@ const TablatureProvider = (props) => {
     })
   }
 
+  const getTabFromUser =(tab_id) => usersTablature.find((tab) => tab._id === tab_id)
+
   useEffect(() => {
     if(user) {
       const idToken = getIdTokenFromUser(user)
@@ -64,6 +66,7 @@ const TablatureProvider = (props) => {
         usersLikedTablature,
         addToUsersLikedTablature,
         removeFromUsersLikedTablature,
+        getTabFromUser,
       }}
     >
       {props.children}

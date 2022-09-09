@@ -2,7 +2,7 @@
 import { useState, useContext, useEffect, useCallback } from 'react'
 import { useNavigate, useParams } from "react-router-dom";
 import { UserContext } from "containers/CognitoUserProvider/CognitoUserProvider";
-
+import { TablatureContext } from "containers/TablatureProvider/TablatureProvider";
 // MUI
 import Box from '@mui/material/Box';
 import { CircularProgress, Paper } from "@mui/material";
@@ -24,8 +24,10 @@ const Editor = (props) => {
     tags: [],
     isBassTab: false,
   });
-   const { user } = useContext(UserContext);
+  
+  const { user } = useContext(UserContext);
   const { tabId } = useParams();
+  const { getTabFromUser } = useContext(TablatureContext)
   let navigate = useNavigate();
   
   const deleteTablatureFromDatabase = () => {
@@ -144,17 +146,14 @@ const Editor = (props) => {
 
   useEffect(() => {
     if (tabId) {
-      setIsLoading(true)
-      tablatureServices.getTablatureById(tabId).then((res) => {
-        if (res["error"]) {
-          // TODO Navigate back to where the user came from
-          navigate(`/trending`);
-        }
-        setTablature(res.tablature);
-        setIsLoading(false)
-      });
+      const tab = getTabFromUser(tabId)
+      if(tab) {
+        setTablature(getTabFromUser(tabId));
+      } else {
+        navigate('/trending')
+      }
     }
-  }, [tabId, navigate]);
+  }, [tabId, getTabFromUser, navigate]);
   
   useEffect(() => {
     if (user) {
