@@ -5,7 +5,7 @@ import { UserContext } from "containers/CognitoUserProvider/CognitoUserProvider"
 
 // MUI
 import Box from '@mui/material/Box';
-import { CircularProgress } from "@mui/material";
+import { CircularProgress, Paper } from "@mui/material";
 
 // Services / utils
 import * as tablatureServices from "services/tablatureServices";
@@ -16,7 +16,6 @@ import Controls from './components/Controls/Controls'
 
 const Editor = (props) => {
   const [showDeleteButton, setShowDeleteButton] = useState(false); // Is the document already in the database?
-  // TODO Rename: isWaitingForResponse
   const [isLoading, setIsLoading] = useState(false); // is the document currently waiting for a response?
   const [tablature, setTablature] = useState({
     isPublic: false,
@@ -175,7 +174,7 @@ const Editor = (props) => {
   return (
     <div data-testid="Editor">
       {isLoading ? ( <CircularProgress /> ) : (
-        <>
+        <Paper>
           <Box sx={{display: 'flex', justifyContent: 'space-between'}}>
             <input
               type="text"
@@ -200,7 +199,7 @@ const Editor = (props) => {
             refreshTablatureObject={refreshTablatureObject}
             deleteBarFromTablature={deleteBarFromTablature}
           />
-        </>
+        </Paper>
       )}
     </div>
   );
