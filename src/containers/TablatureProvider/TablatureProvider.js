@@ -8,7 +8,7 @@ import { getIdTokenFromUser } from "utils/userUtils";
 
 const TablatureContext = createContext({});
 
-const UserTablatureProvider = (props) => {
+const TablatureProvider = (props) => {
   const [usersTablature, setUsersTablature] = useState([])
   const [usersLikedTablature, setUsersLikedTablature] = useState({})
   const { user } = useContext(UserContext)
@@ -71,4 +71,4 @@ const UserTablatureProvider = (props) => {
   );
 }
  
-export { UserTablatureProvider, TablatureContext }
+export { TablatureProvider, TablatureContext }

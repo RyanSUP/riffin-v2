@@ -1,7 +1,7 @@
 // Components / hooks
 import { useContext, useEffect, useState } from "react";
 import { UserContext } from "containers/CognitoUserProvider/CognitoUserProvider";
-import { TablatureContext } from "containers/UserTablatureProvider/UserTablatureProvider";
+import { TablatureContext } from "containers/TablatureProvider/TablatureProvider";
 import { useNavigate } from "react-router-dom";
 
 // Services / Utils

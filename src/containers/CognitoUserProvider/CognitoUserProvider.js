@@ -95,10 +95,10 @@ const CognitoUserProvider = (props) => {
    * Handle changes to user state.
    */
   useEffect(() => {
-    setUserIsLoading(true)
     // If user is not set, check if there is user data in session storage. This allows users to return to the app without having to log back in each time.
     if (!user) {
       const userFromPool = UserPool.getCurrentUser();
+      setUserIsLoading(true)
       setUserIsLoading(false)
       setUser(userFromPool);
     }

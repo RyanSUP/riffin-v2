@@ -2,7 +2,9 @@
 import { useEffect, useState, useContext } from "react";
 import { useParams } from "react-router-dom";
 import { UserContext } from "containers/CognitoUserProvider/CognitoUserProvider";
+import { TablatureContext } from "containers/TablatureProvider/TablatureProvider";
 import CardGrid from "components/CardGrid/CardGrid";
+
 
 // Services
 import * as profileServices from "services/profileServices";
@@ -14,12 +16,13 @@ const ProfileContent = () => {
   const [tablature, setTablature] = useState(null);
   const { cognitoUsername } = useParams();
   const { user, userIsLoading } = useContext(UserContext);
+  const { usersTablature } = useContext(TablatureContext);
 
   useEffect(() => {
     let subscribed = true
     if(!userIsLoading && cognitoUsername) {
-      if (user.profile && user.username === cognitoUsername) {
-        setTablature(user.profile.tablature)
+      if (user.username === cognitoUsername) {
+        setTablature(usersTablature)
       } else {
         profileServices.getUsersPublicInfo(cognitoUsername)
         .then((res) => {
@@ -33,11 +36,10 @@ const ProfileContent = () => {
         })
       }
     }
-
     return () => {
       subscribed = false
     }
-  }, [cognitoUsername, user, userIsLoading]);
+  }, [cognitoUsername, user, userIsLoading, usersTablature]);
 
   return (
     <div data-testid="ProfileContent">

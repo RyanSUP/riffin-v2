@@ -6,7 +6,7 @@ import { CssBaseline } from "@mui/material";
 // import Button from "@mui/material/Button";
 
 import { CognitoUserProvider } from "containers/CognitoUserProvider/CognitoUserProvider";
-import { UserTablatureProvider } from "containers/UserTablatureProvider/UserTablatureProvider"
+import { TablatureProvider } from "containers/TablatureProvider/TablatureProvider"
 import Home from "pages/Home/Home";
 
 function App() {
@@ -18,9 +18,9 @@ function App() {
       <CognitoUserProvider>
         <CssBaseline />
         {/* <Button onClick={() => setLight((prev) => !prev)}>Toggle Theme</Button> */}
-        <UserTablatureProvider>
+        <TablatureProvider>
           <Home />
-        </UserTablatureProvider>
+        </TablatureProvider>
       </CognitoUserProvider>
     </ThemeProvider>
   );
