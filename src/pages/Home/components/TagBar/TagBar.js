@@ -71,11 +71,12 @@ function TagBar(props) {
             style={searchInputStyles}
             value={searchInputValue}
             type="text"
-            placeholder={props.tagBarTitle}
+            placeholder={placeholder}
             onChange={(e) => setSearchInputValue(e.target.value)}
           ></input>
         </form>
-        {props.tags.length > 0 && <Button onClick={handleClearTags}>X</Button>}
+        {props.tags.length > 0 && 
+        <Button onClick={handleClearTags}>X</Button>}
       </Box>
     </>
   );
