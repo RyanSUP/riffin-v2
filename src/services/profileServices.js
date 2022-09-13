@@ -52,4 +52,22 @@ const getUsersPublicInfo = async (username) => {
   return response.json();
 };
 
-export { create, getUsersPublicInfo, getProfileOfLoggedInUser };
+const handleLikingTablature = async (action,profile_id, likedTablature_id, idToken) => { 
+  const payload = {
+    profile_id,
+    likedTablature_id,
+    action
+  }
+
+  const response = await fetch(`${BASE_URL}/profile/like`, {
+    method: "PATCH",
+    headers: {
+      Authorization: idToken,
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify(payload),
+  });
+  return response.json();
+}
+
+export { create, getUsersPublicInfo, getProfileOfLoggedInUser, handleLikingTablature };

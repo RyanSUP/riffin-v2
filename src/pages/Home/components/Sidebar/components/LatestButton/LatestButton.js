@@ -24,7 +24,7 @@ const LatestButton = () => {
     <Button 
       startIcon={<StarsIcon />}
       onClick={handleClick}
-      sx={{justifyContent: 'left', pl: '16px', my: 1}}
+      sx={{justifyContent: 'left', pl: '16px'}}
       disableElevation
       variant={variant}
     >

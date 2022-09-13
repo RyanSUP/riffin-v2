@@ -2,10 +2,10 @@
 import { useState, useContext, useEffect, useCallback } from 'react'
 import { useNavigate, useParams } from "react-router-dom";
 import { UserContext } from "containers/CognitoUserProvider/CognitoUserProvider";
-
+import { TablatureContext } from "containers/TablatureProvider/TablatureProvider";
 // MUI
 import Box from '@mui/material/Box';
-import { CircularProgress } from "@mui/material";
+import { CircularProgress, Paper } from "@mui/material";
 
 // Services / utils
 import * as tablatureServices from "services/tablatureServices";
@@ -16,7 +16,6 @@ import Controls from './components/Controls/Controls'
 
 const Editor = (props) => {
   const [showDeleteButton, setShowDeleteButton] = useState(false); // Is the document already in the database?
-  // TODO Rename: isWaitingForResponse
   const [isLoading, setIsLoading] = useState(false); // is the document currently waiting for a response?
   const [tablature, setTablature] = useState({
     isPublic: false,
@@ -25,8 +24,10 @@ const Editor = (props) => {
     tags: [],
     isBassTab: false,
   });
-   const { user } = useContext(UserContext);
+  
+  const { user } = useContext(UserContext);
   const { tabId } = useParams();
+  const { getTabFromUser } = useContext(TablatureContext)
   let navigate = useNavigate();
   
   const deleteTablatureFromDatabase = () => {
@@ -145,17 +146,14 @@ const Editor = (props) => {
 
   useEffect(() => {
     if (tabId) {
-      setIsLoading(true)
-      tablatureServices.getTablatureById(tabId).then((res) => {
-        if (res["error"]) {
-          // TODO Navigate back to where the user came from
-          navigate(`/trending`);
-        }
-        setTablature(res.tablature);
-        setIsLoading(false)
-      });
+      const tab = getTabFromUser(tabId)
+      if(tab) {
+        setTablature(getTabFromUser(tabId));
+      } else {
+        navigate('/trending')
+      }
     }
-  }, [tabId, navigate]);
+  }, [tabId, getTabFromUser, navigate]);
   
   useEffect(() => {
     if (user) {
@@ -175,7 +173,7 @@ const Editor = (props) => {
   return (
     <div data-testid="Editor">
       {isLoading ? ( <CircularProgress /> ) : (
-        <>
+        <Paper>
           <Box sx={{display: 'flex', justifyContent: 'space-between'}}>
             <input
               type="text"
@@ -200,7 +198,7 @@ const Editor = (props) => {
             refreshTablatureObject={refreshTablatureObject}
             deleteBarFromTablature={deleteBarFromTablature}
           />
-        </>
+        </Paper>
       )}
     </div>
   );
