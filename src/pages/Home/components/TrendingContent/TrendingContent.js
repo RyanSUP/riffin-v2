@@ -1,7 +1,8 @@
 // Components / hooks
-import { useEffect, useState } from "react";
+import { useEffect, useState, useRef, useCallback } from "react";
 import Card from "components/Card/Card";
 import { useParams } from "react-router-dom";
+// import TrendingScroll from "./TrendingScroll";
 
 // Services
 import * as tablatureServices from "services/tablatureServices";
@@ -13,6 +14,30 @@ const TrendingContent = () => {
   const [trendingTablature, setTrendingTablature] = useState(null);
   const [tablatureFromRoute, setTablatureFromRoute] = useState(null);
   const { tabId } = useParams();
+
+  // const [pageNum, setPageNum] = useState(1)
+  // const {
+  //   isLoading,
+  //   isError,
+  //   error,
+  //   results,
+  //   hasNextPage
+  // } = TrendingScroll(pageNum)
+
+  // const intObserver = useRef()
+  // const lastTablatureRef = useCallback(tablature => {
+  //   if (isLoading) return
+  //   if (intObserver.current) intObserver.current.disconnect()
+
+  //   intObserver.current = new IntersectionObserver(tablatures => {
+  //     if (tablatures[0].isIntersecting && hasNextPage) {
+  //       console.log('near the last tablature')
+  //       setPageNum(prev => prev + 1)
+  //     }
+  //   })
+
+  //   if (tablature) intObserver.current.observe(tablature)
+  // }, [isLoading, hasNextPage])
 
   useEffect(() => {
     if (trendingTablature === null) {
@@ -56,6 +81,7 @@ const TrendingContent = () => {
               <Card
                 key={index}
                 tabData={tablature}
+                // ref={lastTablatureRef}
                 authorData={{
                   user: tablature.owner.user,
                   preferredUsername: tablature.owner.preferredUsername,

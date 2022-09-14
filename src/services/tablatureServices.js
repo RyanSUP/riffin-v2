@@ -76,6 +76,8 @@ const getTablatureById = async (tab_id) => {
  * Request to get all tablature where the isPublic value === true
  * @returns {Array of tablature Objects}
  */
+
+// pass pageParam and options {} ?
 const getTrendingTablature = async () => {
   const response = await fetch(`${BASE_URL}/tablature`, { method: "GET" });
   return response.json();
@@ -86,5 +88,5 @@ export {
   update,
   deleteTab as delete,
   getTablatureById,
-  getTrendingTablature,
+  getTrendingTablature
 };
