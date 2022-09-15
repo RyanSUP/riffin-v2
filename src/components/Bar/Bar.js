@@ -1,10 +1,7 @@
-// Services
-import { useRef } from "react";
 // MUI hook that gives components access to theme stored in ThemeProvider
 import { useTheme } from "@mui/material/styles";
 
 const Bar = (props) => {
-  const inputRef = useRef(); // This is used to know which bar the user has selected.
   const theme = useTheme(); // theme obtained with invoking this hook
   
   const inputsStyle = {
@@ -16,7 +13,7 @@ const Bar = (props) => {
     zIndex: 2,
     outline: "none",
     border: "none",
-    color: theme.palette.primary.main
+    color: theme.palette.primary.main,
   };
   
   const dashesStyle = {
@@ -30,33 +27,26 @@ const Bar = (props) => {
     zIndex: 1,
     outline: "none",
     border: "none",
-    color: theme.palette.background.default
+    color: theme.palette.background.default,
   };
 
   return (
-    <div style={{ position: "relative" }}>
+    <div style={{ position: "relative"}}>
       <textarea
-        readOnly={props.readOnly}
+        readOnly={true}
         style={inputsStyle}
         value={props.barData.inputs}
-        onChange={(event) => props.handleBarChange(event)}
-        onKeyUp={(event) => props.handleKeyUpInBar(event)}
-        onPaste={(event) => event.preventDefault()}
-        onClick={(event) => props.handleClickedBar(event, props.index, inputRef)}
-        cols="40"
+        cols={props.barData.cols}
         rows="6"
-        maxLength="251"
-        id="riffin-editor-inputGrid"
-        ref={inputRef}
+        maxLength={props.barData.maxLength}
       />
       <textarea
         readOnly={true}
         style={dashesStyle}
         value={props.barData.dashes}
-        cols="40"
+        cols={props.barData.cols}
         rows="6"
-        maxLength="251"
-        id="riffin-editor-dashGrid"
+        maxLength={props.barData.maxLength}
       />
     </div>
   );

@@ -1,18 +1,19 @@
 // Components / hooks
-import { useState, useContext, useEffect, useCallback } from 'react'
+import { useState, useContext, useEffect, useCallback } from 'react';
 import { useNavigate, useParams } from "react-router-dom";
 import { UserContext } from "containers/CognitoUserProvider/CognitoUserProvider";
 import { TablatureContext } from "containers/TablatureProvider/TablatureProvider";
-// MUI
-import Box from '@mui/material/Box';
-import { CircularProgress, Paper } from "@mui/material";
+import ExpandableBar from './components/ExpandableBar/ExpandableBar';
+import AddBlockButton from './components/AddBlockButton/AddBlockButton';
+import DeleteTabButton from './components/DeleteTabButton/DeleteTabButton';
+import SaveTabButton from './components/SaveTabButton/SaveTabButton';
 
 // Services / utils
-import * as tablatureServices from "services/tablatureServices";
-import * as userUtils from "utils/userUtils";
-import ExpandableBar from './components/ExpandableBar/ExpandableBar';
-import Controls from './components/Controls/Controls'
+import { getNewGuitarBlock } from "./utils/EditorUtils";
 
+// MUI
+import { CircularProgress, Paper } from "@mui/material";
+import Box from '@mui/material/Box';
 
 const Editor = (props) => {
   const [selectedBar, setSelectedBar] = useState(null);
@@ -31,6 +32,8 @@ const Editor = (props) => {
   const { tabId } = useParams();
   const { getTabFromUser } = useContext(TablatureContext)
   let navigate = useNavigate();
+
+  const toggleLoading = (value) => setIsLoading(value);
   
   function handleAddCharacter(character, mapOfLastColumnIndexes) {
     if (cursorPosition.position in mapOfLastColumnIndexes) {
@@ -118,43 +121,6 @@ const Editor = (props) => {
     ArrowUp: true,
   };
 
-  const deleteTablatureFromDatabase = () => {
-    const idToken = userUtils.getIdTokenFromUser(user);
-    tablatureServices.delete(tablature._id, idToken).then((res) => {
-      console.log(res);
-    });
-    // TODO Navigate to trending
-  };
-
-  const saveTablatureToDatabase = () => {
-    tablature.tags = props.tags
-    const updateExistingTablature = (idToken) => {
-      setIsLoading(true);
-      tablatureServices.update(tablature, idToken).then((res) => {
-        console.log(res);
-        setIsLoading(false);
-        setTablature({ ...tablature });
-      });
-    }
-  
-    const saveNewTablature = (idToken) => {
-      setIsLoading(true);
-      tablatureServices
-        .create(tablature, idToken)
-        .then((tablatureFromResponse) => {
-          setIsLoading(false);
-          navigate(`/edit/${tablatureFromResponse._id}`);
-        });
-    }
-
-    const idToken = userUtils.getIdTokenFromUser(user);
-    if (tablature._id) {
-      updateExistingTablature(idToken);
-    } else {
-      saveNewTablature(idToken);
-    }
-  };
-
   const deleteBarFromTablature = (barIndex) => {
     const newBars = [];
     tablature.bars.forEach((bar, i) => {
@@ -167,54 +133,6 @@ const Editor = (props) => {
     setTablature({ ...tablature });
   };
 
-  const addBarToTablature = useCallback(() => {
-    const mapOfLastColumnIndexes = {
-      40: true,
-      81: true,
-      122: true,
-      163: true,
-      204: true,
-      245: true,
-    };
-
-    const initTextAreaWithValue = (character) => {
-      let charactersInString = [];
-      for (let i = 0; i < 245; i++) {
-        if (i in mapOfLastColumnIndexes) {
-          charactersInString.push("\n");
-        } else {
-          charactersInString.push(character);
-        }
-      }
-      return charactersInString.join("");
-    };
-
-    const previousBars = [];
-    tablature.bars.forEach((bar) => {
-      previousBars.push({ ...bar });
-    });
-
-    const newBar = {
-      label: `Bar ${tablature.bars.length + 1}`,
-      tempKey: Date() + Math.random(),
-      inputs: initTextAreaWithValue(" "),
-      dashes: initTextAreaWithValue("-"),
-      cols: 40,
-      maxLength: 251
-    };
-
-    tablature.bars = [...previousBars, newBar];
-    setTablature({ ...tablature });
-  }, [tablature]);
-
-  const setPublic = () => {
-    const udpatedTablature = {
-      ...tablature,
-      isPublic: !tablature.isPublic,
-    };
-    setTablature(udpatedTablature);
-  };
-
   const handleNameInput = (event) => {
     const udpatedTablature = {
       ...tablature,
@@ -223,9 +141,7 @@ const Editor = (props) => {
     setTablature(udpatedTablature);
   };
 
-  const refreshTablatureObject = () => {
-    setTablature({ ...tablature });
-  }
+  const refreshTablatureObject = () => setTablature({ ...tablature });
 
   const handleClickedBar = (event, barIndex, barRef) => {
     setSelectedBar({ inputRef: barRef, index: barIndex });
@@ -294,9 +210,13 @@ const Editor = (props) => {
 
   useEffect(() => {
     if(!tabId && tablature.bars.length === 0) {
-      addBarToTablature()
+      const newBlock = getNewGuitarBlock()
+      setTablature((prev) => {
+        prev.bars = [newBlock]
+        return {...prev}
+      })
     }
-  }, [tablature, tabId, addBarToTablature])
+  }, [tabId, tablature.bars.length])
 
   return (
     <div data-testid="Editor">
@@ -310,14 +230,21 @@ const Editor = (props) => {
               onChange={handleNameInput}
               placeholder="A tasty lick"
             />
-            <Controls 
-              deleteTablatureFromDatabase={deleteTablatureFromDatabase}
-              allowDelete={showDeleteButton}
-              setPublic={setPublic}
-              isPublic={tablature.isPublic}
-              saveTablatureToDatabase={saveTablatureToDatabase}
-              addBarToTablature={addBarToTablature}    
+            <AddBlockButton 
+              tablature={tablature}
+              refreshTablatureObject={refreshTablatureObject}
             />
+            <SaveTabButton 
+              tablature={tablature}
+              toggleLoading={toggleLoading}
+              tags={props.tags}
+              refreshTablatureObject={refreshTablatureObject}
+            />
+            {showDeleteButton &&
+              <DeleteTabButton 
+                tablature_id={tablature._id}
+              />
+            }
           </Box>
           {tablature.bars.map((bar, i) => (
             <ExpandableBar

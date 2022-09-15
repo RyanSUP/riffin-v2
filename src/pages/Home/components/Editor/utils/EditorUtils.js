@@ -65,7 +65,6 @@ export const updateTextAreaAttributes = (action) => {
   }
 }
 
-
 export const getMapOfLastColumnIndexes = (action) => {
   const newLastCols = {}
   for(let i = 0; i < action.stringCount; i++) {
@@ -83,4 +82,35 @@ export const getMapOfFirstColumnIndexes = (action) => {
     newFirstCols[newVal] = true
   }
   return newFirstCols
+}
+
+export const getNewGuitarBlock = () => {
+  const action = {
+    stringCount: 6,
+    cols: MIN_BLOCK_COLS
+  }
+
+  const mapOfLastColumnIndexes = getMapOfLastColumnIndexes(action)
+
+  const initTextAreaWithValue = (character) => {
+    let charactersInString = [];
+    for (let i = 0; i < 245; i++) {
+      if (i in mapOfLastColumnIndexes) {
+        charactersInString.push("\n");
+      } else {
+        charactersInString.push(character);
+      }
+    }
+    return charactersInString.join("");
+  };
+  const inputs = initTextAreaWithValue(" ")
+  const dashes = initTextAreaWithValue("-")
+  console.log('max length test from utils: ', inputs.length)
+  return {
+    tempKey: Date() + Math.random(),
+    inputs: inputs,
+    dashes: dashes,
+    cols: MIN_BLOCK_COLS,
+    maxLength: 251
+  };
 }
