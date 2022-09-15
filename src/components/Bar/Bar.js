@@ -1,3 +1,9 @@
+// Components / hooks
+import SimpleBar from "simplebar-react";
+import 'simplebar/dist/simplebar.min.css';
+
+import "./Bar.css"
+
 // MUI hook that gives components access to theme stored in ThemeProvider
 import { useTheme } from "@mui/material/styles";
 
@@ -7,9 +13,9 @@ const Bar = (props) => {
   const inputsStyle = {
     background: "transparent",
     margin: 0,
+    padding: 0,
     position: "relative",
     resize: "none",
-    textAlign: "center",
     zIndex: 2,
     outline: "none",
     border: "none",
@@ -19,11 +25,11 @@ const Bar = (props) => {
   const dashesStyle = {
     background: "transparent",
     margin: 0,
+    padding: 0,
     position: "absolute",
     resize: "none",
-    textAlign: "center",
-    left: (props.readOnly) ? "50%" : "0",
-    translate: (props.readOnly) ? "-50%" : "0",
+    left: "50%",
+    translate: "-50%",
     zIndex: 1,
     outline: "none",
     border: "none",
@@ -31,24 +37,26 @@ const Bar = (props) => {
   };
 
   return (
-    <div style={{ position: "relative"}}>
-      <textarea
-        readOnly={true}
-        style={inputsStyle}
-        value={props.barData.inputs}
-        cols={props.barData.cols}
-        rows="6"
-        maxLength={props.barData.maxLength}
-      />
-      <textarea
-        readOnly={true}
-        style={dashesStyle}
-        value={props.barData.dashes}
-        cols={props.barData.cols}
-        rows="6"
-        maxLength={props.barData.maxLength}
-      />
-    </div>
+    <SimpleBar>
+      <div style={{ position: "relative", width: "fit-content", margin: "0 auto"}}>
+        <textarea
+          readOnly={true}
+          style={inputsStyle}
+          value={props.barData.inputs}
+          cols={props.barData.cols}
+          rows="6"
+          maxLength={props.barData.maxLength}
+          />
+        <textarea
+          readOnly={true}
+          style={dashesStyle}
+          value={props.barData.dashes}
+          cols={props.barData.cols}
+          rows="6"
+          maxLength={props.barData.maxLength}
+        />
+      </div>
+    </SimpleBar>
   );
 };
 
