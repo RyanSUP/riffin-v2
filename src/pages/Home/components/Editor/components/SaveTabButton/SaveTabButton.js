@@ -3,6 +3,7 @@ import TooltipIconButton from "components/TooltipIconButton/TooltipIconButton";
 import { UserContext } from "containers/CognitoUserProvider/CognitoUserProvider";
 import { useContext } from "react";
 import { TablatureContext } from "containers/TablatureProvider/TablatureProvider";
+import { useNavigate } from "react-router-dom";
 
 // Services / utils
 import * as tablatureServices from "services/tablatureServices";
@@ -14,8 +15,9 @@ import SaveIcon from '@mui/icons-material/Save';
 const SaveTabButton = (props) => {
   const { user } = useContext(UserContext);
   const { addToUsersTablature, updateUserTablature } = useContext(TablatureContext);
-  
-  const handleSave = () => {
+  const navigate = useNavigate()
+
+  const handleSave = async () => {
     const idToken = getIdTokenFromUser(user);
     props.tablature.tags = props.tags
 
@@ -31,20 +33,22 @@ const SaveTabButton = (props) => {
   
     const saveNewTablature = () => {
       props.toggleLoading(true);
-      tablatureServices
+      return tablatureServices
       .create(props.tablature, idToken)
       .then((tablatureFromResponse) => {
-        console.log(tablatureFromResponse)
         props.toggleLoading(false);
+        return tablatureFromResponse;
       });
     }
     
     if (props.tablature._id) {
-      updateUserTablature(props.tablature)
+      updateUserTablature(props.tablature);
       updateExistingTablature();
     } else {
-      addToUsersTablature(props.tablature)
-      saveNewTablature();
+      const newTab = await saveNewTablature();
+      console.log(newTab);
+      addToUsersTablature(newTab);
+      navigate(`/edit/${newTab._id}`);
     }
   };
 
