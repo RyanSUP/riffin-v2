@@ -24,7 +24,7 @@ const DeleteTabButton = (props) => {
     .then((res) => {
       console.log(res);
     });
-    // TODO Nav to profile
+    navigate(`/profile/${user.username}`)
   };
   return (
     <TooltipIconButton 
