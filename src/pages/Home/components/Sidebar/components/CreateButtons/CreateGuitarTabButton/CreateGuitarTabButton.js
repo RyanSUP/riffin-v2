@@ -5,13 +5,13 @@ import { UserContext } from "containers/CognitoUserProvider/CognitoUserProvider"
 
 // MUI
 import AddCircleIcon from '@mui/icons-material/AddCircle';
-import { Button } from "@mui/material";
+import Button from '@mui/material/Button';
 
 const CreateGuitarTabButton = () => {  
   const navigate = useNavigate()  
   const { user } = useContext(UserContext)
   const handleClick = () => {
-    user ? navigate(`/new`) : navigate('/login')
+    user ? navigate(`/new/guitar`) : navigate('/login')
   }
 
   return (
