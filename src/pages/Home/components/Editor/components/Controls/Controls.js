@@ -1,43 +1,46 @@
 // MUI
-import PlaylistAddIcon from '@mui/icons-material/PlaylistAdd';
-import DeleteIcon from '@mui/icons-material/Delete';
-import SaveIcon from '@mui/icons-material/Save';
-import RemoveRedEyeIcon from '@mui/icons-material/RemoveRedEye';
-import VisibilityOffIcon from '@mui/icons-material/VisibilityOff';
-import { Box, Tooltip , IconButton} from '@mui/material';
+import PlaylistAddIcon from "@mui/icons-material/PlaylistAdd";
+import DeleteIcon from "@mui/icons-material/Delete";
+import SaveIcon from "@mui/icons-material/Save";
+import RemoveRedEyeIcon from "@mui/icons-material/RemoveRedEye";
+import VisibilityOffIcon from "@mui/icons-material/VisibilityOff";
+import { Box, Tooltip, IconButton } from "@mui/material";
 
 export default function SpeedDialTooltipOpen(props) {
-  
   const handleSetPublic = () => {
-    props.setPublic()
-  }
+    props.setPublic();
+  };
 
   const handleSave = () => {
-    props.saveTablatureToDatabase()
-  }
+    props.saveTablatureToDatabase();
+  };
 
   const handleDelete = () => {
-    props.deleteTablatureFromDatabase()
-  }
+    props.deleteTablatureFromDatabase();
+  };
 
   const handleAddBar = () => {
-    props.addBarToTablature()
-  }
+    props.addBarToTablature();
+  };
 
   const actions = [
-    { icon: <PlaylistAddIcon />, title: 'New bar', action: handleAddBar},
-    { 
-      icon: props.isPublic ? <RemoveRedEyeIcon />: <VisibilityOffIcon />,
-      title: props.isPublic ?  'Make private' : 'Make public', 
-      action: handleSetPublic 
+    { icon: <PlaylistAddIcon />, title: "New bar", action: handleAddBar },
+    {
+      icon: props.isPublic ? <RemoveRedEyeIcon /> : <VisibilityOffIcon />,
+      title: props.isPublic ? "Make private" : "Make public",
+      action: handleSetPublic,
     },
-    { icon: <SaveIcon />, title: 'Save', action: handleSave },
+    { icon: <SaveIcon />, title: "Save", action: handleSave },
   ];
-  
-  if(props.allowDelete) {
-    actions.push({ icon: <DeleteIcon />, title: 'Delete', action: handleDelete })
+
+  if (props.allowDelete) {
+    actions.push({
+      icon: <DeleteIcon />,
+      title: "Delete",
+      action: handleDelete,
+    });
   }
-  
+
   return (
     <Box>
       {actions.map((action) => (
