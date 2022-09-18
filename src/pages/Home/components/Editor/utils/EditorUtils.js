@@ -1,4 +1,4 @@
-import { STEP_COUNT, MIN_BLOCK_COLS, MAX_BLOCK_COLS } from '../EditorConfig'
+import { DEFAULT_BLOCK_COLS, MIN_BLOCK_COLS, MAX_BLOCK_COLS } from '../EditorConfig'
 
 const calcNewMaxLength = (numberOfCols, numberOfStrings) => (numberOfCols * numberOfStrings) + (numberOfStrings * 2) - 1
 const calculateNewFirstCol = (numberOfCols, index) => (numberOfCols + 1) * (index)
@@ -9,11 +9,12 @@ const calculateNewLastCol = (numberOfCols, stringNum, index) => (numberOfCols * 
   area
   characterToAdd
   action
-  cols
+  cols,
+  stepCount
 */
 export const updateBlockValue = (action) => {
-  if((action.action === "increase" && action.cols === MAX_BLOCK_COLS) ||
-    (action.action === "decrease" && action.cols === MIN_BLOCK_COLS)) {
+  if((action.type === "increase" && action.cols === MAX_BLOCK_COLS) ||
+    (action.type === "decrease" && action.cols === MIN_BLOCK_COLS)) {
     return action.area
   }
 
@@ -21,8 +22,8 @@ export const updateBlockValue = (action) => {
   let newValueString = ""
   for(let i = 0; i < guitarStrings.length; i++) {
     const array = [...guitarStrings[i]]
-    for(let j = 0; j < STEP_COUNT; j++) {
-      if(action.action === "increase") {
+    for(let j = 0; j < Math.abs(action.stepCount); j++) {
+      if(action.type === "increase") {
         array.push(action.characterToAdd)
       } else {
         array.pop()
@@ -41,28 +42,24 @@ export const updateBlockValue = (action) => {
     cols,
     maxLength,
     action,
-    stringCount
+    stringCount,
+    stepCount
   }
 */
 export const updateTextAreaAttributes = (action) => {
-  if((action.action === "increase" && action.cols === MAX_BLOCK_COLS) ||
-    (action.action === "decrease" && action.cols === MIN_BLOCK_COLS)) {
+  if((action.type === "increase" && action.cols === MAX_BLOCK_COLS) ||
+    (action.type === "decrease" && action.cols === MIN_BLOCK_COLS)) {
     return {
       cols: action.cols,
       maxLength: action.maxLength
     }
   }
-  if(action.action === "increase") {
-    return {
-      cols: action.cols + STEP_COUNT,
-      maxLength: calcNewMaxLength(action.cols + STEP_COUNT, action.stringCount)
-    }
-  } else {   
-    return {
-      cols: action.cols - STEP_COUNT,
-      maxLength: calcNewMaxLength(action.cols - STEP_COUNT, action.stringCount)
-    }
+
+  return {
+    cols: action.cols + action.stepCount,
+    maxLength: calcNewMaxLength(action.cols + action.stepCount, action.stringCount)
   }
+
 }
 
 export const getMapOfLastColumnIndexes = (action) => {
@@ -87,7 +84,7 @@ export const getMapOfFirstColumnIndexes = (action) => {
 export const getNewGuitarBlock = () => {
   const action = {
     stringCount: 6,
-    cols: MIN_BLOCK_COLS
+    cols: DEFAULT_BLOCK_COLS
   }
 
   const mapOfLastColumnIndexes = getMapOfLastColumnIndexes(action)
@@ -110,7 +107,7 @@ export const getNewGuitarBlock = () => {
     tempKey: Date() + Math.random(),
     inputs: inputs,
     dashes: dashes,
-    cols: MIN_BLOCK_COLS,
+    cols: DEFAULT_BLOCK_COLS,
     maxLength: 251
   };
 }

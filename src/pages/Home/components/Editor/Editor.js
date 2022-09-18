@@ -1,5 +1,5 @@
 // Components / hooks
-import { useState, useContext, useEffect, useCallback } from 'react';
+import { useState, useContext, useEffect } from 'react';
 import { useNavigate, useParams } from "react-router-dom";
 import { UserContext } from "containers/CognitoUserProvider/CognitoUserProvider";
 import { TablatureContext } from "containers/TablatureProvider/TablatureProvider";
@@ -133,6 +133,19 @@ const Editor = (props) => {
     setTablature({ ...tablature });
   };
 
+  const duplicateBlock = (blockIndex) => {
+    const newBlock = {
+      tempKey: Date() + Math.random(),
+      label: tablature.bars[blockIndex].label,
+      inputs: tablature.bars[blockIndex].inputs,
+      dashes: tablature.bars[blockIndex].dashes,
+      cols: tablature.bars[blockIndex].cols,
+      maxLength: tablature.bars[blockIndex].maxLength
+    }
+    tablature.bars.push(newBlock)
+    refreshTablatureObject()
+  }
+
   const handleNameInput = (event) => {
     const udpatedTablature = {
       ...tablature,
@@ -251,6 +264,7 @@ const Editor = (props) => {
               key={i}
               index={i}
               bar={bar}
+              duplicateBlock={duplicateBlock}
               deleteBarFromTablature={deleteBarFromTablature}
               handleBarChange={handleBarChange}
               handleKeyUpInBar={handleKeyUpInBar} 

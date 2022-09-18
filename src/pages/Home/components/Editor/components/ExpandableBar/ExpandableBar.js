@@ -1,15 +1,14 @@
 // Componeonts / hooks
 import { useState, useEffect, useRef } from "react";
+import BlockOptionsMenu from "./components/BlockOptionsMenu/BlockOptionsMenu";
 
 // Utils / services
 import { updateBlockValue, updateTextAreaAttributes, getMapOfLastColumnIndexes, getMapOfFirstColumnIndexes } from "../../utils/EditorUtils"
 
 // MUI
 import { useTheme } from "@mui/material/styles";
-import { Tooltip, IconButton, Box, Button, ButtonGroup } from "@mui/material";
-import DeleteIcon from '@mui/icons-material/Delete';
-import AddIcon from '@mui/icons-material/Add';
-import RemoveIcon from '@mui/icons-material/Remove';
+import { Box } from "@mui/material";
+
 
 const ExpandableBar = (props) => {
   // ! Update the stringcount when bass is implemented
@@ -68,22 +67,16 @@ const ExpandableBar = (props) => {
     padding: 0
   };
 
-  // ! Broken atm
-  const handleLabelInput = (event, barIndex) => {
-    event.preventDefault()
-    const updatedBar = {
-      ...props.bars[barIndex],
-      label: event.target.value,
-    };
-    props.bars[barIndex] = updatedBar
-    // props.refreshTablatureObject()
-  }
+  const deleteBlock = () => props.deleteBarFromTablature(props.index)
+
+  const duplicateBlock = () => props.duplicateBlock(props.index)
 
   const updateInputAreaSize = (action) => {
     const inputAction = {
       area: props.bar.inputs,
       characterToAdd: " ",
-      action: action,
+      type: action.type,
+      stepCount: action.stepCount,
       cols: props.bar.cols
     }
     props.bar.inputs = updateBlockValue(inputAction)
@@ -93,18 +86,20 @@ const ExpandableBar = (props) => {
     const dashAction = {
       area: props.bar.dashes,
       characterToAdd: "-",
-      action: action,
+      type: action.type,
+      stepCount: action.stepCount,
       cols: props.bar.cols
     }
     props.bar.dashes = updateBlockValue(dashAction)
   }
 
-  const updateTextAreaSize = (action) => {
+  const updateBlockProperties = (action) => {
     // ! Update the string count when bass tabs are implemented
     const textAreaAction = {
       cols: props.bar.cols,
       maxLength: props.bar.maxLength,
-      action: action,
+      type: action.type,
+      stepCount: action.stepCount,
       stringCount: 6
     }
     const { cols, maxLength } = updateTextAreaAttributes(textAreaAction)
@@ -112,11 +107,22 @@ const ExpandableBar = (props) => {
     props.bar.maxLength = maxLength
   }
 
-  const UpdateBlockSize = (action) => {
+  const updateBlockSize = (action) => {
     updateInputAreaSize(action)
     updateDashAreaSize(action)
-    updateTextAreaSize(action)
+    updateBlockProperties(action)
     props.refreshTablatureObject()
+  }
+
+  // ! Broken atm
+  const handleLabelInput = (event, barIndex) => {
+    event.preventDefault()
+    const updatedBar = {
+      ...props.bars[barIndex],
+      label: event.target.value,
+    };
+    props.bars[barIndex] = updatedBar
+    // props.refreshTablatureObject()
   }
 
   useEffect(() => {
@@ -134,7 +140,7 @@ const ExpandableBar = (props) => {
   return (
     <>
       <Box sx={{display: 'flex', justifyContent: 'space-between'}}>
-        <input 
+      <input 
           style={{"marginLeft": "10px"}}
           type="text"
           name="name"
@@ -142,23 +148,19 @@ const ExpandableBar = (props) => {
           onChange={(event) => handleLabelInput(event, props.index)}
           placeholder="a new bar"
         />
-        <ButtonGroup
-          disableElevation
-          variant="contained"
-          aria-label="Disabled elevation buttons"
-        >
-          <Tooltip placement="top-start" title="Decrease tab length">
-            <Button onClick={() => UpdateBlockSize("decrease")}><RemoveIcon /></Button>
-          </Tooltip>
-          <Tooltip placement="top-start" title="Increase tab length">
-            <Button onClick={() => UpdateBlockSize("increase")}><AddIcon /></Button>
-          </Tooltip>
-        </ButtonGroup>
+        {/* <ButtonGroup
+
         <Tooltip title="Delete bar" size="small">
           <IconButton onClick={()=> props.deleteBarFromTablature(props.index)}>
             <DeleteIcon />
           </IconButton>
-        </Tooltip>
+        </Tooltip> */}
+        <BlockOptionsMenu 
+          updateBlockSize={updateBlockSize}
+          deleteBlock={deleteBlock} 
+          duplicateBlock={duplicateBlock}
+          cols={props.bar.cols}
+        />
       </Box>
       <Box sx={{display: 'flex'}}>
         <textarea
