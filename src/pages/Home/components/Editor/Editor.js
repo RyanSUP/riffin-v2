@@ -4,9 +4,11 @@ import { useNavigate, useParams } from "react-router-dom";
 import { UserContext } from "containers/CognitoUserProvider/CognitoUserProvider";
 import { TablatureContext } from "containers/TablatureProvider/TablatureProvider";
 import ExpandableTablatureBlock from './components/ExpandableTablatureBlock/ExpandableTablatureBlock';
-import AddBlockButton from './components/AddBlockButton/AddBlockButton';
+import AddNoteBlockButton from './components/AddNoteBlockButton/AddNoteBlockButton';
 import DeleteTabButton from './components/DeleteTabButton/DeleteTabButton';
 import SaveTabButton from './components/SaveTabButton/SaveTabButton';
+import NoteBlock from './components/NoteBlock/NoteBlock';
+import AddTablatureBlockButton from './components/AddTablatureBlockButton/AddTablatureBlockButton';
 
 // Services / utils
 import { getNewGuitarBlock } from "./utils/EditorUtils";
@@ -14,7 +16,6 @@ import { getNewGuitarBlock } from "./utils/EditorUtils";
 // MUI
 import { CircularProgress, Paper } from "@mui/material";
 import Box from '@mui/material/Box';
-import NoteArea from './components/NoteArea/NoteArea';
 
 const Editor = (props) => {
   const [selectedTablatureBlock, setSelectedTablatureBlock] = useState(null);
@@ -244,7 +245,11 @@ const Editor = (props) => {
               onChange={handleNameInput}
               placeholder="A tasty lick"
             />
-            <AddBlockButton 
+            <AddTablatureBlockButton 
+              tablature={tablature}
+              refreshTablatureObject={refreshTablatureObject}
+            />
+            <AddNoteBlockButton 
               tablature={tablature}
               refreshTablatureObject={refreshTablatureObject}
             />
@@ -260,20 +265,33 @@ const Editor = (props) => {
               />
             }
           </Box>
-          <NoteArea />
-          {tablature.blocks.map((block, i) => (
-            <ExpandableTablatureBlock
-              key={i}
-              index={i}
-              block={block}
-              duplicateBlock={duplicateBlock}
-              deleteBlock={deleteBlock}
-              handleBlockChange={handleBlockChange}
-              handleKeyUpInBlock={handleKeyUpInBlock} 
-              handleClickedBlock={handleClickedBlock}
-              refreshTablatureObject={refreshTablatureObject}
-            />
-          ))}
+          {tablature.blocks.map((block, i) => {
+            if(block.blockType === "tablature") {
+              return (
+                <ExpandableTablatureBlock
+                  key={i}
+                  index={i}
+                  block={block}
+                  duplicateBlock={duplicateBlock}
+                  deleteBlock={deleteBlock}
+                  handleBlockChange={handleBlockChange}
+                  handleKeyUpInBlock={handleKeyUpInBlock} 
+                  handleClickedBlock={handleClickedBlock}
+                  refreshTablatureObject={refreshTablatureObject}
+                />
+              )
+            } else {
+              return (
+                <NoteBlock
+                  key={i}
+                  index={i}
+                  block={block}
+                  deleteBlock={deleteBlock}
+                  refreshTablatureObject={refreshTablatureObject}
+                />
+              )
+            }
+          })}
         </Paper>
       )}
     </div>

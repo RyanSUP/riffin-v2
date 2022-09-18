@@ -1,18 +1,18 @@
 // Components / hooks
 import TooltipIconButton from "components/TooltipIconButton/TooltipIconButton";
 // utils
-import { getNewGuitarBlock } from "../../utils/EditorUtils";
+import { getNewNoteBlock } from "../../utils/EditorUtils";
 // MUI
 import PlaylistAddIcon from '@mui/icons-material/PlaylistAdd';
 
-const AddBlock = (props) => {
+const AddNoteBlockButton = (props) => {
   const handleAddBlock = () => {
     const previousBlocks = [];
     props.tablature.blocks.forEach((bar) => {
       previousBlocks.push({ ...bar });
     });
 
-    const newBlock = getNewGuitarBlock()
+    const newBlock = getNewNoteBlock()
 
     props.tablature.blocks = [...previousBlocks, newBlock];
     props.refreshTablatureObject();
@@ -20,7 +20,7 @@ const AddBlock = (props) => {
 
   return (
     <TooltipIconButton 
-      title="Add tablature block"
+      title="Add note block"
       onClick={handleAddBlock}
       isDiabled={false}
       icon={<PlaylistAddIcon />}
@@ -28,4 +28,4 @@ const AddBlock = (props) => {
   );
 }
  
-export default AddBlock;
+export default AddNoteBlockButton;

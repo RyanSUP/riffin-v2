@@ -108,6 +108,15 @@ export const getNewGuitarBlock = () => {
     inputs: inputs,
     dashes: dashes,
     cols: DEFAULT_BLOCK_COLS,
-    maxLength: 251
+    maxLength: 251,
+    blockType: "tablature"
   };
+}
+
+export const getNewNoteBlock = () => {
+  return {
+    tempKey: Date() + Math.random(),
+    blockType: "note",
+    inputs: ""
+  }  
 }

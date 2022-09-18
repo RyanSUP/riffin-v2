@@ -1,31 +1,38 @@
+// MUI
+import { TextareaAutosize } from "@mui/material";
 import { useTheme } from "@mui/material/styles";
 
+const NoteBlock = (props) => {
 
-const NoteArea = () => {
   const theme = useTheme();
 
   const inputsStyle = {
+    width: "100%",
     background: "transparent",
     margin: 0,
-    position: "relative",
     resize: "none",
-    zIndex: 2,
     outline: "none",
     border: "none",
     borderLeft: "1px solid",
     color: theme.palette.primary.main,
     fontSize: "1.2rem",
   };
+  
+  const handleChange = (event) => {
+    props.block.inputs = event.target.value
+    props.refreshTablatureObject();
+  }
 
   return (
-    <textarea
+    <TextareaAutosize
       style={inputsStyle}
-      cols={40}
+      minRows={3}
+      maxCols={60}
       placeholder={"Notes"}
-      maxLength={250}
-      id="riffin-editor-inputGrid"
+      value={props.block.inputs}
+      onChange={handleChange}
     />
   );
 }
  
-export default NoteArea;
+export default NoteBlock;
