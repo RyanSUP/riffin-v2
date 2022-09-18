@@ -209,7 +209,7 @@ const Editor = (props) => {
       if(tab) {
         setTablature(getTabFromUser(tabId));
       } else {
-        navigate('/trending')
+        navigate('/login')
       }
     }
   }, [tabId, getTabFromUser, navigate]);

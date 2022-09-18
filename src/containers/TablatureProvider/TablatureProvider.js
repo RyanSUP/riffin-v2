@@ -73,6 +73,13 @@ const TablatureProvider = (props) => {
             user: user.username,
           }
           tab.blocks = tab.bars
+          // ! This is a hack to get OG tablature working with the new block system. Eventually the tab database will need to be reset and this can be removed.
+          tab.blocks.forEach((block) => {
+            if(!block.blockType) {
+              block.blockType = "tablature"
+            }
+          })
+          // ! End of hack
           tab.owner = owner
           return tab
         })

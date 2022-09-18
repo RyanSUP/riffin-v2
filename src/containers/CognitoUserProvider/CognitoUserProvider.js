@@ -66,7 +66,7 @@ const CognitoUserProvider = (props) => {
           console.log("onSuccess: ", data);
           setUser(user);
           resolve(user);
-          navigate("/trending");
+          navigate("/login");
         },
         onFailure: (error) => {
           console.error("onFailure: ", error);

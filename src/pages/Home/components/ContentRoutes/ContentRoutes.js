@@ -18,7 +18,7 @@ const ContentRoutes = (props) => {
       <Route path="/edit/:tabId" element={
         <Editor tags={props.tags} />} 
       />
-      <Route path="*" element={<Navigate to="/trending" replace />} />
+      <Route path="*" element={<Navigate to="/login" replace />} />
     </Routes>
   );
 }
