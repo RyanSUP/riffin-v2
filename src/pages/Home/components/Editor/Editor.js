@@ -14,6 +14,7 @@ import { getNewGuitarBlock } from "./utils/EditorUtils";
 // MUI
 import { CircularProgress, Paper } from "@mui/material";
 import Box from '@mui/material/Box';
+import NoteArea from './components/NoteArea/NoteArea';
 
 const Editor = (props) => {
   const [selectedBar, setSelectedBar] = useState(null);
@@ -259,6 +260,7 @@ const Editor = (props) => {
               />
             }
           </Box>
+          <NoteArea />
           {tablature.bars.map((bar, i) => (
             <ExpandableBar
               key={i}
