@@ -7,14 +7,14 @@ import PlaylistAddIcon from '@mui/icons-material/PlaylistAdd';
 
 const AddBlock = (props) => {
   const handleAddBlock = () => {
-    const previousBars = [];
-    props.tablature.bars.forEach((bar) => {
-      previousBars.push({ ...bar });
+    const previousBlocks = [];
+    props.tablature.blocks.forEach((bar) => {
+      previousBlocks.push({ ...bar });
     });
 
     const newBlock = getNewGuitarBlock()
 
-    props.tablature.bars = [...previousBars, newBlock];
+    props.tablature.blocks = [...previousBlocks, newBlock];
     props.refreshTablatureObject();
   }
 

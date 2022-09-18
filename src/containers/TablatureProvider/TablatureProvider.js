@@ -72,6 +72,7 @@ const TablatureProvider = (props) => {
             preferredUsername: profile.preferredUsername,
             user: user.username,
           }
+          tab.blocks = tab.bars
           tab.owner = owner
           return tab
         })

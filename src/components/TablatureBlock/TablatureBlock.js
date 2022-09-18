@@ -2,12 +2,12 @@
 import SimpleBar from "simplebar-react";
 import 'simplebar/dist/simplebar.min.css';
 
-import "./Bar.css"
+import "./TablatureBlockStyle.css"
 
 // MUI hook that gives components access to theme stored in ThemeProvider
 import { useTheme } from "@mui/material/styles";
 
-const Bar = (props) => {
+const TablatureBlock = (props) => {
   const theme = useTheme(); // theme obtained with invoking this hook
   
   const inputsStyle = {
@@ -42,22 +42,22 @@ const Bar = (props) => {
         <textarea
           readOnly={true}
           style={inputsStyle}
-          value={props.barData.inputs}
-          cols={props.barData.cols}
+          value={props.blockData.inputs}
+          cols={props.blockData.cols}
           rows="6"
-          maxLength={props.barData.maxLength}
+          maxLength={props.blockData.maxLength}
           />
         <textarea
           readOnly={true}
           style={dashesStyle}
-          value={props.barData.dashes}
-          cols={props.barData.cols}
+          value={props.blockData.dashes}
+          cols={props.blockData.cols}
           rows="6"
-          maxLength={props.barData.maxLength}
+          maxLength={props.blockData.maxLength}
         />
       </div>
     </SimpleBar>
   );
 };
 
-export default Bar;
+export default TablatureBlock;

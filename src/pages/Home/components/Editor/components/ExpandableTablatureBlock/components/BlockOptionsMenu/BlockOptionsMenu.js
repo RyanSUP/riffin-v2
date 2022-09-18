@@ -116,7 +116,7 @@ export default function BlockOptionsMenu(props) {
         onClose={handleClose}
       >
         <MenuItem disabled disableRipple>
-          Bar Size
+          Size
         </MenuItem>
         <MenuItem disableRipple>
           <Slider

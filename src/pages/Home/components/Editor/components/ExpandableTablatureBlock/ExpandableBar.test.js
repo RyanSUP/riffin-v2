@@ -1,5 +1,5 @@
 import { render, screen } from "@testing-library/react";
-import ExpandableBar from './ExpandableBar'
+import ExpandableBar from './ExpandableTablatureBlock'
 import { BrowserRouter } from 'react-router-dom'
 
 test('delete button does not show when there is only one bar', () => {

@@ -10,14 +10,14 @@ import { useTheme } from "@mui/material/styles";
 import { Box } from "@mui/material";
 
 
-const ExpandableBar = (props) => {
+const ExpandableTablatureBlock = (props) => {
   // ! Update the stringcount when bass is implemented
   const [mapOfLastColumnIndexes, setMapOfLastColumnIndexes] = useState(getMapOfLastColumnIndexes({
-    cols: props.bar.cols,
+    cols: props.block.cols,
     stringCount: 6
   }))
   const [mapOfFirstColumnIndexes, setMapOfFirstColumnIndexes] = useState(getMapOfFirstColumnIndexes({
-    cols: props.bar.cols,
+    cols: props.block.cols,
     stringCount: 6
   }))
 
@@ -67,44 +67,44 @@ const ExpandableBar = (props) => {
     padding: 0
   };
 
-  const deleteBlock = () => props.deleteBarFromTablature(props.index)
+  const deleteBlock = () => props.deleteBlock(props.index)
 
   const duplicateBlock = () => props.duplicateBlock(props.index)
 
   const updateInputAreaSize = (action) => {
     const inputAction = {
-      area: props.bar.inputs,
+      area: props.block.inputs,
       characterToAdd: " ",
       type: action.type,
       stepCount: action.stepCount,
-      cols: props.bar.cols
+      cols: props.block.cols
     }
-    props.bar.inputs = updateBlockValue(inputAction)
+    props.block.inputs = updateBlockValue(inputAction)
   }
 
   const updateDashAreaSize = (action) => {
     const dashAction = {
-      area: props.bar.dashes,
+      area: props.block.dashes,
       characterToAdd: "-",
       type: action.type,
       stepCount: action.stepCount,
-      cols: props.bar.cols
+      cols: props.block.cols
     }
-    props.bar.dashes = updateBlockValue(dashAction)
+    props.block.dashes = updateBlockValue(dashAction)
   }
 
   const updateBlockProperties = (action) => {
     // ! Update the string count when bass tabs are implemented
     const textAreaAction = {
-      cols: props.bar.cols,
-      maxLength: props.bar.maxLength,
+      cols: props.block.cols,
+      maxLength: props.block.maxLength,
       type: action.type,
       stepCount: action.stepCount,
       stringCount: 6
     }
     const { cols, maxLength } = updateTextAreaAttributes(textAreaAction)
-    props.bar.cols = cols
-    props.bar.maxLength = maxLength
+    props.block.cols = cols
+    props.block.maxLength = maxLength
   }
 
   const updateBlockSize = (action) => {
@@ -118,24 +118,24 @@ const ExpandableBar = (props) => {
   const handleLabelInput = (event, barIndex) => {
     event.preventDefault()
     const updatedBar = {
-      ...props.bars[barIndex],
+      ...props.blocks[barIndex],
       label: event.target.value,
     };
-    props.bars[barIndex] = updatedBar
+    props.blocks[barIndex] = updatedBar
     // props.refreshTablatureObject()
   }
 
   useEffect(() => {
     setMapOfLastColumnIndexes(getMapOfLastColumnIndexes({
-      cols: props.bar.cols,
+      cols: props.block.cols,
       stringCount: 6
     }))
 
     setMapOfFirstColumnIndexes(getMapOfFirstColumnIndexes({
-      cols: props.bar.cols,
+      cols: props.block.cols,
       stringCount: 6
     }))
-  }, [props.bar.cols, props.bar.maxLength])
+  }, [props.block.cols, props.block.maxLength])
 
   return (
     <>
@@ -144,9 +144,9 @@ const ExpandableBar = (props) => {
           style={{"marginLeft": "10px"}}
           type="text"
           name="name"
-          value={props.bar.label}
+          value={props.block.label}
           onChange={(event) => handleLabelInput(event, props.index)}
-          placeholder="a new bar"
+          placeholder="label"
         />
         {/* <ButtonGroup
 
@@ -159,7 +159,7 @@ const ExpandableBar = (props) => {
           updateBlockSize={updateBlockSize}
           deleteBlock={deleteBlock} 
           duplicateBlock={duplicateBlock}
-          cols={props.bar.cols}
+          cols={props.block.cols}
         />
       </Box>
       <Box sx={{display: 'flex'}}>
@@ -173,24 +173,24 @@ const ExpandableBar = (props) => {
         <div style={{ position: "relative" }}>
           <textarea
             style={inputsStyle}
-            value={props.bar.inputs}
-            onChange={(event) => props.handleBarChange(event, mapOfLastColumnIndexes, mapOfFirstColumnIndexes)}
-            onKeyUp={(event) =>  props.handleKeyUpInBar(event)}
+            value={props.block.inputs}
+            onChange={(event) => props.handleBlockChange(event, mapOfLastColumnIndexes, mapOfFirstColumnIndexes)}
+            onKeyUp={(event) =>  props.handleKeyUpInBlock(event)}
             onPaste={(event) => event.preventDefault()}
-            onClick={(event) => props.handleClickedBar(event, props.index, inputRef)}
-            cols={props.bar.cols}
+            onClick={(event) => props.handleClickedBlock(event, props.index, inputRef)}
+            cols={props.block.cols}
             rows="6"
-            maxLength={props.bar.maxLength}
+            maxLength={props.block.maxLength}
             id="riffin-editor-inputGrid"
             ref={inputRef}
           />
           <textarea
             readOnly={true}
             style={dashesStyle}
-            value={props.bar.dashes}
-            cols={props.bar.cols}
+            value={props.block.dashes}
+            cols={props.block.cols}
             rows="6"
-            maxLength={props.bar.maxLength}
+            maxLength={props.block.maxLength}
             id="riffin-editor-dashGrid"
           />
         </div>
@@ -199,4 +199,4 @@ const ExpandableBar = (props) => {
   );
 }
  
-export default ExpandableBar;
+export default ExpandableTablatureBlock;

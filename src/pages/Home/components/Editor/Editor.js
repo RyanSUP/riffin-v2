@@ -3,7 +3,7 @@ import { useState, useContext, useEffect } from 'react';
 import { useNavigate, useParams } from "react-router-dom";
 import { UserContext } from "containers/CognitoUserProvider/CognitoUserProvider";
 import { TablatureContext } from "containers/TablatureProvider/TablatureProvider";
-import ExpandableBar from './components/ExpandableBar/ExpandableBar';
+import ExpandableTablatureBlock from './components/ExpandableTablatureBlock/ExpandableTablatureBlock';
 import AddBlockButton from './components/AddBlockButton/AddBlockButton';
 import DeleteTabButton from './components/DeleteTabButton/DeleteTabButton';
 import SaveTabButton from './components/SaveTabButton/SaveTabButton';
@@ -17,14 +17,14 @@ import Box from '@mui/material/Box';
 import NoteArea from './components/NoteArea/NoteArea';
 
 const Editor = (props) => {
-  const [selectedBar, setSelectedBar] = useState(null);
+  const [selectedTablatureBlock, setSelectedTablatureBlock] = useState(null);
   const [cursorPosition, setCursorPosition] = useState({ position: null }); // This can't be a number or it will cause 
   const [showDeleteButton, setShowDeleteButton] = useState(false); // Is the document already in the database?
   const [isLoading, setIsLoading] = useState(false); // is the document currently waiting for a response?
   const [tablature, setTablature] = useState({
     isPublic: false,
     name: "A tasty lick",
-    bars: [],
+    blocks: [],
     tags: [],
     isBassTab: false,
   });
@@ -42,19 +42,19 @@ const Editor = (props) => {
         return { position: prev.position };
       });
     } else {
-      const bar = tablature.bars[selectedBar.index];
-      const newBar = { ...bar };
-      newBar.inputs = getUpdatedTextAreaValues(
+      const block = tablature.blocks[selectedTablatureBlock.index];
+      const newBlock = { ...block };
+      newBlock.inputs = getUpdatedTextAreaValues(
         "inputs",
         character,
         cursorPosition.position
       );
-      newBar.dashes = getUpdatedTextAreaValues(
+      newBlock.dashes = getUpdatedTextAreaValues(
         "dashes",
         " ",
         cursorPosition.position
       );
-      tablature.bars[selectedBar.index] = newBar;
+      tablature.blocks[selectedTablatureBlock.index] = newBlock;
       setTablature((prev) => { return {...prev}})
       setCursorPosition({ position: cursorPosition.position + 1 });
     }
@@ -66,20 +66,20 @@ const Editor = (props) => {
         return { position: prev.position };
       });
     } else {
-      const bar = tablature.bars[selectedBar.index];
-      const newBar = { ...bar };
+      const block = tablature.blocks[selectedTablatureBlock.index];
+      const newBlock = { ...block };
       let newCursorPosition = cursorPosition.position - 1;
-      newBar.inputs = getUpdatedTextAreaValues(
+      newBlock.inputs = getUpdatedTextAreaValues(
         "inputs",
         " ",
         newCursorPosition
       );
-      newBar.dashes = getUpdatedTextAreaValues(
+      newBlock.dashes = getUpdatedTextAreaValues(
         "dashes",
         "-",
         newCursorPosition
       );
-      tablature.bars[selectedBar.index] = newBar;
+      tablature.blocks[selectedTablatureBlock.index] = newBlock;
       setTablature((prev) => { return {...prev}})
       setCursorPosition({ position: newCursorPosition });
     }
@@ -108,8 +108,8 @@ const Editor = (props) => {
   };
 
   function getUpdatedTextAreaValues(area, character, insertionIndex) {
-    const bar = tablature.bars[selectedBar.index];
-    let currentValueAsArray = [...bar[area]];
+    const block = tablature.blocks[selectedTablatureBlock.index];
+    let currentValueAsArray = [...block[area]];
     currentValueAsArray[insertionIndex] = character;
     const updatedValue = currentValueAsArray.join("");
     return updatedValue;
@@ -122,28 +122,28 @@ const Editor = (props) => {
     ArrowUp: true,
   };
 
-  const deleteBarFromTablature = (barIndex) => {
-    const newBars = [];
-    tablature.bars.forEach((bar, i) => {
-      if (barIndex !== i) {
-        newBars.push({ ...bar });
+  const deleteBlock = (blockIndex) => {
+    const newBlocks = [];
+    tablature.blocks.forEach((block, i) => {
+      if (blockIndex !== i) {
+        newBlocks.push({ ...block });
       }
     });
 
-    tablature.bars = newBars;
+    tablature.blocks = newBlocks;
     setTablature({ ...tablature });
   };
 
   const duplicateBlock = (blockIndex) => {
     const newBlock = {
       tempKey: Date() + Math.random(),
-      label: tablature.bars[blockIndex].label,
-      inputs: tablature.bars[blockIndex].inputs,
-      dashes: tablature.bars[blockIndex].dashes,
-      cols: tablature.bars[blockIndex].cols,
-      maxLength: tablature.bars[blockIndex].maxLength
+      label: tablature.blocks[blockIndex].label,
+      inputs: tablature.blocks[blockIndex].inputs,
+      dashes: tablature.blocks[blockIndex].dashes,
+      cols: tablature.blocks[blockIndex].cols,
+      maxLength: tablature.blocks[blockIndex].maxLength
     }
-    tablature.bars.push(newBlock)
+    tablature.blocks.push(newBlock)
     refreshTablatureObject()
   }
 
@@ -157,18 +157,18 @@ const Editor = (props) => {
 
   const refreshTablatureObject = () => setTablature({ ...tablature });
 
-  const handleClickedBar = (event, barIndex, barRef) => {
-    setSelectedBar({ inputRef: barRef, index: barIndex });
+  const handleClickedBlock = (event, barIndex, barRef) => {
+    setSelectedTablatureBlock({ inputRef: barRef, index: barIndex });
     setCursorPosition({ position: event.target.selectionStart });
   };
 
-  const handleKeyUpInBar = (event) => {
+  const handleKeyUpInBlock = (event) => {
     if (event.key in arrows) {
       setCursorPosition({ position: event.target.selectionStart });
     }
   };
 
-  const handleBarChange = (event, mapOfLastColumnIndexes, mapOfFirstColumnIndexes) => {
+  const handleBlockChange = (event, mapOfLastColumnIndexes, mapOfFirstColumnIndexes) => {
     const key = event.nativeEvent.data;
     console.log(event.nativeEvent.inputType);
     event.preventDefault();
@@ -190,12 +190,12 @@ const Editor = (props) => {
 
   // Prevent crusor from jumping to end of input.
   useEffect(() => {
-    if (selectedBar) {
-      selectedBar.inputRef.current.selectionStart = cursorPosition.position;
-      selectedBar.inputRef.current.selectionEnd = cursorPosition.position;
+    if (selectedTablatureBlock) {
+      selectedTablatureBlock.inputRef.current.selectionStart = cursorPosition.position;
+      selectedTablatureBlock.inputRef.current.selectionEnd = cursorPosition.position;
       console.log("New cursorPosition: ", cursorPosition.position);
     }
-  }, [cursorPosition, selectedBar]);
+  }, [cursorPosition, selectedTablatureBlock]);
 
   // Check if the document is new
   useEffect(() => {
@@ -223,14 +223,14 @@ const Editor = (props) => {
   }, [user]);
 
   useEffect(() => {
-    if(!tabId && tablature.bars.length === 0) {
+    if(!tabId && tablature.blocks.length === 0) {
       const newBlock = getNewGuitarBlock()
       setTablature((prev) => {
-        prev.bars = [newBlock]
+        prev.blocks = [newBlock]
         return {...prev}
       })
     }
-  }, [tabId, tablature.bars.length])
+  }, [tabId, tablature.blocks.length])
 
   return (
     <div data-testid="Editor">
@@ -261,16 +261,16 @@ const Editor = (props) => {
             }
           </Box>
           <NoteArea />
-          {tablature.bars.map((bar, i) => (
-            <ExpandableBar
+          {tablature.blocks.map((block, i) => (
+            <ExpandableTablatureBlock
               key={i}
               index={i}
-              bar={bar}
+              block={block}
               duplicateBlock={duplicateBlock}
-              deleteBarFromTablature={deleteBarFromTablature}
-              handleBarChange={handleBarChange}
-              handleKeyUpInBar={handleKeyUpInBar} 
-              handleClickedBar={handleClickedBar}
+              deleteBlock={deleteBlock}
+              handleBlockChange={handleBlockChange}
+              handleKeyUpInBlock={handleKeyUpInBlock} 
+              handleClickedBlock={handleClickedBlock}
               refreshTablatureObject={refreshTablatureObject}
             />
           ))}

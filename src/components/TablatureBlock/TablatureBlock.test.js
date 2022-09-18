@@ -1,5 +1,5 @@
 import { render, screen } from "@testing-library/react"
-import Bar from './Bar'
+import Bar from './TablatureBlock'
 
 test('Bar renders both "inputs" and "dashes" text areas', () => {
   const barData = {
