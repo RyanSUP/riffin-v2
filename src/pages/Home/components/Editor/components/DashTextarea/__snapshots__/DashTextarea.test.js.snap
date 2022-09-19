@@ -1,0 +1,32 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`renders correctly using a new tablatureBlock 1`] = `
+<textarea
+  cols={40}
+  maxLength={251}
+  readOnly={true}
+  rows="6"
+  style={
+    Object {
+      "background": "transparent",
+      "border": "none",
+      "color": "#fff",
+      "fontSize": "1.2rem",
+      "left": "0",
+      "margin": 0,
+      "outline": "none",
+      "padding": 0,
+      "position": "absolute",
+      "resize": "none",
+      "translate": "0",
+      "zIndex": 1,
+    }
+  }
+  value="----------------------------------------
+----------------------------------------
+----------------------------------------
+----------------------------------------
+----------------------------------------
+----------------------------------------"
+/>
+`;
