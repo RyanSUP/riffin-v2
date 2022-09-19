@@ -6,7 +6,7 @@ import TablatureInputs from "../TablatureInputs/TablatureInputs";
 import TablatureDashes from "../TablatureDashes/TablatureDashes";
 
 // Utils / services
-import { updateBlockValue, updateTextAreaAttributes, getMapOfLastColumnIndexes, getMapOfFirstColumnIndexes } from "../../utils/EditorUtils"
+import { getMapOfLastColumnIndexes, getMapOfFirstColumnIndexes } from "../../utils/EditorUtils"
 
 // MUI
 import { Box } from "@mui/material";
@@ -25,49 +25,6 @@ const ExpandableTablatureBlock = (props) => {
   const deleteBlock = () => props.deleteBlock(props.index)
 
   const duplicateBlock = () => props.duplicateBlock(props.index)
-
-  const updateInputAreaSize = (action) => {
-    const inputAction = {
-      area: props.block.inputs,
-      characterToAdd: " ",
-      type: action.type,
-      stepCount: action.stepCount,
-      cols: props.block.cols
-    }
-    props.block.inputs = updateBlockValue(inputAction)
-  }
-
-  const updateDashAreaSize = (action) => {
-    const dashAction = {
-      area: props.block.dashes,
-      characterToAdd: "-",
-      type: action.type,
-      stepCount: action.stepCount,
-      cols: props.block.cols
-    }
-    props.block.dashes = updateBlockValue(dashAction)
-  }
-
-  const updateBlockProperties = (action) => {
-    // ! Update the string count when bass tabs are implemented
-    const textAreaAction = {
-      cols: props.block.cols,
-      maxLength: props.block.maxLength,
-      type: action.type,
-      stepCount: action.stepCount,
-      stringCount: 6
-    }
-    const { cols, maxLength } = updateTextAreaAttributes(textAreaAction)
-    props.block.cols = cols
-    props.block.maxLength = maxLength
-  }
-
-  const updateBlockSize = (action) => {
-    updateInputAreaSize(action)
-    updateDashAreaSize(action)
-    updateBlockProperties(action)
-    props.refreshTablatureObject()
-  }
 
   // ! Broken atm
   const handleLabelInput = (event, barIndex) => {
@@ -104,10 +61,10 @@ const ExpandableTablatureBlock = (props) => {
           placeholder="label"
         />
         <BlockOptionsMenu 
-          updateBlockSize={updateBlockSize}
           deleteBlock={deleteBlock} 
           duplicateBlock={duplicateBlock}
-          cols={props.block.cols}
+          block={props.block}
+          refreshTablatureObject={props.refreshTablatureObject}
         />
       </Box>
       <Box sx={{display: 'flex'}}>

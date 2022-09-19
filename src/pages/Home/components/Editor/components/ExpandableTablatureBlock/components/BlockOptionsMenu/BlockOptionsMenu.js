@@ -1,4 +1,7 @@
+// Components / hooks
 import { useState } from 'react';
+
+// MUI
 import { styled, alpha } from '@mui/material/styles';
 import Button from '@mui/material/Button';
 import Menu from '@mui/material/Menu';
@@ -7,7 +10,8 @@ import Divider from '@mui/material/Divider';
 import ArchiveIcon from '@mui/icons-material/Archive';
 import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown';
 import DeleteIcon from '@mui/icons-material/Delete';
-import Slider from '@mui/material/Slider';
+import TablatureSizeSlider from '../TablatureSizeSlider/TablatureSizeSlider';
+
 const StyledMenu = styled((props) => (
   <Menu
     elevation={0}
@@ -51,7 +55,6 @@ const StyledMenu = styled((props) => (
 
 
 export default function BlockOptionsMenu(props) {
-  const [sliderValue, setSliderValue] = useState(props.cols)
   const [anchorEl, setAnchorEl] = useState(null);
   const open = Boolean(anchorEl);
   const handleClick = (event) => {
@@ -60,27 +63,6 @@ export default function BlockOptionsMenu(props) {
   const handleClose = () => {
     setAnchorEl(null);
   };
-
-  const handleSliderChange = (event, value) => {
-    if(value === sliderValue) { 
-      return
-    }
-    
-    const difference = value - sliderValue;
-    if(difference > 0) {
-      props.updateBlockSize({
-        type: "increase",
-        stepCount: difference
-      })
-    } else {
-      props.updateBlockSize({
-        type: "decrease",
-        stepCount: difference
-      })
-    }
-
-    setSliderValue((prev) => prev + difference)
-  }
 
   const handleDelete = () => {
     props.deleteBlock()
@@ -119,14 +101,9 @@ export default function BlockOptionsMenu(props) {
           Size
         </MenuItem>
         <MenuItem disableRipple>
-          <Slider
-            aria-label="Temperature"
-            value={sliderValue}
-            step={5}
-            marks
-            onChange={handleSliderChange}
-            min={20}
-            max={80}
+          <TablatureSizeSlider 
+            refreshTablatureObject={props.refreshTablatureObject}
+            block={props.block}
           />
         </MenuItem>
         <Divider sx={{ my: 0.5 }} />
