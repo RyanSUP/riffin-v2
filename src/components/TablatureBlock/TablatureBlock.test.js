@@ -1,12 +1,9 @@
 import { render, screen } from "@testing-library/react"
-import Bar from './TablatureBlock'
+import TablatureBlock from './TablatureBlock'
+import { sampleTablatureBlock } from "utils/TestUtils/TestUtils" 
 
-test('Bar renders both "inputs" and "dashes" text areas', () => {
-  const barData = {
-    inputs: 'test inputs',
-    dashes: 'test dashes',
-  }
-  render(<Bar barData={barData} />)
-  expect(screen.getByText('test inputs')).toBeInTheDocument()
-  expect(screen.getByText('test dashes')).toBeInTheDocument()
+test('renders both "inputs" and "dashes" text areas', () => {
+  render(<TablatureBlock blockData={sampleTablatureBlock} />)
+  expect(screen.getByText(sampleTablatureBlock.inputs)).toBeInTheDocument()
+  expect(screen.getByText(sampleTablatureBlock.dashes)).toBeInTheDocument()
 })
