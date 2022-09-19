@@ -27,7 +27,7 @@ const Editor = (props) => {
     name: "A tasty lick",
     blocks: [],
     tags: [],
-    isBassTab: false,
+    // numberOfStrings: 
   });
 
   const { user } = useContext(UserContext);

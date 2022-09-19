@@ -12,8 +12,11 @@ const ContentRoutes = (props) => {
         path="/profile/:cognitoUsername"
         element={<ProfileContent />}
       />
-      <Route path="/new" element={
-        <Editor tags={props.tags} />
+      <Route path="/new/guitar" element={
+        <Editor numberOfStrings={6} tags={props.tags} />
+      }/>
+      <Route path="/new/bass" element={
+        <Editor numberOfStrings={4} tags={props.tags} />
       }/>
       <Route path="/edit/:tabId" element={
         <Editor tags={props.tags} />} 

@@ -3,6 +3,8 @@ import TagSuggestions from './components/TagSuggestions/TagSuggestions'
 import LatestButton from './components/LatestButton/LatestButton';
 import CollectionButton from './components/CollectionButton/CollectionButton';
 import TrendingButton from './components/TrendingButton/TrendingButton';
+import CreateBassTabButton from './components/CreateButtons/CreateBassTabButton/CreateBassTabButton';
+import CreateGuitarTabButton from './components/CreateButtons/CreateGuitarTabButton/CreateGuitarTabButton';
 
 // MUI
 import { Container, Divider, Stack } from '@mui/material'
@@ -13,6 +15,8 @@ function Sidebar(props) {
       <Stack direction="column" sx={{my: 2}}>
         <LatestButton />
         <TrendingButton />
+        <CreateBassTabButton />
+        <CreateGuitarTabButton />
         <CollectionButton />
       </Stack>
       <Divider variant="middle" sx={{m: 2}}/>
