@@ -1,6 +1,7 @@
 // Componeonts / hooks
 import { useState, useEffect, useRef } from "react";
 import BlockOptionsMenu from "./components/BlockOptionsMenu/BlockOptionsMenu";
+import TablatureGrill from "../TablatureGrill/TablatureGrill";
 
 // Utils / services
 import { updateBlockValue, updateTextAreaAttributes, getMapOfLastColumnIndexes, getMapOfFirstColumnIndexes } from "../../utils/EditorUtils"
@@ -38,20 +39,6 @@ const ExpandableTablatureBlock = (props) => {
     padding: 0
   };
 
-  const breakupStyle = {
-    background: "transparent",
-    margin: 0,
-    position: "relative",
-    resize: "none",
-    zIndex: 2,
-    outline: "none",
-    border: "none",
-    color: theme.palette.primary.main,
-    fontSize: "1.2rem",
-    padding: 0,
-    textAlign: "right"
-  };
-  
   const dashesStyle = {
     background: "transparent",
     margin: 0,
@@ -140,7 +127,7 @@ const ExpandableTablatureBlock = (props) => {
   return (
     <>
       <Box sx={{display: 'flex', justifyContent: 'space-between'}}>
-      <input 
+        <input 
           style={{"marginLeft": "10px"}}
           type="text"
           name="name"
@@ -148,13 +135,6 @@ const ExpandableTablatureBlock = (props) => {
           onChange={(event) => handleLabelInput(event, props.index)}
           placeholder="label"
         />
-        {/* <ButtonGroup
-
-        <Tooltip title="Delete bar" size="small">
-          <IconButton onClick={()=> props.deleteBarFromTablature(props.index)}>
-            <DeleteIcon />
-          </IconButton>
-        </Tooltip> */}
         <BlockOptionsMenu 
           updateBlockSize={updateBlockSize}
           deleteBlock={deleteBlock} 
@@ -163,14 +143,7 @@ const ExpandableTablatureBlock = (props) => {
         />
       </Box>
       <Box sx={{display: 'flex'}}>
-        {/* // TODO Componentize this text area */}
-        <textarea
-          readOnly={true}
-          style={breakupStyle}
-          value={`|\n|\n|\n|\n|\n|`}
-          cols={1}
-          rows="6"
-        />
+        <TablatureGrill />
         <div style={{ position: "relative" }}>
           <textarea
             style={inputsStyle}
