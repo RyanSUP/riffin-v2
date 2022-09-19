@@ -1,7 +1,14 @@
+// Components / hooks
+import { useState } from 'react';
 // MUI
 import { useTheme } from "@mui/material/styles";
 
-const TablatureGrill = () => {
+const TablatureGrill = (props) => {
+  const guitarGrillValue = `|\n|\n|\n|\n|\n|`
+  const bassGrillValue = `|\n|\n|\n|`
+  const [value] = useState(
+    (props.numberOfStrings === 6) ? guitarGrillValue : bassGrillValue
+  )
   const theme = useTheme(); // theme obtained with invoking this hook
 
   const breakupStyle = {
@@ -22,9 +29,9 @@ const TablatureGrill = () => {
     <textarea
     readOnly={true}
     style={breakupStyle}
-    value={`|\n|\n|\n|\n|\n|`}
+    value={value}
     cols={1}
-    rows="6"
+    rows={props.numberOfStrings}
   />
   );
 }

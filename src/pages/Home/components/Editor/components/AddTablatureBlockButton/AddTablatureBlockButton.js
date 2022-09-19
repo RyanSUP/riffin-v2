@@ -11,7 +11,7 @@ const AddTablatureBlockButton = (props) => {
     props.tablature.blocks.forEach((bar) => {
       previousBlocks.push({ ...bar });
     });
-    const newBlock = getNewGuitarBlock()
+    const newBlock = getNewGuitarBlock(props.tablature.numberOfStrings)
     props.tablature.blocks = [...previousBlocks, newBlock];
     props.refreshTablatureObject();
   }

@@ -25,7 +25,7 @@ const DashTextarea = (props) => {
       style={dashesStyle}
       value={props.block.dashes}
       cols={props.block.cols}
-      rows="6"
+      rows={props.numberOfStrings}
       maxLength={props.block.maxLength}
     />
   );

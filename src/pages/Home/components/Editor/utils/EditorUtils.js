@@ -81,17 +81,17 @@ export const getMapOfFirstColumnIndexes = (action) => {
   return newFirstCols
 }
 
-export const getNewGuitarBlock = () => {
+export const getNewGuitarBlock = (stringCount = 6) => {
   const action = {
-    stringCount: 6,
+    stringCount: stringCount,
     cols: DEFAULT_BLOCK_COLS
   }
 
   const mapOfLastColumnIndexes = getMapOfLastColumnIndexes(action)
-
+  const initLength = (action.stringCount * action.cols) + (action.stringCount - 1)
   const initTextAreaWithValue = (character) => {
     let charactersInString = [];
-    for (let i = 0; i < 245; i++) {
+    for (let i = 0; i < initLength; i++) {
       if (i in mapOfLastColumnIndexes) {
         charactersInString.push("\n");
       } else {
@@ -102,12 +102,13 @@ export const getNewGuitarBlock = () => {
   };
   const inputs = initTextAreaWithValue(" ")
   const dashes = initTextAreaWithValue("-")
+  const maxLength = calcNewMaxLength(action.cols, action.stringCount)
   return {
     tempKey: Date() + Math.random(),
     inputs: inputs,
     dashes: dashes,
     cols: DEFAULT_BLOCK_COLS,
-    maxLength: 251,
+    maxLength: maxLength,
     blockType: "tablature"
   };
 }

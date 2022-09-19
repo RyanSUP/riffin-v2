@@ -23,11 +23,10 @@ const Editor = (props) => {
   const [showDeleteButton, setShowDeleteButton] = useState(false); // Is the document already in the database?
   const [isLoading, setIsLoading] = useState(false); // is the document currently waiting for a response?
   const [tablature, setTablature] = useState({
-    isPublic: false,
     name: "A tasty lick",
     blocks: [],
     tags: [],
-    // numberOfStrings: 
+    numberOfStrings: props.numberOfStrings
   });
 
   const { user } = useContext(UserContext);
@@ -225,13 +224,13 @@ const Editor = (props) => {
 
   useEffect(() => {
     if(!tabId && tablature.blocks.length === 0) {
-      const newBlock = getNewGuitarBlock()
+      const newBlock = getNewGuitarBlock(tablature.numberOfStrings)
       setTablature((prev) => {
         prev.blocks = [newBlock]
         return {...prev}
       })
     }
-  }, [tabId, tablature.blocks.length])
+  }, [tabId, tablature.blocks.length, tablature.numberOfStrings])
 
   return (
     <div data-testid="Editor">
@@ -278,6 +277,7 @@ const Editor = (props) => {
                   handleKeyUpInBlock={handleKeyUpInBlock} 
                   handleClickedBlock={handleClickedBlock}
                   refreshTablatureObject={refreshTablatureObject}
+                  numberOfStrings={tablature.numberOfStrings}
                 />
               )
             } else {
