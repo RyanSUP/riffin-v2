@@ -1,4 +1,7 @@
+// Components / hooks
 import { useRef } from "react";
+
+// MUI
 import { useTheme } from "@mui/material/styles";
 
 const TablatureInputs = (props) => {
@@ -28,7 +31,6 @@ const TablatureInputs = (props) => {
       cols={props.block.cols}
       rows="6"
       maxLength={props.block.maxLength}
-      id="riffin-editor-inputGrid"
       ref={inputRef}
     />
   );

@@ -3,14 +3,13 @@ import { useState, useEffect } from "react";
 import BlockOptionsMenu from "./components/BlockOptionsMenu/BlockOptionsMenu";
 import TablatureGrill from "../TablatureGrill/TablatureGrill";
 import TablatureInputs from "../TablatureInputs/TablatureInputs";
+import TablatureDashes from "../TablatureDashes/TablatureDashes";
 
 // Utils / services
 import { updateBlockValue, updateTextAreaAttributes, getMapOfLastColumnIndexes, getMapOfFirstColumnIndexes } from "../../utils/EditorUtils"
 
 // MUI
-import { useTheme } from "@mui/material/styles";
 import { Box } from "@mui/material";
-
 
 const ExpandableTablatureBlock = (props) => {
   // ! Update the stringcount when bass is implemented
@@ -22,23 +21,6 @@ const ExpandableTablatureBlock = (props) => {
     cols: props.block.cols,
     stringCount: 6
   }))
-
-  const theme = useTheme(); // theme obtained with invoking this hook
-
-  const dashesStyle = {
-    background: "transparent",
-    margin: 0,
-    position: "absolute",
-    resize: "none",
-    left: "0",
-    translate: "0",
-    zIndex: 1,
-    outline: "none",
-    border: "none",
-    color: theme.palette.background.default,
-    fontSize: "1.2rem",
-    padding: 0
-  };
 
   const deleteBlock = () => props.deleteBlock(props.index)
 
@@ -140,14 +122,8 @@ const ExpandableTablatureBlock = (props) => {
             index={props.index}
             block={props.block}
           />
-          <textarea
-            readOnly={true}
-            style={dashesStyle}
-            value={props.block.dashes}
-            cols={props.block.cols}
-            rows="6"
-            maxLength={props.block.maxLength}
-            id="riffin-editor-dashGrid"
+          <TablatureDashes 
+            block={props.block}
           />
         </div>
       </Box>
