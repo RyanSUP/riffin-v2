@@ -1,5 +1,5 @@
 // Components and hooks
-import Bar from "components/Bar/Bar";
+import TablatureBlock from "components/TablatureBlock/TablatureBlock";
 
 // MUI
 import { Box, Typography } from "@mui/material";
@@ -20,14 +20,14 @@ const Content = (props) => {
       {props.isExpanded ? 
         (
           <div style={scrollWrapper}>
-            {props.bars.map((bar, i) => (
+            {props.tablatureBlocks.map((block, i) => (
               <div key={i}>
-                <Typography>{bar.label}</Typography>
-                <Bar barData={bar} readOnly={true} />
+                <Typography>{block.label}</Typography>
+                <TablatureBlock blockData={block} readOnly={true} />
               </div>
             ))}
           </div>
-        ) : ( <Bar barData={props.bars[0]} readOnly={true} /> )
+        ) : ( <TablatureBlock blockData={props.tablatureBlocks[0]} readOnly={true} /> )
       }
     </Box>
   );

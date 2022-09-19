@@ -1,7 +1,6 @@
 import { render } from "@testing-library/react";
 import {BrowserRouter} from 'react-router-dom'
 import { UserContext } from "containers/CognitoUserProvider/CognitoUserProvider";
-
 const mockUser = {
   value: {
     user: {
@@ -25,4 +24,33 @@ export const wrapInUserContext = (ui) => {
       <UserContext.Provider {...mockUser}>{ui}</UserContext.Provider>
     </BrowserRouter>
   )
+}
+
+export const sampleTablatureBlock = {
+  inputs: 'test inputs',
+  dashes: 'test dashes',
+  blockType: 'tablature'
+}
+
+export const testTab = {
+  tags: [],
+  name: 'test tab',
+  blocks: [
+    {
+      label: 'test bar A',
+      inputs: 'test inputs A',
+      dashes: 'test dashes A',
+      blockTyle: 'tablature'
+    },
+    {
+      label: 'test bar B',
+      inputs: 'test inputs B',
+      dashes: 'test dashes B',
+      blockTyle: 'tablature'
+    }
+  ],
+  owner: {
+    user: 'testUser',
+    preferredUsername: 'JarJar_Binks',
+  }
 }

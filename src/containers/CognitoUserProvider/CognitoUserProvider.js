@@ -66,7 +66,7 @@ const CognitoUserProvider = (props) => {
           console.log("onSuccess: ", data);
           setUser(user);
           resolve(user);
-          navigate("/trending");
+          navigate("/login");
         },
         onFailure: (error) => {
           console.error("onFailure: ", error);
@@ -115,6 +115,7 @@ const CognitoUserProvider = (props) => {
       .then((response) => {
         const profile = response.profile;
         userFromPool["profile"] = profile;
+        // TODO Remove tabsWithOwnerInfo -- not needed for non-public build
         const tabsWithOwnerInfo = profile.tablature.map((tab)=> {
           const owner = {
             _id: tab._id,
@@ -126,6 +127,7 @@ const CognitoUserProvider = (props) => {
         })
         userFromPool.profile.tablature = tabsWithOwnerInfo
 
+        // TODO Remove liked tablature stuff
         // set favorite tablature hash
         const favoriteTabHash = {}
         profile.favoriteTablature.forEach((tab) => {

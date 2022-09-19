@@ -30,7 +30,7 @@ const Card = (props) => {
         handleExpand={props.handleExpand}
       />
       <Box style={contentBoxStyles}>
-        <Content bars={props.tabData.bars} isExpanded={props.isExpanded} />
+        <Content tablatureBlocks={props.tabData.blocks} isExpanded={props.isExpanded} />
       </Box>
       <Footer
         preferredUsername={props.tabData.owner.preferredUsername}
