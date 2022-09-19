@@ -137,11 +137,7 @@ const Editor = (props) => {
   const duplicateBlock = (blockIndex) => {
     const newBlock = {
       tempKey: Date() + Math.random(),
-      label: tablature.blocks[blockIndex].label,
-      inputs: tablature.blocks[blockIndex].inputs,
-      dashes: tablature.blocks[blockIndex].dashes,
-      cols: tablature.blocks[blockIndex].cols,
-      maxLength: tablature.blocks[blockIndex].maxLength
+      ...tablature.blocks[blockIndex]
     }
     tablature.blocks.push(newBlock)
     refreshTablatureObject()
