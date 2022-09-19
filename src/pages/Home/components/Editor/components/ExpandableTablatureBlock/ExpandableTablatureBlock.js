@@ -1,7 +1,8 @@
 // Componeonts / hooks
-import { useState, useEffect, useRef } from "react";
+import { useState, useEffect } from "react";
 import BlockOptionsMenu from "./components/BlockOptionsMenu/BlockOptionsMenu";
 import TablatureGrill from "../TablatureGrill/TablatureGrill";
+import TablatureInputs from "../TablatureInputs/TablatureInputs";
 
 // Utils / services
 import { updateBlockValue, updateTextAreaAttributes, getMapOfLastColumnIndexes, getMapOfFirstColumnIndexes } from "../../utils/EditorUtils"
@@ -22,22 +23,7 @@ const ExpandableTablatureBlock = (props) => {
     stringCount: 6
   }))
 
-  const inputRef = useRef(); // This is used to know which bar the user has selected.
   const theme = useTheme(); // theme obtained with invoking this hook
-  
-
-  const inputsStyle = {
-    background: "transparent",
-    margin: 0,
-    position: "relative",
-    resize: "none",
-    zIndex: 2,
-    outline: "none",
-    border: "none",
-    color: theme.palette.primary.main,
-    fontSize: "1.2rem",
-    padding: 0
-  };
 
   const dashesStyle = {
     background: "transparent",
@@ -145,18 +131,14 @@ const ExpandableTablatureBlock = (props) => {
       <Box sx={{display: 'flex'}}>
         <TablatureGrill />
         <div style={{ position: "relative" }}>
-          <textarea
-            style={inputsStyle}
-            value={props.block.inputs}
-            onChange={(event) => props.handleBlockChange(event, mapOfLastColumnIndexes, mapOfFirstColumnIndexes)}
-            onKeyUp={(event) =>  props.handleKeyUpInBlock(event)}
-            onPaste={(event) => event.preventDefault()}
-            onClick={(event) => props.handleClickedBlock(event, props.index, inputRef)}
-            cols={props.block.cols}
-            rows="6"
-            maxLength={props.block.maxLength}
-            id="riffin-editor-inputGrid"
-            ref={inputRef}
+          <TablatureInputs 
+            handleBlockChange={props.handleBlockChange}
+            handleKeyUpInBlock={props.handleKeyUpInBlock}
+            handleClickedBlock={props.handleClickedBlock}
+            mapOfFirstColumnIndexes={mapOfFirstColumnIndexes} 
+            mapOfLastColumnIndexes={mapOfLastColumnIndexes}
+            index={props.index}
+            block={props.block}
           />
           <textarea
             readOnly={true}
