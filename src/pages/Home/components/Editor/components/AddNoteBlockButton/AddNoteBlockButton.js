@@ -3,7 +3,7 @@ import TooltipIconButton from "components/TooltipIconButton/TooltipIconButton";
 // utils
 import { getNewNoteBlock } from "../../utils/EditorUtils";
 // MUI
-import PlaylistAddIcon from '@mui/icons-material/PlaylistAdd';
+import TextSnippetIcon from '@mui/icons-material/TextSnippet';
 
 const AddNoteBlockButton = (props) => {
   const handleAddBlock = () => {
@@ -23,7 +23,7 @@ const AddNoteBlockButton = (props) => {
       title="Add note block"
       onClick={handleAddBlock}
       isDiabled={false}
-      icon={<PlaylistAddIcon />}
+      icon={<TextSnippetIcon />}
     />
   );
 }

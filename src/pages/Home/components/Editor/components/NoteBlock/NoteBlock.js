@@ -1,13 +1,17 @@
+// Components / hooks
+import TooltipIconButton from "components/TooltipIconButton/TooltipIconButton";
+
 // MUI
 import { TextareaAutosize } from "@mui/material";
 import { useTheme } from "@mui/material/styles";
+import DeleteIcon from '@mui/icons-material/Delete';
 
 const NoteBlock = (props) => {
 
   const theme = useTheme();
 
   const inputsStyle = {
-    width: "100%",
+    width: "60%",
     background: "transparent",
     margin: 0,
     resize: "none",
@@ -24,14 +28,21 @@ const NoteBlock = (props) => {
   }
 
   return (
-    <TextareaAutosize
-      style={inputsStyle}
-      minRows={3}
-      maxCols={60}
-      placeholder={"Notes"}
-      value={props.block.inputs}
-      onChange={handleChange}
-    />
+    <>
+      <TextareaAutosize
+        style={inputsStyle}
+        minRows={3}
+        placeholder={"Notes"}
+        value={props.block.inputs}
+        onChange={handleChange}
+      />
+      <TooltipIconButton 
+        title={"Delete note"}
+        isDiabled={false}
+        onClick={() => props.deleteBlock(props.index)}
+        icon={<DeleteIcon />}
+      />
+    </>
   );
 }
  

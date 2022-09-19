@@ -163,6 +163,7 @@ const ExpandableTablatureBlock = (props) => {
         />
       </Box>
       <Box sx={{display: 'flex'}}>
+        {/* // TODO Componentize this text area */}
         <textarea
           readOnly={true}
           style={breakupStyle}
