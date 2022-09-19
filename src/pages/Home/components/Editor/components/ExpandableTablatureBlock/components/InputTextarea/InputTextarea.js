@@ -1,7 +1,7 @@
 // Components / hooks
 import { useRef, useEffect, useState } from "react";
 // Utils / services
-import { getMapOfLastColumnIndexes, getMapOfFirstColumnIndexes } from "../../utils/EditorUtils"
+import { getMapOfLastColumnIndexes, getMapOfFirstColumnIndexes } from "../../../../utils/EditorUtils"
 // MUI
 import { useTheme } from "@mui/material/styles";
 

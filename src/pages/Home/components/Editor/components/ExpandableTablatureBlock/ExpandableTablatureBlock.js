@@ -1,8 +1,8 @@
 // Componeonts / hooks
 import BlockOptionsMenu from "./components/BlockOptionsMenu/BlockOptionsMenu";
 import TablatureGrill from "../TablatureGrill/TablatureGrill";
-import InputTextarea from "../InputTextarea/InputTextArea";
-import DashTextarea from "../DashTextarea/DashTextarea";
+import InputTextarea from "./components/InputTextarea/InputTextarea";
+import DashTextarea from "./components/DashTextarea/DashTextarea";
 
 // MUI
 import { Box } from "@mui/material";

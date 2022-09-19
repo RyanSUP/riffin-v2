@@ -1,4 +1,4 @@
-import { getNewGuitarBlock } from "../../utils/EditorUtils";
+import { getNewGuitarBlock } from "../../../../utils/EditorUtils";
 import InputTextarea from "./InputTextarea";
 import renderer from 'react-test-renderer';
 
