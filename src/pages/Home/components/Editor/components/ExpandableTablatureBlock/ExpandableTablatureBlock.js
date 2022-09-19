@@ -5,22 +5,11 @@ import TablatureGrill from "../TablatureGrill/TablatureGrill";
 import TablatureInputs from "../TablatureInputs/TablatureInputs";
 import TablatureDashes from "../TablatureDashes/TablatureDashes";
 
-// Utils / services
-import { getMapOfLastColumnIndexes, getMapOfFirstColumnIndexes } from "../../utils/EditorUtils"
 
 // MUI
 import { Box } from "@mui/material";
 
 const ExpandableTablatureBlock = (props) => {
-  // ! Update the stringcount when bass is implemented
-  const [mapOfLastColumnIndexes, setMapOfLastColumnIndexes] = useState(getMapOfLastColumnIndexes({
-    cols: props.block.cols,
-    stringCount: 6
-  }))
-  const [mapOfFirstColumnIndexes, setMapOfFirstColumnIndexes] = useState(getMapOfFirstColumnIndexes({
-    cols: props.block.cols,
-    stringCount: 6
-  }))
 
   const deleteBlock = () => props.deleteBlock(props.index)
 
@@ -36,18 +25,6 @@ const ExpandableTablatureBlock = (props) => {
     props.blocks[barIndex] = updatedBar
     // props.refreshTablatureObject()
   }
-
-  useEffect(() => {
-    setMapOfLastColumnIndexes(getMapOfLastColumnIndexes({
-      cols: props.block.cols,
-      stringCount: 6
-    }))
-
-    setMapOfFirstColumnIndexes(getMapOfFirstColumnIndexes({
-      cols: props.block.cols,
-      stringCount: 6
-    }))
-  }, [props.block.cols, props.block.maxLength])
 
   return (
     <>
@@ -74,8 +51,6 @@ const ExpandableTablatureBlock = (props) => {
             handleBlockChange={props.handleBlockChange}
             handleKeyUpInBlock={props.handleKeyUpInBlock}
             handleClickedBlock={props.handleClickedBlock}
-            mapOfFirstColumnIndexes={mapOfFirstColumnIndexes} 
-            mapOfLastColumnIndexes={mapOfLastColumnIndexes}
             index={props.index}
             block={props.block}
           />
