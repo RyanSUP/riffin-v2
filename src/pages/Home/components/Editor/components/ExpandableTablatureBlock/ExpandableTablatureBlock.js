@@ -1,20 +1,15 @@
 // Componeonts / hooks
-import { useState, useEffect } from "react";
 import BlockOptionsMenu from "./components/BlockOptionsMenu/BlockOptionsMenu";
 import TablatureGrill from "../TablatureGrill/TablatureGrill";
-import TablatureInputs from "../TablatureInputs/TablatureInputs";
-import TablatureDashes from "../TablatureDashes/TablatureDashes";
-
+import InputTextarea from "../InputTextarea/InputTextArea";
+import DashTextarea from "../DashTextarea/DashTextarea";
 
 // MUI
 import { Box } from "@mui/material";
 
 const ExpandableTablatureBlock = (props) => {
-
   const deleteBlock = () => props.deleteBlock(props.index)
-
   const duplicateBlock = () => props.duplicateBlock(props.index)
-
   // ! Broken atm
   const handleLabelInput = (event, barIndex) => {
     event.preventDefault()
@@ -47,14 +42,14 @@ const ExpandableTablatureBlock = (props) => {
       <Box sx={{display: 'flex'}}>
         <TablatureGrill />
         <div style={{ position: "relative" }}>
-          <TablatureInputs 
+          <InputTextarea 
             handleBlockChange={props.handleBlockChange}
             handleKeyUpInBlock={props.handleKeyUpInBlock}
             handleClickedBlock={props.handleClickedBlock}
             index={props.index}
             block={props.block}
           />
-          <TablatureDashes 
+          <DashTextarea 
             block={props.block}
           />
         </div>

@@ -7,7 +7,6 @@ import { useTheme } from "@mui/material/styles";
 import DeleteIcon from '@mui/icons-material/Delete';
 
 const NoteBlock = (props) => {
-
   const theme = useTheme();
 
   const inputsStyle = {

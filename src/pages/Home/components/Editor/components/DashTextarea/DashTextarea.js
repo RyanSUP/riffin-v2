@@ -1,7 +1,7 @@
 // MUI
 import { useTheme } from "@mui/material/styles";
 
-const TablatureDashes = (props) => {
+const DashTextarea = (props) => {
   const theme = useTheme();
 
   const dashesStyle = {
@@ -31,4 +31,4 @@ const TablatureDashes = (props) => {
   );
 }
  
-export default TablatureDashes;
+export default DashTextarea;

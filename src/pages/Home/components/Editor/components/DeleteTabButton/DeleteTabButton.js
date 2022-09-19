@@ -26,6 +26,7 @@ const DeleteTabButton = (props) => {
     });
     navigate(`/profile/${user.username}`)
   };
+  
   return (
     <TooltipIconButton 
       title="Save"

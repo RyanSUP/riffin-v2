@@ -102,7 +102,6 @@ export const getNewGuitarBlock = () => {
   };
   const inputs = initTextAreaWithValue(" ")
   const dashes = initTextAreaWithValue("-")
-  console.log('max length test from utils: ', inputs.length)
   return {
     tempKey: Date() + Math.random(),
     inputs: inputs,

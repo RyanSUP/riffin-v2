@@ -11,9 +11,7 @@ const AddNoteBlockButton = (props) => {
     props.tablature.blocks.forEach((bar) => {
       previousBlocks.push({ ...bar });
     });
-
     const newBlock = getNewNoteBlock()
-
     props.tablature.blocks = [...previousBlocks, newBlock];
     props.refreshTablatureObject();
   }

@@ -5,7 +5,7 @@ import { getMapOfLastColumnIndexes, getMapOfFirstColumnIndexes } from "../../uti
 // MUI
 import { useTheme } from "@mui/material/styles";
 
-const TablatureInputs = (props) => {
+const InputTextarea = (props) => {
   const [mapOfLastColumnIndexes, setMapOfLastColumnIndexes] = useState(getMapOfLastColumnIndexes({
     cols: props.block.cols,
     stringCount: 6
@@ -58,4 +58,4 @@ const TablatureInputs = (props) => {
   );
 }
  
-export default TablatureInputs;
+export default InputTextarea;
