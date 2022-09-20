@@ -51,7 +51,7 @@ const InputTextarea = (props) => {
       onPaste={(event) => event.preventDefault()}
       onClick={(event) => props.handleClickedBlock(event, props.index, inputRef)}
       cols={props.block.cols}
-      rows="6"
+      rows={props.numberOfStrings}
       maxLength={props.block.maxLength}
       ref={inputRef}
     />

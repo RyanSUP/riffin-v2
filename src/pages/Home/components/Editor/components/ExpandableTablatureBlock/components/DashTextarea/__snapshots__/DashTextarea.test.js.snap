@@ -5,7 +5,6 @@ exports[`renders correctly using a new tablatureBlock 1`] = `
   cols={40}
   maxLength={251}
   readOnly={true}
-  rows="6"
   style={
     Object {
       "background": "transparent",

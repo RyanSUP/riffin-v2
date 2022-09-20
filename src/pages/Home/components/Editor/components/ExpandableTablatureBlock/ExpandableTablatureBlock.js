@@ -40,17 +40,19 @@ const ExpandableTablatureBlock = (props) => {
         />
       </Box>
       <Box sx={{display: 'flex'}}>
-        <TablatureGrill />
-        <div style={{ position: "relative" }}>
+        <TablatureGrill numberOfStrings={props.numberOfStrings}/>
+        <div style={{ position: "relative"}}>
           <InputTextarea 
             handleBlockChange={props.handleBlockChange}
             handleKeyUpInBlock={props.handleKeyUpInBlock}
             handleClickedBlock={props.handleClickedBlock}
             index={props.index}
             block={props.block}
+            numberOfStrings={props.numberOfStrings}
           />
           <DashTextarea 
             block={props.block}
+            numberOfStrings={props.numberOfStrings}
           />
         </div>
       </Box>

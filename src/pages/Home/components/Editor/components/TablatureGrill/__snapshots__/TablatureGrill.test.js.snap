@@ -4,7 +4,6 @@ exports[`renders 1`] = `
 <textarea
   cols={1}
   readOnly={true}
-  rows="6"
   style={
     Object {
       "background": "transparent",
@@ -21,8 +20,6 @@ exports[`renders 1`] = `
     }
   }
   value="|
-|
-|
 |
 |
 |"

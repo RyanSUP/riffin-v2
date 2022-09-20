@@ -196,7 +196,6 @@ exports[`rendersa new tab correctly 1`] = `
       <textarea
         cols={1}
         readOnly={true}
-        rows="6"
         style={
           Object {
             "background": "transparent",
@@ -215,8 +214,6 @@ exports[`rendersa new tab correctly 1`] = `
         value="|
 |
 |
-|
-|
 |"
       />
       <div
@@ -233,7 +230,6 @@ exports[`rendersa new tab correctly 1`] = `
           onClick={[Function]}
           onKeyUp={[Function]}
           onPaste={[Function]}
-          rows="6"
           style={
             Object {
               "background": "transparent",
@@ -259,7 +255,6 @@ exports[`rendersa new tab correctly 1`] = `
           cols={40}
           maxLength={251}
           readOnly={true}
-          rows="6"
           style={
             Object {
               "background": "transparent",

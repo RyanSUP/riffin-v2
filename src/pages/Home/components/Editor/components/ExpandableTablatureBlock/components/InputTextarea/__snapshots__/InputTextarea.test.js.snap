@@ -8,7 +8,6 @@ exports[`renders correctly using a new tablatureBlock 1`] = `
   onClick={[Function]}
   onKeyUp={[Function]}
   onPaste={[Function]}
-  rows="6"
   style={
     Object {
       "background": "transparent",
