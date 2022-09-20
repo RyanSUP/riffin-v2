@@ -44,7 +44,7 @@ const TablatureBlock = (props) => {
           style={inputsStyle}
           value={props.blockData.inputs}
           cols={props.blockData.cols}
-          rows="6"
+          rows={props.numberOfStrings}
           maxLength={props.blockData.maxLength}
           />
         <textarea
@@ -52,7 +52,7 @@ const TablatureBlock = (props) => {
           style={dashesStyle}
           value={props.blockData.dashes}
           cols={props.blockData.cols}
-          rows="6"
+          rows={props.numberOfStrings}
           maxLength={props.blockData.maxLength}
         />
       </div>

@@ -23,11 +23,17 @@ const Content = (props) => {
             {props.tablatureBlocks.map((block, i) => (
               <div key={i}>
                 <Typography>{block.label}</Typography>
-                <TablatureBlock blockData={block} readOnly={true} />
+                <TablatureBlock 
+                  numberOfStrings={props.numberOfStrings} 
+                  blockData={block} 
+                />
               </div>
             ))}
           </div>
-        ) : ( <TablatureBlock blockData={props.tablatureBlocks[0]} readOnly={true} /> )
+        ) : (<TablatureBlock 
+              blockData={props.tablatureBlocks[0]} 
+              numberOfStrings={props.numberOfStrings}
+            />)
       }
     </Box>
   );
