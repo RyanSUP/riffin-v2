@@ -132,18 +132,18 @@ const getPositionsAboveCursor = (cursorPosition, cols) => {
   return arrayOfPositions
 }
 
-const getPositionsBelowCursor = (cursorPosition, cols, maxLength) => {
+const getPositionsBelowCursor = (cursorPosition, cols, editableLength) => {
   const indexGapBetweenStrings = cols + 1 // The + 1 compensates for the hidden \n
   let arrayOfPositions = []
-  for(let position = cursorPosition + indexGapBetweenStrings; position <= maxLength; position += indexGapBetweenStrings) {
+  for(let position = cursorPosition + indexGapBetweenStrings; position <= editableLength; position += indexGapBetweenStrings) {
     arrayOfPositions.push(position - 1)
   }
   return arrayOfPositions
 }
 
-export const getPositionsToDuplicate = (cursorPosition, cols, maxLength) => {
+export const getPositionsToDuplicate = (cursorPosition, cols, editableLength) => {
   let aboveCursor = getPositionsAboveCursor(cursorPosition, cols)
-  let belowCursor = getPositionsBelowCursor(cursorPosition, cols, maxLength)
+  let belowCursor = getPositionsBelowCursor(cursorPosition, cols, editableLength)
   let positions = [cursorPosition - 1, ...aboveCursor, ...belowCursor]
   // let gridValuesArray = [...inputGrid.value]
   // positions = positions.filter(position => gridValuesArray[position] !== ' ')

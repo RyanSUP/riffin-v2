@@ -33,6 +33,7 @@ const ExpandableTablatureBlock = (props) => {
           placeholder="label"
         />
         <BlockOptionsMenu 
+          numberOfStrings={props.numberOfStrings}
           deleteBlock={deleteBlock} 
           duplicateBlock={duplicateBlock}
           block={props.block}

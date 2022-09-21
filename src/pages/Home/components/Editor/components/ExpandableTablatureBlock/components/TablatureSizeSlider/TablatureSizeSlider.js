@@ -31,13 +31,12 @@ const TablatureSizeSlider = (props) => {
   }
 
   const updateBlockProperties = (action) => {
-    // ! Update the string count when bass tabs are implemented
     const textAreaAction = {
       cols: props.block.cols,
       maxLength: props.block.maxLength,
       type: action.type,
       stepCount: action.stepCount,
-      stringCount: 6
+      stringCount: props.numberOfStrings
     }
     const { cols, maxLength } = updateTextAreaAttributes(textAreaAction)
     props.block.cols = cols

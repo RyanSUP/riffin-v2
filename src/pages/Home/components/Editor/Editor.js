@@ -37,47 +37,58 @@ const Editor = (props) => {
   const toggleLoading = (value) => setIsLoading(value);
   const refreshTablatureObject = () => setTablature({ ...tablature });
   
-  function handleDuplicateChord(mapOfFirstColumnIndexes, mapOfLastColumnIndexes) {
-    console.log('duplciating')
-    // Can't duplicate from these columns
+  function handleDeleteChord(mapOfFirstColumnIndexes) {
     if(mapOfFirstColumnIndexes[cursorPosition.position]){
-      console.log('Returning -- index out of bounds -- first column')
-      // console.log(mapOfFirstColumnIndexes)
+      setCursorPosition({position: cursorPosition.position})
+      return
+    }
+    const selectedBlock = tablature.blocks[selectedTablatureBlock.index]
+    let positionsToDelete = getPositionsToDuplicate(cursorPosition.position, selectedBlock.cols, (selectedBlock.maxLength - tablature.numberOfStrings))
+    if(positionsToDelete.length === 0) {
+      return
+    }
+    console.log((selectedBlock.maxLength - tablature.numberOfStrings))
+    console.log(positionsToDelete)
+    positionsToDelete.forEach(pos => {
+      selectedBlock.inputs = getUpdatedTextAreaValues(
+        "inputs",
+        " ",
+        pos
+      )
+      selectedBlock.dashes = getUpdatedTextAreaValues(
+        "dashes",
+        "-",
+        pos
+      )
+    })
+    setCursorPosition({ position: cursorPosition.position - 1 })
+    refreshTablatureObject()
+  }
+
+  function handleDuplicateChord(mapOfFirstColumnIndexes, mapOfLastColumnIndexes) {
+    if(mapOfFirstColumnIndexes[cursorPosition.position]){
       setCursorPosition({position: cursorPosition.position})
       return
     }
     if(mapOfLastColumnIndexes[cursorPosition.position]){
-      console.log('Returning -- index out of bounds -- last column')
       setCursorPosition({position: cursorPosition.position})
       return
     }
     const mapOfSecondToLastColumnIndexes = Object.keys(mapOfLastColumnIndexes).map((val) => val - 1)
-    console.log('mapOfSecondToLastColumnIndexes', mapOfSecondToLastColumnIndexes)
     if(mapOfSecondToLastColumnIndexes.includes(cursorPosition.position)){
-      console.log('Returning -- index out of bounds -- second to last column')
       setCursorPosition({position: cursorPosition.position})
       return
     } 
   
     const selectedBlock = tablature.blocks[selectedTablatureBlock.index]
-    // console.log('selectedBlock', selectedBlock)
-    let positionsToDuplicate = getPositionsToDuplicate(cursorPosition.position, selectedBlock.cols, selectedBlock.maxLength)
-    
-    // console.log("positionsToDuplicate", positionsToDuplicate)
-    
+    let positionsToDuplicate = getPositionsToDuplicate(cursorPosition.position, selectedBlock.cols, (selectedBlock.maxLength - tablature.numberOfStrings))
     if(positionsToDuplicate.length === 0) {
-      // console.log('Returning -- no positions available to duplicate')
       return
     }
   
     let inputsAsArray = [...selectedBlock.inputs]
-
-    // console.log('inputsAsArray', inputsAsArray[cursorPosition.position])
-
     positionsToDuplicate.forEach(pos => {
-      // console.log("====")
       const characterToDuplicate = inputsAsArray[pos]
-      // console.log("Duplicating, ", characterToDuplicate, " at ", pos)
       selectedBlock.inputs = getUpdatedTextAreaValues(
         "inputs",
         characterToDuplicate,
@@ -89,9 +100,7 @@ const Editor = (props) => {
         pos + 2
       )
     })
-  
     setCursorPosition({ position: cursorPosition.position + 2 })
-
     refreshTablatureObject()
   }
 
@@ -161,7 +170,8 @@ const Editor = (props) => {
     7: handleAddCharacter,
     8: handleAddCharacter,
     9: handleAddCharacter,
-    "]": handleDuplicateChord, // duplicate
+    "]": handleDuplicateChord, // duplicate chord
+    "[": handleDeleteChord, // duplicate deleteChord
     "Backspace": handleRemoveCharacter,
   //   insertLineBreak: handlePressingEnter, // Move cursor to the next line (string)
   };
@@ -227,8 +237,10 @@ const Editor = (props) => {
     event.preventDefault();
     if (key in legalCharacters) {
       console.log(key);
-      if(key === "d") {
+      if(key === "]") {
         legalCharacters[key](mapOfFirstColumnIndexes, mapOfLastColumnIndexes);
+      } else if(key ==="[") {
+        legalCharacters[key](mapOfFirstColumnIndexes)
       } else {
         legalCharacters[key](key, mapOfLastColumnIndexes);
       }
