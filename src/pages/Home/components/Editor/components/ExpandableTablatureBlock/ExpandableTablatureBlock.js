@@ -1,6 +1,6 @@
 // Componeonts / hooks
 import BlockOptionsMenu from "./components/BlockOptionsMenu/BlockOptionsMenu";
-import TablatureGrill from "../TablatureGrill/TablatureGrill";
+import TablatureGrill from "../../../../../../components/TablatureGrill/TablatureGrill";
 import InputTextarea from "./components/InputTextarea/InputTextarea";
 import DashTextarea from "./components/DashTextarea/DashTextarea";
 

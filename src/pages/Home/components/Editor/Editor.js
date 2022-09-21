@@ -14,7 +14,7 @@ import AddTablatureBlockButton from './components/AddTablatureBlockButton/AddTab
 import { getNewGuitarBlock, getPositionsToDuplicate } from "./utils/EditorUtils";
 
 // MUI
-import { CircularProgress, Paper } from "@mui/material";
+import { CircularProgress } from "@mui/material";
 import Box from '@mui/material/Box';
 
 const Editor = (props) => {
@@ -304,7 +304,7 @@ const Editor = (props) => {
   return (
     <div data-testid="Editor">
       {isLoading ? ( <CircularProgress /> ) : (
-        <Paper>
+        <>
           <Box sx={{display: 'flex', justifyContent: 'space-between'}}>
             <input
               type="text"
@@ -361,7 +361,7 @@ const Editor = (props) => {
               )
             }
           })}
-        </Paper>
+        </>
       )}
     </div>
   );

@@ -7,7 +7,7 @@ import TagBar from './components/TagBar/TagBar';
 import { useState } from 'react';
 
 // MUI
-import { Divider, Grid } from "@mui/material";
+import { Grid } from "@mui/material";
 
 const Home = () => {
   const [tags, setTags] = useState([])
@@ -28,7 +28,7 @@ const Home = () => {
       <Grid container>
 
         <Grid item xs={12}>
-          <Grid container>
+          <Grid container sx={{alignItems: "center"}}>
 
             <Grid item xs={2}>
               <HeaderLogo />
@@ -48,10 +48,6 @@ const Home = () => {
             </Grid>
             
           </Grid> 
-        </Grid>
-
-        <Grid item xs={12}>
-          <Divider variant="middle" />
         </Grid>
 
         <Grid item xs={2}>                

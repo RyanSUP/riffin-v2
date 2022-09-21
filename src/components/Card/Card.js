@@ -6,7 +6,6 @@ import { useContext } from "react";
 import { UserContext } from "containers/CognitoUserProvider/CognitoUserProvider";
 
 //MUI
-import { Paper } from "@mui/material";
 import { Box } from "@mui/system";
 
 const Card = (props) => {
@@ -22,7 +21,7 @@ const Card = (props) => {
   };
 
   return (
-    <Paper style={cardStyles}>
+    <Box style={cardStyles} sx={{border: 4, borderColor: 'primary.main', borderRadius: '8px'}}>
       <Header
         tabData={props.tabData}
         isOwnedByUser={user?.username === props.tabData.owner.user}
@@ -33,11 +32,9 @@ const Card = (props) => {
         <Content tablatureBlocks={props.tabData.blocks} isExpanded={props.isExpanded} numberOfStrings={props.tabData.numberOfStrings}/>
       </Box>
       <Footer
-        preferredUsername={props.tabData.owner.preferredUsername}
-        user={props.tabData.owner.user}
         tags={props.tabData.tags}
       />
-    </Paper>
+    </Box>
   );
 };
 

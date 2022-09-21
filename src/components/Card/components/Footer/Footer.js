@@ -1,5 +1,5 @@
 // MUI
-import { Avatar, Box, Link, Chip } from "@mui/material";
+import { Box, Chip } from "@mui/material";
 
 const wrapperBoxStyles = {
   display: "flex",
@@ -13,17 +13,6 @@ const tagBoxStyles = {
   overflow: "hidden",
 }
 
-const userBoxStyles = {
-  display: "flex",
-  width: "50%",
-  justifyContent: "end"
-}
-
-const userLinkStyles = {
-  alignSelf: "end",
-  marginRight: "12px"
-}
-
 const Footer = (props) => {
   return (
     <Box style={wrapperBoxStyles}>
@@ -35,16 +24,6 @@ const Footer = (props) => {
               size="small" 
             />
           ))}
-        </Box>
-        <Box style={userBoxStyles}>
-          <Link 
-            underline="hover"
-            style={userLinkStyles} 
-            href={`/profile/${props.user}`}
-          >
-            by {props.preferredUsername}
-          </Link>
-          <Avatar />
         </Box>
     </Box>
   );

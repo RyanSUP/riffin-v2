@@ -12,6 +12,7 @@ const TablatureGrill = (props) => {
   const theme = useTheme(); // theme obtained with invoking this hook
 
   const breakupStyle = {
+    fontFamily: "Fira Code",
     background: "transparent",
     margin: 0,
     position: "relative",
@@ -19,7 +20,7 @@ const TablatureGrill = (props) => {
     zIndex: 2,
     outline: "none",
     border: "none",
-    color: theme.palette.primary.main,
+    color: theme.palette.primary.tabInput,
     fontSize: "1.2rem",
     padding: 0,
     textAlign: "right"
