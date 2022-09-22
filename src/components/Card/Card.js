@@ -26,7 +26,7 @@ const Card = (props) => {
 
   return (
     <Box style={cardStyles}>
-      <Divider>
+      <Divider textAlign="left">
         <Header
           tabData={props.tabData}
           isOwnedByUser={user?.username === props.tabData.owner.user}

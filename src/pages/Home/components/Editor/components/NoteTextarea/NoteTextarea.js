@@ -31,6 +31,7 @@ const NoteTestarea = (props) => {
         minRows={1}
         value={props.block.label}
         onChange={handleChange}
+        placeholder={"Notes"}
       />
   );
 }
