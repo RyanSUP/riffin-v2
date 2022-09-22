@@ -4,18 +4,17 @@ import { useNavigate, useParams } from "react-router-dom";
 import { UserContext } from "containers/CognitoUserProvider/CognitoUserProvider";
 import { TablatureContext } from "containers/TablatureProvider/TablatureProvider";
 import ExpandableTablatureBlock from './components/ExpandableTablatureBlock/ExpandableTablatureBlock';
-import AddNoteBlockButton from './components/AddNoteBlockButton/AddNoteBlockButton';
 import DeleteTabButton from './components/DeleteTabButton/DeleteTabButton';
 import SaveTabButton from './components/SaveTabButton/SaveTabButton';
-import NoteBlock from './components/NoteBlock/NoteBlock';
 import AddTablatureBlockButton from './components/AddTablatureBlockButton/AddTablatureBlockButton';
 
 // Services / utils
-import { getNewGuitarBlock } from "./utils/EditorUtils";
+import { getNewGuitarBlock, getPositionsToDuplicate } from "./utils/EditorUtils";
 
 // MUI
-import { CircularProgress, Paper } from "@mui/material";
+import { CircularProgress } from "@mui/material";
 import Box from '@mui/material/Box';
+import TitleInput from './components/TitleInput/TitleInput';
 
 const Editor = (props) => {
   const [selectedTablatureBlock, setSelectedTablatureBlock] = useState(null);
@@ -35,7 +34,75 @@ const Editor = (props) => {
   let navigate = useNavigate();
 
   const toggleLoading = (value) => setIsLoading(value);
+  const refreshTablatureObject = () => setTablature({ ...tablature });
   
+  function handleDeleteChord(mapOfFirstColumnIndexes) {
+    if(mapOfFirstColumnIndexes[cursorPosition.position]){
+      setCursorPosition({position: cursorPosition.position})
+      return
+    }
+    const selectedBlock = tablature.blocks[selectedTablatureBlock.index]
+    let positionsToDelete = getPositionsToDuplicate(cursorPosition.position, selectedBlock.cols, (selectedBlock.maxLength - tablature.numberOfStrings))
+    if(positionsToDelete.length === 0) {
+      return
+    }
+    console.log((selectedBlock.maxLength - tablature.numberOfStrings))
+    console.log(positionsToDelete)
+    positionsToDelete.forEach(pos => {
+      selectedBlock.inputs = getUpdatedTextAreaValues(
+        "inputs",
+        " ",
+        pos
+      )
+      selectedBlock.dashes = getUpdatedTextAreaValues(
+        "dashes",
+        "-",
+        pos
+      )
+    })
+    setCursorPosition({ position: cursorPosition.position - 1 })
+    refreshTablatureObject()
+  }
+
+  function handleDuplicateChord(mapOfFirstColumnIndexes, mapOfLastColumnIndexes) {
+    if(mapOfFirstColumnIndexes[cursorPosition.position]){
+      setCursorPosition({position: cursorPosition.position})
+      return
+    }
+    if(mapOfLastColumnIndexes[cursorPosition.position]){
+      setCursorPosition({position: cursorPosition.position})
+      return
+    }
+    const mapOfSecondToLastColumnIndexes = Object.keys(mapOfLastColumnIndexes).map((val) => val - 1)
+    if(mapOfSecondToLastColumnIndexes.includes(cursorPosition.position)){
+      setCursorPosition({position: cursorPosition.position})
+      return
+    } 
+  
+    const selectedBlock = tablature.blocks[selectedTablatureBlock.index]
+    let positionsToDuplicate = getPositionsToDuplicate(cursorPosition.position, selectedBlock.cols, (selectedBlock.maxLength - tablature.numberOfStrings))
+    if(positionsToDuplicate.length === 0) {
+      return
+    }
+  
+    let inputsAsArray = [...selectedBlock.inputs]
+    positionsToDuplicate.forEach(pos => {
+      const characterToDuplicate = inputsAsArray[pos]
+      selectedBlock.inputs = getUpdatedTextAreaValues(
+        "inputs",
+        characterToDuplicate,
+        pos + 2
+      )
+      selectedBlock.dashes = getUpdatedTextAreaValues(
+        "dashes",
+        (characterToDuplicate !== " ") ? " " : "-",
+        pos + 2
+      )
+    })
+    setCursorPosition({ position: cursorPosition.position + 2 })
+    refreshTablatureObject()
+  }
+
   function handleAddCharacter(character, mapOfLastColumnIndexes) {
     if (cursorPosition.position in mapOfLastColumnIndexes) {
       setCursorPosition((prev) => {
@@ -102,7 +169,8 @@ const Editor = (props) => {
     7: handleAddCharacter,
     8: handleAddCharacter,
     9: handleAddCharacter,
-    "d": handleAddCharacter, // duplicate
+    "]": handleDuplicateChord, // duplicate chord
+    "[": handleDeleteChord, // duplicate deleteChord
     "Backspace": handleRemoveCharacter,
   //   insertLineBreak: handlePressingEnter, // Move cursor to the next line (string)
   };
@@ -143,16 +211,6 @@ const Editor = (props) => {
     refreshTablatureObject()
   }
 
-  const handleNameInput = (event) => {
-    const udpatedTablature = {
-      ...tablature,
-      name: event.target.value,
-    };
-    setTablature(udpatedTablature);
-  };
-
-  const refreshTablatureObject = () => setTablature({ ...tablature });
-
   const handleClickedBlock = (event, barIndex, barRef) => {
     setSelectedTablatureBlock({ inputRef: barRef, index: barIndex });
     setCursorPosition({ position: event.target.selectionStart });
@@ -170,7 +228,13 @@ const Editor = (props) => {
     event.preventDefault();
     if (key in legalCharacters) {
       console.log(key);
-      legalCharacters[key](key, mapOfLastColumnIndexes);
+      if(key === "]") {
+        legalCharacters[key](mapOfFirstColumnIndexes, mapOfLastColumnIndexes);
+      } else if(key ==="[") {
+        legalCharacters[key](mapOfFirstColumnIndexes)
+      } else {
+        legalCharacters[key](key, mapOfLastColumnIndexes);
+      }
     } else if (key === null) {
       if (event.nativeEvent.inputType === "deleteContentBackward") {
         legalCharacters["Backspace"](mapOfFirstColumnIndexes);
@@ -231,20 +295,13 @@ const Editor = (props) => {
   return (
     <div data-testid="Editor">
       {isLoading ? ( <CircularProgress /> ) : (
-        <Paper>
+        <>
           <Box sx={{display: 'flex', justifyContent: 'space-between'}}>
-            <input
-              type="text"
-              name="name"
-              value={tablature.name}
-              onChange={handleNameInput}
-              placeholder="A tasty lick"
+            <TitleInput 
+              refreshTablatureObject={refreshTablatureObject}
+              tablature={tablature}
             />
             <AddTablatureBlockButton 
-              tablature={tablature}
-              refreshTablatureObject={refreshTablatureObject}
-            />
-            <AddNoteBlockButton 
               tablature={tablature}
               refreshTablatureObject={refreshTablatureObject}
             />
@@ -260,35 +317,21 @@ const Editor = (props) => {
               />
             }
           </Box>
-          {tablature.blocks.map((block, i) => {
-            if(block.blockType === "tablature") {
-              return (
-                <ExpandableTablatureBlock
-                  key={i}
-                  index={i}
-                  block={block}
-                  duplicateBlock={duplicateBlock}
-                  deleteBlock={deleteBlock}
-                  handleBlockChange={handleBlockChange}
-                  handleKeyUpInBlock={handleKeyUpInBlock} 
-                  handleClickedBlock={handleClickedBlock}
-                  refreshTablatureObject={refreshTablatureObject}
-                  numberOfStrings={tablature.numberOfStrings}
-                />
-              )
-            } else {
-              return (
-                <NoteBlock
-                  key={i}
-                  index={i}
-                  block={block}
-                  deleteBlock={deleteBlock}
-                  refreshTablatureObject={refreshTablatureObject}
-                />
-              )
-            }
-          })}
-        </Paper>
+          {tablature.blocks.map((block, i) => (
+            <ExpandableTablatureBlock
+              key={i}
+              index={i}
+              block={block}
+              duplicateBlock={duplicateBlock}
+              deleteBlock={deleteBlock}
+              handleBlockChange={handleBlockChange}
+              handleKeyUpInBlock={handleKeyUpInBlock} 
+              handleClickedBlock={handleClickedBlock}
+              refreshTablatureObject={refreshTablatureObject}
+              numberOfStrings={tablature.numberOfStrings}
+            />)
+          )}
+        </>
       )}
     </div>
   );

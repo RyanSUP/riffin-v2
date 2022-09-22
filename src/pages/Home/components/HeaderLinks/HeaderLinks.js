@@ -1,6 +1,5 @@
 import { React, useContext } from 'react'
 import { useNavigate } from 'react-router-dom';
-import CustomizedMenus from './CreateMenu/CreateMenu'
 import AddCircleIcon from '@mui/icons-material/AddCircle';
 import AvatarMenu from './AvatarMenu/AvatarMenu';
 import { UserContext } from 'containers/CognitoUserProvider/CognitoUserProvider'
@@ -48,13 +47,6 @@ const HeaderLinks = () => {
 
   return (
     <>    
-    <Box style={buttonStyles}>
-      <CustomizedMenus
-      headerLinks={headerLinks.filter((link) => {
-        return link.belongsTo === "create"
-      })} 
-      />
-    </Box>
     <Box style={buttonStyles}>
       {user ?
       <AvatarMenu 

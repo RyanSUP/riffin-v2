@@ -17,15 +17,17 @@ const InputTextarea = (props) => {
 
   const inputRef = useRef();
   const theme = useTheme();
+  
   const inputsStyle = {
     background: "transparent",
     margin: 0,
+    fontFamily: "Fira Code",
     position: "relative",
     resize: "none",
     zIndex: 2,
     outline: "none",
     border: "none",
-    color: theme.palette.primary.main,
+    color: theme.palette.primary.tabInput,
     fontSize: "1.2rem",
     padding: 0
   };

@@ -1,13 +1,13 @@
 // Components and hooks
 import Header from "./components/Header/Header";
 import Content from "./components/Content/Content";
-import Footer from "./components/Footer/Footer";
+import TagGroup from "./components/TagGroup/TagGroup";
 import { useContext } from "react";
 import { UserContext } from "containers/CognitoUserProvider/CognitoUserProvider";
 
 //MUI
-import { Paper } from "@mui/material";
 import { Box } from "@mui/system";
+import { Divider } from "@mui/material";
 
 const Card = (props) => {
   const { user } = useContext(UserContext);
@@ -22,22 +22,20 @@ const Card = (props) => {
   };
 
   return (
-    <Paper style={cardStyles}>
-      <Header
-        tabData={props.tabData}
-        isOwnedByUser={user?.username === props.tabData.owner.user}
-        isExpanded={props.isExpanded}
-        handleExpand={props.handleExpand}
-      />
+    <Box style={cardStyles}>
+      <Divider textAlign="left">
+        <Header
+          tabData={props.tabData}
+          isOwnedByUser={user?.username === props.tabData.owner.user}
+          isExpanded={props.isExpanded}
+          handleExpand={props.handleExpand}
+        />
+      </Divider>
+      <TagGroup tags={props.tabData.tags} />
       <Box style={contentBoxStyles}>
         <Content tablatureBlocks={props.tabData.blocks} isExpanded={props.isExpanded} numberOfStrings={props.tabData.numberOfStrings}/>
       </Box>
-      <Footer
-        preferredUsername={props.tabData.owner.preferredUsername}
-        user={props.tabData.owner.user}
-        tags={props.tabData.tags}
-      />
-    </Paper>
+    </Box>
   );
 };
 

@@ -104,6 +104,7 @@ export default function BlockOptionsMenu(props) {
         </MenuItem>
         <MenuItem disableRipple>
           <TablatureSizeSlider 
+            numberOfStrings={props.numberOfStrings}
             refreshTablatureObject={props.refreshTablatureObject}
             block={props.block}
           />

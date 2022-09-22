@@ -1,38 +1,24 @@
 // Componeonts / hooks
 import BlockOptionsMenu from "./components/BlockOptionsMenu/BlockOptionsMenu";
-import TablatureGrill from "../TablatureGrill/TablatureGrill";
 import InputTextarea from "./components/InputTextarea/InputTextarea";
 import DashTextarea from "./components/DashTextarea/DashTextarea";
-
+import NoteTextarea from "../NoteTextarea/NoteTextarea";
 // MUI
 import { Box } from "@mui/material";
 
 const ExpandableTablatureBlock = (props) => {
   const deleteBlock = () => props.deleteBlock(props.index)
   const duplicateBlock = () => props.duplicateBlock(props.index)
-  // ! Broken atm
-  const handleLabelInput = (event, barIndex) => {
-    event.preventDefault()
-    const updatedBar = {
-      ...props.blocks[barIndex],
-      label: event.target.value,
-    };
-    props.blocks[barIndex] = updatedBar
-    // props.refreshTablatureObject()
-  }
 
   return (
     <>
       <Box sx={{display: 'flex', justifyContent: 'space-between'}}>
-        <input 
-          style={{"marginLeft": "10px"}}
-          type="text"
-          name="name"
-          value={props.block.label}
-          onChange={(event) => handleLabelInput(event, props.index)}
-          placeholder="label"
+        <NoteTextarea 
+          block={props.block} sx={{flexGrow: 1}}
+          refreshTablatureObject={props.refreshTablatureObject}  
         />
         <BlockOptionsMenu 
+          numberOfStrings={props.numberOfStrings}
           deleteBlock={deleteBlock} 
           duplicateBlock={duplicateBlock}
           block={props.block}
@@ -40,7 +26,6 @@ const ExpandableTablatureBlock = (props) => {
         />
       </Box>
       <Box sx={{display: 'flex'}}>
-        <TablatureGrill numberOfStrings={props.numberOfStrings}/>
         <div style={{ position: "relative"}}>
           <InputTextarea 
             handleBlockChange={props.handleBlockChange}

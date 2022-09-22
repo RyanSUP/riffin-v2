@@ -4,7 +4,6 @@ import 'simplebar/dist/simplebar.min.css';
 
 import "./TablatureBlockStyle.css"
 
-// MUI hook that gives components access to theme stored in ThemeProvider
 import { useTheme } from "@mui/material/styles";
 
 const TablatureBlock = (props) => {
@@ -13,49 +12,53 @@ const TablatureBlock = (props) => {
   const inputsStyle = {
     background: "transparent",
     margin: 0,
-    padding: 0,
+    fontFamily: "Fira Code",
     position: "relative",
     resize: "none",
     zIndex: 2,
     outline: "none",
     border: "none",
-    color: theme.palette.primary.main,
+    color: theme.palette.primary.tabInput,
+    fontSize: "1.2rem",
+    padding: 0
   };
   
   const dashesStyle = {
     background: "transparent",
     margin: 0,
-    padding: 0,
     position: "absolute",
     resize: "none",
-    left: "50%",
-    translate: "-50%",
+    left: "0",
+    translate: "0",
     zIndex: 1,
     outline: "none",
     border: "none",
-    color: theme.palette.background.default,
+    fontFamily: "Fira Code",
+    color: theme.palette.primary.dashes,
+    fontSize: "1.2rem",
+    padding: 0,
   };
 
   return (
     <SimpleBar>
-      <div style={{ position: "relative", width: "fit-content", margin: "0 auto"}}>
-        <textarea
-          readOnly={true}
-          style={inputsStyle}
-          value={props.blockData.inputs}
-          cols={props.blockData.cols}
-          rows={props.numberOfStrings}
-          maxLength={props.blockData.maxLength}
+        <div style={{position: "relative", width: "fit-content"}}>
+          <textarea
+            readOnly={true}
+            style={inputsStyle}
+            value={props.blockData.inputs}
+            cols={props.blockData.cols}
+            rows={props.numberOfStrings}
+            maxLength={props.blockData.maxLength}
+            />
+          <textarea
+            readOnly={true}
+            style={dashesStyle}
+            value={props.blockData.dashes}
+            cols={props.blockData.cols}
+            rows={props.numberOfStrings}
+            maxLength={props.blockData.maxLength}
           />
-        <textarea
-          readOnly={true}
-          style={dashesStyle}
-          value={props.blockData.dashes}
-          cols={props.blockData.cols}
-          rows={props.numberOfStrings}
-          maxLength={props.blockData.maxLength}
-        />
-      </div>
+        </div>
     </SimpleBar>
   );
 };

@@ -24,12 +24,14 @@ export const updateBlockValue = (action) => {
     const array = [...guitarStrings[i]]
     for(let j = 0; j < Math.abs(action.stepCount); j++) {
       if(action.type === "increase") {
-        array.push(action.characterToAdd)
+        array[array.length - 1] = action.characterToAdd
+        array.push('|')
       } else {
         array.pop()
+        array[array.length - 1] = "|"
       }
     }
-    if(i !== guitarStrings.length - 1) {
+    if(i !== guitarStrings.length - 1) { // Last string doesn't need a newline char
       array.push("\n")
     }
     newValueString += array.join("")
@@ -86,14 +88,18 @@ export const getNewGuitarBlock = (stringCount = 6) => {
     stringCount: stringCount,
     cols: DEFAULT_BLOCK_COLS
   }
-
+  const mapOfFirstColumnIndexes = getMapOfFirstColumnIndexes(action)
   const mapOfLastColumnIndexes = getMapOfLastColumnIndexes(action)
+  const mapOfSecondToLastColumnIndexes = Object.keys(mapOfLastColumnIndexes).map((val) => val - 1)
+  console.log(mapOfSecondToLastColumnIndexes)
   const initLength = (action.stringCount * action.cols) + (action.stringCount - 1)
   const initTextAreaWithValue = (character) => {
     let charactersInString = [];
     for (let i = 0; i < initLength; i++) {
       if (i in mapOfLastColumnIndexes) {
         charactersInString.push("\n");
+      } else if (i in mapOfFirstColumnIndexes || mapOfSecondToLastColumnIndexes.includes(i)) {
+        charactersInString.push("|");
       } else {
         charactersInString.push(character);
       }
@@ -113,10 +119,31 @@ export const getNewGuitarBlock = (stringCount = 6) => {
   };
 }
 
-export const getNewNoteBlock = () => {
-  return {
-    tempKey: Date() + Math.random(),
-    blockType: "note",
-    inputs: ""
-  }  
+// Duplication 
+
+const getPositionsAboveCursor = (cursorPosition, cols) => {
+  let arrayOfPositions = []
+  const indexGapBetweenStrings = cols + 1 // The + 1 compensates for the hidden \n
+  for(let position = cursorPosition - indexGapBetweenStrings; position >= 0; position -= indexGapBetweenStrings) {
+    arrayOfPositions.push(position - 1)
+  }
+  return arrayOfPositions
+}
+
+const getPositionsBelowCursor = (cursorPosition, cols, editableLength) => {
+  const indexGapBetweenStrings = cols + 1 // The + 1 compensates for the hidden \n
+  let arrayOfPositions = []
+  for(let position = cursorPosition + indexGapBetweenStrings; position <= editableLength; position += indexGapBetweenStrings) {
+    arrayOfPositions.push(position - 1)
+  }
+  return arrayOfPositions
+}
+
+export const getPositionsToDuplicate = (cursorPosition, cols, editableLength) => {
+  let aboveCursor = getPositionsAboveCursor(cursorPosition, cols)
+  let belowCursor = getPositionsBelowCursor(cursorPosition, cols, editableLength)
+  let positions = [cursorPosition - 1, ...aboveCursor, ...belowCursor]
+  // let gridValuesArray = [...inputGrid.value]
+  // positions = positions.filter(position => gridValuesArray[position] !== ' ')
+  return positions
 }
