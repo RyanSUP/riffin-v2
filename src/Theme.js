@@ -35,11 +35,10 @@ const darkTheme = createTheme({
     logo: {
       fontFamily: "Ultra",
       fontWeight: 800,
-      fontSize: "54px",
+      fontSize: "36px",
       lineHeight: "100%",
       color: "#88C0D0",
-      padding: "10px",
-      margin: "10px",
+      margin: "0"
     },
     h1: { 
       fontFamily: "Inter",

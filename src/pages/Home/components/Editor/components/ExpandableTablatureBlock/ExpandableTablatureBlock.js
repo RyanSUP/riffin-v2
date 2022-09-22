@@ -24,7 +24,6 @@ const ExpandableTablatureBlock = (props) => {
         />
       </Box>
       <Box sx={{display: 'flex'}}>
-        <TablatureGrill numberOfStrings={props.numberOfStrings}/>
         <div style={{ position: "relative"}}>
           <InputTextarea 
             handleBlockChange={props.handleBlockChange}
