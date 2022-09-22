@@ -37,7 +37,7 @@ const Card = (props) => {
         <Content tablatureBlocks={props.tabData.blocks} isExpanded={props.isExpanded} numberOfStrings={props.tabData.numberOfStrings}/>
       </Box>
       {props.isExpanded &&
-        <Divider variant="middle" sx={{ backgroundColor: theme.palette.primary.tabInput, margin: "24px 0"}}/>
+        <Divider sx={{ backgroundColor: theme.palette.primary.main, margin: "36px 0"}}/>
       }
     </Box>
   );

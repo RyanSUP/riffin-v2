@@ -14,6 +14,7 @@ import { getNewGuitarBlock, getPositionsToDuplicate } from "./utils/EditorUtils"
 // MUI
 import { CircularProgress } from "@mui/material";
 import Box from '@mui/material/Box';
+import TitleInput from './components/TitleInput/TitleInput';
 
 const Editor = (props) => {
   const [selectedTablatureBlock, setSelectedTablatureBlock] = useState(null);
@@ -210,14 +211,6 @@ const Editor = (props) => {
     refreshTablatureObject()
   }
 
-  const handleNameInput = (event) => {
-    const udpatedTablature = {
-      ...tablature,
-      name: event.target.value,
-    };
-    setTablature(udpatedTablature);
-  };
-
   const handleClickedBlock = (event, barIndex, barRef) => {
     setSelectedTablatureBlock({ inputRef: barRef, index: barIndex });
     setCursorPosition({ position: event.target.selectionStart });
@@ -304,12 +297,9 @@ const Editor = (props) => {
       {isLoading ? ( <CircularProgress /> ) : (
         <>
           <Box sx={{display: 'flex', justifyContent: 'space-between'}}>
-            <input
-              type="text"
-              name="name"
-              value={tablature.name}
-              onChange={handleNameInput}
-              placeholder="A tasty lick"
+            <TitleInput 
+              refreshTablatureObject={refreshTablatureObject}
+              tablature={tablature}
             />
             <AddTablatureBlockButton 
               tablature={tablature}
