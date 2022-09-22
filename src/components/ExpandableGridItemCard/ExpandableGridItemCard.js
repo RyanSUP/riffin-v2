@@ -10,7 +10,7 @@ const ExpandableGridItemCard = (props) => {
   const handleExpand = () => setIsExpanded(!isExpanded);
 
   return (
-    <Grid item lg={isExpanded ? 12 : 6} xs={12} >
+    <Grid item lg={isExpanded ? 12 : 6} xs={12}>
       <Card
         handleExpand={handleExpand}
         tabData={props.tabData}
@@ -18,6 +18,6 @@ const ExpandableGridItemCard = (props) => {
       />
     </Grid>
   );
-}
- 
+};
+
 export default ExpandableGridItemCard;

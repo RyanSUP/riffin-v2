@@ -10,7 +10,7 @@ import * as tablatureServices from "services/tablatureServices";
 import { getIdTokenFromUser } from "utils/userUtils";
 
 // MUI
-import DeleteIcon from '@mui/icons-material/Delete';
+import DeleteIcon from "@mui/icons-material/Delete";
 
 const DeleteTabButton = (props) => {
   const { user } = useContext(UserContext);
@@ -18,23 +18,22 @@ const DeleteTabButton = (props) => {
   const navigate = useNavigate();
 
   const handleDelete = () => {
-    deleteFromUsersTablature(props.tablature_id)
+    deleteFromUsersTablature(props.tablature_id);
     const idToken = getIdTokenFromUser(user);
-    tablatureServices.delete(props.tablature_id, idToken)
-    .then((res) => {
+    tablatureServices.delete(props.tablature_id, idToken).then((res) => {
       console.log(res);
     });
-    navigate(`/profile/${user.username}`)
+    navigate(`/profile/${user.username}`);
   };
-  
+
   return (
-    <TooltipIconButton 
+    <TooltipIconButton
       title="Save"
       onClick={handleDelete}
       isDiabled={false}
       icon={<DeleteIcon />}
     />
   );
-}
- 
+};
+
 export default DeleteTabButton;

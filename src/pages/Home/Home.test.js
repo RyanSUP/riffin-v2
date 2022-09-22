@@ -5,9 +5,9 @@
 // import React from 'react'
 // import Home from "./Home";
 
-test.todo('fix broken tests')
+test.todo("fix broken tests");
 
-// Helper functions ---- 
+// Helper functions ----
 
 // const testIfTrendingContentIsInTheDocument = () => {
 //   expect(screen.getByTestId('TrendingContent')).toBeInTheDocument()
@@ -38,7 +38,6 @@ test.todo('fix broken tests')
 
 // test.todo('Home rendes Header on initial load')
 // test.todo('Home renders ad space on initial load')
-
 
 // // Unit tests ----
 
@@ -183,14 +182,14 @@ test.todo('fix broken tests')
 //   // Test trending link
 //   await user.click(screen.getByText(/latest/i))
 //   testIfTrendingContentIsInTheDocument()
-  
+
 // })
 
 // test('Content area properly swaps between ProfileContent, TrendingContent, and LoginForm for users who are not logged in', async ()=> {
 
 //   render(<Home />, {wrapper: BrowserRouter})
 //   const user = userEvent.setup()
-  
+
 //   // Initial load
 //   expect(screen.getByTestId('OfficialNavPlus')).toBeInTheDocument()
 //   testIfTrendingContentIsInTheDocument()
@@ -210,5 +209,5 @@ test.todo('fix broken tests')
 //   // Test trending link
 //   await user.click(screen.getByText(/latest/i))
 //   testIfTrendingContentIsInTheDocument()
-  
+
 // })

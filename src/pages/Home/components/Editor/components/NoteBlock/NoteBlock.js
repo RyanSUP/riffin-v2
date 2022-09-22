@@ -4,7 +4,7 @@ import TooltipIconButton from "components/TooltipIconButton/TooltipIconButton";
 // MUI
 import { TextareaAutosize } from "@mui/material";
 import { useTheme } from "@mui/material/styles";
-import DeleteIcon from '@mui/icons-material/Delete';
+import DeleteIcon from "@mui/icons-material/Delete";
 
 const NoteBlock = (props) => {
   const theme = useTheme();
@@ -20,11 +20,11 @@ const NoteBlock = (props) => {
     color: theme.palette.primary.main,
     fontSize: "1.2rem",
   };
-  
+
   const handleChange = (event) => {
-    props.block.inputs = event.target.value
+    props.block.inputs = event.target.value;
     props.refreshTablatureObject();
-  }
+  };
 
   return (
     <>
@@ -35,7 +35,7 @@ const NoteBlock = (props) => {
         value={props.block.inputs}
         onChange={handleChange}
       />
-      <TooltipIconButton 
+      <TooltipIconButton
         title={"Delete note"}
         isDiabled={false}
         onClick={() => props.deleteBlock(props.index)}
@@ -43,6 +43,6 @@ const NoteBlock = (props) => {
       />
     </>
   );
-}
- 
+};
+
 export default NoteBlock;

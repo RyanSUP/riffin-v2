@@ -16,7 +16,7 @@ const DashTextarea = (props) => {
     border: "none",
     color: theme.palette.background.default,
     fontSize: "1.2rem",
-    padding: 0
+    padding: 0,
   };
 
   return (
@@ -29,6 +29,6 @@ const DashTextarea = (props) => {
       maxLength={props.block.maxLength}
     />
   );
-}
- 
+};
+
 export default DashTextarea;

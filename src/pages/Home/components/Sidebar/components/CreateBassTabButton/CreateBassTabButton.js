@@ -4,41 +4,40 @@ import { useContext, useState, useEffect } from "react";
 import { UserContext } from "containers/CognitoUserProvider/CognitoUserProvider";
 
 // MUI
-import AddCircleIcon from '@mui/icons-material/AddCircle';
-import Button from '@mui/material/Button';
+import AddCircleIcon from "@mui/icons-material/AddCircle";
+import Button from "@mui/material/Button";
 
-const CreateBassTabButton = () => {  
-  const [variant, setVariant] = useState("text")
-  const navigate = useNavigate()
-  const location = useLocation()
-  const { user } = useContext(UserContext)
+const CreateBassTabButton = () => {
+  const [variant, setVariant] = useState("text");
+  const navigate = useNavigate();
+  const location = useLocation();
+  const { user } = useContext(UserContext);
   const handleClick = () => {
-    user ? navigate(`/new/bass`) : navigate('/login')
-  }
+    user ? navigate(`/new/bass`) : navigate("/login");
+  };
 
-  useEffect(()=> {
-    const urlData = location.pathname.split('/')
-    console.log(urlData)
-    const path = urlData[2]
-    if(path === 'bass') {
-      setVariant("contained")
+  useEffect(() => {
+    const urlData = location.pathname.split("/");
+    console.log(urlData);
+    const path = urlData[2];
+    if (path === "bass") {
+      setVariant("contained");
     } else {
-      setVariant("text")
+      setVariant("text");
     }
-  }, [location, user])
+  }, [location, user]);
 
   return (
     <Button
       startIcon={<AddCircleIcon />}
       onClick={handleClick}
-      sx={{justifyContent: 'left', pl: '16px', my: 1}}
+      sx={{ justifyContent: "left", pl: "16px", my: 1 }}
       disableElevation
       variant={variant}
     >
       Add Bass Tab
     </Button>
-  )
+  );
+};
 
-}
-
-export default CreateBassTabButton
+export default CreateBassTabButton;

@@ -1,9 +1,7 @@
 import TablatureGrill from "./TablatureGrill";
-import renderer from 'react-test-renderer';
+import renderer from "react-test-renderer";
 
-test('renders', ()=> {
-  const tree = renderer
-    .create(<TablatureGrill />)
-    .toJSON();
+test("renders", () => {
+  const tree = renderer.create(<TablatureGrill />).toJSON();
   expect(tree).toMatchSnapshot();
 });

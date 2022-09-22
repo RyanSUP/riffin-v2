@@ -1,15 +1,15 @@
 // Components / hooks
 import SimpleBar from "simplebar-react";
-import 'simplebar/dist/simplebar.min.css';
+import "simplebar/dist/simplebar.min.css";
 
-import "./TablatureBlockStyle.css"
+import "./TablatureBlockStyle.css";
 
 // MUI hook that gives components access to theme stored in ThemeProvider
 import { useTheme } from "@mui/material/styles";
 
 const TablatureBlock = (props) => {
   const theme = useTheme(); // theme obtained with invoking this hook
-  
+
   const inputsStyle = {
     background: "transparent",
     margin: 0,
@@ -21,7 +21,7 @@ const TablatureBlock = (props) => {
     border: "none",
     color: theme.palette.primary.main,
   };
-  
+
   const dashesStyle = {
     background: "transparent",
     margin: 0,
@@ -38,7 +38,9 @@ const TablatureBlock = (props) => {
 
   return (
     <SimpleBar>
-      <div style={{ position: "relative", width: "fit-content", margin: "0 auto"}}>
+      <div
+        style={{ position: "relative", width: "fit-content", margin: "0 auto" }}
+      >
         <textarea
           readOnly={true}
           style={inputsStyle}
@@ -46,7 +48,7 @@ const TablatureBlock = (props) => {
           cols={props.blockData.cols}
           rows={props.numberOfStrings}
           maxLength={props.blockData.maxLength}
-          />
+        />
         <textarea
           readOnly={true}
           style={dashesStyle}

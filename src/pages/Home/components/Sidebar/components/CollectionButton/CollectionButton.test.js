@@ -1,15 +1,15 @@
-import renderer from 'react-test-renderer';
+import renderer from "react-test-renderer";
 import { render, screen } from "@testing-library/react";
 import { UserContext } from "containers/CognitoUserProvider/CognitoUserProvider";
-import CollectionButton from './CollectionButton';
-import {BrowserRouter, MemoryRouter} from 'react-router-dom'
+import CollectionButton from "./CollectionButton";
+import { BrowserRouter, MemoryRouter } from "react-router-dom";
 import userEvent from "@testing-library/user-event";
 
 const mockedNavigate = jest.fn();
 
-jest.mock('react-router-dom', () => ({
-  ...jest.requireActual('react-router-dom'),
-  useNavigate: () => mockedNavigate
+jest.mock("react-router-dom", () => ({
+  ...jest.requireActual("react-router-dom"),
+  useNavigate: () => mockedNavigate,
 }));
 
 it('variant is "text" when not at the collections route', () => {
@@ -17,70 +17,66 @@ it('variant is "text" when not at the collections route', () => {
     <MemoryRouter>
       <CollectionButton />
     </MemoryRouter>
-  )
-  const tree = renderer
-    .create(component)
-    .toJSON();
+  );
+  const tree = renderer.create(component).toJSON();
   expect(tree).toMatchSnapshot();
-})
+});
 
-test('variant is "contained" when viewing owned collection', ()=> {
+test('variant is "contained" when viewing owned collection', () => {
   const mockUser = {
     value: {
       user: {
-        username: 'JarJar_Binks',
+        username: "JarJar_Binks",
         userDataKey: "pizza",
-        storage: {}
-      }
-    }
-  }
+        storage: {},
+      },
+    },
+  };
   const component = (
-    <MemoryRouter initialEntries={['/profile/JarJar_Binks']}>
+    <MemoryRouter initialEntries={["/profile/JarJar_Binks"]}>
       <UserContext.Provider {...mockUser}>
         <CollectionButton />
       </UserContext.Provider>
     </MemoryRouter>
-  )
+  );
 
-  const tree = renderer
-  .create(component)
-  .toJSON();
+  const tree = renderer.create(component).toJSON();
   expect(tree).toMatchSnapshot();
-})
+});
 
-test('routes to the current users collection on click', async ()=> {
+test("routes to the current users collection on click", async () => {
   const mockUser = {
     value: {
       user: {
-        username: 'JarJar_Binks',
+        username: "JarJar_Binks",
         userDataKey: "pizza",
-        storage: {}
-      }
-    }
-  }
+        storage: {},
+      },
+    },
+  };
   const component = (
     <BrowserRouter>
       <UserContext.Provider {...mockUser}>
         <CollectionButton />
       </UserContext.Provider>
     </BrowserRouter>
-  )
+  );
 
-  render(component)
-  const user = userEvent.setup()
-  await user.click(screen.getByRole('button'))
-  expect(mockedNavigate).toHaveBeenCalledWith('/profile/JarJar_Binks');
-})
+  render(component);
+  const user = userEvent.setup();
+  await user.click(screen.getByRole("button"));
+  expect(mockedNavigate).toHaveBeenCalledWith("/profile/JarJar_Binks");
+});
 
-test('routes to login on click when there is no user', async ()=> {
+test("routes to login on click when there is no user", async () => {
   const component = (
     <BrowserRouter>
       <CollectionButton />
     </BrowserRouter>
-  )
+  );
 
-  render(component)
-  const user = userEvent.setup()
-  await user.click(screen.getByRole('button'))
-  expect(mockedNavigate).toHaveBeenCalledWith('/login');
-})
+  render(component);
+  const user = userEvent.setup();
+  await user.click(screen.getByRole("button"));
+  expect(mockedNavigate).toHaveBeenCalledWith("/login");
+});

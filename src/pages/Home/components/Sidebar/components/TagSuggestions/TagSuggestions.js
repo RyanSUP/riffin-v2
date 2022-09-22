@@ -1,6 +1,6 @@
 // MUI
-import Stack from '@mui/material/Stack';
-import Button from '@mui/material/Button';
+import Stack from "@mui/material/Stack";
+import Button from "@mui/material/Button";
 
 const presetTags = [
   "Tasters",
@@ -18,23 +18,23 @@ const presetTags = [
   "R&B",
   "Metallica",
   "AC/DC",
-]
+];
 
 function TagSuggestions(props) {
   return (
     <Stack direction="column">
       {presetTags.map((tag, i) => (
-        <Button 
-          key={i} 
-          variant="text" 
+        <Button
+          key={i}
+          variant="text"
           onClick={() => props.addTag(tag)}
-          sx={{justifyContent: 'start', pl: '16px'}}
+          sx={{ justifyContent: "start", pl: "16px" }}
         >
           {tag}
-        </Button>        
-      ))}        
+        </Button>
+      ))}
     </Stack>
-  )
+  );
 }
 
-export default TagSuggestions
+export default TagSuggestions;

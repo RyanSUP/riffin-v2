@@ -40,11 +40,9 @@ const LoginForm = () => {
           variant="outlined"
           onChange={(event) => setPassword(event.target.value)}
           value={password}
-        />        
+        />
         <Button variant="contained" type="submit">
-          <span data-testid="login-button">
-            Login
-          </span>
+          <span data-testid="login-button">Login</span>
         </Button>
       </Stack>
     </form>

@@ -6,42 +6,45 @@ import { useNavigate } from "react-router-dom";
 
 // Services / Utils
 import { getIdTokenFromUser } from "utils/userUtils";
-import { handleLikingTablature } from 'services/profileServices'
+import { handleLikingTablature } from "services/profileServices";
 
 // MUI
 import FavoriteBorderIcon from "@mui/icons-material/FavoriteBorder";
-import FavoriteIcon from '@mui/icons-material/Favorite';
+import FavoriteIcon from "@mui/icons-material/Favorite";
 import ToggledIconButton from "components/ToggledIconButton/ToggledIconButton";
 
 const FavoriteIconButton = (props) => {
-  const navigate = useNavigate()
-  const { user } = useContext(UserContext)
-  const { addToUsersLikedTablature, removeFromUsersLikedTablature } = useContext(TablatureContext)
-  const [likedByCurrentUser, setLikedByCurrentUser] = useState()
-  const [ownedByUser, setOwnedByUser] = useState()
+  const navigate = useNavigate();
+  const { user } = useContext(UserContext);
+  const { addToUsersLikedTablature, removeFromUsersLikedTablature } =
+    useContext(TablatureContext);
+  const [likedByCurrentUser, setLikedByCurrentUser] = useState();
+  const [ownedByUser, setOwnedByUser] = useState();
 
   const handleClick = (action) => {
-    if(user) {
-      if(action === 'like') {
-        addToUsersLikedTablature(props.tab_id)  
+    if (user) {
+      if (action === "like") {
+        addToUsersLikedTablature(props.tab_id);
       } else {
-        removeFromUsersLikedTablature(props.tab_id)
+        removeFromUsersLikedTablature(props.tab_id);
       }
       const idToken = getIdTokenFromUser(user);
-      handleLikingTablature(action, user.profile._id, props.tab_id, idToken)
-      setLikedByCurrentUser(!likedByCurrentUser)
+      handleLikingTablature(action, user.profile._id, props.tab_id, idToken);
+      setLikedByCurrentUser(!likedByCurrentUser);
     } else {
-      navigate("/login")
+      navigate("/login");
     }
-  }
+  };
 
   useEffect(() => {
-    if(user) {
-      const likeStatus = user.profile?.favoriteTabHash[props.tab_id] ? true : false
-      setLikedByCurrentUser(likeStatus)
-      setOwnedByUser(user.username === props.tabOwner)
+    if (user) {
+      const likeStatus = user.profile?.favoriteTabHash[props.tab_id]
+        ? true
+        : false;
+      setLikedByCurrentUser(likeStatus);
+      setOwnedByUser(user.username === props.tabOwner);
     }
-  }, [user, props])
+  }, [user, props]);
 
   return (
     <>
@@ -50,13 +53,13 @@ const FavoriteIconButton = (props) => {
         startOnA={likedByCurrentUser}
         iconA={<FavoriteIcon />}
         titleA={""}
-        handleClickA={() => handleClick('unlike')}
+        handleClickA={() => handleClick("unlike")}
         iconB={<FavoriteBorderIcon />}
         titleB={""}
-        handleClickB={() => handleClick('like')}
+        handleClickB={() => handleClick("like")}
       />
     </>
   );
-}
- 
+};
+
 export default FavoriteIconButton;

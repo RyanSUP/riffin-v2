@@ -28,7 +28,6 @@ const create = async (tablature, idToken) => {
  * @returns {Object} { status: "" }
  */
 const update = async (tablature, idToken) => {
-
   const response = await fetch(`${BASE_URL}/tablature/${tablature._id}`, {
     method: "PUT",
     headers: {

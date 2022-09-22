@@ -3,7 +3,7 @@ import TooltipIconButton from "components/TooltipIconButton/TooltipIconButton";
 // utils
 import { getNewGuitarBlock } from "../../utils/EditorUtils";
 // MUI
-import PlaylistAddIcon from '@mui/icons-material/PlaylistAdd';
+import PlaylistAddIcon from "@mui/icons-material/PlaylistAdd";
 
 const AddTablatureBlockButton = (props) => {
   const handleAddBlock = () => {
@@ -11,19 +11,19 @@ const AddTablatureBlockButton = (props) => {
     props.tablature.blocks.forEach((bar) => {
       previousBlocks.push({ ...bar });
     });
-    const newBlock = getNewGuitarBlock(props.tablature.numberOfStrings)
+    const newBlock = getNewGuitarBlock(props.tablature.numberOfStrings);
     props.tablature.blocks = [...previousBlocks, newBlock];
     props.refreshTablatureObject();
-  }
+  };
 
   return (
-    <TooltipIconButton 
+    <TooltipIconButton
       title="Add tablature block"
       onClick={handleAddBlock}
       isDiabled={false}
       icon={<PlaylistAddIcon />}
     />
   );
-}
- 
+};
+
 export default AddTablatureBlockButton;

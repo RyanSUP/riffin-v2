@@ -1,17 +1,16 @@
 // Components / Hooks
 import { useState, useEffect } from "react";
-import { useLocation} from "react-router-dom";
+import { useLocation } from "react-router-dom";
 
 // MUI
 import { Box } from "@mui/system";
 import { Button, Chip } from "@mui/material";
 
-
 function TagBar(props) {
   const [searchInputValue, setSearchInputValue] = useState("");
   const location = useLocation();
   const [placeholder, setPlaceholder] = useState();
-  
+
   const handleSubmit = (event) => {
     event.preventDefault();
     props.addTag(searchInputValue);
@@ -48,12 +47,12 @@ function TagBar(props) {
   };
 
   useEffect(() => {
-    if(location.pathname.startsWith("/new")) {
-      setPlaceholder("add a tag")
+    if (location.pathname.startsWith("/new")) {
+      setPlaceholder("add a tag");
     } else {
-      setPlaceholder("Search")
+      setPlaceholder("Search");
     }
-  }, [location])
+  }, [location]);
 
   return (
     <>
@@ -75,8 +74,7 @@ function TagBar(props) {
             onChange={(e) => setSearchInputValue(e.target.value)}
           ></input>
         </form>
-        {props.tags.length > 0 && 
-        <Button onClick={handleClearTags}>X</Button>}
+        {props.tags.length > 0 && <Button onClick={handleClearTags}>X</Button>}
       </Box>
     </>
   );

@@ -5,17 +5,13 @@ import ExpandableGridItemCard from "components/ExpandableGridItemCard/Expandable
 import { Grid } from "@mui/material";
 
 const CardGrid = (props) => {
-
   return (
     <Grid container spacing={2}>
       {props.tablature.map((tab, index) => (
-        <ExpandableGridItemCard 
-          tabData={tab}
-          key={index}
-        />
+        <ExpandableGridItemCard tabData={tab} key={index} />
       ))}
     </Grid>
   );
-}
- 
+};
+
 export default CardGrid;

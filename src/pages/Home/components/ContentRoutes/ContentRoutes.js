@@ -8,22 +8,21 @@ const ContentRoutes = (props) => {
   return (
     <Routes>
       <Route path="/login" element={<LoginSignupForm />} />
+      <Route path="/profile/:cognitoUsername" element={<ProfileContent />} />
       <Route
-        path="/profile/:cognitoUsername"
-        element={<ProfileContent />}
+        path="/new/guitar"
+        element={
+          <Editor key={"guitar"} numberOfStrings={6} tags={props.tags} />
+        }
       />
-      <Route path="/new/guitar" element={
-        <Editor key={"guitar"} numberOfStrings={6} tags={props.tags} />
-      }/>
-      <Route path="/new/bass" element={
-        <Editor key={"bass"} numberOfStrings={4} tags={props.tags} />
-      }/>
-      <Route path="/edit/:tabId" element={
-        <Editor tags={props.tags} />} 
+      <Route
+        path="/new/bass"
+        element={<Editor key={"bass"} numberOfStrings={4} tags={props.tags} />}
       />
+      <Route path="/edit/:tabId" element={<Editor tags={props.tags} />} />
       <Route path="*" element={<Navigate to="/login" replace />} />
     </Routes>
   );
-}
- 
+};
+
 export default ContentRoutes;

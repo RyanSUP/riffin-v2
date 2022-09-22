@@ -5,12 +5,7 @@ import TooltipIconButton from "components/TooltipIconButton/TooltipIconButton";
 import ShareIcon from "@mui/icons-material/Share";
 
 const ShareIconButton = () => {
-  return (
-    <TooltipIconButton 
-      icon={<ShareIcon />}
-      title={"Share"}
-    />
-  );
-}
+  return <TooltipIconButton icon={<ShareIcon />} title={"Share"} />;
+};
 
 export default ShareIconButton;

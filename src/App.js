@@ -6,7 +6,7 @@ import { CssBaseline } from "@mui/material";
 // import Button from "@mui/material/Button";
 
 import { CognitoUserProvider } from "containers/CognitoUserProvider/CognitoUserProvider";
-import { TablatureProvider } from "containers/TablatureProvider/TablatureProvider"
+import { TablatureProvider } from "containers/TablatureProvider/TablatureProvider";
 import Home from "pages/Home/Home";
 
 function App() {

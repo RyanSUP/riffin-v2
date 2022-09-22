@@ -14,8 +14,8 @@ const Card = (props) => {
 
   const contentBoxStyles = {
     display: "flex",
-    justifyContent: "center"
-  }
+    justifyContent: "center",
+  };
 
   const cardStyles = {
     padding: "15px",
@@ -30,7 +30,11 @@ const Card = (props) => {
         handleExpand={props.handleExpand}
       />
       <Box style={contentBoxStyles}>
-        <Content tablatureBlocks={props.tabData.blocks} isExpanded={props.isExpanded} numberOfStrings={props.tabData.numberOfStrings}/>
+        <Content
+          tablatureBlocks={props.tabData.blocks}
+          isExpanded={props.isExpanded}
+          numberOfStrings={props.tabData.numberOfStrings}
+        />
       </Box>
       <Footer
         preferredUsername={props.tabData.owner.preferredUsername}

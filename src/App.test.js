@@ -1,13 +1,13 @@
 import { render, screen } from "@testing-library/react";
-import React from 'react'
+import React from "react";
 
-import  App from './App';
-import {BrowserRouter} from 'react-router-dom'
+import App from "./App";
+import { BrowserRouter } from "react-router-dom";
 
-test('App renders the Home component on initialization', ()=> {
-  render(<App />, {wrapper: BrowserRouter})
-  expect(screen.getByTestId('Home')).toBeInTheDocument()
-})
+test("App renders the Home component on initialization", () => {
+  render(<App />, { wrapper: BrowserRouter });
+  expect(screen.getByTestId("Home")).toBeInTheDocument();
+});
 
 // test('App redirects non users to the login page when navigating to a /profile route', async ()=> {
 //   render(<App />, {wrapper: BrowserRouter})

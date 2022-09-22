@@ -1,41 +1,41 @@
 // Components / hooks
-import { useState, useContext, useEffect } from 'react';
+import { useState, useContext, useEffect } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import { UserContext } from "containers/CognitoUserProvider/CognitoUserProvider";
 import { TablatureContext } from "containers/TablatureProvider/TablatureProvider";
-import ExpandableTablatureBlock from './components/ExpandableTablatureBlock/ExpandableTablatureBlock';
-import AddNoteBlockButton from './components/AddNoteBlockButton/AddNoteBlockButton';
-import DeleteTabButton from './components/DeleteTabButton/DeleteTabButton';
-import SaveTabButton from './components/SaveTabButton/SaveTabButton';
-import NoteBlock from './components/NoteBlock/NoteBlock';
-import AddTablatureBlockButton from './components/AddTablatureBlockButton/AddTablatureBlockButton';
+import ExpandableTablatureBlock from "./components/ExpandableTablatureBlock/ExpandableTablatureBlock";
+import AddNoteBlockButton from "./components/AddNoteBlockButton/AddNoteBlockButton";
+import DeleteTabButton from "./components/DeleteTabButton/DeleteTabButton";
+import SaveTabButton from "./components/SaveTabButton/SaveTabButton";
+import NoteBlock from "./components/NoteBlock/NoteBlock";
+import AddTablatureBlockButton from "./components/AddTablatureBlockButton/AddTablatureBlockButton";
 
 // Services / utils
 import { getNewGuitarBlock } from "./utils/EditorUtils";
 
 // MUI
 import { CircularProgress, Paper } from "@mui/material";
-import Box from '@mui/material/Box';
+import Box from "@mui/material/Box";
 
 const Editor = (props) => {
   const [selectedTablatureBlock, setSelectedTablatureBlock] = useState(null);
-  const [cursorPosition, setCursorPosition] = useState({ position: null }); // This can't be a number or it will cause 
+  const [cursorPosition, setCursorPosition] = useState({ position: null }); // This can't be a number or it will cause
   const [showDeleteButton, setShowDeleteButton] = useState(false); // Is the document already in the database?
   const [isLoading, setIsLoading] = useState(false); // is the document currently waiting for a response?
   const [tablature, setTablature] = useState({
     name: "A tasty lick",
     blocks: [],
     tags: [],
-    numberOfStrings: props.numberOfStrings
+    numberOfStrings: props.numberOfStrings,
   });
 
   const { user } = useContext(UserContext);
   const { tabId } = useParams();
-  const { getTabFromUser } = useContext(TablatureContext)
+  const { getTabFromUser } = useContext(TablatureContext);
   let navigate = useNavigate();
 
   const toggleLoading = (value) => setIsLoading(value);
-  
+
   function handleAddCharacter(character, mapOfLastColumnIndexes) {
     if (cursorPosition.position in mapOfLastColumnIndexes) {
       setCursorPosition((prev) => {
@@ -55,7 +55,9 @@ const Editor = (props) => {
         cursorPosition.position
       );
       tablature.blocks[selectedTablatureBlock.index] = newBlock;
-      setTablature((prev) => { return {...prev}})
+      setTablature((prev) => {
+        return { ...prev };
+      });
       setCursorPosition({ position: cursorPosition.position + 1 });
     }
   }
@@ -80,7 +82,9 @@ const Editor = (props) => {
         newCursorPosition
       );
       tablature.blocks[selectedTablatureBlock.index] = newBlock;
-      setTablature((prev) => { return {...prev}})
+      setTablature((prev) => {
+        return { ...prev };
+      });
       setCursorPosition({ position: newCursorPosition });
     }
   }
@@ -89,9 +93,9 @@ const Editor = (props) => {
     "~": handleAddCharacter, // vibrato
     "/": handleAddCharacter, // slide
     "^": handleAddCharacter, // bend
-    "x": handleAddCharacter, // mute
-    "p": handleAddCharacter, // pull off
-    "h": handleAddCharacter, // hammer on
+    x: handleAddCharacter, // mute
+    p: handleAddCharacter, // pull off
+    h: handleAddCharacter, // hammer on
     0: handleAddCharacter,
     1: handleAddCharacter,
     2: handleAddCharacter,
@@ -102,9 +106,9 @@ const Editor = (props) => {
     7: handleAddCharacter,
     8: handleAddCharacter,
     9: handleAddCharacter,
-    "d": handleAddCharacter, // duplicate
-    "Backspace": handleRemoveCharacter,
-  //   insertLineBreak: handlePressingEnter, // Move cursor to the next line (string)
+    d: handleAddCharacter, // duplicate
+    Backspace: handleRemoveCharacter,
+    //   insertLineBreak: handlePressingEnter, // Move cursor to the next line (string)
   };
 
   function getUpdatedTextAreaValues(area, character, insertionIndex) {
@@ -137,11 +141,11 @@ const Editor = (props) => {
   const duplicateBlock = (blockIndex) => {
     const newBlock = {
       tempKey: Date() + Math.random(),
-      ...tablature.blocks[blockIndex]
-    }
-    tablature.blocks.push(newBlock)
-    refreshTablatureObject()
-  }
+      ...tablature.blocks[blockIndex],
+    };
+    tablature.blocks.push(newBlock);
+    refreshTablatureObject();
+  };
 
   const handleNameInput = (event) => {
     const udpatedTablature = {
@@ -164,7 +168,11 @@ const Editor = (props) => {
     }
   };
 
-  const handleBlockChange = (event, mapOfLastColumnIndexes, mapOfFirstColumnIndexes) => {
+  const handleBlockChange = (
+    event,
+    mapOfLastColumnIndexes,
+    mapOfFirstColumnIndexes
+  ) => {
     const key = event.nativeEvent.data;
     console.log(event.nativeEvent.inputType);
     event.preventDefault();
@@ -187,8 +195,10 @@ const Editor = (props) => {
   // Prevent crusor from jumping to end of input.
   useEffect(() => {
     if (selectedTablatureBlock) {
-      selectedTablatureBlock.inputRef.current.selectionStart = cursorPosition.position;
-      selectedTablatureBlock.inputRef.current.selectionEnd = cursorPosition.position;
+      selectedTablatureBlock.inputRef.current.selectionStart =
+        cursorPosition.position;
+      selectedTablatureBlock.inputRef.current.selectionEnd =
+        cursorPosition.position;
       console.log("New cursorPosition: ", cursorPosition.position);
     }
   }, [cursorPosition, selectedTablatureBlock]);
@@ -200,15 +210,15 @@ const Editor = (props) => {
 
   useEffect(() => {
     if (tabId) {
-      const tab = getTabFromUser(tabId)
-      if(tab) {
+      const tab = getTabFromUser(tabId);
+      if (tab) {
         setTablature(getTabFromUser(tabId));
       } else {
-        navigate('/login')
+        navigate("/login");
       }
     }
   }, [tabId, getTabFromUser, navigate]);
-  
+
   useEffect(() => {
     if (user) {
       let username = user.username;
@@ -219,20 +229,22 @@ const Editor = (props) => {
   }, [user]);
 
   useEffect(() => {
-    if(!tabId && tablature.blocks.length === 0) {
-      const newBlock = getNewGuitarBlock(tablature.numberOfStrings)
+    if (!tabId && tablature.blocks.length === 0) {
+      const newBlock = getNewGuitarBlock(tablature.numberOfStrings);
       setTablature((prev) => {
-        prev.blocks = [newBlock]
-        return {...prev}
-      })
+        prev.blocks = [newBlock];
+        return { ...prev };
+      });
     }
-  }, [tabId, tablature.blocks.length, tablature.numberOfStrings])
+  }, [tabId, tablature.blocks.length, tablature.numberOfStrings]);
 
   return (
     <div data-testid="Editor">
-      {isLoading ? ( <CircularProgress /> ) : (
+      {isLoading ? (
+        <CircularProgress />
+      ) : (
         <Paper>
-          <Box sx={{display: 'flex', justifyContent: 'space-between'}}>
+          <Box sx={{ display: "flex", justifyContent: "space-between" }}>
             <input
               type="text"
               name="name"
@@ -240,28 +252,26 @@ const Editor = (props) => {
               onChange={handleNameInput}
               placeholder="A tasty lick"
             />
-            <AddTablatureBlockButton 
+            <AddTablatureBlockButton
               tablature={tablature}
               refreshTablatureObject={refreshTablatureObject}
             />
-            <AddNoteBlockButton 
+            <AddNoteBlockButton
               tablature={tablature}
               refreshTablatureObject={refreshTablatureObject}
             />
-            <SaveTabButton 
+            <SaveTabButton
               tablature={tablature}
               toggleLoading={toggleLoading}
               tags={props.tags}
               refreshTablatureObject={refreshTablatureObject}
             />
-            {showDeleteButton &&
-              <DeleteTabButton 
-                tablature_id={tablature._id}
-              />
-            }
+            {showDeleteButton && (
+              <DeleteTabButton tablature_id={tablature._id} />
+            )}
           </Box>
           {tablature.blocks.map((block, i) => {
-            if(block.blockType === "tablature") {
+            if (block.blockType === "tablature") {
               return (
                 <ExpandableTablatureBlock
                   key={i}
@@ -270,12 +280,12 @@ const Editor = (props) => {
                   duplicateBlock={duplicateBlock}
                   deleteBlock={deleteBlock}
                   handleBlockChange={handleBlockChange}
-                  handleKeyUpInBlock={handleKeyUpInBlock} 
+                  handleKeyUpInBlock={handleKeyUpInBlock}
                   handleClickedBlock={handleClickedBlock}
                   refreshTablatureObject={refreshTablatureObject}
                   numberOfStrings={tablature.numberOfStrings}
                 />
-              )
+              );
             } else {
               return (
                 <NoteBlock
@@ -285,13 +295,13 @@ const Editor = (props) => {
                   deleteBlock={deleteBlock}
                   refreshTablatureObject={refreshTablatureObject}
                 />
-              )
+              );
             }
           })}
         </Paper>
       )}
     </div>
   );
-}
- 
+};
+
 export default Editor;

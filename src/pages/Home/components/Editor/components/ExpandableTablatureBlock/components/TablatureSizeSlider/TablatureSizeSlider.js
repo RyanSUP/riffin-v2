@@ -1,12 +1,15 @@
 // Components / hooks
 import { useState } from "react";
-import { updateBlockValue, updateTextAreaAttributes } from "../../../../utils/EditorUtils"
+import {
+  updateBlockValue,
+  updateTextAreaAttributes,
+} from "../../../../utils/EditorUtils";
 
 // MUI
-import Slider from '@mui/material/Slider';
+import Slider from "@mui/material/Slider";
 
 const TablatureSizeSlider = (props) => {
-  const [sliderValue, setSliderValue] = useState(props.block.cols)
+  const [sliderValue, setSliderValue] = useState(props.block.cols);
 
   const updateInputAreaSize = (action) => {
     const inputAction = {
@@ -14,10 +17,10 @@ const TablatureSizeSlider = (props) => {
       characterToAdd: " ",
       type: action.type,
       stepCount: action.stepCount,
-      cols: props.block.cols
-    }
-    props.block.inputs = updateBlockValue(inputAction)
-  }
+      cols: props.block.cols,
+    };
+    props.block.inputs = updateBlockValue(inputAction);
+  };
 
   const updateDashAreaSize = (action) => {
     const dashAction = {
@@ -25,10 +28,10 @@ const TablatureSizeSlider = (props) => {
       characterToAdd: "-",
       type: action.type,
       stepCount: action.stepCount,
-      cols: props.block.cols
-    }
-    props.block.dashes = updateBlockValue(dashAction)
-  }
+      cols: props.block.cols,
+    };
+    props.block.dashes = updateBlockValue(dashAction);
+  };
 
   const updateBlockProperties = (action) => {
     // ! Update the string count when bass tabs are implemented
@@ -37,40 +40,40 @@ const TablatureSizeSlider = (props) => {
       maxLength: props.block.maxLength,
       type: action.type,
       stepCount: action.stepCount,
-      stringCount: 6
-    }
-    const { cols, maxLength } = updateTextAreaAttributes(textAreaAction)
-    props.block.cols = cols
-    props.block.maxLength = maxLength
-  }
+      stringCount: 6,
+    };
+    const { cols, maxLength } = updateTextAreaAttributes(textAreaAction);
+    props.block.cols = cols;
+    props.block.maxLength = maxLength;
+  };
 
   const updateBlockSize = (action) => {
-    updateInputAreaSize(action)
-    updateDashAreaSize(action)
-    updateBlockProperties(action)
-    props.refreshTablatureObject()
-  }
+    updateInputAreaSize(action);
+    updateDashAreaSize(action);
+    updateBlockProperties(action);
+    props.refreshTablatureObject();
+  };
 
   const handleSliderChange = (event, value) => {
-    if(value === sliderValue) { 
-      return
+    if (value === sliderValue) {
+      return;
     }
-    
+
     const difference = value - sliderValue;
-    if(difference > 0) {
+    if (difference > 0) {
       updateBlockSize({
         type: "increase",
-        stepCount: difference
-      })
+        stepCount: difference,
+      });
     } else {
       updateBlockSize({
         type: "decrease",
-        stepCount: difference
-      })
+        stepCount: difference,
+      });
     }
 
-    setSliderValue((prev) => prev + difference)
-  }
+    setSliderValue((prev) => prev + difference);
+  };
   return (
     <Slider
       aria-label="Temperature"
@@ -82,6 +85,6 @@ const TablatureSizeSlider = (props) => {
       max={80}
     />
   );
-}
- 
+};
+
 export default TablatureSizeSlider;

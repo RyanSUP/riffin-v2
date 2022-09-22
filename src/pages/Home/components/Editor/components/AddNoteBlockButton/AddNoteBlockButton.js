@@ -3,7 +3,7 @@ import TooltipIconButton from "components/TooltipIconButton/TooltipIconButton";
 // utils
 import { getNewNoteBlock } from "../../utils/EditorUtils";
 // MUI
-import TextSnippetIcon from '@mui/icons-material/TextSnippet';
+import TextSnippetIcon from "@mui/icons-material/TextSnippet";
 
 const AddNoteBlockButton = (props) => {
   const handleAddBlock = () => {
@@ -11,19 +11,19 @@ const AddNoteBlockButton = (props) => {
     props.tablature.blocks.forEach((bar) => {
       previousBlocks.push({ ...bar });
     });
-    const newBlock = getNewNoteBlock()
+    const newBlock = getNewNoteBlock();
     props.tablature.blocks = [...previousBlocks, newBlock];
     props.refreshTablatureObject();
-  }
+  };
 
   return (
-    <TooltipIconButton 
+    <TooltipIconButton
       title="Add note block"
       onClick={handleAddBlock}
       isDiabled={false}
       icon={<TextSnippetIcon />}
     />
   );
-}
- 
+};
+
 export default AddNoteBlockButton;

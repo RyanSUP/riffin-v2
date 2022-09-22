@@ -11,7 +11,7 @@ import UserPool from "utils/UserPool";
 const UserContext = createContext({});
 
 const CognitoUserProvider = (props) => {
-  const [user, setUser] = useState(null)
+  const [user, setUser] = useState(null);
   const [userIsLoading, setUserIsLoading] = useState(true);
 
   let navigate = useNavigate();
@@ -98,12 +98,12 @@ const CognitoUserProvider = (props) => {
     // If user is not set, check if there is user data in session storage. This allows users to return to the app without having to log back in each time.
     if (!user) {
       const userFromPool = UserPool.getCurrentUser();
-      setUserIsLoading(true)
-      setUserIsLoading(false)
+      setUserIsLoading(true);
+      setUserIsLoading(false);
       setUser(userFromPool);
     }
     if (user && user.profile) {
-      setUserIsLoading(false)
+      setUserIsLoading(false);
     }
 
     // Fetch Profile from the backend if it doesn't exist in user state. Profile is the MongoDB Document associated with the user.
@@ -111,36 +111,36 @@ const CognitoUserProvider = (props) => {
       const userFromPool = UserPool.getCurrentUser();
       const idToken = userUtils.getIdTokenFromUser(userFromPool);
       profileServices
-      .getProfileOfLoggedInUser(userFromPool.username, idToken)
-      .then((response) => {
-        const profile = response.profile;
-        userFromPool["profile"] = profile;
-        // TODO Remove tabsWithOwnerInfo -- not needed for non-public build
-        const tabsWithOwnerInfo = profile.tablature.map((tab)=> {
-          const owner = {
-            _id: tab._id,
-            preferredUsername: profile.preferredUsername,
-            user: user.username,
-          }
-          tab.owner = owner
-          return tab
-        })
-        userFromPool.profile.tablature = tabsWithOwnerInfo
+        .getProfileOfLoggedInUser(userFromPool.username, idToken)
+        .then((response) => {
+          const profile = response.profile;
+          userFromPool["profile"] = profile;
+          // TODO Remove tabsWithOwnerInfo -- not needed for non-public build
+          const tabsWithOwnerInfo = profile.tablature.map((tab) => {
+            const owner = {
+              _id: tab._id,
+              preferredUsername: profile.preferredUsername,
+              user: user.username,
+            };
+            tab.owner = owner;
+            return tab;
+          });
+          userFromPool.profile.tablature = tabsWithOwnerInfo;
 
-        // TODO Remove liked tablature stuff
-        // set favorite tablature hash
-        const favoriteTabHash = {}
-        profile.favoriteTablature.forEach((tab) => {
-          favoriteTabHash[tab._id] = true
-        })
-        userFromPool.profile.favoriteTabHash = favoriteTabHash
+          // TODO Remove liked tablature stuff
+          // set favorite tablature hash
+          const favoriteTabHash = {};
+          profile.favoriteTablature.forEach((tab) => {
+            favoriteTabHash[tab._id] = true;
+          });
+          userFromPool.profile.favoriteTabHash = favoriteTabHash;
 
-        setUserIsLoading(false)
-        setUser(userFromPool);
-      });
+          setUserIsLoading(false);
+          setUser(userFromPool);
+        });
     }
   }, [user]);
- 
+
   return (
     <UserContext.Provider
       value={{
@@ -149,12 +149,12 @@ const CognitoUserProvider = (props) => {
         logout,
         user,
         setUser,
-        userIsLoading
+        userIsLoading,
       }}
     >
       {props.children}
     </UserContext.Provider>
   );
-}
- 
-export { CognitoUserProvider, UserContext }
+};
+
+export { CognitoUserProvider, UserContext };

@@ -8,41 +8,41 @@ import DashTextarea from "./components/DashTextarea/DashTextarea";
 import { Box } from "@mui/material";
 
 const ExpandableTablatureBlock = (props) => {
-  const deleteBlock = () => props.deleteBlock(props.index)
-  const duplicateBlock = () => props.duplicateBlock(props.index)
+  const deleteBlock = () => props.deleteBlock(props.index);
+  const duplicateBlock = () => props.duplicateBlock(props.index);
   // ! Broken atm
   const handleLabelInput = (event, barIndex) => {
-    event.preventDefault()
+    event.preventDefault();
     const updatedBar = {
       ...props.blocks[barIndex],
       label: event.target.value,
     };
-    props.blocks[barIndex] = updatedBar
+    props.blocks[barIndex] = updatedBar;
     // props.refreshTablatureObject()
-  }
+  };
 
   return (
     <>
-      <Box sx={{display: 'flex', justifyContent: 'space-between'}}>
-        <input 
-          style={{"marginLeft": "10px"}}
+      <Box sx={{ display: "flex", justifyContent: "space-between" }}>
+        <input
+          style={{ marginLeft: "10px" }}
           type="text"
           name="name"
           value={props.block.label}
           onChange={(event) => handleLabelInput(event, props.index)}
           placeholder="label"
         />
-        <BlockOptionsMenu 
-          deleteBlock={deleteBlock} 
+        <BlockOptionsMenu
+          deleteBlock={deleteBlock}
           duplicateBlock={duplicateBlock}
           block={props.block}
           refreshTablatureObject={props.refreshTablatureObject}
         />
       </Box>
-      <Box sx={{display: 'flex'}}>
-        <TablatureGrill numberOfStrings={props.numberOfStrings}/>
-        <div style={{ position: "relative"}}>
-          <InputTextarea 
+      <Box sx={{ display: "flex" }}>
+        <TablatureGrill numberOfStrings={props.numberOfStrings} />
+        <div style={{ position: "relative" }}>
+          <InputTextarea
             handleBlockChange={props.handleBlockChange}
             handleKeyUpInBlock={props.handleKeyUpInBlock}
             handleClickedBlock={props.handleClickedBlock}
@@ -50,7 +50,7 @@ const ExpandableTablatureBlock = (props) => {
             block={props.block}
             numberOfStrings={props.numberOfStrings}
           />
-          <DashTextarea 
+          <DashTextarea
             block={props.block}
             numberOfStrings={props.numberOfStrings}
           />
@@ -58,6 +58,6 @@ const ExpandableTablatureBlock = (props) => {
       </Box>
     </>
   );
-}
- 
+};
+
 export default ExpandableTablatureBlock;

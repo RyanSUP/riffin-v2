@@ -1,8 +1,15 @@
-import { DEFAULT_BLOCK_COLS, MIN_BLOCK_COLS, MAX_BLOCK_COLS } from '../EditorConfig'
+import {
+  DEFAULT_BLOCK_COLS,
+  MIN_BLOCK_COLS,
+  MAX_BLOCK_COLS,
+} from "../EditorConfig";
 
-const calcNewMaxLength = (numberOfCols, numberOfStrings) => (numberOfCols * numberOfStrings) + (numberOfStrings * 2) - 1
-const calculateNewFirstCol = (numberOfCols, index) => (numberOfCols + 1) * (index)
-const calculateNewLastCol = (numberOfCols, stringNum, index) => (numberOfCols * stringNum) + index
+const calcNewMaxLength = (numberOfCols, numberOfStrings) =>
+  numberOfCols * numberOfStrings + numberOfStrings * 2 - 1;
+const calculateNewFirstCol = (numberOfCols, index) =>
+  (numberOfCols + 1) * index;
+const calculateNewLastCol = (numberOfCols, stringNum, index) =>
+  numberOfCols * stringNum + index;
 
 /* 
   Needs an actions object with the following properties:
@@ -13,29 +20,31 @@ const calculateNewLastCol = (numberOfCols, stringNum, index) => (numberOfCols * 
   stepCount
 */
 export const updateBlockValue = (action) => {
-  if((action.type === "increase" && action.cols === MAX_BLOCK_COLS) ||
-    (action.type === "decrease" && action.cols === MIN_BLOCK_COLS)) {
-    return action.area
+  if (
+    (action.type === "increase" && action.cols === MAX_BLOCK_COLS) ||
+    (action.type === "decrease" && action.cols === MIN_BLOCK_COLS)
+  ) {
+    return action.area;
   }
 
-  const guitarStrings = action.area.split('\n')
-  let newValueString = ""
-  for(let i = 0; i < guitarStrings.length; i++) {
-    const array = [...guitarStrings[i]]
-    for(let j = 0; j < Math.abs(action.stepCount); j++) {
-      if(action.type === "increase") {
-        array.push(action.characterToAdd)
+  const guitarStrings = action.area.split("\n");
+  let newValueString = "";
+  for (let i = 0; i < guitarStrings.length; i++) {
+    const array = [...guitarStrings[i]];
+    for (let j = 0; j < Math.abs(action.stepCount); j++) {
+      if (action.type === "increase") {
+        array.push(action.characterToAdd);
       } else {
-        array.pop()
+        array.pop();
       }
     }
-    if(i !== guitarStrings.length - 1) {
-      array.push("\n")
+    if (i !== guitarStrings.length - 1) {
+      array.push("\n");
     }
-    newValueString += array.join("")
+    newValueString += array.join("");
   }
-  return newValueString
-}
+  return newValueString;
+};
 
 /* 
   action {
@@ -47,48 +56,53 @@ export const updateBlockValue = (action) => {
   }
 */
 export const updateTextAreaAttributes = (action) => {
-  if((action.type === "increase" && action.cols === MAX_BLOCK_COLS) ||
-    (action.type === "decrease" && action.cols === MIN_BLOCK_COLS)) {
+  if (
+    (action.type === "increase" && action.cols === MAX_BLOCK_COLS) ||
+    (action.type === "decrease" && action.cols === MIN_BLOCK_COLS)
+  ) {
     return {
       cols: action.cols,
-      maxLength: action.maxLength
-    }
+      maxLength: action.maxLength,
+    };
   }
 
   return {
     cols: action.cols + action.stepCount,
-    maxLength: calcNewMaxLength(action.cols + action.stepCount, action.stringCount)
-  }
-
-}
+    maxLength: calcNewMaxLength(
+      action.cols + action.stepCount,
+      action.stringCount
+    ),
+  };
+};
 
 export const getMapOfLastColumnIndexes = (action) => {
-  const newLastCols = {}
-  for(let i = 0; i < action.stringCount; i++) {
-    const stringNum = i + 1
-    const newVal = calculateNewLastCol(action.cols, stringNum, i)
-    newLastCols[newVal] = true
+  const newLastCols = {};
+  for (let i = 0; i < action.stringCount; i++) {
+    const stringNum = i + 1;
+    const newVal = calculateNewLastCol(action.cols, stringNum, i);
+    newLastCols[newVal] = true;
   }
-  return newLastCols
-}
+  return newLastCols;
+};
 
 export const getMapOfFirstColumnIndexes = (action) => {
-  const newFirstCols = {}
-  for(let i = 0; i < action.stringCount; i++) {
-    const newVal = calculateNewFirstCol(action.cols, i)
-    newFirstCols[newVal] = true
+  const newFirstCols = {};
+  for (let i = 0; i < action.stringCount; i++) {
+    const newVal = calculateNewFirstCol(action.cols, i);
+    newFirstCols[newVal] = true;
   }
-  return newFirstCols
-}
+  return newFirstCols;
+};
 
 export const getNewGuitarBlock = (stringCount = 6) => {
   const action = {
     stringCount: stringCount,
-    cols: DEFAULT_BLOCK_COLS
-  }
+    cols: DEFAULT_BLOCK_COLS,
+  };
 
-  const mapOfLastColumnIndexes = getMapOfLastColumnIndexes(action)
-  const initLength = (action.stringCount * action.cols) + (action.stringCount - 1)
+  const mapOfLastColumnIndexes = getMapOfLastColumnIndexes(action);
+  const initLength =
+    action.stringCount * action.cols + (action.stringCount - 1);
   const initTextAreaWithValue = (character) => {
     let charactersInString = [];
     for (let i = 0; i < initLength; i++) {
@@ -100,23 +114,23 @@ export const getNewGuitarBlock = (stringCount = 6) => {
     }
     return charactersInString.join("");
   };
-  const inputs = initTextAreaWithValue(" ")
-  const dashes = initTextAreaWithValue("-")
-  const maxLength = calcNewMaxLength(action.cols, action.stringCount)
+  const inputs = initTextAreaWithValue(" ");
+  const dashes = initTextAreaWithValue("-");
+  const maxLength = calcNewMaxLength(action.cols, action.stringCount);
   return {
     tempKey: Date() + Math.random(),
     inputs: inputs,
     dashes: dashes,
     cols: DEFAULT_BLOCK_COLS,
     maxLength: maxLength,
-    blockType: "tablature"
+    blockType: "tablature",
   };
-}
+};
 
 export const getNewNoteBlock = () => {
   return {
     tempKey: Date() + Math.random(),
     blockType: "note",
-    inputs: ""
-  }  
-}
+    inputs: "",
+  };
+};
