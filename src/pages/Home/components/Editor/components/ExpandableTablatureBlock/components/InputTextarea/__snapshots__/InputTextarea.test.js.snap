@@ -12,7 +12,8 @@ exports[`renders correctly using a new tablatureBlock 1`] = `
     Object {
       "background": "transparent",
       "border": "none",
-      "color": "#1976d2",
+      "color": undefined,
+      "fontFamily": "Fira Code",
       "fontSize": "1.2rem",
       "margin": 0,
       "outline": "none",
@@ -22,11 +23,11 @@ exports[`renders correctly using a new tablatureBlock 1`] = `
       "zIndex": 2,
     }
   }
-  value="                                        
-                                        
-                                        
-                                        
-                                        
-                                        "
+  value="|                                      |
+|                                      |
+|                                      |
+|                                      |
+|                                      |
+|                                      |"
 />
 `;

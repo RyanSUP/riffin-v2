@@ -8,12 +8,9 @@ import { UserContext } from "containers/CognitoUserProvider/CognitoUserProvider"
 //MUI
 import { Box } from "@mui/system";
 import { Divider } from "@mui/material";
-import { useTheme } from "@mui/material/styles";
-
 
 const Card = (props) => {
   const { user } = useContext(UserContext);
-  const theme = useTheme();
 
   const contentBoxStyles = {
     display: "flex",
