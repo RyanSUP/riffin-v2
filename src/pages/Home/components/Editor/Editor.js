@@ -4,10 +4,8 @@ import { useNavigate, useParams } from "react-router-dom";
 import { UserContext } from "containers/CognitoUserProvider/CognitoUserProvider";
 import { TablatureContext } from "containers/TablatureProvider/TablatureProvider";
 import ExpandableTablatureBlock from './components/ExpandableTablatureBlock/ExpandableTablatureBlock';
-import AddNoteBlockButton from './components/AddNoteBlockButton/AddNoteBlockButton';
 import DeleteTabButton from './components/DeleteTabButton/DeleteTabButton';
 import SaveTabButton from './components/SaveTabButton/SaveTabButton';
-import NoteBlock from './components/NoteBlock/NoteBlock';
 import AddTablatureBlockButton from './components/AddTablatureBlockButton/AddTablatureBlockButton';
 
 // Services / utils
@@ -317,10 +315,6 @@ const Editor = (props) => {
               tablature={tablature}
               refreshTablatureObject={refreshTablatureObject}
             />
-            <AddNoteBlockButton 
-              tablature={tablature}
-              refreshTablatureObject={refreshTablatureObject}
-            />
             <SaveTabButton 
               tablature={tablature}
               toggleLoading={toggleLoading}
@@ -333,34 +327,20 @@ const Editor = (props) => {
               />
             }
           </Box>
-          {tablature.blocks.map((block, i) => {
-            if(block.blockType === "tablature") {
-              return (
-                <ExpandableTablatureBlock
-                  key={i}
-                  index={i}
-                  block={block}
-                  duplicateBlock={duplicateBlock}
-                  deleteBlock={deleteBlock}
-                  handleBlockChange={handleBlockChange}
-                  handleKeyUpInBlock={handleKeyUpInBlock} 
-                  handleClickedBlock={handleClickedBlock}
-                  refreshTablatureObject={refreshTablatureObject}
-                  numberOfStrings={tablature.numberOfStrings}
-                />
-              )
-            } else {
-              return (
-                <NoteBlock
-                  key={i}
-                  index={i}
-                  block={block}
-                  deleteBlock={deleteBlock}
-                  refreshTablatureObject={refreshTablatureObject}
-                />
-              )
-            }
-          })}
+          {tablature.blocks.map((block, i) => (
+            <ExpandableTablatureBlock
+              key={i}
+              index={i}
+              block={block}
+              duplicateBlock={duplicateBlock}
+              deleteBlock={deleteBlock}
+              handleBlockChange={handleBlockChange}
+              handleKeyUpInBlock={handleKeyUpInBlock} 
+              handleClickedBlock={handleClickedBlock}
+              refreshTablatureObject={refreshTablatureObject}
+              numberOfStrings={tablature.numberOfStrings}
+            />)
+          )}
         </>
       )}
     </div>
