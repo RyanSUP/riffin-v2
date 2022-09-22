@@ -41,7 +41,7 @@ const TablatureBlock = (props) => {
 
   return (
     <SimpleBar>
-        <div style={{position: "relative", width: "fit-content", margin: "0 auto"}}>
+        <div style={{position: "relative", width: "fit-content"}}>
           <textarea
             readOnly={true}
             style={inputsStyle}

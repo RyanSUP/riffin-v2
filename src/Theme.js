@@ -5,12 +5,12 @@ const darkTheme = createTheme({
     mode: "dark",
     background: {
       default: "#0f1627",
-      paper: "#2E3440 ",
+      paper: "#3A4054 ",
     },
     primary: {
       main: "#88C0D0",
-      dashes: "#3B4252",
-      tabInput: "#e479b3",
+      dashes: "#3A4054",
+      tabInput: "#D5A419",
     },
   },
   components: {

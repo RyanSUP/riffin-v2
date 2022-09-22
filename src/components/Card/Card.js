@@ -1,15 +1,19 @@
 // Components and hooks
 import Header from "./components/Header/Header";
 import Content from "./components/Content/Content";
-import Footer from "./components/Footer/Footer";
+import TagGroup from "./components/TagGroup/TagGroup";
 import { useContext } from "react";
 import { UserContext } from "containers/CognitoUserProvider/CognitoUserProvider";
 
 //MUI
 import { Box } from "@mui/system";
+import { Divider } from "@mui/material";
+import { useTheme } from "@mui/material/styles";
+
 
 const Card = (props) => {
   const { user } = useContext(UserContext);
+  const theme = useTheme();
 
   const contentBoxStyles = {
     display: "flex",
@@ -21,19 +25,20 @@ const Card = (props) => {
   };
 
   return (
-    <Box style={cardStyles} sx={{border: 4, borderColor: 'primary.main', borderRadius: '8px'}}>
+    <Box style={cardStyles}>
       <Header
         tabData={props.tabData}
         isOwnedByUser={user?.username === props.tabData.owner.user}
         isExpanded={props.isExpanded}
         handleExpand={props.handleExpand}
       />
+      <TagGroup tags={props.tabData.tags} />
       <Box style={contentBoxStyles}>
         <Content tablatureBlocks={props.tabData.blocks} isExpanded={props.isExpanded} numberOfStrings={props.tabData.numberOfStrings}/>
       </Box>
-      <Footer
-        tags={props.tabData.tags}
-      />
+      {props.isExpanded &&
+        <Divider variant="middle" sx={{ backgroundColor: theme.palette.primary.tabInput, margin: "24px 0"}}/>
+      }
     </Box>
   );
 };

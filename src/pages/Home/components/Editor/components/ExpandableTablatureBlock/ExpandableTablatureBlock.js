@@ -1,6 +1,5 @@
 // Componeonts / hooks
 import BlockOptionsMenu from "./components/BlockOptionsMenu/BlockOptionsMenu";
-import TablatureGrill from "../../../../../../components/TablatureGrill/TablatureGrill";
 import InputTextarea from "./components/InputTextarea/InputTextarea";
 import DashTextarea from "./components/DashTextarea/DashTextarea";
 import NoteTextarea from "../NoteTextarea/NoteTextarea";
@@ -14,7 +13,10 @@ const ExpandableTablatureBlock = (props) => {
   return (
     <>
       <Box sx={{display: 'flex', justifyContent: 'space-between'}}>
-        <NoteTextarea block={props.block} sx={{flexGrow: 1}}/>
+        <NoteTextarea 
+          block={props.block} sx={{flexGrow: 1}}
+          refreshTablatureObject={props.refreshTablatureObject}  
+        />
         <BlockOptionsMenu 
           numberOfStrings={props.numberOfStrings}
           deleteBlock={deleteBlock} 
