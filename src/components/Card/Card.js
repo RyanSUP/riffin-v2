@@ -26,19 +26,18 @@ const Card = (props) => {
 
   return (
     <Box style={cardStyles}>
-      <Header
-        tabData={props.tabData}
-        isOwnedByUser={user?.username === props.tabData.owner.user}
-        isExpanded={props.isExpanded}
-        handleExpand={props.handleExpand}
-      />
+      <Divider>
+        <Header
+          tabData={props.tabData}
+          isOwnedByUser={user?.username === props.tabData.owner.user}
+          isExpanded={props.isExpanded}
+          handleExpand={props.handleExpand}
+        />
+      </Divider>
       <TagGroup tags={props.tabData.tags} />
       <Box style={contentBoxStyles}>
         <Content tablatureBlocks={props.tabData.blocks} isExpanded={props.isExpanded} numberOfStrings={props.tabData.numberOfStrings}/>
       </Box>
-      {props.isExpanded &&
-        <Divider sx={{ backgroundColor: theme.palette.primary.main, margin: "36px 0"}}/>
-      }
     </Box>
   );
 };

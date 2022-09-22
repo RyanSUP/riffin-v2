@@ -20,7 +20,7 @@ const tabNameStyles ={
   textOverflow: "ellipsis",
   display: "inline", 
   alignSelf: "center",
-  maxWidth: "50%",
+  maxWidth: "70%",
 }
 
 const Header = (props) => {
