@@ -6,8 +6,11 @@ import HeaderLogo from './components/HeaderLogo/HeaderLogo';
 import TagBar from './components/TagBar/TagBar';
 import { useState } from 'react';
 
+// Images
+import adImage from '../../assets/images/fake_ad.png'
+
 // MUI
-import { Grid } from "@mui/material";
+import { Grid, Box } from "@mui/material";
 
 const Home = () => {
   const [tags, setTags] = useState([])
@@ -63,7 +66,9 @@ const Home = () => {
         </Grid>
 
         <Grid item xs={2}>
-          Ad
+          <Box sx={{textAlign: "right", marginTop: "100px"}}>
+            <img src={adImage} alt="advertisement" style={{maxWidth: "175px"}}/>
+          </Box>
         </Grid>
 
       </Grid>
