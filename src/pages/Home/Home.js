@@ -67,7 +67,9 @@ const Home = () => {
 
         <Grid item xs={2}>
           <Box sx={{textAlign: "right", marginTop: "100px"}}>
-            <img src={adImage} alt="advertisement" style={{maxWidth: "175px"}}/>
+            <a target="_blank" rel="noreferrer" href={'https://www.linkedin.com/in/ryanmorici/'}>
+              <img src={adImage} alt="advertisement" style={{maxWidth: "175px"}}/>
+            </a>
           </Box>
         </Grid>
 
