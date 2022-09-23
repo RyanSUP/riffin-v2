@@ -31,7 +31,7 @@ const CollectionButton = () => {
     <Button 
       startIcon={<FavoriteIcon />}
       onClick={handleClick}
-      sx={{justifyContent: 'left', my: 0.5, textTransform: 'none'}}
+      sx={{fontWeight: "bold", justifyContent: 'left', my: 0.5, textTransform: 'none'}}
       disableElevation
       variant={variant}
       size="large"
