@@ -4,6 +4,7 @@ import TooltipIconButton from "components/TooltipIconButton/TooltipIconButton";
 import { getNewGuitarBlock } from "../../utils/EditorUtils";
 // MUI
 import PlaylistAddIcon from '@mui/icons-material/PlaylistAdd';
+import { Button } from "@mui/material";
 
 const AddTablatureBlockButton = (props) => {
   const handleAddBlock = () => {
@@ -17,12 +18,9 @@ const AddTablatureBlockButton = (props) => {
   }
 
   return (
-    <TooltipIconButton 
-      title="Add tablature block"
-      onClick={handleAddBlock}
-      isDiabled={false}
-      icon={<PlaylistAddIcon />}
-    />
+    <Button variant="outlined" onClick={handleAddBlock} endIcon={<PlaylistAddIcon />}>
+      add tablature
+    </Button>
   );
 }
  

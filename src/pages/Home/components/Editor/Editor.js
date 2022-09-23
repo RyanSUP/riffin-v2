@@ -301,10 +301,6 @@ const Editor = (props) => {
               refreshTablatureObject={refreshTablatureObject}
               tablature={tablature}
             />
-            <AddTablatureBlockButton 
-              tablature={tablature}
-              refreshTablatureObject={refreshTablatureObject}
-            />
             <SaveTabButton 
               tablature={tablature}
               toggleLoading={toggleLoading}
@@ -333,6 +329,10 @@ const Editor = (props) => {
           )}
         </>
       )}
+      <AddTablatureBlockButton 
+        tablature={tablature}
+        refreshTablatureObject={refreshTablatureObject}
+      />
     </div>
   );
 }
