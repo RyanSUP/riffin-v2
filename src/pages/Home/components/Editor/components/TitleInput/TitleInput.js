@@ -8,7 +8,7 @@ const TitleInput = (props) => {
     props.refreshTablatureObject();
   };
   return (
-    <TextField 
+    <TextField
       id="standard-basic" 
       variant="standard" 
       placeholder="Title"

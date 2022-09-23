@@ -293,10 +293,10 @@ const Editor = (props) => {
   }, [tabId, tablature.blocks.length, tablature.numberOfStrings])
 
   return (
-    <div data-testid="Editor">
+    <Box data-testid="Editor" sx={{margin: '20px 0'}}>
       {isLoading ? ( <CircularProgress /> ) : (
         <>
-          <Box sx={{display: 'flex', justifyContent: 'space-between'}}>
+          <Box sx={{display: 'flex', justifyContent: 'space-between', margin: '20px 0'}}>
             <TitleInput 
               refreshTablatureObject={refreshTablatureObject}
               tablature={tablature}
@@ -333,7 +333,7 @@ const Editor = (props) => {
         tablature={tablature}
         refreshTablatureObject={refreshTablatureObject}
       />
-    </div>
+    </Box>
   );
 }
  
