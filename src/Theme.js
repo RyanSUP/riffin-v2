@@ -41,7 +41,7 @@ const darkTheme = createTheme({
       margin: "0"
     },
     h1: { 
-      fontFamily: "Inter",
+      fontFamily: "Montserrat",
       fontWeight: 800,
       fontSize: "64px",
       letterSpacing: "-1.5px",
@@ -49,7 +49,7 @@ const darkTheme = createTheme({
     },
     // Tab Titles and Big Tags
     h2: {
-      fontFamily: "Inter",
+      fontFamily: "Montserrat",
       fontWeight: 800,
       fontSize: "24px",
       letterSpacing: "-0.5px",
@@ -57,7 +57,7 @@ const darkTheme = createTheme({
     },
     // Small Tags
     h3: {
-      fontFamily: "Inter",
+      fontFamily: "Montserrat",
       fontWeight: 800,
       fontSize: "14px",
       fontStyle: "normal",
@@ -66,7 +66,7 @@ const darkTheme = createTheme({
       textAlign: "left",
     },
     h4: {
-      fontFamily: "Inter",
+      fontFamily: "Montserrat",
       fontSize: "34px",
       fontStyle: "normal",
       fontWeight: 400,
@@ -75,7 +75,7 @@ const darkTheme = createTheme({
       textAlign: "left",
     },
     body1: {
-      fontFamily: "Inter",
+      fontFamily: "Montserrat",
       fontSize: "16px",
       fontStyle: "normal",
       fontWeight: 400,
@@ -87,7 +87,7 @@ const darkTheme = createTheme({
       },
     },
     body2: {
-      fontFamily: "Inter",
+      fontFamily: "Montserrat",
       fontSize: "14px",
       textTransform: "uppercase",
       letterSpacing: "0.15px",
@@ -97,7 +97,7 @@ const darkTheme = createTheme({
       },
     },
     subtitle1: {
-      fontFamily: "Inter",
+      fontFamily: "Montserrat",
       fontWeight: 400,
       fontSize: "16px",
       lineHeight: "175%",
@@ -107,7 +107,7 @@ const darkTheme = createTheme({
       },
     },
     subtitle2: {
-      fontFamily: "Inter",
+      fontFamily: "Montserrat",
       fontWeight: 500,
       fontSize: "14px",
       lineHeight: "157%",
@@ -117,21 +117,21 @@ const darkTheme = createTheme({
       },
     },
     overline: {
-      fontFamily: "Inter",
+      fontFamily: "Montserrat",
       fontWeight: 400,
       fontSize: "12px",
       lineHeight: "266%",
       letterSpacing: "1px",
     },
     caption: {
-      fontFamily: "Inter",
+      fontFamily: "Montserrat",
       fontWeight: 400,
       fontSize: "10px",
       lineHeight: "166%",
       letterSpacing: "0.4px",
     },
     button: {
-      fontFamily: "Inter",
+      fontFamily: "Montserrat",
       fontSize: "0.8125rem",
       [`@media screen and (max-width: 1200px)`]: {
         fontSize: "12px",
@@ -204,21 +204,21 @@ const theme = createTheme({
   },
   typography: {
     h1: {
-      fontFamily: "Inter",
+      fontFamily: "Montserrat",
       fontWeight: 300,
       fontSize: "96px",
       letterSpacing: "-1.5px",
       lineHeight: "100%",
     },
     h2: {
-      fontFamily: "Inter",
+      fontFamily: "Montserrat",
       fontWeight: 300,
       fontSize: "60px",
       letterSpacing: "-0.5px",
       lineHeight: "100%",
     },
     h3: {
-      fontFamily: "Inter",
+      fontFamily: "Montserrat",
       fontSize: "48px",
       fontStyle: "normal",
       fontWeight: 400,
@@ -227,7 +227,7 @@ const theme = createTheme({
       textAlign: "left",
     },
     h4: {
-      fontFamily: "Inter",
+      fontFamily: "Montserrat",
       fontSize: "34px",
       fontStyle: "normal",
       fontWeight: 400,
@@ -236,7 +236,7 @@ const theme = createTheme({
       textAlign: "left",
     },
     h5: {
-      fontFamily: "Inter",
+      fontFamily: "Montserrat",
       fontSize: "24px",
       fontStyle: "normal",
       fontWeight: 400,
@@ -245,14 +245,14 @@ const theme = createTheme({
       textAlign: "left",
     },
     h6: {
-      fontFamily: "Inter",
+      fontFamily: "Montserrat",
       fontSize: "20px",
       fontWeight: 500,
       lineHeight: "160%",
       letterSpacing: "0.15px",
     },
     body1: {
-      fontFamily: "Inter",
+      fontFamily: "Montserrat",
       fontSize: "16px",
       fontStyle: "normal",
       fontWeight: 400,
@@ -264,7 +264,7 @@ const theme = createTheme({
       },
     },
     body2: {
-      fontFamily: "Inter",
+      fontFamily: "Montserrat",
       fontSize: "14px",
       textTransform: "uppercase",
       letterSpacing: "0.15px",
@@ -274,7 +274,7 @@ const theme = createTheme({
       },
     },
     subtitle1: {
-      fontFamily: "Inter",
+      fontFamily: "Montserrat",
       fontWeight: 400,
       fontSize: "16px",
       lineHeight: "175%",
@@ -284,7 +284,7 @@ const theme = createTheme({
       },
     },
     subtitle2: {
-      fontFamily: "Inter",
+      fontFamily: "Montserrat",
       fontWeight: 500,
       fontSize: "14px",
       lineHeight: "157%",
@@ -294,21 +294,21 @@ const theme = createTheme({
       },
     },
     overline: {
-      fontFamily: "Inter",
+      fontFamily: "Montserrat",
       fontWeight: 400,
       fontSize: "12px",
       lineHeight: "266%",
       letterSpacing: "1px",
     },
     caption: {
-      fontFamily: "Inter",
+      fontFamily: "Montserrat",
       fontWeight: 400,
       fontSize: "10px",
       lineHeight: "166%",
       letterSpacing: "0.4px",
     },
     button: {
-      fontFamily: "Inter",
+      fontFamily: "Montserrat",
       fontSize: "0.8125rem",
       [`@media screen and (max-width: 1200px)`]: {
         fontSize: "12px",

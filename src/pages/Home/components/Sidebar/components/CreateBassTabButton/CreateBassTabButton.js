@@ -31,12 +31,12 @@ const CreateBassTabButton = () => {
     <Button
       startIcon={<AddCircleIcon />}
       onClick={handleClick}
-      sx={{justifyContent: 'left', my: 0.5}}
+      sx={{justifyContent: 'left', my: 0.5, textTransform: 'none'}}
       disableElevation
       variant={variant}
       size="large"
     >
-      Bass Tab
+      Bass tab
     </Button>
   )
 
