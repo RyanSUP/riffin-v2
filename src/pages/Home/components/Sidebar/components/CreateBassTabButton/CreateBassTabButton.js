@@ -34,8 +34,9 @@ const CreateBassTabButton = () => {
       sx={{justifyContent: 'left', pl: '16px', my: 1}}
       disableElevation
       variant={variant}
+      size="large"
     >
-      Add Bass Tab
+      Bass Tab
     </Button>
   )
 

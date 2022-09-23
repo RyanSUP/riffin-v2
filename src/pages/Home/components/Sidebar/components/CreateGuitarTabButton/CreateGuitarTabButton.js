@@ -34,8 +34,9 @@ const CreateGuitarTabButton = () => {
       sx={{justifyContent: 'left', pl: '16px', my: 1}}
       disableElevation
       variant={variant}
+      size="large"
     >
-      Add Guitar Tab
+      Guitar Tab
     </Button>
   )
 

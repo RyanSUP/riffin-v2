@@ -34,6 +34,7 @@ const CollectionButton = () => {
       sx={{justifyContent: 'left', pl: '16px', my: 1}}
       disableElevation
       variant={variant}
+      size="large"
     >
       Collection
     </Button>  
