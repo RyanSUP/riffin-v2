@@ -1,7 +1,8 @@
 import { React, useContext } from 'react'
 import { useNavigate } from 'react-router-dom';
 import { UserContext } from 'containers/CognitoUserProvider/CognitoUserProvider'
-import AddCircleIcon from '@mui/icons-material/AddCircle';
+import LogoutIcon from '@mui/icons-material/Logout';
+import LoginIcon from '@mui/icons-material/Login';
 import AvatarMenu from './AvatarMenu/AvatarMenu';
 import LoginButton from './LoginButton/LoginButton'
 import Box from "@mui/material/Box"
@@ -14,13 +15,13 @@ const HeaderLinks = () => {
     {
       "name": "Login",
       "onClick": () => navigate('/login'),
-      "icon": (<AddCircleIcon />),      
+      "icon": (<LoginIcon />),      
       "belongsTo": "avatar",
     },
     {
       "name": "Logout",
       "onClick": () => logout(),
-      "icon": (<AddCircleIcon />),
+      "icon": (<LogoutIcon />),
       "belongsTo": "avatar",
       "isLoggedInUser": true
     }
