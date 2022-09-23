@@ -10,7 +10,7 @@ import { useState } from 'react';
 import adImage from '../../assets/images/fake_ad.png'
 
 // MUI
-import { Grid, Box } from "@mui/material";
+import { Grid, Box, Container } from "@mui/material";
 
 const Home = () => {
   const [tags, setTags] = useState([])
@@ -31,13 +31,15 @@ const Home = () => {
       <Grid container>
 
         <Grid item xs={12}>
-          <Grid container sx={{alignItems: "center"}}>
+          <Grid container sx={{alignItems: "center", marginTop: "16px"}}>
 
             <Grid item xs={2}>
-              <HeaderLogo />
+              <Container>
+                <HeaderLogo />
+              </Container>
             </Grid>
 
-            <Grid item xs={8}>        
+            <Grid item xs={8}>
               <TagBar 
                 addTag={addTag}
                 deleteTag={deleteTag}
@@ -46,8 +48,10 @@ const Home = () => {
               />
             </Grid>
 
-            <Grid item xs={2}>        
-              <HeaderLinks />      
+            <Grid item xs={2}>
+              <Container>
+                <HeaderLinks />
+              </Container>
             </Grid>
             
           </Grid> 

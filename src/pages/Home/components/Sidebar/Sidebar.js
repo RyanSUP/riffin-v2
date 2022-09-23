@@ -12,9 +12,9 @@ function Sidebar(props) {
     <Container data-testid="Sidebar">
       <Box sx={{maxWidth: "175px"}}>
         <Stack direction="column" sx={{my: 2}}>
-          <CreateBassTabButton />
-          <CreateGuitarTabButton />
           <CollectionButton />
+          <CreateGuitarTabButton />
+          <CreateBassTabButton />
         </Stack>
         <Divider variant="middle" sx={{m: 2}}/>
         <TagSuggestions 

@@ -4,7 +4,7 @@ import AddCircleIcon from '@mui/icons-material/AddCircle';
 import AvatarMenu from './AvatarMenu/AvatarMenu';
 import { UserContext } from 'containers/CognitoUserProvider/CognitoUserProvider'
 import LoginButton from './LoginButton/LoginButton'
-import Box from "@mui/material/Box"
+import { Box, Button } from "@mui/material"
 
 const HeaderLinks = () => {
   const navigate = useNavigate()
@@ -38,26 +38,20 @@ const HeaderLinks = () => {
     }
   ]
 
-  const buttonStyles = {
-    paddingLeft: '10px',
-    paddingRight: '10px',
-    display: 'inline-block',    
-    justifyContent: 'space-even'
-  }
-
   return (
-    <>    
-    <Box style={buttonStyles}>
-      {user ?
-      <AvatarMenu 
-        headerLinks={headerLinks.filter((link) => {
-          return link.belongsTo === "avatar" && link.isLoggedInUser === true
-        })}
-      />
-      : <LoginButton />
-      }
+    <Box sx={{display: "flex", justifyContent: "space-around"}}>
+      <>    
+        {user ?
+        <AvatarMenu 
+          headerLinks={headerLinks.filter((link) => {
+            return link.belongsTo === "avatar" && link.isLoggedInUser === true
+          })}
+        />
+        : <LoginButton />
+        }
+      </>
+      <Button variant="outlined">Donate</Button>
     </Box>
-    </>
   )
 }
 
