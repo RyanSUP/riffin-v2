@@ -7,7 +7,10 @@ import Editor from "../Editor/Editor";
 const ContentRoutes = (props) => {
   return (
     <Routes>
-      <Route path="/login" element={<LoginSignupForm />} />
+      <Route path="/login" element={<LoginSignupForm />} />           
+      <Route path="/new" element=
+        {<Editor tags={props.tags} />}
+      />
       <Route
         path="/profile/:cognitoUsername"
         element={<ProfileContent />}
@@ -21,7 +24,7 @@ const ContentRoutes = (props) => {
       <Route path="/edit/:tabId" element={
         <Editor tags={props.tags} />} 
       />
-      <Route path="*" element={<Navigate to="/login" replace />} />
+      <Route path="*" element={<Navigate to="/new" replace />} />
     </Routes>
   );
 }
