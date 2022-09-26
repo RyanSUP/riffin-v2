@@ -1,14 +1,8 @@
 // Components / hooks
 import TagSuggestions from './components/TagSuggestions/TagSuggestions'
 import CollectionButton from './components/CollectionButton/CollectionButton';
-<<<<<<< HEAD
-import CreateBassTabButton from './components/CreateButtons/CreateBassTabButton/CreateBassTabButton';
-import CreateGuitarTabButton from './components/CreateButtons/CreateGuitarTabButton/CreateGuitarTabButton';
-=======
 import CreateBassTabButton from './components/CreateBassTabButton/CreateBassTabButton';
-import CreateGuitarTabButton from './components/CreateGuitarTabButton/CreateGuitarTabButton';
->>>>>>> main
-
+import CreateGuitarTabButton from './components/CreateGuitarTabButton/CreateGuitarTabButton'
 // MUI
 import { Container, Divider, Stack } from '@mui/material'
 
