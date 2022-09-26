@@ -10,16 +10,44 @@ const TablatureContext = createContext({});
 
 const TablatureProvider = (props) => {
   const [usersTablature, setUsersTablature] = useState([])
+  // TODO Remove liked tablature stuff
   const [usersLikedTablature, setUsersLikedTablature] = useState({})
   const { user } = useContext(UserContext)
 
+  const addToUsersTablature = (tab) => {
+    setUsersTablature((prev) => {
+      return [tab, ...prev]
+    })
+  }
+
+  const deleteFromUsersTablature = (tab_id) => {
+    setUsersTablature((prev) => {
+      return prev.filter((tab) => tab._id !== tab_id)
+    })
+  }
+
+  const updateUserTablature = (updatedTab) => {
+    setUsersTablature((prev) => {
+      return prev.map((tab) => {
+        let tabObject = {}
+        if(tab._id === updatedTab._id) {
+          tabObject = { ...updatedTab }
+        } else {
+          tabObject = { ...tab }
+        }
+        return tabObject
+      })
+    })
+  }
+
+  // TODO Remove liked tablature stuff
   const addToUsersLikedTablature = (tab_id) => {
     setUsersLikedTablature((prev) => {
       prev[tab_id] = true
       return { ...prev }
     })
   }
-
+  // TODO Remove liked tablature stuff
   const removeFromUsersLikedTablature = (tab_id) => {
     setUsersLikedTablature((prev) => {
       delete prev[tab_id]
@@ -48,7 +76,7 @@ const TablatureProvider = (props) => {
           return tab
         })
         setUsersTablature(tabsWithOwnerInfo)
-
+        // TODO Remove liked tablature stuff
         // get users liked tablature
         const favoriteTabHash = {}
         profile.favoriteTablature.forEach((tab) => {
@@ -59,14 +87,18 @@ const TablatureProvider = (props) => {
     }
   }, [user])
 
+  // TODO Remove liked tablature stuff
   return (
     <TablatureContext.Provider
       value={{
         usersTablature,
         usersLikedTablature,
+        deleteFromUsersTablature,
         addToUsersLikedTablature,
+        addToUsersTablature,
         removeFromUsersLikedTablature,
         getTabFromUser,
+        updateUserTablature,
       }}
     >
       {props.children}

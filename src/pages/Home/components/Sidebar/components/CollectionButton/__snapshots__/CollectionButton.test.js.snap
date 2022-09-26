@@ -2,7 +2,7 @@
 
 exports[`variant is "contained" when viewing owned collection 1`] = `
 <button
-  className="MuiButton-root MuiButton-contained MuiButton-containedPrimary MuiButton-sizeMedium MuiButton-containedSizeMedium MuiButton-disableElevation MuiButtonBase-root  css-13twu6j-MuiButtonBase-root-MuiButton-root"
+  className="MuiButton-root MuiButton-contained MuiButton-containedPrimary MuiButton-sizeLarge MuiButton-containedSizeLarge MuiButton-disableElevation MuiButtonBase-root  css-lys5v1-MuiButtonBase-root-MuiButton-root"
   disabled={false}
   onBlur={[Function]}
   onClick={[Function]}
@@ -21,7 +21,7 @@ exports[`variant is "contained" when viewing owned collection 1`] = `
   type="button"
 >
   <span
-    className="MuiButton-startIcon MuiButton-iconSizeMedium css-1d6wzja-MuiButton-startIcon"
+    className="MuiButton-startIcon MuiButton-iconSizeLarge css-htszrh-MuiButton-startIcon"
   >
     <svg
       aria-hidden={true}
@@ -44,7 +44,7 @@ exports[`variant is "contained" when viewing owned collection 1`] = `
 
 exports[`variant is "text" when not at the collections route 1`] = `
 <button
-  className="MuiButton-root MuiButton-text MuiButton-textPrimary MuiButton-sizeMedium MuiButton-textSizeMedium MuiButton-disableElevation MuiButtonBase-root  css-6dozrm-MuiButtonBase-root-MuiButton-root"
+  className="MuiButton-root MuiButton-text MuiButton-textPrimary MuiButton-sizeLarge MuiButton-textSizeLarge MuiButton-disableElevation MuiButtonBase-root  css-b0n2bc-MuiButtonBase-root-MuiButton-root"
   disabled={false}
   onBlur={[Function]}
   onClick={[Function]}
@@ -63,7 +63,7 @@ exports[`variant is "text" when not at the collections route 1`] = `
   type="button"
 >
   <span
-    className="MuiButton-startIcon MuiButton-iconSizeMedium css-1d6wzja-MuiButton-startIcon"
+    className="MuiButton-startIcon MuiButton-iconSizeLarge css-htszrh-MuiButton-startIcon"
   >
     <svg
       aria-hidden={true}

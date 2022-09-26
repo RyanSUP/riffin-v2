@@ -1,6 +1,5 @@
 // Components / hooks
 import EditIconButton from "../EditIconButton/EditIconButton";
-import FavoriteIconButton from "../FavoriteIconButton/FavoriteIconButton";
 import ShareIconButton from "../ShareIconButton/ShareIconButton";
 import ToggledIconButton from "components/ToggledIconButton/ToggledIconButton";
 
@@ -11,7 +10,6 @@ import CloseFullscreenRoundedIcon from "@mui/icons-material/CloseFullscreenRound
 
 const boxStyles = {
   display: "flex",
-  justifyContent: "space-between",
   marginBottom: "5px"
 }
 
@@ -21,7 +19,7 @@ const tabNameStyles ={
   textOverflow: "ellipsis",
   display: "inline", 
   alignSelf: "center",
-  width: "50%",
+  maxWidth: "70%",
 }
 
 const Header = (props) => {
@@ -31,12 +29,6 @@ const Header = (props) => {
       <Box sx={{display: "inline"}}>
         {props.tabData.likeCount > 0 &&
           <span>{props.tabData.likeCount}</span>
-        }
-        {props.tabData.isPublic &&
-          <FavoriteIconButton 
-            tab_id={props.tabData._id}
-            tabOwner={props.tabData.owner.user}
-          />
         }
         <ShareIconButton />
         {props.isOwnedByUser &&

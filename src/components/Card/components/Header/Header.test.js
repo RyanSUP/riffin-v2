@@ -8,18 +8,6 @@ test('does not render edit button if isOwnedByUser is false', ()=> {
   expect(screen.queryByTestId('EditIcon')).not.toBeInTheDocument()
 })
 
-test('renders like button on public tabs', ()=> {
-  const tab = testTab
-  tab.isPublic = true
-  render(<Header tabData={tab} user={{username: 'test'}} />, {wrapper: BrowserRouter})
-  expect(screen.getByTestId('FavoriteIcon')).toBeInTheDocument()
-})
-
-test('does not render like button on private tabs', ()=> {
-  render(<Header tabData={testTab} user={{username: 'test'}} />, {wrapper: BrowserRouter})
-  expect(screen.getByTestId('FavoriteIcon')).toBeInTheDocument()
-})
-
 test('renders share button', ()=> {
   render(<Header tabData={testTab} user={{username: 'test'}} />, {wrapper: BrowserRouter})
   expect(screen.getByTestId('ShareIcon')).toBeInTheDocument()

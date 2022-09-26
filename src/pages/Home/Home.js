@@ -1,13 +1,16 @@
 // Components
 import Sidebar from './components/Sidebar/Sidebar';
 import ContentRoutes from "./components/ContentRoutes/ContentRoutes";
-import HeaderLinks from './components/HeaderLinks/HeaderLinks';
 import HeaderLogo from './components/HeaderLogo/HeaderLogo';
+import HeaderLinks from './components/HeaderLinks/HeaderLinks';
 import TagBar from './components/TagBar/TagBar';
 import { useState } from 'react';
 
+// Images
+import adImage from '../../assets/images/fake_ad.png'
+
 // MUI
-import { Divider, Grid } from "@mui/material";
+import { Grid, Box, Container } from "@mui/material";
 
 const Home = () => {
   const [tags, setTags] = useState([])
@@ -28,13 +31,15 @@ const Home = () => {
       <Grid container>
 
         <Grid item xs={12}>
-          <Grid container>
+          <Grid container sx={{alignItems: "center", marginTop: "16px"}}>
 
             <Grid item xs={2}>
-              <HeaderLogo />
+              <Container>
+                <HeaderLogo />
+              </Container>
             </Grid>
 
-            <Grid item xs={8}>        
+            <Grid item xs={8}>
               <TagBar 
                 addTag={addTag}
                 deleteTag={deleteTag}
@@ -43,15 +48,13 @@ const Home = () => {
               />
             </Grid>
 
-            <Grid item xs={2}>        
-              <HeaderLinks />      
+            <Grid item xs={2}>
+              <Container>
+                <HeaderLinks />
+              </Container>
             </Grid>
             
           </Grid> 
-        </Grid>
-
-        <Grid item xs={12}>
-          <Divider variant="middle" />
         </Grid>
 
         <Grid item xs={2}>                
@@ -67,7 +70,11 @@ const Home = () => {
         </Grid>
 
         <Grid item xs={2}>
-          Ad
+          <Box sx={{textAlign: "right", marginTop: "100px"}}>
+            <a target="_blank" rel="noreferrer" href={'https://www.linkedin.com/in/ryanmorici/'}>
+              <img src={adImage} alt="advertisement" style={{maxWidth: "175px"}}/>
+            </a>
+          </Box>
         </Grid>
 
       </Grid>

@@ -18,7 +18,7 @@ const LoginSingupForm = () => {
    */
   useEffect(() => {
     if (user) {
-      navigate("/trending");
+      navigate(`/profile/${user.username}`);
     }
   }, [user, navigate]);
 
