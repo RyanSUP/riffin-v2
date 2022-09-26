@@ -1,5 +1,4 @@
 // Components / hooks
-import TooltipIconButton from "components/TooltipIconButton/TooltipIconButton";
 // utils
 import { getNewGuitarBlock } from "../../utils/EditorUtils";
 // MUI
