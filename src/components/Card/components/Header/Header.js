@@ -11,7 +11,6 @@ import CloseFullscreenRoundedIcon from "@mui/icons-material/CloseFullscreenRound
 
 const boxStyles = {
   display: "flex",
-  justifyContent: "space-between",
   marginBottom: "5px"
 }
 
@@ -21,7 +20,7 @@ const tabNameStyles ={
   textOverflow: "ellipsis",
   display: "inline", 
   alignSelf: "center",
-  width: "50%",
+  maxWidth: "70%",
 }
 
 const Header = (props) => {

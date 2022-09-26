@@ -4,11 +4,13 @@ const darkTheme = createTheme({
   palette: {
     mode: "dark",
     background: {
-      default: "#4C566A",
-      paper: "#282E37",
+      default: "#0f1627",
+      paper: "#3A4054 ",
     },
     primary: {
-      main: "#8FBCBB",
+      main: "#88C0D0",
+      dashes: "#3A4054",
+      tabInput: "#D5A419",
     },
   },
   components: {
@@ -30,7 +32,15 @@ const darkTheme = createTheme({
   },
   typography: {
     // Main Header
-    h1: {
+    logo: {
+      fontFamily: "Ultra",
+      fontWeight: 800,
+      fontSize: "36px",
+      lineHeight: "100%",
+      color: "#88C0D0",
+      margin: "0"
+    },
+    h1: { 
       fontFamily: "Inter",
       fontWeight: 800,
       fontSize: "64px",

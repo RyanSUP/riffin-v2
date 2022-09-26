@@ -1,9 +1,9 @@
 import { React, useContext } from 'react'
 import { useNavigate } from 'react-router-dom';
+import AvatarMenu from './AvatarMenu/AvatarMenu';
 import { UserContext } from 'containers/CognitoUserProvider/CognitoUserProvider'
 import LogoutIcon from '@mui/icons-material/Logout';
 import LoginIcon from '@mui/icons-material/Login';
-import AvatarMenu from './AvatarMenu/AvatarMenu';
 import LoginButton from './LoginButton/LoginButton'
 import Box from "@mui/material/Box"
 

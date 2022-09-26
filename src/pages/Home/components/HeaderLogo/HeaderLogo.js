@@ -3,15 +3,7 @@ import { useTheme } from "@mui/material/styles";
 
 const HeaderLogo = () => {
   const theme = useTheme();
-
-  const logoStyle = {
-    fontSize: theme.typography.h1.fontSize,
-    padding: "30px",
-    margin: "10px",
-    textAlign: "center",
-  };
-
-  return <div style={logoStyle}>Riffin</div>;
+  return <h1 style={theme.typography.logo}>Riffin</h1>;
 };
 
 export default HeaderLogo;
