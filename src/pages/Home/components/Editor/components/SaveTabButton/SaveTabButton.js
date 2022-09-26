@@ -1,5 +1,4 @@
 // Components / Hooks
-import TooltipIconButton from "components/TooltipIconButton/TooltipIconButton";
 import { UserContext } from "containers/CognitoUserProvider/CognitoUserProvider";
 import { useContext } from "react";
 import { TablatureContext } from "containers/TablatureProvider/TablatureProvider";
@@ -10,7 +9,7 @@ import * as tablatureServices from "services/tablatureServices";
 import { getIdTokenFromUser } from "utils/userUtils";
 
 // MUI
-import SaveIcon from '@mui/icons-material/Save';
+import { Button } from "@mui/material";
 
 const SaveTabButton = (props) => {
   const { user } = useContext(UserContext);
@@ -53,12 +52,9 @@ const SaveTabButton = (props) => {
   };
 
   return (
-    <TooltipIconButton 
-      title="Save"
-      onClick={handleSave}
-      isDiabled={false}
-      icon={<SaveIcon />}
-    />
+    <Button variant="contained" onClick={handleSave}>
+      SAVE
+    </Button>
   );
 }
  

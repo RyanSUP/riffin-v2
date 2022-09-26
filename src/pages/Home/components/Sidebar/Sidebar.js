@@ -4,20 +4,22 @@ import CollectionButton from './components/CollectionButton/CollectionButton';
 import CreateBassTabButton from './components/CreateBassTabButton/CreateBassTabButton';
 import CreateGuitarTabButton from './components/CreateGuitarTabButton/CreateGuitarTabButton'
 // MUI
-import { Container, Divider, Stack } from '@mui/material'
+import { Container, Divider, Stack, Box } from '@mui/material'
 
 function Sidebar(props) {
   return (
     <Container data-testid="Sidebar">
-      <Stack direction="column" sx={{my: 2}}>
-        <CreateBassTabButton />
-        <CreateGuitarTabButton />
-        <CollectionButton />
-      </Stack>
-      <Divider variant="middle" sx={{m: 2}}/>
-      <TagSuggestions 
-        addTag={props.addTag}
-      />
+      <Box sx={{maxWidth: "175px"}}>
+        <Stack direction="column" sx={{my: 2}}>
+          <CollectionButton />
+          <CreateGuitarTabButton />
+          <CreateBassTabButton />
+        </Stack>
+        <Divider variant="middle" sx={{m: 2}}/>
+        <TagSuggestions 
+          addTag={props.addTag}
+        />
+      </Box>
     </Container>
   )
 }
