@@ -31,11 +31,12 @@ const CreateGuitarTabButton = () => {
     <Button
       startIcon={<AddCircleIcon />}
       onClick={handleClick}
-      sx={{justifyContent: 'left', pl: '16px', my: 1}}
+      sx={{fontWeight: "bold", justifyContent: 'left', my: 0.5, textTransform: 'none'}}
       disableElevation
       variant={variant}
+      size="large"
     >
-      Add Guitar Tab
+      Guitar tab
     </Button>
   )
 
