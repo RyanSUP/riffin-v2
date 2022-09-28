@@ -26,7 +26,7 @@ const NoteTestarea = (props) => {
 
   return (
       <TextareaAutosize
-        spellcheck="false"
+        spellCheck="false"
         style={inputsStyle}
         minRows={1}
         value={props.block.label}
