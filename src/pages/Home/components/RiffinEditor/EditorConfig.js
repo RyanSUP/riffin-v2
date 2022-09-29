@@ -10,3 +10,24 @@ export const MOVEMENT_KEYS = {
   ArrowRight: true,
   ArrowUp: true,
 };
+export const LEGAL_INPUTS = {
+  "~": "addCharacter", // vibrato
+  "/": "addCharacter", // slide
+  "^": "addCharacter", // bend
+  "x": "addCharacter", // mute
+  "p": "addCharacter", // pull off
+  "h": "addCharacter", // hammer on
+  0: "addCharacter",
+  1: "addCharacter",
+  2: "addCharacter",
+  3: "addCharacter",
+  4: "addCharacter",
+  5: "addCharacter",
+  6: "addCharacter",
+  7: "addCharacter",
+  8: "addCharacter",
+  9: "addCharacter",
+  "]": "duplicateChord", // duplicate chord
+  "[": "deleteChord", // duplicate deleteChord
+  "Backspace": "deleteCharacter",
+}

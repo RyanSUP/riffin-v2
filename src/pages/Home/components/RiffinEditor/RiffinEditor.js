@@ -1,4 +1,4 @@
-import { createContext, useReducer } from "react";
+import { createContext, useReducer, useEffect } from "react";
 import * as utils from "./Utilities";
 import TablatureBlock from "./components/TablatureBlock/TablatureBlock";
 
@@ -9,14 +9,24 @@ function riffinReducer(state, action) {
     case 'updateSelection':
       return {
         tablature: state.tablature,
-        selectedBlock: utils.updateSelectedBlock(action.blockIndex, action.blockRef),
-        cursorPosition: utils.updateCursorPosition(action.selectionStart)
+        selectedBlock: utils.generateSelectedBlock(action.blockIndex, action.blockRef),
+        cursor: utils.generateCursorPosition(action.selectionStart)
       };
     case 'updateCursorPosition':
       return {
         tablature: state.tablature,
         selectedBlock: state.selectedBlock,
-        cursorPosition: utils.updateCursorPosition(action.selectionStart)
+        cursor: utils.generateCursorPosition(action.selectionStart)
+      }
+    case 'addCharacter':
+      const selectedBlock = state.tablature.blocks[state.selectedBlock.index];
+      const newBlock = utils.generateUpdatedBlock(selectedBlock, action.character, state.cursor.position);
+      console.log('new block:', newBlock)
+      state.tablature.blocks[state.selectedBlock.index] = newBlock;
+      return {
+        tablature: state.tablature,
+        selectedBlock: state.selectedBlock,
+        cursor: utils.generateCursorPosition(state.cursor.position + 1)
       }
     case 'increment':
       return {count: state.count + 1};
@@ -32,8 +42,17 @@ const RiffinEditor = (props) => {
   const [editor, dispatch] = useReducer(riffinReducer, {
     tablature: utils.createTablatureTemplateObject(props.numberOfStrings),
     selectedBlock: null,
-    cursorPosition: {position: null}
+    cursor: {position: null}
   });
+  
+  // Prevent crusor from jumping to end of input.
+  useEffect(() => {
+    if (editor.selectedBlock) {
+      editor.selectedBlock.inputRef.current.selectionStart = editor.cursor.position;
+      editor.selectedBlock.inputRef.current.selectionEnd = editor.cursor.position;
+      console.log("New editor.cursor: ", editor.cursor.position);
+    }
+  }, [editor.cursor, editor.selectedBlock]);
 
   return (
     <RiffinEditorDispatch.Provider value={dispatch}>

@@ -1,4 +1,4 @@
-import { DEFAULT_BLOCK_COLS, MIN_BLOCK_COLS, MAX_BLOCK_COLS, MOVEMENT_KEYS } from './EditorConfig'
+import { DEFAULT_BLOCK_COLS, MIN_BLOCK_COLS, MAX_BLOCK_COLS, MOVEMENT_KEYS, LEGAL_INPUTS } from './EditorConfig'
 
 const calcNewMaxLength = (numberOfCols, numberOfStrings) => (numberOfCols * numberOfStrings) + (numberOfStrings * 2) - 1
 const calculateNewFirstCol = (numberOfCols, index) => (numberOfCols + 1) * (index)
@@ -92,7 +92,6 @@ export const getNewGuitarBlock = (stringCount = 6) => {
   const mapOfFirstColumnIndexes = getMapOfFirstColumnIndexes(action)
   const mapOfLastColumnIndexes = getMapOfLastColumnIndexes(action)
   const mapOfSecondToLastColumnIndexes = Object.keys(mapOfLastColumnIndexes).map((val) => val - 1)
-  console.log(mapOfSecondToLastColumnIndexes)
   const initLength = (action.stringCount * action.cols) + (action.stringCount - 1)
   const initTextAreaWithValue = (character) => {
     let charactersInString = [];
@@ -149,6 +148,9 @@ export const getPositionsToDuplicate = (cursorPosition, cols, editableLength) =>
   return positions
 }
 
+
+// ----------------------------------------------------------------
+
 /**
  * Creates the initial tablature object for a new tab
  * @param {number} numberOfStrings 
@@ -164,12 +166,63 @@ export const createTablatureTemplateObject = (numberOfStrings) => {
   }
 }
 
-export const updateSelectedBlock = (blockIndex, blockRef) => {
+/**
+ * Creates a selection object with the provided arguments.
+ * @param {Number} blockIndex 
+ * @param {Ref} blockRef 
+ * @returns the selection object
+ */
+export const generateSelectedBlock = (blockIndex, blockRef) => {
   return { inputRef: blockRef, index: blockIndex }
 }
 
-export const updateCursorPosition = (selectionStart) => {
+/**
+ * Creates a cursorPosition object with the provided arguments.
+ * @param {Number} selectionStart 
+ * @returns the cursorPosition object
+ */
+export const generateCursorPosition = (selectionStart) => {
   return { position: selectionStart }
 }
 
+/**
+ * Checks if the provided key controls movement
+ * @param {String} key 
+ * @returns true or false depending on if the key is a movement key
+ */
 export const isMovementKey = (key) => (key in MOVEMENT_KEYS)
+
+/**
+ * Checks if the key is a legal input (other than arrow keys) and returns the dispatch type associated with that key.
+ * @param {String} key 
+ * @returns The dispatch type associated with the key, or undegined if the key is not a legal input.
+ */
+export const getKeyDispatchType = (key) => (key in LEGAL_INPUTS) ? LEGAL_INPUTS[key] : undefined
+
+/**
+ * Replaces a character in the provided string at the specified position.
+ * @param {String} originalInputs
+ * @param {String} character 
+ * @param {Number} position 
+ * @returns a new string with the replacement character inserted
+ */
+export const updateTextAreaValue = (textAreaValue, character, position) => {
+  let arrayOfCharacters = [...textAreaValue];
+  arrayOfCharacters[position] = character;
+  return arrayOfCharacters.join("");
+}
+
+/**
+ * Updates the provided block's textarea values with the specified character and position
+ * @param {Object} originalBlock 
+ * @param {String} character 
+ * @param {Number} cursorPosition 
+ * @returns a new block object with the updated textarea values
+ */
+export const generateUpdatedBlock = (originalBlock, character, cursorPosition) => {
+  return {
+    ...originalBlock,
+    inputs: updateTextAreaValue(originalBlock.inputs, character, cursorPosition),
+    dashes: updateTextAreaValue(originalBlock.dashes, " ", cursorPosition),
+  };
+}

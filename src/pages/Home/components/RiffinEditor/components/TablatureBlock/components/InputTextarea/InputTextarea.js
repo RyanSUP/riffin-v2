@@ -1,7 +1,8 @@
 // Components / hooks
 import { useRef, useEffect, useState, useContext } from "react";
 // Utils / services
-import { getMapOfLastColumnIndexes, getMapOfFirstColumnIndexes, isMovementKey } from "../../../../Utilities"
+import * as utils from "../../../../Utilities";
+
 // MUI
 import { useTheme } from "@mui/material/styles";
 import { RiffinEditorDispatch } from "pages/Home/components/RiffinEditor/RiffinEditor";
@@ -11,8 +12,8 @@ const InputTextarea = (props) => {
     cols: props.block.cols,
     stringCount: props.block.numberOfStrings
   })
-  const [mapOfLastColumnIndexes, setMapOfLastColumnIndexes] = useState(getMapOfLastColumnIndexes(textAreaProperties))
-  const [mapOfFirstColumnIndexes, setMapOfFirstColumnIndexes] = useState(getMapOfFirstColumnIndexes(textAreaProperties))
+  const [mapOfLastColumnIndexes, setMapOfLastColumnIndexes] = useState(utils.getMapOfLastColumnIndexes(textAreaProperties))
+  const [mapOfFirstColumnIndexes, setMapOfFirstColumnIndexes] = useState(utils.getMapOfFirstColumnIndexes(textAreaProperties))
 
   const dispatch = useContext(RiffinEditorDispatch);
   const ref = useRef();
@@ -43,7 +44,7 @@ const InputTextarea = (props) => {
   };
 
   const handleKeyUp = (event) => {
-    if(isMovementKey(event.key)) {
+    if(utils.isMovementKey(event.key)) {
       const action = {
         type: "updateCursorPosition",
         selectionStart: event.target.selectionStart
@@ -51,17 +52,38 @@ const InputTextarea = (props) => {
       dispatch(action);
     }
   };
+  
+  const cursorIsOnLastColumn = (position, lastColumnsMap) => (position in lastColumnsMap)
+
+  const handleChange = (event) => {
+    event.preventDefault();
+    const key = event.nativeEvent.data;
+    const dispatchType = utils.getKeyDispatchType(key);
+    let action = {}
+    if (dispatchType === undefined || cursorIsOnLastColumn(event.target.selectionStart - 1, mapOfLastColumnIndexes)) {
+      action = {
+        type: 'updateCursorPosition',
+        selectionStart: event.target.selectionStart - 1
+      }
+    } else {
+      action = {
+        type: dispatchType,
+        character: key
+      }
+    }
+    dispatch(action);
+  };
 
   useEffect(() => {
-    setMapOfLastColumnIndexes(getMapOfLastColumnIndexes(textAreaProperties))
-    setMapOfFirstColumnIndexes(getMapOfFirstColumnIndexes(textAreaProperties))
+    setMapOfLastColumnIndexes(utils.getMapOfLastColumnIndexes(textAreaProperties))
+    setMapOfFirstColumnIndexes(utils.getMapOfFirstColumnIndexes(textAreaProperties))
   }, [textAreaProperties]);
 
   return (
     <textarea
       style={inputsStyle}
       value={props.block.inputs}
-      onChange={(event) => props.handleBlockChange(event, mapOfLastColumnIndexes, mapOfFirstColumnIndexes)}
+      onChange={handleChange}
       onKeyUp={handleKeyUp}
       onPaste={(event) => event.preventDefault()}
       onClick={handleClick}
