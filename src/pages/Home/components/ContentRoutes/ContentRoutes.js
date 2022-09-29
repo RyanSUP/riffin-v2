@@ -4,8 +4,12 @@ import ProfileContent from "../ProfileContent/ProfileContent";
 import LoginSignupForm from "../LoginSignupForm/LoginSignupForm";
 import Editor from "../Editor/Editor";
 import ProtectedEditRoute from "../Editor/components/ProtectedEditRoute/ProtectedEditRoute";
+import { useContext } from "react";
+import { UserContext } from "containers/CognitoUserProvider/CognitoUserProvider";
 
 const ContentRoutes = (props) => {
+  const { user } = useContext(UserContext);
+
   return (
     <Routes>
       <Route path="/login" element={<LoginSignupForm />} />
@@ -22,7 +26,7 @@ const ContentRoutes = (props) => {
       <Route
         path="/edit/:tabId"
         element={
-          <ProtectedEditRoute>
+          <ProtectedEditRoute user={user}>
             <Editor tags={props.tags} />
           </ProtectedEditRoute>
         }

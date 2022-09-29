@@ -9,12 +9,13 @@ const ProtectedEditRoute = (props) => {
   const navigate = useNavigate();
 
   useEffect(() => {
-    if (tabId) {
+    console.log("ProcRoute useEffect triggered");
+    if (tabId && getTabFromUser) {
       // if there is a tabId
-      if (!getTabFromUser(tabId)) {
+      if (getTabFromUser(tabId) === undefined) {
         // use the tabId to look for a tab.
         navigate("/new");
-      }
+      } 
     }
   }, [tabId, getTabFromUser, navigate]);
 
