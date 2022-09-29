@@ -156,7 +156,7 @@ export const getPositionsToDuplicate = (cursorPosition, cols, editableLength) =>
  * @param {number} numberOfStrings 
  * @returns a tablature object
  */
-export const createTablatureTemplateObject = (numberOfStrings) => {
+export const getNewTablatureTemplateObject = (numberOfStrings) => {
   const initialBlock = getNewGuitarBlock(numberOfStrings);
   return {
     name: "A tasty lick",
@@ -172,18 +172,14 @@ export const createTablatureTemplateObject = (numberOfStrings) => {
  * @param {Ref} blockRef 
  * @returns the selection object
  */
-export const generateSelectedBlock = (blockIndex, blockRef) => {
-  return { inputRef: blockRef, index: blockIndex }
-}
+export const generateSelectedBlockObject = (blockIndex, blockRef) => ({ inputRef: blockRef, index: blockIndex })
 
 /**
- * Creates a cursorPosition object with the provided arguments.
+ * Creates a cursor object with the provided arguments.
  * @param {Number} selectionStart 
  * @returns the cursorPosition object
  */
-export const generateCursorPosition = (selectionStart) => {
-  return { position: selectionStart }
-}
+export const generateCursorPositionObject = (selectionStart) => ({ position: selectionStart })
 
 /**
  * Checks if the provided key controls movement
@@ -197,7 +193,7 @@ export const isMovementKey = (key) => (key in MOVEMENT_KEYS)
  * @param {String} key 
  * @returns The dispatch type associated with the key, or undegined if the key is not a legal input.
  */
-export const getKeyDispatchType = (key) => (key in LEGAL_INPUTS) ? LEGAL_INPUTS[key] : undefined
+export const getDispatchTypeOfPressedKey = (key) => (key in LEGAL_INPUTS) ? LEGAL_INPUTS[key] : undefined
 
 /**
  * Replaces a character in the provided string at the specified position.
@@ -206,7 +202,7 @@ export const getKeyDispatchType = (key) => (key in LEGAL_INPUTS) ? LEGAL_INPUTS[
  * @param {Number} position 
  * @returns a new string with the replacement character inserted
  */
-export const updateTextAreaValue = (textAreaValue, character, position) => {
+export const replaceTextareaValue = (textAreaValue, character, position) => {
   let arrayOfCharacters = [...textAreaValue];
   arrayOfCharacters[position] = character;
   return arrayOfCharacters.join("");
@@ -214,15 +210,15 @@ export const updateTextAreaValue = (textAreaValue, character, position) => {
 
 /**
  * Updates the provided block's textarea values with the specified character and position
- * @param {Object} originalBlock 
+ * @param {Object} block 
  * @param {String} character 
  * @param {Number} cursorPosition 
  * @returns a new block object with the updated textarea values
  */
-export const generateUpdatedBlock = (originalBlock, character, cursorPosition) => {
+export const getUpdatedBlockAfterAddingCharacter = (block, character, cursorPosition) => {
   return {
-    ...originalBlock,
-    inputs: updateTextAreaValue(originalBlock.inputs, character, cursorPosition),
-    dashes: updateTextAreaValue(originalBlock.dashes, " ", cursorPosition),
+    ...block,
+    inputs: replaceTextareaValue(block.inputs, character, cursorPosition),
+    dashes: replaceTextareaValue(block.dashes, " ", cursorPosition),
   };
 }

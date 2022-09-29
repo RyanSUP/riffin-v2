@@ -9,24 +9,24 @@ function riffinReducer(state, action) {
     case 'updateSelection':
       return {
         tablature: state.tablature,
-        selectedBlock: utils.generateSelectedBlock(action.blockIndex, action.blockRef),
-        cursor: utils.generateCursorPosition(action.selectionStart)
+        selectedBlock: utils.generateSelectedBlockObject(action.blockIndex, action.blockRef),
+        cursor: utils.generateCursorPositionObject(action.selectionStart)
       };
     case 'updateCursorPosition':
       return {
         tablature: state.tablature,
         selectedBlock: state.selectedBlock,
-        cursor: utils.generateCursorPosition(action.selectionStart)
+        cursor: utils.generateCursorPositionObject(action.selectionStart)
       }
     case 'addCharacter':
       const selectedBlock = state.tablature.blocks[state.selectedBlock.index];
-      const newBlock = utils.generateUpdatedBlock(selectedBlock, action.character, state.cursor.position);
+      const newBlock = utils.getUpdatedBlockAfterAddingCharacter(selectedBlock, action.character, state.cursor.position);
       console.log('new block:', newBlock)
       state.tablature.blocks[state.selectedBlock.index] = newBlock;
       return {
         tablature: state.tablature,
         selectedBlock: state.selectedBlock,
-        cursor: utils.generateCursorPosition(state.cursor.position + 1)
+        cursor: utils.generateCursorPositionObject(state.cursor.position + 1)
       }
     case 'increment':
       return {count: state.count + 1};
@@ -40,7 +40,7 @@ function riffinReducer(state, action) {
 const RiffinEditor = (props) => {
   // Note: `dispatch` won't change between re-renders
   const [editor, dispatch] = useReducer(riffinReducer, {
-    tablature: utils.createTablatureTemplateObject(props.numberOfStrings),
+    tablature: utils.getNewTablatureTemplateObject(props.numberOfStrings),
     selectedBlock: null,
     cursor: {position: null}
   });
