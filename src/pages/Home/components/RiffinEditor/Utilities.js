@@ -207,18 +207,3 @@ export const replaceTextareaValue = (textAreaValue, character, position) => {
   arrayOfCharacters[position] = character;
   return arrayOfCharacters.join("");
 }
-
-/**
- * Updates the provided block's textarea values with the specified character and position
- * @param {Object} block 
- * @param {String} character 
- * @param {Number} cursorPosition 
- * @returns a new block object with the updated textarea values
- */
-export const getUpdatedBlockAfterAddingCharacter = (block, character, cursorPosition) => {
-  return {
-    ...block,
-    inputs: replaceTextareaValue(block.inputs, character, cursorPosition),
-    dashes: replaceTextareaValue(block.dashes, " ", cursorPosition),
-  };
-}

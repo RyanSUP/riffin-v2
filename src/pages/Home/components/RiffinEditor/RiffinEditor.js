@@ -20,9 +20,8 @@ function riffinReducer(state, action) {
       }
     case 'addCharacter':
       const selectedBlock = state.tablature.blocks[state.selectedBlock.index];
-      const newBlock = utils.getUpdatedBlockAfterAddingCharacter(selectedBlock, action.character, action.selectionStart);
-      console.log('new block:', newBlock)
-      state.tablature.blocks[state.selectedBlock.index] = newBlock;
+      selectedBlock.inputs = utils.replaceTextareaValue(selectedBlock.inputs, action.character, action.selectionStart)
+      selectedBlock.dashes = utils.replaceTextareaValue(selectedBlock.dashes, " ", action.selectionStart)
       return {
         tablature: state.tablature,
         selectedBlock: state.selectedBlock,
