@@ -3,7 +3,7 @@ import { Route, Routes, Navigate } from "react-router-dom";
 import ProfileContent from "../ProfileContent/ProfileContent";
 import LoginSignupForm from "../LoginSignupForm/LoginSignupForm";
 import Editor from "../Editor/Editor";
-import RiffinEditor from "../RiffinEditor/RiffinEditor";
+import { RiffinEditor } from "../RiffinEditor/RiffinEditor";
 
 const ContentRoutes = (props) => {
   return (
