@@ -20,13 +20,13 @@ function riffinReducer(state, action) {
       }
     case 'addCharacter':
       const selectedBlock = state.tablature.blocks[state.selectedBlock.index];
-      const newBlock = utils.getUpdatedBlockAfterAddingCharacter(selectedBlock, action.character, state.cursor.position);
+      const newBlock = utils.getUpdatedBlockAfterAddingCharacter(selectedBlock, action.character, action.selectionStart);
       console.log('new block:', newBlock)
       state.tablature.blocks[state.selectedBlock.index] = newBlock;
       return {
         tablature: state.tablature,
         selectedBlock: state.selectedBlock,
-        cursor: utils.generateCursorPositionObject(state.cursor.position + 1)
+        cursor: utils.generateCursorPositionObject(action.selectionStart + 1)
       }
     case 'increment':
       return {count: state.count + 1};

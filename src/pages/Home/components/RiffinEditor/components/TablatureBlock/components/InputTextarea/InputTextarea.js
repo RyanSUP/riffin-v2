@@ -60,15 +60,20 @@ const InputTextarea = (props) => {
     const key = event.nativeEvent.data;
     const dispatchType = utils.getDispatchTypeOfPressedKey(key);
     let action = {}
+    console.log('lastColumnsMap', mapOfLastColumnIndexes)
+    console.log('selection - 1', event.target.selectionStart - 1)
     if (dispatchType === undefined || cursorIsOnLastColumn(event.target.selectionStart - 1, mapOfLastColumnIndexes)) {
+      console.log('if')
       action = {
         type: 'updateCursorPosition',
         selectionStart: event.target.selectionStart - 1
       }
     } else {
+      console.log('else')
       action = {
         type: dispatchType,
-        character: key
+        character: key,
+        selectionStart: event.target.selectionStart - 1
       }
     }
     dispatch(action);

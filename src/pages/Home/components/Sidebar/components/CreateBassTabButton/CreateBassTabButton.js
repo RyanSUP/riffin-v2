@@ -18,7 +18,6 @@ const CreateBassTabButton = () => {
 
   useEffect(()=> {
     const urlData = location.pathname.split('/')
-    console.log(urlData)
     const path = urlData[2]
     if(path === 'bass') {
       setVariant("contained")
