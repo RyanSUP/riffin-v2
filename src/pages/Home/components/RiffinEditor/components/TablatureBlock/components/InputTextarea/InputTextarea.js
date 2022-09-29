@@ -53,30 +53,58 @@ const InputTextarea = (props) => {
     }
   };
   
-  const cursorIsOnLastColumn = (position, lastColumnsMap) => (position in lastColumnsMap)
+  const cursorIsOnLastColumn = (selectionStart) => (selectionStart in mapOfLastColumnIndexes)
+  const cursorIsOnFirstColumn = (selectionStart) => (selectionStart in mapOfFirstColumnIndexes)
+
+  const handleAddCharacter = (selectionStart, key) => {
+    let action = {};
+    if(cursorIsOnLastColumn(selectionStart - 1)) {
+      action = {
+        type: 'updateCursorPosition',
+        selectionStart: selectionStart - 1
+      };
+    } else {
+     action ={ 
+        type: "addCharacter",
+        character: key,
+        selectionStart: selectionStart - 1
+      };
+    }
+    dispatch(action);
+  }
+
+  const handleDeleteCharacter = (selectionStart) => {
+    let action = {};
+    if(cursorIsOnFirstColumn(selectionStart + 1)) {
+      action = {
+        type: 'updateCursorPosition',
+        selectionStart: selectionStart + 1
+      };
+    } else {
+      action = {
+        type: "deleteCharacter",
+        selectionStart: selectionStart
+      };
+    }
+    dispatch(action);
+  }
 
   const handleChange = (event) => {
     event.preventDefault();
-    const key = event.nativeEvent.data;
+    const key = event.nativeEvent.data || "Backspace";
     const dispatchType = utils.getDispatchTypeOfPressedKey(key);
-    let action = {}
-    console.log('lastColumnsMap', mapOfLastColumnIndexes)
-    console.log('selection - 1', event.target.selectionStart - 1)
-    if (dispatchType === undefined || cursorIsOnLastColumn(event.target.selectionStart - 1, mapOfLastColumnIndexes)) {
-      console.log('if')
-      action = {
+    console.log(key)
+    if(dispatchType === undefined) {
+      let action = {
         type: 'updateCursorPosition',
         selectionStart: event.target.selectionStart - 1
-      }
-    } else {
-      console.log('else')
-      action = {
-        type: dispatchType,
-        character: key,
-        selectionStart: event.target.selectionStart - 1
-      }
+      };
+      dispatch(action);
+    } else if(dispatchType === "addCharacter") {
+      handleAddCharacter(event.target.selectionStart, key)
+    } else if(dispatchType === "deleteCharacter") {
+      handleDeleteCharacter(event.target.selectionStart)
     }
-    dispatch(action);
   };
 
   useEffect(() => {

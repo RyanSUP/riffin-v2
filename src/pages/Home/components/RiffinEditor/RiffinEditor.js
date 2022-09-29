@@ -19,20 +19,29 @@ function riffinReducer(state, action) {
         cursor: utils.generateCursorPositionObject(action.selectionStart)
       }
     case 'addCharacter':
-      const selectedBlock = state.tablature.blocks[state.selectedBlock.index];
-      selectedBlock.inputs = utils.replaceTextareaValue(selectedBlock.inputs, action.character, action.selectionStart)
-      selectedBlock.dashes = utils.replaceTextareaValue(selectedBlock.dashes, " ", action.selectionStart)
+      const blockToAddTo = state.tablature.blocks[state.selectedBlock.index];
+      blockToAddTo.inputs = utils.replaceTextareaValue(blockToAddTo.inputs, action.character, action.selectionStart)
+      blockToAddTo.dashes = utils.replaceTextareaValue(blockToAddTo.dashes, " ", action.selectionStart)
       return {
         tablature: state.tablature,
         selectedBlock: state.selectedBlock,
         cursor: utils.generateCursorPositionObject(action.selectionStart + 1)
       }
-    case 'increment':
-      return {count: state.count + 1};
-    case 'decrement':
-      return {count: state.count - 1};
+    case 'deleteCharacter':
+      const blockToDeleteFrom = state.tablature.blocks[state.selectedBlock.index];
+      blockToDeleteFrom.inputs = utils.replaceTextareaValue(blockToDeleteFrom.inputs, " ", action.selectionStart)
+      blockToDeleteFrom.dashes = utils.replaceTextareaValue(blockToDeleteFrom.dashes, "-", action.selectionStart)
+      return {
+        tablature: state.tablature,
+        selectedBlock: state.selectedBlock,
+        cursor: utils.generateCursorPositionObject(action.selectionStart)
+      }
     default:
-      throw new Error();
+      return {
+        tablature: state.tablature,
+        selectedBlock: state.selectedBlock,
+        cursor: state.cursor
+      }
   }
 }
 

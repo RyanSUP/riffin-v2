@@ -167,7 +167,7 @@ export const getNewTablatureTemplateObject = (numberOfStrings) => {
 }
 
 /**
- * Creates a selection object with the provided arguments.
+ * Mainly used for compositional purposes. Creates a selection object with the provided arguments.
  * @param {Number} blockIndex 
  * @param {Ref} blockRef 
  * @returns the selection object
@@ -175,7 +175,7 @@ export const getNewTablatureTemplateObject = (numberOfStrings) => {
 export const generateSelectedBlockObject = (blockIndex, blockRef) => ({ inputRef: blockRef, index: blockIndex })
 
 /**
- * Creates a cursor object with the provided arguments.
+ * Mainly used for compositional purposes. Creates a cursor object with the provided arguments.
  * @param {Number} selectionStart 
  * @returns the cursorPosition object
  */
@@ -207,3 +207,4 @@ export const replaceTextareaValue = (textAreaValue, character, position) => {
   arrayOfCharacters[position] = character;
   return arrayOfCharacters.join("");
 }
+
