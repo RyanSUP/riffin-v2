@@ -19,7 +19,7 @@ const ProtectedEditRoute = (props) => {
     }
   }, [tabId, getTabFromUser, navigate]);
 
-  return <>{props.children}</>;
+  return <>{props.children}</>; 
 };
 
 export default ProtectedEditRoute;
