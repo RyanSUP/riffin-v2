@@ -39,13 +39,9 @@ function riffinReducer(state, action) {
       }   
     case 'duplicateColumn':
       const duplicationBlock = state.tablature.blocks[state.selectedBlock.index];
-      for(let position in action.duplicationMap) {
-        const columnGap = 2;
-        const targetSelectionStart = parseInt(position) + columnGap;
-        const inputCharacter = action.duplicationMap[position];
-        const dashCharacter = (inputCharacter === " ") ? "-" : " ";
-        duplicationBlock.inputs = utils.replaceTextareaValue(duplicationBlock.inputs, inputCharacter, targetSelectionStart)
-        duplicationBlock.dashes = utils.replaceTextareaValue(duplicationBlock.dashes, dashCharacter, targetSelectionStart)
+      for(let value of action.duplicationValues) {
+        duplicationBlock.inputs = utils.replaceTextareaValue(duplicationBlock.inputs, value.inputValue, value.targetPosition)
+        duplicationBlock.dashes = utils.replaceTextareaValue(duplicationBlock.dashes, value.dashValue, value.targetPosition)
       }
       return {
         tablature: state.tablature,

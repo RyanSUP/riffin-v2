@@ -6,6 +6,7 @@ import * as utils from "../../../../Utilities";
 // MUI
 import { useTheme } from "@mui/material/styles";
 import { RiffinEditorDispatch } from "pages/Home/components/RiffinEditor/RiffinEditor";
+import { DUPLICATION_COLUMN_GAP } from "pages/Home/components/RiffinEditor/EditorConfig";
 
 const InputTextarea = (props) => {
   const [textAreaProperties] = useState({
@@ -112,18 +113,23 @@ const InputTextarea = (props) => {
   }
 
   /**
-   * Generates a map where the key is the position of the input textarea with a value of the current character at that position. This is needed to know which character to duplicate at which position.
+   * Generates an array of objects represening the inputs to be duplicated and their target positions.
    * @param {Number} selectionStart 
-   * @returns a key-value pair (position: charcter)
+   * @returns an array of objects
    */
-  const generateDuplicationMap = (selectionStart) => {
+  const generateDuplicationValues = (selectionStart) => {
     let positionsToDuplicate = getPositionsToDuplicate(selectionStart, textAreaProperties.cols, props.block.maxLength, textAreaProperties.numberOfStrings)
     let inputsAsArray = [...props.block.inputs]
-    const duplicationMap = {};
+    const duplicationValues = [];
     positionsToDuplicate.forEach((position) => {
-      duplicationMap[position] = inputsAsArray[position];
+      const characterToDuplicate = inputsAsArray[position];
+      duplicationValues.push({
+        inputValue: characterToDuplicate,
+        dashValue: (characterToDuplicate === " ") ? "-" : " ",
+        targetPosition: position + DUPLICATION_COLUMN_GAP
+      })
     })
-    return duplicationMap;
+    return duplicationValues;
   }
   // ------------- HANDLERS --------------------------------
 
@@ -214,7 +220,7 @@ const InputTextarea = (props) => {
     } else {
       action = {
         type: "duplicateColumn",
-        duplicationMap: generateDuplicationMap(selectionStart),
+        duplicationValues: generateDuplicationValues(selectionStart),
         selectionStart: selectionStart
       }
     }
