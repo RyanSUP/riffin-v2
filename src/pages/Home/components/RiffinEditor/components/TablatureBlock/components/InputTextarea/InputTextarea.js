@@ -10,6 +10,7 @@ import { RiffinEditorDispatch } from "pages/Home/components/RiffinEditor/RiffinE
 const InputTextarea = (props) => {
   const [textAreaProperties] = useState({
     cols: props.block.cols,
+    // TODO Refactor to numberOfStrings (stringCount is more tangled than youd think >.>)
     stringCount: props.block.numberOfStrings
   })
   const [mapOfLastColumnIndexes, setMapOfLastColumnIndexes] = useState(utils.getMapOfLastColumnIndexes(textAreaProperties))
@@ -55,6 +56,10 @@ const InputTextarea = (props) => {
   
   const cursorIsOnLastColumn = (selectionStart) => (selectionStart in mapOfLastColumnIndexes)
   const cursorIsOnFirstColumn = (selectionStart) => (selectionStart in mapOfFirstColumnIndexes)
+  const cursorIsOnSecondToLastColumn = (selectionStart) => {
+    const mapOfSecondToLastColumnIndexes = Object.keys(mapOfLastColumnIndexes).map((val) => val - 1)
+    return mapOfSecondToLastColumnIndexes.includes(selectionStart)
+  }
 
   const handleAddCharacter = (selectionStart, key) => {
     let action = {};
@@ -89,6 +94,48 @@ const InputTextarea = (props) => {
     dispatch(action);
   }
 
+  const getDuplicationMap = (selectionStart) => {
+    let positionsToDuplicate = utils.getPositionsToDuplicate(selectionStart, textAreaProperties.cols, props.block.maxLength, textAreaProperties.numberOfStrings)
+
+    let inputsAsArray = [...props.block.inputs]
+    const duplicationMap = {};
+    positionsToDuplicate.forEach((position) => {
+      duplicationMap[position] = inputsAsArray[position];
+    })
+    return duplicationMap;
+  }
+
+  const handleDuplicateChord = (selectionStart) => {
+    let action = {};
+    if(cursorIsOnLastColumn(selectionStart - 1)
+      || cursorIsOnFirstColumn(selectionStart - 1)
+      || cursorIsOnSecondToLastColumn(selectionStart - 1)
+    ) {
+      action = {
+        type: 'updateCursorPosition',
+        selectionStart: selectionStart - 1
+      };
+    } else {
+      let newInputs = props.block.inputs;
+      let newDashes = props.block.dashes;
+      const duplicationMap = getDuplicationMap(selectionStart);
+      for(let position in duplicationMap) {
+        const targetSelectionStart = parseInt(position) + 2;
+        const inputCharacter = duplicationMap[position];
+        const dashCharacter = (inputCharacter === " ") ? "-" : " ";
+        newInputs = utils.replaceTextareaValue(newInputs, inputCharacter, targetSelectionStart)
+        newDashes = utils.replaceTextareaValue(newDashes, dashCharacter, targetSelectionStart)
+      }
+      action = {
+        type: "duplicateChord",
+        newInputs,
+        newDashes,
+        selectionStart: selectionStart
+      }
+    }
+    dispatch(action);
+  }
+
   const handleChange = (event) => {
     event.preventDefault();
     const key = event.nativeEvent.data || "Backspace";
@@ -104,13 +151,15 @@ const InputTextarea = (props) => {
       handleAddCharacter(event.target.selectionStart, key)
     } else if(dispatchType === "deleteCharacter") {
       handleDeleteCharacter(event.target.selectionStart)
+    } else if(dispatchType === "duplicateChord") {
+      handleDuplicateChord(event.target.selectionStart)
     }
   };
 
   useEffect(() => {
     setMapOfLastColumnIndexes(utils.getMapOfLastColumnIndexes(textAreaProperties))
     setMapOfFirstColumnIndexes(utils.getMapOfFirstColumnIndexes(textAreaProperties))
-  }, [textAreaProperties]);
+  }, [textAreaProperties, props.block.cols]);
 
   return (
     <textarea
@@ -120,8 +169,8 @@ const InputTextarea = (props) => {
       onKeyUp={handleKeyUp}
       onPaste={(event) => event.preventDefault()}
       onClick={handleClick}
-      cols={props.block.cols}
-      rows={props.block.numberOfStrings}
+      cols={textAreaProperties.cols}
+      rows={textAreaProperties.stringCount}
       maxLength={props.block.maxLength}
       ref={ref}
     />

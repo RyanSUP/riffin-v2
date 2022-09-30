@@ -4,6 +4,7 @@ import TablatureBlock from "./components/TablatureBlock/TablatureBlock";
 
 const RiffinEditorDispatch = createContext(null);
 
+// TODO find a better way to access selected block rather than state.tablature.blocks[state.selectedBlock.index];
 function riffinReducer(state, action) {
   switch (action.type) {
     case 'updateSelection':
@@ -35,6 +36,14 @@ function riffinReducer(state, action) {
         tablature: state.tablature,
         selectedBlock: state.selectedBlock,
         cursor: utils.generateCursorPositionObject(action.selectionStart)
+      }
+    case 'duplicateChord':
+      state.tablature.blocks[state.selectedBlock.index].inputs = action.newInputs;
+      state.tablature.blocks[state.selectedBlock.index].dashes = action.newDashes;
+      return {
+        tablature: state.tablature,
+        selectedBlock: state.selectedBlock,
+        cursor: utils.generateCursorPositionObject(action.selectionStart + 1)
       }
     default:
       return {
