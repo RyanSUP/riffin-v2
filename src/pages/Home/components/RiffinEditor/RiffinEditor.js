@@ -70,13 +70,14 @@ function riffinReducer(state, action) {
         cursor: state.cursor
       }
     case 'deleteBlock':
-      const newBlocks = [];
-      state.tablature.blocks.forEach((block, i) => {
-        if (action.index !== i) {
-          newBlocks.push({ ...block });
+      const updatedBlocks = state.tablature.blocks.filter((block) => {
+        if(action.block.tempKey && block.tempKey) {
+          return (action.block.tempKey !== block.tempKey) 
+        } else {
+          return (action.block._id !== block._id) 
         }
       });
-      state.tablature.blocks = newBlocks;
+      state.tablature.blocks = updatedBlocks;
       return {
         tablature: state.tablature,
         selectedBlock: state.selectedBlock,

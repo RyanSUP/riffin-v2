@@ -71,7 +71,7 @@ export default function BlockOptionsMenu(props) {
   const handleDelete = () => {
     const action = {
       type: 'deleteBlock',
-      index: props.index
+      block: props.block
     }
     dispatch(action);
     handleClose()
