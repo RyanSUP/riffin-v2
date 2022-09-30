@@ -36,10 +36,17 @@ function riffinReducer(state, action) {
         tablature: state.tablature,
         selectedBlock: state.selectedBlock,
         cursor: utils.generateCursorPositionObject(action.selectionStart)
+      }   
+    case 'duplicateColumn':
+      const duplicationBlock = state.tablature.blocks[state.selectedBlock.index];
+      for(let position in action.duplicationMap) {
+        const columnGap = 2;
+        const targetSelectionStart = parseInt(position) + columnGap;
+        const inputCharacter = action.duplicationMap[position];
+        const dashCharacter = (inputCharacter === " ") ? "-" : " ";
+        duplicationBlock.inputs = utils.replaceTextareaValue(duplicationBlock.inputs, inputCharacter, targetSelectionStart)
+        duplicationBlock.dashes = utils.replaceTextareaValue(duplicationBlock.dashes, dashCharacter, targetSelectionStart)
       }
-    case 'duplicateChord':
-      state.tablature.blocks[state.selectedBlock.index].inputs = action.newInputs;
-      state.tablature.blocks[state.selectedBlock.index].dashes = action.newDashes;
       return {
         tablature: state.tablature,
         selectedBlock: state.selectedBlock,

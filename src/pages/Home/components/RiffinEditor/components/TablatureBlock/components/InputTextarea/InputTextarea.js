@@ -34,6 +34,103 @@ const InputTextarea = (props) => {
     padding: 0
   };
 
+  // ------------- 🏗 MISC HELPERS --------------------------------
+  
+  /**
+   * Checks if the cursor selection is on the last column.
+   * @param {Number} selectionStart 
+   * @param {Object} mapOfLastColumnIndexes 
+   * @returns true if the cursor is on the last column, otherwise false
+   */
+  const selectionIsOnLastColumn = (selectionStart, mapOfLastColumnIndexes) => (selectionStart in mapOfLastColumnIndexes)
+
+  /**
+   * Checks if the cursor selection is on the First column.
+   * @param {Number} selectionStart 
+   * @param {Object} mapOfFirstColumnIndexes 
+   * @returns true if the cursor is on the first column, otherwise false
+   */
+  const selectionIsOnFirstColumn = (selectionStart, mapOfFirstColumnIndexes) => (selectionStart in mapOfFirstColumnIndexes)
+
+  /**
+   * Checks if the cursor selection is on the second to last column. Second to last column is rarely needed and not stored in state.
+   * @param {Number} selectionStart 
+   * @param {Object} mapOfLastColumnIndexes 
+   * @returns true if the cursor is on the second to last column, otherwise false
+   */
+  const selectionIsOnSecondToLastColumn = (selectionStart, mapOfLastColumnIndexes) => {
+    const mapOfSecondToLastColumnIndexes = Object.keys(mapOfLastColumnIndexes).map((val) => val - 1)
+    return mapOfSecondToLastColumnIndexes.includes(selectionStart)
+  }
+
+  // ------------- 🛠 DUPLICATION HELPERS --------------------------------
+
+  /**
+   * Gets the positions of the input textarea in a column directly above the curent selection.
+   * @param {Number} selectionStart 
+   * @param {Number} cols 
+   * @returns an array of positions
+   */
+  const getPositionsAboveSelection = (selectionStart, cols) => {
+    let arrayOfPositions = []
+    const indexGapBetweenStrings = cols + 1 // The + 1 compensates for the hidden \n
+    for(let position = selectionStart - indexGapBetweenStrings; position >= 0; position -= indexGapBetweenStrings) {
+      arrayOfPositions.push(position - 1)
+    }
+    return arrayOfPositions
+  }
+
+  /**
+   * Gets the positions of the input textarea in a column directly below the curent selection.
+   * @param {Number} selectionStart 
+   * @param {Number} cols 
+   * @returns an array of positions
+   */
+  const getPositionsBelowSelection = (selectionStart, cols, editableLength) => {
+    const indexGapBetweenStrings = cols + 1 // The + 1 compensates for the hidden \n
+    let arrayOfPositions = []
+    for(let position = selectionStart + indexGapBetweenStrings; position <= editableLength; position += indexGapBetweenStrings) {
+      arrayOfPositions.push(position - 1)
+    }
+    return arrayOfPositions
+  }
+  
+  /**
+   * Gets the column of positions in the input textarea that need to be duplicated.
+   * @param {Number} selectionStart 
+   * @param {Number} cols 
+   * @param {Number} maxLength 
+   * @param {Number} numberOfStrings 
+   * @returns 
+   */
+  const getPositionsToDuplicate = (selectionStart, cols, maxLength, numberOfStrings) => {
+    let numberOfEditablePositionsOnBlock = maxLength - numberOfStrings
+    let positionsAboveSelection = getPositionsAboveSelection(selectionStart - 1, cols)
+    let positionsBelowSelection = getPositionsBelowSelection(selectionStart - 1, cols, numberOfEditablePositionsOnBlock)
+    let allPositionsToDuplicate = [selectionStart - 2, ...positionsAboveSelection, ...positionsBelowSelection]
+    return allPositionsToDuplicate
+  }
+
+  /**
+   * Generates a map where the key is the position of the input textarea with a value of the current character at that position. This is needed to know which character to duplicate at which position.
+   * @param {Number} selectionStart 
+   * @returns a key-value pair (position: charcter)
+   */
+  const generateDuplicationMap = (selectionStart) => {
+    let positionsToDuplicate = getPositionsToDuplicate(selectionStart, textAreaProperties.cols, props.block.maxLength, textAreaProperties.numberOfStrings)
+    let inputsAsArray = [...props.block.inputs]
+    const duplicationMap = {};
+    positionsToDuplicate.forEach((position) => {
+      duplicationMap[position] = inputsAsArray[position];
+    })
+    return duplicationMap;
+  }
+  // ------------- HANDLERS --------------------------------
+
+  /**
+   * Sends a dispatch to update the selected block. The new selected block will be whichever block is handling the click.
+   * @param {Object} event 
+   */
   const handleClick = (event) => {
     const action = {
       type: "updateSelection",
@@ -44,6 +141,10 @@ const InputTextarea = (props) => {
     dispatch(action);
   };
 
+  /**
+   * Sends a dispatch to update the selection when an arrow key is pressed. This allows the user to move around the textarea with arrow keys.
+   * @param {Object} event 
+   */
   const handleKeyUp = (event) => {
     if(utils.isMovementKey(event.key)) {
       const action = {
@@ -53,17 +154,15 @@ const InputTextarea = (props) => {
       dispatch(action);
     }
   };
-  
-  const cursorIsOnLastColumn = (selectionStart) => (selectionStart in mapOfLastColumnIndexes)
-  const cursorIsOnFirstColumn = (selectionStart) => (selectionStart in mapOfFirstColumnIndexes)
-  const cursorIsOnSecondToLastColumn = (selectionStart) => {
-    const mapOfSecondToLastColumnIndexes = Object.keys(mapOfLastColumnIndexes).map((val) => val - 1)
-    return mapOfSecondToLastColumnIndexes.includes(selectionStart)
-  }
 
+  /**
+   * Sends a dispatch to insert a character into the textarea. This allows the user to type in the textarea on valid spaces. The only column that is not valid is the last column. This is because there are hidden new-line characters (\n) that keep the structure of the tab intact, making the textarea appear as if it were guitar strings.
+   * @param {Number} selectionStart 
+   * @param {String} key 
+   */
   const handleAddCharacter = (selectionStart, key) => {
     let action = {};
-    if(cursorIsOnLastColumn(selectionStart - 1)) {
+    if(selectionIsOnLastColumn(selectionStart - 1, mapOfLastColumnIndexes)) {
       action = {
         type: 'updateCursorPosition',
         selectionStart: selectionStart - 1
@@ -78,9 +177,13 @@ const InputTextarea = (props) => {
     dispatch(action);
   }
 
+  /**
+   * Sends a dispatch to remove a character into the textarea. This allows the user to delete on valid spaces. The only column that is not valid is the first column. This prevents the user form deleting a new-line characters (\n) on the previous space, which keeps the structure of the tab intact.
+   * @param {*} selectionStart 
+   */
   const handleDeleteCharacter = (selectionStart) => {
     let action = {};
-    if(cursorIsOnFirstColumn(selectionStart + 1)) {
+    if(selectionIsOnFirstColumn(selectionStart + 1, mapOfFirstColumnIndexes)) {
       action = {
         type: 'updateCursorPosition',
         selectionStart: selectionStart + 1
@@ -94,42 +197,24 @@ const InputTextarea = (props) => {
     dispatch(action);
   }
 
-  const getDuplicationMap = (selectionStart) => {
-    let positionsToDuplicate = utils.getPositionsToDuplicate(selectionStart, textAreaProperties.cols, props.block.maxLength, textAreaProperties.numberOfStrings)
-
-    let inputsAsArray = [...props.block.inputs]
-    const duplicationMap = {};
-    positionsToDuplicate.forEach((position) => {
-      duplicationMap[position] = inputsAsArray[position];
-    })
-    return duplicationMap;
-  }
-
-  const handleDuplicateChord = (selectionStart) => {
+  /**
+   * Sends a dispatch to duplicate an entire column in the textarea. The values of the duplicated column will be pasted two spaces over, leaving one blank space between the original and duplicated columns.
+   * @param {*} selectionStart 
+   */
+  const handleDuplicateColumn = (selectionStart) => {
     let action = {};
-    if(cursorIsOnLastColumn(selectionStart - 1)
-      || cursorIsOnFirstColumn(selectionStart - 1)
-      || cursorIsOnSecondToLastColumn(selectionStart - 1)
+    if(selectionIsOnLastColumn(selectionStart - 1, mapOfLastColumnIndexes)
+      || selectionIsOnFirstColumn(selectionStart - 1, mapOfFirstColumnIndexes)
+      || selectionIsOnSecondToLastColumn(selectionStart - 1, mapOfLastColumnIndexes)
     ) {
       action = {
         type: 'updateCursorPosition',
         selectionStart: selectionStart - 1
       };
     } else {
-      let newInputs = props.block.inputs;
-      let newDashes = props.block.dashes;
-      const duplicationMap = getDuplicationMap(selectionStart);
-      for(let position in duplicationMap) {
-        const targetSelectionStart = parseInt(position) + 2;
-        const inputCharacter = duplicationMap[position];
-        const dashCharacter = (inputCharacter === " ") ? "-" : " ";
-        newInputs = utils.replaceTextareaValue(newInputs, inputCharacter, targetSelectionStart)
-        newDashes = utils.replaceTextareaValue(newDashes, dashCharacter, targetSelectionStart)
-      }
       action = {
-        type: "duplicateChord",
-        newInputs,
-        newDashes,
+        type: "duplicateColumn",
+        duplicationMap: generateDuplicationMap(selectionStart),
         selectionStart: selectionStart
       }
     }
@@ -152,10 +237,12 @@ const InputTextarea = (props) => {
     } else if(dispatchType === "deleteCharacter") {
       handleDeleteCharacter(event.target.selectionStart)
     } else if(dispatchType === "duplicateChord") {
-      handleDuplicateChord(event.target.selectionStart)
+      handleDuplicateColumn(event.target.selectionStart)
     }
   };
 
+  // ------------- EFFECTS --------------------------------
+  
   useEffect(() => {
     setMapOfLastColumnIndexes(utils.getMapOfLastColumnIndexes(textAreaProperties))
     setMapOfFirstColumnIndexes(utils.getMapOfFirstColumnIndexes(textAreaProperties))
