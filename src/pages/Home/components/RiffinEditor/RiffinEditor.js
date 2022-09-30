@@ -1,6 +1,7 @@
 import { createContext, useReducer, useEffect } from "react";
 import * as utils from "./Utilities";
 import TablatureBlock from "./components/TablatureBlock/TablatureBlock";
+import AddTablatureBlockButton from "./components/AddTablatureBlockButton/AddTablatureBlockButton";
 
 const RiffinEditorDispatch = createContext(null);
 
@@ -120,6 +121,19 @@ const handleDuplicateBlock = (state, action) => {
   }
 };
 
+const handleAddNewBlock = (state, action) => {
+  const newBlock = utils.getNewGuitarBlock(state.tablature.numberOfStrings)
+  // * This check is a workaround to React.StrictMode's behavior of running reducers twice. Without this workaround, 2 blocks would be added.
+  if(state.tablature.blocks.length < action.numberOfBlocksBeforeAdding + 1) {
+    state.tablature.blocks.push(newBlock);
+  }
+  return {
+    tablature: state.tablature,
+    selectedBlock: state.selectedBlock,
+    cursor: state.cursor
+  }
+};
+
 // TODO find a better way to access selected block rather than state.tablature.blocks[state.selectedBlock.index];
 function riffinReducer(state, action) {
   switch (action.type) {
@@ -144,6 +158,8 @@ function riffinReducer(state, action) {
       return handleBlockSizeChange(state, action)
     case 'decreaseBlockSize':
       return handleBlockSizeChange(state, action)
+    case 'addNewBlock':
+      return handleAddNewBlock(state, action);
     default:
       return {
         tablature: state.tablature,
@@ -175,6 +191,7 @@ const RiffinEditor = (props) => {
       {editor.tablature.blocks.map((block, i) => (
         <TablatureBlock key={i} index={i} block={block} />)
       )}
+      <AddTablatureBlockButton numberOfBlocks={editor.tablature.blocks.length} />
     </RiffinEditorDispatch.Provider>
   );
 }
