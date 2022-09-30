@@ -7,8 +7,8 @@ export const calculateNewLastCol = (numberOfCols, stringNum, index) => (numberOf
 
 export const generateNewTextareaValueAfterSizeChange = (type, originalValue, characterToFill, stepCount, cols) => {
   // * Move to dispatcher when replacing guts with callback
-  if((type === "increase" && cols === MAX_BLOCK_COLS) ||
-    (type === "decrease" && cols === MIN_BLOCK_COLS)) {
+  if((type === "increaseBlockSize" && cols === MAX_BLOCK_COLS) ||
+    (type === "decreateBlockSize" && cols === MIN_BLOCK_COLS)) {
     return originalValue;
   }
   const guitarStrings = originalValue.split('\n')
@@ -17,7 +17,7 @@ export const generateNewTextareaValueAfterSizeChange = (type, originalValue, cha
     const array = [...guitarStrings[i]]
     for(let j = 0; j < Math.abs(stepCount); j++) {
       // * Replace with a callback?
-      if(type === "increase") {
+      if(type === "increaseBlockSize") {
         array[array.length - 1] = characterToFill
         array.push('|')
       } else {
@@ -42,8 +42,8 @@ export const generateNewTextareaValueAfterSizeChange = (type, originalValue, cha
   stepCount
 */
 export const updateBlockValue = (action) => {
-  if((action.type === "increase" && action.cols === MAX_BLOCK_COLS) ||
-    (action.type === "decrease" && action.cols === MIN_BLOCK_COLS)) {
+  if((action.type === "increaseBlockSize" && action.cols === MAX_BLOCK_COLS) ||
+    (action.type === "decreateBlockSize" && action.cols === MIN_BLOCK_COLS)) {
     return action.area
   }
 
@@ -52,7 +52,7 @@ export const updateBlockValue = (action) => {
   for(let i = 0; i < guitarStrings.length; i++) {
     const array = [...guitarStrings[i]]
     for(let j = 0; j < Math.abs(action.stepCount); j++) {
-      if(action.type === "increase") {
+      if(action.type === "increaseBlockSize") {
         array[array.length - 1] = action.characterToAdd
         array.push('|')
       } else {
@@ -78,8 +78,8 @@ export const updateBlockValue = (action) => {
   }
 */
 export const generateNewSizePropertiesAfterSizeChange = (type, block, stepCount) => {
-  if((type === "increase" && block.cols === MAX_BLOCK_COLS) ||
-    (type === "decrease" && block.cols === MIN_BLOCK_COLS)) {
+  if((type === "increaseBlockSize" && block.cols === MAX_BLOCK_COLS) ||
+    (type === "decreateBlockSize" && block.cols === MIN_BLOCK_COLS)) {
     return {
       cols: block.cols,
       maxLength: block.maxLength
