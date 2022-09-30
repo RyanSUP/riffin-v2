@@ -301,31 +301,3 @@ const InputTextarea = (props) => {
 }
  
 export default InputTextarea;
-
-// function handleDeleteChord(mapOfFirstColumnIndexes) {
-//   if(mapOfFirstColumnIndexes[cursorPosition.position]){
-//     setCursorPosition({position: cursorPosition.position})
-//     return
-//   }
-//   const selectedBlock = tablature.blocks[selectedTablatureBlock.index]
-//   let positionsToDelete = getColumnOfPositionsBeforeSelection(cursorPosition.position, selectedBlock.cols, (selectedBlock.maxLength - tablature.numberOfStrings))
-//   if(positionsToDelete.length === 0) {
-//     return
-//   }
-//   console.log((selectedBlock.maxLength - tablature.numberOfStrings))
-//   console.log(positionsToDelete)
-//   positionsToDelete.forEach(pos => {
-//     selectedBlock.inputs = getUpdatedTextAreaValues(
-//       "inputs",
-//       " ",
-//       pos
-//     )
-//     selectedBlock.dashes = getUpdatedTextAreaValues(
-//       "dashes",
-//       "-",
-//       pos
-//     )
-//   })
-//   setCursorPosition({ position: cursorPosition.position - 1 })
-//   refreshTablatureObject()
-// }
