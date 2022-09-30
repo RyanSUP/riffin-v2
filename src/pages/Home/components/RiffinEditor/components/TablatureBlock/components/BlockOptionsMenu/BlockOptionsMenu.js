@@ -11,7 +11,7 @@ import Divider from '@mui/material/Divider';
 import ArchiveIcon from '@mui/icons-material/Archive';
 import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown';
 import DeleteIcon from '@mui/icons-material/Delete';
-// import TablatureSizeSlider from '../TablatureSizeSlider/TablatureSizeSlider';
+import SizeSlider from './components/SizeSlider/SizeSlider';
 
 const StyledMenu = styled((props) => (
   <Menu
@@ -114,11 +114,7 @@ export default function BlockOptionsMenu(props) {
           Size
         </MenuItem>
         <MenuItem disableRipple>
-          {/* <TablatureSizeSlider 
-            numberOfStrings={props.numberOfStrings}
-            refreshTablatureObject={props.refreshTablatureObject}
-            block={props.block}
-          /> */}
+          <SizeSlider block={props.block} />
         </MenuItem>
         <Divider sx={{ my: 0.5 }} />
         <MenuItem onClick={handleDuplicate} disableRipple>

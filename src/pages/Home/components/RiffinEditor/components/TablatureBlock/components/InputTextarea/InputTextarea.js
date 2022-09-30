@@ -9,7 +9,8 @@ import { RiffinEditorDispatch } from "pages/Home/components/RiffinEditor/RiffinE
 import { DUPLICATION_COLUMN_GAP } from "pages/Home/components/RiffinEditor/EditorConfig";
 
 const InputTextarea = (props) => {
-  const [textAreaProperties] = useState({
+  // * Is this state necessary since it's always derived from props.block? Refactor and remove.
+  const [textAreaProperties, setTextAreaProperties] = useState({
     cols: props.block.cols,
     // TODO Refactor to numberOfStrings (stringCount is more tangled than youd think >.>)
     stringCount: props.block.numberOfStrings
@@ -277,12 +278,17 @@ const InputTextarea = (props) => {
   // ------------- 🦾 EFFECTS --------------------------------
   
   /**
-   * Updates the bounry maps when the size of the block changes.
+   * Updates the boundry maps when the size of the block changes.
    */
   useEffect(() => {
+    console.log('updating input area size')
     setMapOfLastColumnIndexes(utils.getMapOfLastColumnIndexes(textAreaProperties))
     setMapOfFirstColumnIndexes(utils.getMapOfFirstColumnIndexes(textAreaProperties))
-  }, [textAreaProperties, props.block.cols]);
+  }, [textAreaProperties]);
+
+  useEffect(() => {
+    setTextAreaProperties((prev) =>  { return {...prev, cols: props.block.cols}})
+  }, [props.block.cols])
 
   return (
     <textarea
@@ -292,7 +298,7 @@ const InputTextarea = (props) => {
       onKeyUp={handleKeyUp}
       onPaste={(event) => event.preventDefault()}
       onClick={handleClick}
-      cols={textAreaProperties.cols}
+      cols={props.block.cols}
       rows={textAreaProperties.stringCount}
       maxLength={props.block.maxLength}
       ref={ref}

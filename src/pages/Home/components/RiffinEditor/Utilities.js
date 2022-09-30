@@ -1,8 +1,37 @@
 import { DEFAULT_BLOCK_COLS, MIN_BLOCK_COLS, MAX_BLOCK_COLS, MOVEMENT_KEYS, LEGAL_INPUTS } from './EditorConfig'
 
-const calcNewMaxLength = (numberOfCols, numberOfStrings) => (numberOfCols * numberOfStrings) + (numberOfStrings * 2) - 1
-const calculateNewFirstCol = (numberOfCols, index) => (numberOfCols + 1) * (index)
-const calculateNewLastCol = (numberOfCols, stringNum, index) => (numberOfCols * stringNum) + index
+export const calcNewMaxLength = (numberOfCols, numberOfStrings) => (numberOfCols * numberOfStrings) + (numberOfStrings * 2) - 1
+export const calculateNewFirstCol = (numberOfCols, index) => (numberOfCols + 1) * (index)
+export const calculateNewLastCol = (numberOfCols, stringNum, index) => (numberOfCols * stringNum) + index
+
+
+export const generateNewTextareaValueAfterSizeChange = (type, originalValue, characterToFill, stepCount, cols) => {
+  // * Move to dispatcher when replacing guts with callback
+  if((type === "increase" && cols === MAX_BLOCK_COLS) ||
+    (type === "decrease" && cols === MIN_BLOCK_COLS)) {
+    return originalValue;
+  }
+  const guitarStrings = originalValue.split('\n')
+  let newValueString = ""
+  for(let i = 0; i < guitarStrings.length; i++) {
+    const array = [...guitarStrings[i]]
+    for(let j = 0; j < Math.abs(stepCount); j++) {
+      // * Replace with a callback?
+      if(type === "increase") {
+        array[array.length - 1] = characterToFill
+        array.push('|')
+      } else {
+        array.pop()
+        array[array.length - 1] = "|"
+      }
+    }
+    if(i !== guitarStrings.length - 1) { // Last string doesn't need a newline char
+      array.push("\n")
+    }
+    newValueString += array.join("")
+  }
+  return newValueString
+}
 
 /* 
   Needs an actions object with the following properties:
@@ -48,20 +77,19 @@ export const updateBlockValue = (action) => {
     stepCount
   }
 */
-export const updateTextAreaAttributes = (action) => {
-  if((action.type === "increase" && action.cols === MAX_BLOCK_COLS) ||
-    (action.type === "decrease" && action.cols === MIN_BLOCK_COLS)) {
+export const generateNewSizePropertiesAfterSizeChange = (type, block, stepCount) => {
+  if((type === "increase" && block.cols === MAX_BLOCK_COLS) ||
+    (type === "decrease" && block.cols === MIN_BLOCK_COLS)) {
     return {
-      cols: action.cols,
-      maxLength: action.maxLength
+      cols: block.cols,
+      maxLength: block.maxLength
     }
   }
 
   return {
-    cols: action.cols + action.stepCount,
-    maxLength: calcNewMaxLength(action.cols + action.stepCount, action.stringCount)
+    cols: block.cols + stepCount,
+    maxLength: calcNewMaxLength(block.cols + stepCount, block.numberOfStrings)
   }
-
 }
 
 export const getMapOfLastColumnIndexes = (action) => {

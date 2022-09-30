@@ -4,6 +4,32 @@ import TablatureBlock from "./components/TablatureBlock/TablatureBlock";
 
 const RiffinEditorDispatch = createContext(null);
 
+const handleDecreaseBlockSize = (state, action)=> {
+  const newInputs = utils.generateNewTextareaValueAfterSizeChange("decrease", action.OGBlock.inputs, " ", action.stepCount, action.OGBlock.cols);
+  const newDashes = utils.generateNewTextareaValueAfterSizeChange("decrease", action.OGBlock.dashes, "-", action.stepCount, action.OGBlock.cols);
+  // updates block proeprties
+  const { cols, maxLength } = utils.generateNewSizePropertiesAfterSizeChange("decrease", action.OGBlock, action.stepCount);
+  const indexOfBlockToUpdate = state.tablature.blocks.findIndex((block) => {
+    if(action.OGBlock.tempKey && block.tempKey) {
+      return (action.OGBlock.tempKey === block.tempKey);
+    } else {
+      return (action.OGBlock._id === block._id);
+    }
+  });
+  state.tablature.blocks[indexOfBlockToUpdate] = {
+    ...action.OGBlock,
+    inputs: newInputs,
+    dashes: newDashes,
+    cols: cols,
+    maxLength: maxLength,
+  }
+  return {
+    tablature: state.tablature,
+    selectedBlock: state.selectedBlock,
+    cursor: state.cursor
+  }
+};
+
 // TODO find a better way to access selected block rather than state.tablature.blocks[state.selectedBlock.index];
 function riffinReducer(state, action) {
   switch (action.type) {
@@ -62,6 +88,7 @@ function riffinReducer(state, action) {
         cursor: utils.generateCursorPositionObject(action.selectionStart - 1)
       }
     case 'duplicateBlock':
+      // * In React.StrictMode this causes 2 blocks to be pushed into the blocks array.
       const newBlock = { ...action.blockToDuplicate, tempKey: Date() + Math.random() };
       state.tablature.blocks.push(newBlock);
       return {
@@ -70,19 +97,45 @@ function riffinReducer(state, action) {
         cursor: state.cursor
       }
     case 'deleteBlock':
-      const updatedBlocks = state.tablature.blocks.filter((block) => {
+      state.tablature.blocks = state.tablature.blocks.filter((block) => {
         if(action.block.tempKey && block.tempKey) {
           return (action.block.tempKey !== block.tempKey) 
         } else {
           return (action.block._id !== block._id) 
         }
       });
-      state.tablature.blocks = updatedBlocks;
       return {
         tablature: state.tablature,
         selectedBlock: state.selectedBlock,
         cursor: state.cursor
       }
+    case 'increaseBlockSize':
+      console.log(action)
+      const newInputs = utils.generateNewTextareaValueAfterSizeChange("increase", action.OGBlock.inputs, " ", action.stepCount, action.OGBlock.cols);
+      const newDashes = utils.generateNewTextareaValueAfterSizeChange("increase", action.OGBlock.dashes, "-", action.stepCount, action.OGBlock.cols);
+      // updates block proeprties
+      const { cols, maxLength } = utils.generateNewSizePropertiesAfterSizeChange("increase", action.OGBlock, action.stepCount);
+      const indexOfBlockToUpdate = state.tablature.blocks.findIndex((block) => {
+        if(action.OGBlock.tempKey && block.tempKey) {
+          return (action.OGBlock.tempKey === block.tempKey);
+        } else {
+          return (action.OGBlock._id === block._id);
+        }
+      });
+      state.tablature.blocks[indexOfBlockToUpdate] = {
+        ...action.OGBlock,
+        inputs: newInputs,
+        dashes: newDashes,
+        cols: cols,
+        maxLength: maxLength,
+      }
+      return {
+        tablature: state.tablature,
+        selectedBlock: state.selectedBlock,
+        cursor: state.cursor
+      }
+    case 'decreaseBlockSize':
+      return handleDecreaseBlockSize(state, action)
     default:
       return {
         tablature: state.tablature,
