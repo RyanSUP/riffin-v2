@@ -28,7 +28,7 @@ export const LEGAL_INPUTS = {
   7: "addCharacter",
   8: "addCharacter",
   9: "addCharacter",
-  "]": "duplicateChord", // duplicate chord
-  "[": "deleteChord", // duplicate deleteChord
+  "]": "duplicateColumn", // duplicate chord
+  "[": "deleteColumn", // deleteChord
   "Backspace": "deleteCharacter",
 }

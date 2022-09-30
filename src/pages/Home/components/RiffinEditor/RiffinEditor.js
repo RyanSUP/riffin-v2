@@ -48,6 +48,17 @@ function riffinReducer(state, action) {
         selectedBlock: state.selectedBlock,
         cursor: utils.generateCursorPositionObject(action.selectionStart + 1)
       }
+    case 'deleteColumn':
+      const deletionBlock = state.tablature.blocks[state.selectedBlock.index];
+      for(let position of action.positionsToDelete) {
+        deletionBlock.inputs = utils.replaceTextareaValue(deletionBlock.inputs, " ", position)
+        deletionBlock.dashes = utils.replaceTextareaValue(deletionBlock.dashes, "-", position)
+      }
+      return {
+        tablature: state.tablature,
+        selectedBlock: state.selectedBlock,
+        cursor: utils.generateCursorPositionObject(action.selectionStart - 1)
+      }
     default:
       return {
         tablature: state.tablature,

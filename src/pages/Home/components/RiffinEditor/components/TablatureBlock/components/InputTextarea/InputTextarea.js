@@ -64,7 +64,7 @@ const InputTextarea = (props) => {
     return mapOfSecondToLastColumnIndexes.includes(selectionStart)
   }
 
-  // ------------- 🛠 DUPLICATION HELPERS --------------------------------
+  // ------------- 🛠 HELPERS FOR DUPLICATING / DELETING ENTIRE COLUMNS --------------------------------
 
   /**
    * Gets the positions of the input textarea in a column directly above the curent selection.
@@ -97,14 +97,14 @@ const InputTextarea = (props) => {
   }
   
   /**
-   * Gets the column of positions in the input textarea that need to be duplicated.
+   * Gets the column of positions directly behind the cursor in the input textarea.
    * @param {Number} selectionStart 
    * @param {Number} cols 
    * @param {Number} maxLength 
    * @param {Number} numberOfStrings 
    * @returns 
    */
-  const getPositionsToDuplicate = (selectionStart, cols, maxLength, numberOfStrings) => {
+  const getColumnOfPositionsBeforeSelection = (selectionStart, cols, maxLength, numberOfStrings) => {
     let numberOfEditablePositionsOnBlock = maxLength - numberOfStrings
     let positionsAboveSelection = getPositionsAboveSelection(selectionStart - 1, cols)
     let positionsBelowSelection = getPositionsBelowSelection(selectionStart - 1, cols, numberOfEditablePositionsOnBlock)
@@ -118,7 +118,7 @@ const InputTextarea = (props) => {
    * @returns an array of objects
    */
   const generateDuplicationValues = (selectionStart) => {
-    let positionsToDuplicate = getPositionsToDuplicate(selectionStart, textAreaProperties.cols, props.block.maxLength, textAreaProperties.numberOfStrings)
+    let positionsToDuplicate = getColumnOfPositionsBeforeSelection(selectionStart, textAreaProperties.cols, props.block.maxLength, textAreaProperties.stringCount)
     let inputsAsArray = [...props.block.inputs]
     const duplicationValues = [];
     positionsToDuplicate.forEach((position) => {
@@ -131,7 +131,7 @@ const InputTextarea = (props) => {
     })
     return duplicationValues;
   }
-  // ------------- HANDLERS --------------------------------
+  // ------------- 🖐 HANDLERS --------------------------------
 
   /**
    * Sends a dispatch to update the selected block. The new selected block will be whichever block is handling the click.
@@ -228,6 +228,28 @@ const InputTextarea = (props) => {
   }
 
   /**
+   * Sends a dispatch to delete an entire column in the textarea.
+   * @param {Number} selectionStart 
+   */
+  const handleDeleteColumn = (selectionStart) => {
+    let action = {};
+    if(selectionIsOnFirstColumn(selectionStart - 1, mapOfFirstColumnIndexes)) {
+      action = {
+        type: 'updateCursorPosition',
+        selectionStart: selectionStart - 1
+      };
+    } else {
+      const positionsToDelete = getColumnOfPositionsBeforeSelection(selectionStart, textAreaProperties.cols, props.block.maxLength, textAreaProperties.stringCount)
+      action = {
+        type: 'deleteColumn',
+        positionsToDelete,
+        selectionStart: selectionStart - 1
+      }
+    }
+    dispatch(action);
+  }
+
+  /**
    * Checks the pressed key and routes to the appropriate dispatch handler.
    * @param {Object} event 
    */
@@ -235,7 +257,6 @@ const InputTextarea = (props) => {
     event.preventDefault();
     const key = event.nativeEvent.data || "Backspace";
     const dispatchType = utils.getDispatchTypeOfPressedKey(key);
-    console.log(key)
     if(dispatchType === undefined) {
       let action = {
         type: 'updateCursorPosition',
@@ -246,12 +267,14 @@ const InputTextarea = (props) => {
       handleAddCharacter(event.target.selectionStart, key)
     } else if(dispatchType === "deleteCharacter") {
       handleDeleteCharacter(event.target.selectionStart)
-    } else if(dispatchType === "duplicateChord") {
+    } else if(dispatchType === "duplicateColumn") {
       handleDuplicateColumn(event.target.selectionStart)
+    } else if(dispatchType === "deleteColumn") {
+      handleDeleteColumn(event.target.selectionStart)
     }
   };
 
-  // ------------- EFFECTS --------------------------------
+  // ------------- 🦾 EFFECTS --------------------------------
   
   /**
    * Updates the bounry maps when the size of the block changes.
@@ -278,3 +301,31 @@ const InputTextarea = (props) => {
 }
  
 export default InputTextarea;
+
+// function handleDeleteChord(mapOfFirstColumnIndexes) {
+//   if(mapOfFirstColumnIndexes[cursorPosition.position]){
+//     setCursorPosition({position: cursorPosition.position})
+//     return
+//   }
+//   const selectedBlock = tablature.blocks[selectedTablatureBlock.index]
+//   let positionsToDelete = getColumnOfPositionsBeforeSelection(cursorPosition.position, selectedBlock.cols, (selectedBlock.maxLength - tablature.numberOfStrings))
+//   if(positionsToDelete.length === 0) {
+//     return
+//   }
+//   console.log((selectedBlock.maxLength - tablature.numberOfStrings))
+//   console.log(positionsToDelete)
+//   positionsToDelete.forEach(pos => {
+//     selectedBlock.inputs = getUpdatedTextAreaValues(
+//       "inputs",
+//       " ",
+//       pos
+//     )
+//     selectedBlock.dashes = getUpdatedTextAreaValues(
+//       "dashes",
+//       "-",
+//       pos
+//     )
+//   })
+//   setCursorPosition({ position: cursorPosition.position - 1 })
+//   refreshTablatureObject()
+// }
