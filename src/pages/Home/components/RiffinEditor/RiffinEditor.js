@@ -1,4 +1,6 @@
-import { createContext, useReducer, useEffect, useState } from "react";
+import { createContext, useReducer, useEffect, useState, useContext } from "react";
+import { useNavigate, useParams } from "react-router-dom";
+import { TablatureContext } from "containers/TablatureProvider/TablatureProvider";
 import * as utils from "./Utilities";
 import TablatureBlock from "./components/TablatureBlock/TablatureBlock";
 import AddTablatureBlockButton from "./components/AddTablatureBlockButton/AddTablatureBlockButton";
@@ -11,7 +13,7 @@ const handleBlockSizeChange = (state, action)=> {
   const newInputs = utils.generateNewTextareaValueAfterSizeChange(action.type, action.OGBlock.inputs, " ", action.stepCount, action.OGBlock.cols);
   const newDashes = utils.generateNewTextareaValueAfterSizeChange(action.type, action.OGBlock.dashes, "-", action.stepCount, action.OGBlock.cols);
   // updates block proeprties
-  const { cols, maxLength } = utils.generateNewSizePropertiesAfterSizeChange(action.type, action.OGBlock, action.stepCount);
+  const { cols, maxLength } = utils.generateNewSizePropertiesAfterSizeChange(action.type, action.OGBlock, action.stepCount, state.tablature.numberOfStrings);
   const indexOfBlockToUpdate = state.tablature.blocks.findIndex((block) => {
     if(action.OGBlock.tempKey && block.tempKey) {
       return (action.OGBlock.tempKey === block.tempKey);
@@ -19,6 +21,7 @@ const handleBlockSizeChange = (state, action)=> {
       return (action.OGBlock._id === block._id);
     }
   });
+  
   state.tablature.blocks[indexOfBlockToUpdate] = {
     ...action.OGBlock,
     inputs: newInputs,
@@ -154,6 +157,14 @@ const handleUpdateBlockLabel = (state, action) => {
   }
 };
 
+const handleSetTablature = (state, action) => {
+  return {
+    tablature: action.tablature,
+    selectedBlock: state.selectedBlock,
+    cursor: state.cursor
+  }
+};
+
 // TODO find a better way to access selected block rather than state.tablature.blocks[state.selectedBlock.index];
 function riffinReducer(state, action) {
   switch (action.type) {
@@ -184,6 +195,8 @@ function riffinReducer(state, action) {
       return handleUpdateTablatureTitle(state, action);
     case 'updateBlockLabel':
       return handleUpdateBlockLabel(state, action);
+    case 'setTablature':
+      return handleSetTablature(state, action);
     default:
       return {
         tablature: state.tablature,
@@ -195,14 +208,14 @@ function riffinReducer(state, action) {
 
 const RiffinEditor = (props) => {
   // Note: `dispatch` won't change between re-renders
-  
+  const { tabId } = useParams();
   const [isLoading, setIsLoading] = useState(false);
   const [editor, dispatch] = useReducer(riffinReducer, {
     tablature: utils.getNewTablatureTemplateObject(props.numberOfStrings),
     selectedBlock: null,
     cursor: {position: null}
   });
-  
+  const { getTabFromUser } = useContext(TablatureContext)
   // Prevent crusor from jumping to end of input.
   useEffect(() => {
     if (editor.selectedBlock) {
@@ -212,6 +225,18 @@ const RiffinEditor = (props) => {
     }
   }, [editor.cursor, editor.selectedBlock]);
 
+  useEffect(() => {
+    console.log('tabId', tabId)
+    if(tabId) {
+      const tablature = getTabFromUser(tabId)
+      const action = {
+        tablature,
+        type: 'setTablature'
+      }
+      dispatch(action);
+    }
+  }, [tabId, getTabFromUser]);
+
   return (
     <RiffinEditorDispatch.Provider value={dispatch}>
       {!isLoading &&
@@ -219,7 +244,7 @@ const RiffinEditor = (props) => {
         <TitleInput />
         <SaveTabButton tablature={editor.tablature} setIsLoading={setIsLoading} tags={props.tags}/>
         {editor.tablature.blocks.map((block, i) => (
-          <TablatureBlock key={i} index={i} block={block} />)
+          <TablatureBlock key={i} index={i} block={block} numberOfStrings={editor.tablature.numberOfStrings} />)
         )}
         <AddTablatureBlockButton numberOfBlocks={editor.tablature.blocks.length} />
       </>

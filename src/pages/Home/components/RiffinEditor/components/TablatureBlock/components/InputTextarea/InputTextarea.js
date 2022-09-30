@@ -8,15 +8,14 @@ import { useTheme } from "@mui/material/styles";
 import { RiffinEditorDispatch } from "pages/Home/components/RiffinEditor/RiffinEditor";
 import { DUPLICATION_COLUMN_GAP } from "pages/Home/components/RiffinEditor/EditorConfig";
 
+const generateTextareaPropertiesObject = (cols, numberOfStrings) => {
+  return { cols, numberOfStrings}
+}
+
 const InputTextarea = (props) => {
   // * Is this state necessary since it's always derived from props.block? Refactor and remove.
-  const [textAreaProperties, setTextAreaProperties] = useState({
-    cols: props.block.cols,
-    // TODO Refactor to numberOfStrings (stringCount is more tangled than youd think >.>)
-    stringCount: props.block.numberOfStrings
-  })
-  const [mapOfLastColumnIndexes, setMapOfLastColumnIndexes] = useState(utils.getMapOfLastColumnIndexes(textAreaProperties))
-  const [mapOfFirstColumnIndexes, setMapOfFirstColumnIndexes] = useState(utils.getMapOfFirstColumnIndexes(textAreaProperties))
+  const [mapOfLastColumnIndexes, setMapOfLastColumnIndexes] = useState(utils.getMapOfLastColumnIndexes(generateTextareaPropertiesObject(props.block.cols, props.numberOfStrings)))
+  const [mapOfFirstColumnIndexes, setMapOfFirstColumnIndexes] = useState(utils.getMapOfFirstColumnIndexes(generateTextareaPropertiesObject(props.block.cols, props.numberOfStrings)))
 
   const dispatch = useContext(RiffinEditorDispatch);
   const ref = useRef();
@@ -64,6 +63,7 @@ const InputTextarea = (props) => {
     const mapOfSecondToLastColumnIndexes = Object.keys(mapOfLastColumnIndexes).map((val) => val - 1)
     return mapOfSecondToLastColumnIndexes.includes(selectionStart)
   }
+
 
   // ------------- 🛠 HELPERS FOR DUPLICATING / DELETING ENTIRE COLUMNS --------------------------------
 
@@ -119,7 +119,7 @@ const InputTextarea = (props) => {
    * @returns an array of objects
    */
   const generateDuplicationValues = (selectionStart) => {
-    let positionsToDuplicate = getColumnOfPositionsBeforeSelection(selectionStart, textAreaProperties.cols, props.block.maxLength, textAreaProperties.stringCount)
+    let positionsToDuplicate = getColumnOfPositionsBeforeSelection(selectionStart, generateTextareaPropertiesObject(props.block.cols, props.numberOfStrings).cols, props.block.maxLength, props.numberOfStrings)
     let inputsAsArray = [...props.block.inputs]
     const duplicationValues = [];
     positionsToDuplicate.forEach((position) => {
@@ -240,7 +240,7 @@ const InputTextarea = (props) => {
         selectionStart: selectionStart - 1
       };
     } else {
-      const positionsToDelete = getColumnOfPositionsBeforeSelection(selectionStart, textAreaProperties.cols, props.block.maxLength, textAreaProperties.stringCount)
+      const positionsToDelete = getColumnOfPositionsBeforeSelection(selectionStart, generateTextareaPropertiesObject(props.block.cols, props.numberOfStrings).cols, props.block.maxLength, props.numberOfStrings)
       action = {
         type: 'deleteColumn',
         positionsToDelete,
@@ -282,13 +282,9 @@ const InputTextarea = (props) => {
    */
   useEffect(() => {
     console.log('updating input area size')
-    setMapOfLastColumnIndexes(utils.getMapOfLastColumnIndexes(textAreaProperties))
-    setMapOfFirstColumnIndexes(utils.getMapOfFirstColumnIndexes(textAreaProperties))
-  }, [textAreaProperties]);
-
-  useEffect(() => {
-    setTextAreaProperties((prev) =>  { return {...prev, cols: props.block.cols}})
-  }, [props.block.cols])
+    setMapOfLastColumnIndexes(utils.getMapOfLastColumnIndexes(generateTextareaPropertiesObject(props.block.cols, props.numberOfStrings)))
+    setMapOfFirstColumnIndexes(utils.getMapOfFirstColumnIndexes(generateTextareaPropertiesObject(props.block.cols, props.numberOfStrings)))
+  }, [props.block.cols, props.numberOfStrings]);
 
   return (
     <textarea
@@ -299,7 +295,7 @@ const InputTextarea = (props) => {
       onPaste={(event) => event.preventDefault()}
       onClick={handleClick}
       cols={props.block.cols}
-      rows={textAreaProperties.stringCount}
+      rows={props.numberOfStrings}
       maxLength={props.block.maxLength}
       ref={ref}
     />

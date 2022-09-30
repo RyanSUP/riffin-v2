@@ -73,11 +73,11 @@ export const updateBlockValue = (action) => {
     cols,
     maxLength,
     action,
-    stringCount,
+    numberOfStrings,
     stepCount
   }
 */
-export const generateNewSizePropertiesAfterSizeChange = (type, block, stepCount) => {
+export const generateNewSizePropertiesAfterSizeChange = (type, block, stepCount, numberOfStrings) => {
   if((type === "increaseBlockSize" && block.cols === MAX_BLOCK_COLS) ||
     (type === "decreateBlockSize" && block.cols === MIN_BLOCK_COLS)) {
     return {
@@ -88,13 +88,13 @@ export const generateNewSizePropertiesAfterSizeChange = (type, block, stepCount)
 
   return {
     cols: block.cols + stepCount,
-    maxLength: calcNewMaxLength(block.cols + stepCount, block.numberOfStrings)
+    maxLength: calcNewMaxLength(block.cols + stepCount, numberOfStrings)
   }
 }
 
 export const getMapOfLastColumnIndexes = (action) => {
   const newLastCols = {}
-  for(let i = 0; i < action.stringCount; i++) {
+  for(let i = 0; i < action.numberOfStrings; i++) {
     const stringNum = i + 1
     const newVal = calculateNewLastCol(action.cols, stringNum, i)
     newLastCols[newVal] = true
@@ -104,7 +104,7 @@ export const getMapOfLastColumnIndexes = (action) => {
 
 export const getMapOfFirstColumnIndexes = (action) => {
   const newFirstCols = {}
-  for(let i = 0; i < action.stringCount; i++) {
+  for(let i = 0; i < action.numberOfStrings; i++) {
     const newVal = calculateNewFirstCol(action.cols, i)
     newFirstCols[newVal] = true
   }
@@ -112,15 +112,15 @@ export const getMapOfFirstColumnIndexes = (action) => {
 }
 
 // TODO Rename to createNewBlock
-export const getNewGuitarBlock = (stringCount = 6) => {
+export const getNewGuitarBlock = (numberOfStrings = 6) => {
   const action = {
-    stringCount: stringCount,
+    numberOfStrings: numberOfStrings,
     cols: DEFAULT_BLOCK_COLS
   }
   const mapOfFirstColumnIndexes = getMapOfFirstColumnIndexes(action)
   const mapOfLastColumnIndexes = getMapOfLastColumnIndexes(action)
   const mapOfSecondToLastColumnIndexes = Object.keys(mapOfLastColumnIndexes).map((val) => val - 1)
-  const initLength = (action.stringCount * action.cols) + (action.stringCount - 1)
+  const initLength = (action.numberOfStrings * action.cols) + (action.numberOfStrings - 1)
   const initTextAreaWithValue = (character) => {
     let charactersInString = [];
     for (let i = 0; i < initLength; i++) {
@@ -136,14 +136,13 @@ export const getNewGuitarBlock = (stringCount = 6) => {
   };
   const inputs = initTextAreaWithValue(" ")
   const dashes = initTextAreaWithValue("-")
-  const maxLength = calcNewMaxLength(action.cols, action.stringCount)
+  const maxLength = calcNewMaxLength(action.cols, action.numberOfStrings)
   return {
     tempKey: Date() + Math.random(),
     inputs: inputs,
     dashes: dashes,
     cols: DEFAULT_BLOCK_COLS,
     maxLength: maxLength,
-    numberOfStrings: stringCount
   };
 }
 

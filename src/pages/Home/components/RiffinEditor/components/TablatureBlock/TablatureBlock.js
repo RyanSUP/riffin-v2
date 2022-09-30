@@ -14,8 +14,8 @@ const TablatureBlock = (props) => {
         <BlockOptionsMenu block={props.block} index={props.index} />
       </Box>
       <div style={{ position: "relative"}}>
-        <InputTextarea block={props.block} index={props.index}/>
-        <DashTextarea block={props.block} />
+        <InputTextarea block={props.block} index={props.index} numberOfStrings={props.numberOfStrings}/>
+        <DashTextarea block={props.block} numberOfStrings={props.numberOfStrings}/>
       </div>
     </>
   );

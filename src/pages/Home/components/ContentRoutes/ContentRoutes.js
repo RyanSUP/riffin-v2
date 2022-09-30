@@ -26,8 +26,8 @@ const ContentRoutes = (props) => {
         <Editor key={"bass"} numberOfStrings={4} tags={props.tags} />
       }/>
       <Route path="/edit/:tabId" element={
-        <Editor tags={props.tags} />} 
-      />
+        <RiffinEditor key={"editor"} tags={props.tags}/>
+      }/>
       <Route path="*" element={<Navigate to="/new" replace />} />
     </Routes>
   );
