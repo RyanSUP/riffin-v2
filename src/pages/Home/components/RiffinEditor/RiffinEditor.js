@@ -49,6 +49,8 @@ function riffinReducer(state, action) {
         cursor: utils.generateCursorPositionObject(action.selectionStart + 1)
       }
     case 'deleteColumn':
+      console.log('action recieved', action)
+
       const deletionBlock = state.tablature.blocks[state.selectedBlock.index];
       for(let position of action.positionsToDelete) {
         deletionBlock.inputs = utils.replaceTextareaValue(deletionBlock.inputs, " ", position)
@@ -58,6 +60,27 @@ function riffinReducer(state, action) {
         tablature: state.tablature,
         selectedBlock: state.selectedBlock,
         cursor: utils.generateCursorPositionObject(action.selectionStart - 1)
+      }
+    case 'duplicateBlock':
+      const newBlock = { ...action.blockToDuplicate, tempKey: Date() + Math.random() };
+      state.tablature.blocks.push(newBlock);
+      return {
+        tablature: state.tablature,
+        selectedBlock: state.selectedBlock,
+        cursor: state.cursor
+      }
+    case 'deleteBlock':
+      const newBlocks = [];
+      state.tablature.blocks.forEach((block, i) => {
+        if (action.index !== i) {
+          newBlocks.push({ ...block });
+        }
+      });
+      state.tablature.blocks = newBlocks;
+      return {
+        tablature: state.tablature,
+        selectedBlock: state.selectedBlock,
+        cursor: state.cursor
       }
     default:
       return {

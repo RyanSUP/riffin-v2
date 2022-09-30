@@ -177,3 +177,5 @@ export const replaceTextareaValue = (textAreaValue, character, position) => {
   arrayOfCharacters[position] = character;
   return arrayOfCharacters.join("");
 }
+
+export const generateTempBlockKey = () => Date() + Math.random()
