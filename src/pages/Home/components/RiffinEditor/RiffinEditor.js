@@ -2,6 +2,7 @@ import { createContext, useReducer, useEffect } from "react";
 import * as utils from "./Utilities";
 import TablatureBlock from "./components/TablatureBlock/TablatureBlock";
 import AddTablatureBlockButton from "./components/AddTablatureBlockButton/AddTablatureBlockButton";
+import TitleInput from "./components/TitleInput/TitleInput";
 
 const RiffinEditorDispatch = createContext(null);
 
@@ -134,6 +135,24 @@ const handleAddNewBlock = (state, action) => {
   }
 };
 
+const handleUpdateTablatureTitle = (state, action) => {
+  state.tablature.name = action.name;
+  return {
+    tablature: state.tablature,
+    selectedBlock: state.selectedBlock,
+    cursor: state.cursor
+  }
+};
+
+const handleUpdateBlockLabel = (state, action) => {
+  state.tablature.blocks[action.index].label = action.value;
+  return {
+    tablature: state.tablature,
+    selectedBlock: state.selectedBlock,
+    cursor: state.cursor
+  }
+};
+
 // TODO find a better way to access selected block rather than state.tablature.blocks[state.selectedBlock.index];
 function riffinReducer(state, action) {
   switch (action.type) {
@@ -160,6 +179,10 @@ function riffinReducer(state, action) {
       return handleBlockSizeChange(state, action)
     case 'addNewBlock':
       return handleAddNewBlock(state, action);
+    case 'updateTablatureTitle':
+      return handleUpdateTablatureTitle(state, action);
+    case 'updateBlockLabel':
+      return handleUpdateBlockLabel(state, action);
     default:
       return {
         tablature: state.tablature,
@@ -188,6 +211,7 @@ const RiffinEditor = (props) => {
 
   return (
     <RiffinEditorDispatch.Provider value={dispatch}>
+      <TitleInput />
       {editor.tablature.blocks.map((block, i) => (
         <TablatureBlock key={i} index={i} block={block} />)
       )}
