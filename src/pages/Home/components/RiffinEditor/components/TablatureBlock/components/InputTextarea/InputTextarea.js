@@ -227,6 +227,10 @@ const InputTextarea = (props) => {
     dispatch(action);
   }
 
+  /**
+   * Checks the pressed key and routes to the appropriate dispatch handler.
+   * @param {Object} event 
+   */
   const handleChange = (event) => {
     event.preventDefault();
     const key = event.nativeEvent.data || "Backspace";
@@ -249,6 +253,9 @@ const InputTextarea = (props) => {
 
   // ------------- EFFECTS --------------------------------
   
+  /**
+   * Updates the bounry maps when the size of the block changes.
+   */
   useEffect(() => {
     setMapOfLastColumnIndexes(utils.getMapOfLastColumnIndexes(textAreaProperties))
     setMapOfFirstColumnIndexes(utils.getMapOfFirstColumnIndexes(textAreaProperties))
