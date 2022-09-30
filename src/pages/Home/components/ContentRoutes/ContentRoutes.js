@@ -20,7 +20,7 @@ const ContentRoutes = (props) => {
         <Editor key={"guitar"} numberOfStrings={6} tags={props.tags} />
       }/> */}
       <Route path="/new/guitar" element={
-        <RiffinEditor key={"newGuitar"} numberOfStrings={6} />
+        <RiffinEditor key={"newGuitar"} numberOfStrings={6} tags={props.tags}/>
       }/>
       <Route path="/new/bass" element={
         <Editor key={"bass"} numberOfStrings={4} tags={props.tags} />

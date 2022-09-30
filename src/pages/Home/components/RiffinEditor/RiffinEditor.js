@@ -1,8 +1,9 @@
-import { createContext, useReducer, useEffect } from "react";
+import { createContext, useReducer, useEffect, useState } from "react";
 import * as utils from "./Utilities";
 import TablatureBlock from "./components/TablatureBlock/TablatureBlock";
 import AddTablatureBlockButton from "./components/AddTablatureBlockButton/AddTablatureBlockButton";
 import TitleInput from "./components/TitleInput/TitleInput";
+import SaveTabButton from "./components/SaveTabButton/SaveTabButton";
 
 const RiffinEditorDispatch = createContext(null);
 
@@ -194,6 +195,8 @@ function riffinReducer(state, action) {
 
 const RiffinEditor = (props) => {
   // Note: `dispatch` won't change between re-renders
+  
+  const [isLoading, setIsLoading] = useState(false);
   const [editor, dispatch] = useReducer(riffinReducer, {
     tablature: utils.getNewTablatureTemplateObject(props.numberOfStrings),
     selectedBlock: null,
@@ -211,11 +214,16 @@ const RiffinEditor = (props) => {
 
   return (
     <RiffinEditorDispatch.Provider value={dispatch}>
-      <TitleInput />
-      {editor.tablature.blocks.map((block, i) => (
-        <TablatureBlock key={i} index={i} block={block} />)
-      )}
-      <AddTablatureBlockButton numberOfBlocks={editor.tablature.blocks.length} />
+      {!isLoading &&
+      <>
+        <TitleInput />
+        <SaveTabButton tablature={editor.tablature} setIsLoading={setIsLoading} tags={props.tags}/>
+        {editor.tablature.blocks.map((block, i) => (
+          <TablatureBlock key={i} index={i} block={block} />)
+        )}
+        <AddTablatureBlockButton numberOfBlocks={editor.tablature.blocks.length} />
+      </>
+      }
     </RiffinEditorDispatch.Provider>
   );
 }
