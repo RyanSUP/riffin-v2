@@ -1,22 +1,19 @@
 // Components / hooks
 import { useRef, useEffect, useState, useContext } from "react";
+import { RiffinEditorDispatch } from "pages/Home/components/RiffinEditor/RiffinEditor";
 // Utils / services
 import * as utils from "../../../../Utilities";
-
+import { DEFAULT_DUPLICATION_TARGET } from "pages/Home/components/RiffinEditor/EditorConfig";
 // MUI
 import { useTheme } from "@mui/material/styles";
-import { RiffinEditorDispatch } from "pages/Home/components/RiffinEditor/RiffinEditor";
-import { DEFAULT_DUPLICATION_TARGET } from "pages/Home/components/RiffinEditor/EditorConfig";
-
-const generateTextareaPropertiesObject = (cols, numberOfStrings) => {
-  return { cols, numberOfStrings}
-}
 
 const InputTextarea = (props) => {
-  // * Is this state necessary since it's always derived from props.block? Refactor and remove.
-  const [mapOfLastColumnIndexes, setMapOfLastColumnIndexes] = useState(utils.getMapOfLastColumnIndexes(generateTextareaPropertiesObject(props.block.cols, props.numberOfStrings)))
-  const [mapOfFirstColumnIndexes, setMapOfFirstColumnIndexes] = useState(utils.getMapOfFirstColumnIndexes(generateTextareaPropertiesObject(props.block.cols, props.numberOfStrings)))
-
+  const [mapOfLastColumnIndexes, setMapOfLastColumnIndexes] = useState(
+    utils.getMapOfLastColumnIndexes({cols: props.block.cols,numberOfStrings: props.numberOfStrings})
+  );
+  const [mapOfFirstColumnIndexes, setMapOfFirstColumnIndexes] = useState(
+    utils.getMapOfFirstColumnIndexes({cols: props.block.cols,numberOfStrings: props.numberOfStrings})
+  );
   const dispatch = useContext(RiffinEditorDispatch);
   const ref = useRef();
   const theme = useTheme();
@@ -43,7 +40,7 @@ const InputTextarea = (props) => {
    * @param {Object} mapOfLastColumnIndexes 
    * @returns true if the cursor is on the last column, otherwise false
    */
-  const selectionIsOnLastColumn = (selectionStart, mapOfLastColumnIndexes) => (selectionStart in mapOfLastColumnIndexes)
+  const selectionIsOnLastColumn = (selectionStart, mapOfLastColumnIndexes) => (selectionStart in mapOfLastColumnIndexes);
 
   /**
    * Checks if the cursor selection is on the First column.
@@ -51,7 +48,7 @@ const InputTextarea = (props) => {
    * @param {Object} mapOfFirstColumnIndexes 
    * @returns true if the cursor is on the first column, otherwise false
    */
-  const selectionIsOnFirstColumn = (selectionStart, mapOfFirstColumnIndexes) => (selectionStart in mapOfFirstColumnIndexes)
+  const selectionIsOnFirstColumn = (selectionStart, mapOfFirstColumnIndexes) => (selectionStart in mapOfFirstColumnIndexes);
 
   /**
    * Checks if the cursor selection is on the second to last column. Second to last column is rarely needed and not stored in state.
@@ -60,9 +57,9 @@ const InputTextarea = (props) => {
    * @returns true if the cursor is on the second to last column, otherwise false
    */
   const selectionIsOnSecondToLastColumn = (selectionStart, mapOfLastColumnIndexes) => {
-    const mapOfSecondToLastColumnIndexes = Object.keys(mapOfLastColumnIndexes).map((val) => val - 1)
-    return mapOfSecondToLastColumnIndexes.includes(selectionStart)
-  }
+    const mapOfSecondToLastColumnIndexes = Object.keys(mapOfLastColumnIndexes).map((val) => val - 1);
+    return mapOfSecondToLastColumnIndexes.includes(selectionStart);
+  };
 
 
   // ------------- 🛠 HELPERS FOR DUPLICATING / DELETING ENTIRE COLUMNS --------------------------------
@@ -74,13 +71,13 @@ const InputTextarea = (props) => {
    * @returns an array of positions
    */
   const getPositionsAboveSelection = (selectionStart, cols) => {
-    let arrayOfPositions = []
-    const indexGapBetweenStrings = cols + 1 // The + 1 compensates for the hidden \n
+    let arrayOfPositions = [];
+    const indexGapBetweenStrings = cols + 1; // The + 1 compensates for the hidden \n
     for(let position = selectionStart - indexGapBetweenStrings; position >= 0; position -= indexGapBetweenStrings) {
-      arrayOfPositions.push(position - 1)
+      arrayOfPositions.push(position - 1);
     }
-    return arrayOfPositions
-  }
+    return arrayOfPositions;
+  };
 
   /**
    * Gets the positions of the input textarea in a column directly below the curent selection.
@@ -89,13 +86,13 @@ const InputTextarea = (props) => {
    * @returns an array of positions
    */
   const getPositionsBelowSelection = (selectionStart, cols, editableLength) => {
-    const indexGapBetweenStrings = cols + 1 // The + 1 compensates for the hidden \n
-    let arrayOfPositions = []
+    const indexGapBetweenStrings = cols + 1; // The + 1 compensates for the hidden \n
+    let arrayOfPositions = [];
     for(let position = selectionStart + indexGapBetweenStrings; position <= editableLength; position += indexGapBetweenStrings) {
-      arrayOfPositions.push(position - 1)
+      arrayOfPositions.push(position - 1);
     }
-    return arrayOfPositions
-  }
+    return arrayOfPositions;
+  };
   
   /**
    * Gets the column of positions directly behind the cursor in the input textarea.
@@ -106,12 +103,12 @@ const InputTextarea = (props) => {
    * @returns 
    */
   const getColumnOfPositionsBeforeSelection = (selectionStart, cols, maxLength, numberOfStrings) => {
-    let numberOfEditablePositionsOnBlock = maxLength - numberOfStrings
-    let positionsAboveSelection = getPositionsAboveSelection(selectionStart - 1, cols)
-    let positionsBelowSelection = getPositionsBelowSelection(selectionStart - 1, cols, numberOfEditablePositionsOnBlock)
-    let allPositionsToDuplicate = [selectionStart - 2, ...positionsAboveSelection, ...positionsBelowSelection]
-    return allPositionsToDuplicate
-  }
+    let numberOfEditablePositionsOnBlock = maxLength - numberOfStrings;
+    let positionsAboveSelection = getPositionsAboveSelection(selectionStart - 1, cols);
+    let positionsBelowSelection = getPositionsBelowSelection(selectionStart - 1, cols, numberOfEditablePositionsOnBlock);
+    let allPositionsToDuplicate = [selectionStart - 2, ...positionsAboveSelection, ...positionsBelowSelection];
+    return allPositionsToDuplicate;
+  };
 
   /**
    * Generates an array of objects represening the inputs to be duplicated and their target positions.
@@ -119,8 +116,13 @@ const InputTextarea = (props) => {
    * @returns an array of objects
    */
   const generateDuplicationValues = (selectionStart) => {
-    let positionsToDuplicate = getColumnOfPositionsBeforeSelection(selectionStart, generateTextareaPropertiesObject(props.block.cols, props.numberOfStrings).cols, props.block.maxLength, props.numberOfStrings)
-    let inputsAsArray = [...props.block.inputs]
+    let positionsToDuplicate = getColumnOfPositionsBeforeSelection(
+      selectionStart, 
+      props.block.cols,
+      props.block.maxLength, 
+      props.numberOfStrings
+    );
+    let inputsAsArray = [...props.block.inputs];
     const duplicationValues = [];
     positionsToDuplicate.forEach((position) => {
       const characterToDuplicate = inputsAsArray[position];
@@ -128,10 +130,11 @@ const InputTextarea = (props) => {
         inputValue: characterToDuplicate,
         dashValue: (characterToDuplicate === " ") ? "-" : " ",
         targetPosition: position + DEFAULT_DUPLICATION_TARGET
-      })
-    })
+      });
+    });
     return duplicationValues;
-  }
+  };
+
   // ------------- 🖐 HANDLERS --------------------------------
 
   /**
@@ -182,7 +185,7 @@ const InputTextarea = (props) => {
       };
     }
     dispatch(action);
-  }
+  };
 
   /**
    * Sends a dispatch to remove a character into the textarea. This allows the user to delete on valid spaces. The only column that is not valid is the first column. This prevents the user form deleting a new-line characters (\n) on the previous space, which keeps the structure of the tab intact.
@@ -202,7 +205,7 @@ const InputTextarea = (props) => {
       };
     }
     dispatch(action);
-  }
+  };
 
   /**
    * Sends a dispatch to duplicate an entire column in the textarea. The values of the duplicated column will be pasted two spaces over, leaving one blank space between the original and duplicated columns.
@@ -226,7 +229,7 @@ const InputTextarea = (props) => {
       }
     }
     dispatch(action);
-  }
+  };
 
   /**
    * Sends a dispatch to delete an entire column in the textarea.
@@ -240,15 +243,20 @@ const InputTextarea = (props) => {
         selectionStart: selectionStart - 1
       };
     } else {
-      const positionsToDelete = getColumnOfPositionsBeforeSelection(selectionStart, generateTextareaPropertiesObject(props.block.cols, props.numberOfStrings).cols, props.block.maxLength, props.numberOfStrings)
+      const positionsToDelete = getColumnOfPositionsBeforeSelection(
+        selectionStart, 
+        props.block.cols, 
+        props.block.maxLength, 
+        props.numberOfStrings
+      );
       action = {
         type: 'deleteColumn',
         positionsToDelete,
         selectionStart: selectionStart - 1
-      }
+      };
     }
     dispatch(action);
-  }
+  };
 
   /**
    * Checks the pressed key and routes to the appropriate dispatch handler.
@@ -265,13 +273,13 @@ const InputTextarea = (props) => {
       };
       dispatch(action);
     } else if(dispatchType === "addCharacter") {
-      handleAddCharacter(event.target.selectionStart, key)
+      handleAddCharacter(event.target.selectionStart, key);
     } else if(dispatchType === "deleteCharacter") {
-      handleDeleteCharacter(event.target.selectionStart)
+      handleDeleteCharacter(event.target.selectionStart);
     } else if(dispatchType === "duplicateColumn") {
-      handleDuplicateColumn(event.target.selectionStart)
+      handleDuplicateColumn(event.target.selectionStart);
     } else if(dispatchType === "deleteColumn") {
-      handleDeleteColumn(event.target.selectionStart)
+      handleDeleteColumn(event.target.selectionStart);
     }
   };
 
@@ -281,9 +289,12 @@ const InputTextarea = (props) => {
    * Updates the boundry maps when the size of the block changes.
    */
   useEffect(() => {
-    console.log('updating input area size')
-    setMapOfLastColumnIndexes(utils.getMapOfLastColumnIndexes(generateTextareaPropertiesObject(props.block.cols, props.numberOfStrings)))
-    setMapOfFirstColumnIndexes(utils.getMapOfFirstColumnIndexes(generateTextareaPropertiesObject(props.block.cols, props.numberOfStrings)))
+    setMapOfLastColumnIndexes(
+      utils.getMapOfLastColumnIndexes({cols: props.block.cols,numberOfStrings: props.numberOfStrings})
+    );
+    setMapOfFirstColumnIndexes(
+      utils.getMapOfFirstColumnIndexes({cols: props.block.cols,numberOfStrings: props.numberOfStrings})
+    );
   }, [props.block.cols, props.numberOfStrings]);
 
   return (
@@ -300,6 +311,6 @@ const InputTextarea = (props) => {
       ref={ref}
     />
   );
-}
+};
  
 export default InputTextarea;
