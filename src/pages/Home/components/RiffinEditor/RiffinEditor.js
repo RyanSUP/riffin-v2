@@ -2,7 +2,6 @@
 import { createContext, useReducer, useEffect, useState, useContext } from "react";
 import { useParams } from "react-router-dom";
 import { TablatureContext } from "containers/TablatureProvider/TablatureProvider";
-import TablatureBlock from "./components/TablatureBlock/TablatureBlock";
 import AddNewBlockButton from "./components/AddNewBlockButton/AddNewBlockButton";
 import TitleInput from "./components/TitleInput/TitleInput";
 import SaveTabButton from "./components/SaveTabButton/SaveTabButton";
@@ -11,7 +10,7 @@ import LoadingPlaceholder from "containers/LoadingPlaceholder/LoadingPlaceholder
 // Utilties
 import * as utils from "./Utilities";
 // MUI
-import { Box, Container } from "@mui/material";
+import { Box } from "@mui/material";
 import BlockGroup from "./components/BlockGroup/BlockGroup";
 
 // * RiffinEditor relies on this dispatch context to update state values from child components.
