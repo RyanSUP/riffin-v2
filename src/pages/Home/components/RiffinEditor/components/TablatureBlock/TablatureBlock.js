@@ -17,7 +17,7 @@ const TablatureBlock = (props) => {
   return (
     <div onMouseEnter={handleMouseEnter} onMouseLeave={handleMouseLeave}>
       <BlockHeader block={props.block} index={props.index} showOptions={showOptions}/>
-      <div style={{ position: "relative", left: "-5px"}}>
+      <div style={{ position: "relative", left: "-4px"}}>
         <InputTextarea block={props.block} index={props.index} numberOfStrings={props.numberOfStrings}/>
         <DashTextarea block={props.block} numberOfStrings={props.numberOfStrings}/>
       </div>

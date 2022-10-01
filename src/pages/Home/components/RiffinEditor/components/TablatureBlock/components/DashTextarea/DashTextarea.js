@@ -15,7 +15,7 @@ const DashTextarea = (props) => {
     border: "none",
     fontFamily: "Fira Code",
     color: theme.palette.primary.dashes,
-    fontSize: "1.2rem",
+    fontSize: "inherit",
     padding: 0,
   };
 

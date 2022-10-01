@@ -28,7 +28,7 @@ const InputTextarea = (props) => {
     outline: "none",
     border: "none",
     color: theme.palette.primary.tabInput,
-    fontSize: "1.2rem",
+    fontSize: "inherit",
     padding: 0
   };
 

@@ -17,7 +17,7 @@ const NoteTextarea = (props) => {
     border: "none",
     borderLeft: `1px solid ${theme.palette.primary.tabInput}`,
     color: "white",
-    fontSize: "1.2rem",
+    fontSize: "inherit",
     paddingLeft: "0.5rem"
   };
 
