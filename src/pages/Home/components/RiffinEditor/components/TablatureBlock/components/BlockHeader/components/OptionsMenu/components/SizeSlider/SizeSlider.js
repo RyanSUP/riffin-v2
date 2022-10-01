@@ -1,7 +1,7 @@
 // Components / hooks
 import { RiffinEditorDispatch } from "pages/Home/components/RiffinEditor/RiffinEditor";
 import { useState, useContext } from "react";
-import {MAX_BLOCK_COLS, MIN_BLOCK_COLS} from "../../../../../../EditorConfig";
+import {MAX_BLOCK_COLS, MIN_BLOCK_COLS} from "../../../../../../../../EditorConfig";
 // MUI
 import Slider from '@mui/material/Slider';
 

@@ -38,7 +38,7 @@ const DeleteTabButton = (props) => {
   return (
     <>
       {props.tablature._id &&
-        <Button onClick={handleDelete}>Delete</Button>
+        <Button variant="outlined" onClick={handleDelete}>Delete</Button>
       }
     </>
   );

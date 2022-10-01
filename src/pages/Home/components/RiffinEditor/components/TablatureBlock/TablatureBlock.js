@@ -1,6 +1,6 @@
 import DashTextarea from "./components/DashTextarea/DashTextarea";
 import InputTextarea from "./components/InputTextarea/InputTextarea";
-import BlockHeader from "../BlockHeader/BlockHeader";
+import BlockHeader from "./components/BlockHeader/BlockHeader";
 import { useState } from "react";
 
 // TODO This has same name as anotehr component. One needs to change

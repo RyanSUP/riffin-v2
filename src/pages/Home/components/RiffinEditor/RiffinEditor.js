@@ -351,7 +351,7 @@ const RiffinEditor = (props) => {
     if(editor.tablature) {
       setIsLoading(false);
     }
-  }, [editor.tablature])
+  }, [editor.tablature]);
 
   return (
     <RiffinEditorDispatch.Provider value={dispatch}>

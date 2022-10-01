@@ -64,7 +64,7 @@ const SaveTabButton = (props) => {
   };
 
   return (
-    <Button variant="contained" onClick={handleSave}>
+    <Button variant="outlined" onClick={handleSave}>
       SAVE
     </Button>
   );
