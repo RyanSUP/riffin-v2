@@ -1,6 +1,7 @@
 // Components / hooks
 import { useState, useContext } from 'react';
 import { RiffinEditorDispatch } from "pages/Home/components/RiffinEditor/RiffinEditor";
+import SizeSlider from './components/SizeSlider/SizeSlider';
 
 // MUI
 import { styled, alpha } from '@mui/material/styles';
@@ -11,7 +12,6 @@ import Divider from '@mui/material/Divider';
 import ArchiveIcon from '@mui/icons-material/Archive';
 import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown';
 import DeleteIcon from '@mui/icons-material/Delete';
-import SizeSlider from './components/SizeSlider/SizeSlider';
 
 const StyledMenu = styled((props) => (
   <Menu
@@ -60,31 +60,44 @@ export default function BlockOptionsMenu(props) {
   const dispatch = useContext(RiffinEditorDispatch);
   const open = Boolean(anchorEl);
   
+  /**
+   * Opens the menu
+   * @param {Object} event 
+   */
   const handleClick = (event) => {
     setAnchorEl(event.currentTarget);
   };
   
+  /**
+   * Closes the menu
+   */
   const handleClose = () => {
     setAnchorEl(null);
   };
 
+  /**
+   * Dispatches a deleteBlock action to remove the block from the tablature.
+   */
   const handleDelete = () => {
     const action = {
       type: 'deleteBlock',
       block: props.block
-    }
+    };
     dispatch(action);
-    handleClose()
-  }
+    handleClose();
+  };
 
+  /**
+   * Dispatches a duplicateBlock action to add a copy of the current block to the tablature.
+   */
   const handleDuplicate = () => {
     const action = {
       type: 'duplicateBlock',
       blockToDuplicate: props.block
-    }
+    };
     console.log('dispatching', action);
     dispatch(action);
-    handleClose()
+    handleClose();
   }
 
   return (
@@ -128,4 +141,4 @@ export default function BlockOptionsMenu(props) {
       </StyledMenu>
     </div>
   );
-}
+};
