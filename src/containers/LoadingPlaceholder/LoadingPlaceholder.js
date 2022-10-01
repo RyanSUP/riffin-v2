@@ -3,7 +3,6 @@ import { LinearProgress } from "@mui/material";
 const LoadingPlaceholder = (props) => {
   return (
     <>
-    
       {props.isLoading 
         ?
           <LinearProgress />
