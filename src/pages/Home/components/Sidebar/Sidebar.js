@@ -10,7 +10,7 @@ function Sidebar(props) {
   return (
     <Container data-testid="Sidebar">
       <Box sx={{maxWidth: "175px"}}>
-        <Stack direction="column" sx={{my: 2}}>
+        <Stack direction="column">
           <CollectionButton />
           <CreateGuitarTabButton />
           <CreateBassTabButton />

@@ -31,7 +31,7 @@ const Home = () => {
       <Grid container>
 
         <Grid item xs={12}>
-          <Grid container sx={{alignItems: "center", marginTop: "16px"}}>
+          <Grid container sx={{alignItems: "center", my: "16px"}}>
 
             <Grid item xs={2}>
               <Container>
