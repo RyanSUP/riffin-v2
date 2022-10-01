@@ -1,15 +1,33 @@
+// Components / hooks
 import { createContext, useReducer, useEffect, useState, useContext } from "react";
-import { useNavigate, useParams } from "react-router-dom";
+import { useParams } from "react-router-dom";
 import { TablatureContext } from "containers/TablatureProvider/TablatureProvider";
-import * as utils from "./Utilities";
 import TablatureBlock from "./components/TablatureBlock/TablatureBlock";
 import AddTablatureBlockButton from "./components/AddTablatureBlockButton/AddTablatureBlockButton";
 import TitleInput from "./components/TitleInput/TitleInput";
 import SaveTabButton from "./components/SaveTabButton/SaveTabButton";
 import LoadingPlaceholder from "containers/LoadingPlaceholder/LoadingPlaceholder";
+// Utilties
+import * as utils from "./Utilities";
+
+// * RiffinEditor relies on this dispatch context to update state values from child components.
+// * Checkout React's documentation for more information:
+// * https://reactjs.org/docs/hooks-reference.html#usereducer
+// * https://reactjs.org/docs/hooks-faq.html#how-to-avoid-passing-callbacks-down
 
 const RiffinEditorDispatch = createContext(null);
 
+// * Note that all of these handlers get called twice while in React.StrictMode. Most work find, for example adding a character to a position twice does not have any adverse effects. However some required workarounds, such as deleteing to prevent multiple blocks from being deleted. Others have no workaround implemented.
+
+// * React.StrictMode weirdness:
+// * handleDuplicateBlock will duplicate the blocks twice.
+
+/**
+ * Updates the size of the block text areas. Dispatched from SizeSlider.
+ * @param {{}} state 
+ * @param {{}} action
+ * @returns Updated state
+ */
 const handleBlockSizeChange = (state, action)=> {
   const newInputs = utils.generateNewTextareaValueAfterSizeChange(action.type, action.OGBlock.inputs, " ", action.stepCount, action.OGBlock.cols);
   const newDashes = utils.generateNewTextareaValueAfterSizeChange(action.type, action.OGBlock.dashes, "-", action.stepCount, action.OGBlock.cols);
@@ -22,56 +40,79 @@ const handleBlockSizeChange = (state, action)=> {
       return (action.OGBlock._id === block._id);
     }
   });
-  
   state.tablature.blocks[indexOfBlockToUpdate] = {
     ...action.OGBlock,
     inputs: newInputs,
     dashes: newDashes,
     cols: cols,
     maxLength: maxLength,
-  }
+  };
   return {
     tablature: state.tablature,
     selectedBlock: state.selectedBlock,
     cursor: state.cursor
-  }
+  };
 };
 
+/**
+ * Adds a character to the dispatching block's textareas at the position of the cursor. Note that adding a character means the " " in the input textarea is replaced with the character from the action. Dashes are replaced with a " ". Dispatched from InputTextarea.
+ * @param {{}} state 
+ * @param {{}} action 
+ * @returns Updated state
+ */
 const handleAddCharacter = (state, action) => {
   const blockToAddTo = state.tablature.blocks[state.selectedBlock.index];
-  blockToAddTo.inputs = utils.replaceTextareaValue(blockToAddTo.inputs, action.character, action.selectionStart)
-  blockToAddTo.dashes = utils.replaceTextareaValue(blockToAddTo.dashes, " ", action.selectionStart)
+  blockToAddTo.inputs = utils.replaceTextareaValue(blockToAddTo.inputs, action.character, action.selectionStart);
+  blockToAddTo.dashes = utils.replaceTextareaValue(blockToAddTo.dashes, " ", action.selectionStart);
   return {
     tablature: state.tablature,
     selectedBlock: state.selectedBlock,
     cursor: utils.generateCursorPositionObject(action.selectionStart + 1)
-  }
+  };
 };
 
+/**
+ * Removes a character in the dispatching block's textareas at the position behind the cursor. Note that 'deleting' simply replaces the values of the textareas with the default values. For input textareas, values are replaced with" ". For dash textareas values are replaced with "-". Dispatched from InputTextarea.
+ * @param {{}} state 
+ * @param {{}} action 
+ * @returns Updated state
+ */
 const handleDeleteCharacter = (state, action) => {
   const blockToDeleteFrom = state.tablature.blocks[state.selectedBlock.index];
-  blockToDeleteFrom.inputs = utils.replaceTextareaValue(blockToDeleteFrom.inputs, " ", action.selectionStart)
-  blockToDeleteFrom.dashes = utils.replaceTextareaValue(blockToDeleteFrom.dashes, "-", action.selectionStart)
+  blockToDeleteFrom.inputs = utils.replaceTextareaValue(blockToDeleteFrom.inputs, " ", action.selectionStart);
+  blockToDeleteFrom.dashes = utils.replaceTextareaValue(blockToDeleteFrom.dashes, "-", action.selectionStart);
   return {
     tablature: state.tablature,
     selectedBlock: state.selectedBlock,
     cursor: utils.generateCursorPositionObject(action.selectionStart)
-  }   
+  };
 };
 
+/**
+ * Duplicates the entire column directly behind the cursor. The duplicated column will be inserted according to the EditorConfig's DUPLICATION_COLUMN_GAP VALUE. Dispatched from InputTextarea.
+ * @param {{}} state 
+ * @param {{}} action 
+ * @returns Updated state
+ */
 const handleDuplicateColumn = (state, action) => {
   const duplicationBlock = state.tablature.blocks[state.selectedBlock.index];
   for(let value of action.duplicationValues) {
-    duplicationBlock.inputs = utils.replaceTextareaValue(duplicationBlock.inputs, value.inputValue, value.targetPosition)
-    duplicationBlock.dashes = utils.replaceTextareaValue(duplicationBlock.dashes, value.dashValue, value.targetPosition)
+    duplicationBlock.inputs = utils.replaceTextareaValue(duplicationBlock.inputs, value.inputValue, value.targetPosition);
+    duplicationBlock.dashes = utils.replaceTextareaValue(duplicationBlock.dashes, value.dashValue, value.targetPosition);
   }
   return {
     tablature: state.tablature,
     selectedBlock: state.selectedBlock,
     cursor: utils.generateCursorPositionObject(action.selectionStart + 1)
-  }
+  };
 };
 
+/**
+ * Updates the cursor position and currently selected block depending on which block the user clicked. Dispatched from InputTextarea.
+ * @param {{}} state 
+ * @param {{}} action 
+ * @returns Updated state
+ */
 const handleUpdateSelection = (state, action) => {
   return {
     tablature: state.tablature,
@@ -80,53 +121,85 @@ const handleUpdateSelection = (state, action) => {
   };
 };
 
+/**
+ * Updates the cursor position. Dispatched from InputTextarea.
+ * @param {{}} state 
+ * @param {{}} action 
+ * @returns Updated state
+ */
 const handleUpdateCursorPosition = (state, action) => {
   return {
     tablature: state.tablature,
     selectedBlock: state.selectedBlock,
     cursor: utils.generateCursorPositionObject(action.selectionStart)
-  }
+  };
 };
 
+/**
+ * Replaces an entire column directly behind the cursor with default values. For input textareas, values are replaced with" ". For dash textareas values are replaced with "-". Dispatched from InputTextarea.
+ * @param {{}} state 
+ * @param {{}} action 
+ * @returns Updated state
+ */
 const handleDeleteColumn = (state, action) => {
   const deletionBlock = state.tablature.blocks[state.selectedBlock.index];
   for(let position of action.positionsToDelete) {
-    deletionBlock.inputs = utils.replaceTextareaValue(deletionBlock.inputs, " ", position)
-    deletionBlock.dashes = utils.replaceTextareaValue(deletionBlock.dashes, "-", position)
+    deletionBlock.inputs = utils.replaceTextareaValue(deletionBlock.inputs, " ", position);
+    deletionBlock.dashes = utils.replaceTextareaValue(deletionBlock.dashes, "-", position);
   }
   return {
     tablature: state.tablature,
     selectedBlock: state.selectedBlock,
     cursor: utils.generateCursorPositionObject(action.selectionStart - 1)
-  }
+  };
 };
 
+/**
+ * Deletes a block from the tablature's blocks array. Dispatched from BlockOptionsMenu.
+ * @param {{}} state 
+ * @param {{}} action 
+ * @returns Updated state
+ */
 const handleDeleteBlock = (state, action) => {
   state.tablature.blocks = state.tablature.blocks.filter((block) => {
+    // A block with either have a tempKey or an _id, depending on if the tab has been saved to the backend. This also prevents double deleting when in React.StrictMode.
     if(action.block.tempKey && block.tempKey) {
-      return (action.block.tempKey !== block.tempKey) 
+      return (action.block.tempKey !== block.tempKey);
     } else {
-      return (action.block._id !== block._id) 
+      return (action.block._id !== block._id);
     }
   });
   return {
     tablature: state.tablature,
     selectedBlock: state.selectedBlock,
     cursor: state.cursor
-  }
+  };
 };
 
+/**
+ * Duplicates a block's values and pushes the copy to the tablature.blocks array. Dispatched from BlockOptionsMenu
+ * * In React.StrictMode this causes 2 blocks to be pushed into the blocks array.
+ * * A workaround similar to handelAddNewBlock could be implemented bit would require more props.
+ * @param {{}} state
+ * @param {{}} action
+ * @returns Updated state
+ */
 const handleDuplicateBlock = (state, action) => {
-  // * In React.StrictMode this causes 2 blocks to be pushed into the blocks array.
   const newBlock = { ...action.blockToDuplicate, tempKey: Date() + Math.random() };
   state.tablature.blocks.push(newBlock);
   return {
     tablature: state.tablature,
     selectedBlock: state.selectedBlock,
     cursor: state.cursor
-  }
+  };
 };
 
+/**
+ * Pushes an empty block to the tablature blocks array. Dispatched from AddTablatureBlockButton
+ * @param {{}} state 
+ * @param {{}} action 
+ * @returns Updated state
+ */
 const handleAddNewBlock = (state, action) => {
   const newBlock = utils.getNewGuitarBlock(state.tablature.numberOfStrings)
   // * This check is a workaround to React.StrictMode's behavior of running reducers twice. Without this workaround, 2 blocks would be added.
@@ -137,27 +210,45 @@ const handleAddNewBlock = (state, action) => {
     tablature: state.tablature,
     selectedBlock: state.selectedBlock,
     cursor: state.cursor
-  }
+  };
 };
 
+/**
+ * Updates the tablature title. Dispatched from TitleInput.
+ * @param {{}} state 
+ * @param {{}} action 
+ * @returns Updated state
+ */
 const handleUpdateTablatureTitle = (state, action) => {
   state.tablature.name = action.name;
   return {
     tablature: state.tablature,
     selectedBlock: state.selectedBlock,
     cursor: state.cursor
-  }
+  };
 };
 
+/**
+ * Updates the block label. Dispatched from NoteTextarea.
+ * @param {{}} state 
+ * @param {{}} action 
+ * @returns Updated state
+ */
 const handleUpdateBlockLabel = (state, action) => {
   state.tablature.blocks[action.index].label = action.value;
   return {
     tablature: state.tablature,
     selectedBlock: state.selectedBlock,
     cursor: state.cursor
-  }
+  };
 };
 
+/**
+ * Sets the tablature object that the RiffinEditor derives all tablature data from. Dispatched from RiffinEditor when hitting a /edit/:tabId route.
+ * @param {{}} state 
+ * @param {{}} action 
+ * @returns Updated state
+ */
 const handleSetTablature = (state, action) => {
   return {
     tablature: action.tablature,
@@ -167,6 +258,13 @@ const handleSetTablature = (state, action) => {
 };
 
 // TODO find a better way to access selected block rather than state.tablature.blocks[state.selectedBlock.index];
+
+/**
+ * Reducer that handles the state of the RiffinEditor.
+ * @param {{}} state 
+ * @param {{}} action 
+ * @returns Updated state
+ */
 function riffinReducer(state, action) {
   switch (action.type) {
     case 'updateSelection':
@@ -208,7 +306,6 @@ function riffinReducer(state, action) {
 }
 
 const RiffinEditor = (props) => {
-  // Note: `dispatch` won't change between re-renders
   const { tabId } = useParams();
   const [isLoading, setIsLoading] = useState(true);
   const [editor, dispatch] = useReducer(riffinReducer, {
@@ -217,7 +314,10 @@ const RiffinEditor = (props) => {
     cursor: {position: null}
   });
   const { getTabFromUser } = useContext(TablatureContext)
-  // Prevent crusor from jumping to end of input.
+
+  /**
+   * Prevents cursor from jumping to the end of the input textarea after a key is pressed.
+   */
   useEffect(() => {
     if (editor.selectedBlock) {
       editor.selectedBlock.inputRef.current.selectionStart = editor.cursor.position;
@@ -225,7 +325,9 @@ const RiffinEditor = (props) => {
     }
   }, [editor.cursor, editor.selectedBlock]);
 
-  // Get the tablature data when hitting an edit route
+  /**
+   * Gets the tablature to edit when RiffinEditor is mounted via a /edit/:tabId route.
+   */
   useEffect(() => {
     if(tabId && getTabFromUser) {
       setIsLoading(true);
@@ -241,7 +343,9 @@ const RiffinEditor = (props) => {
     }
   }, [tabId, getTabFromUser]);
 
-  // Sets loading to false when the tablature becomes defined.
+  /**
+   * Sets loading status when tablature is defined.
+   */
   useEffect(() => {
     if(editor.tablature) {
       setIsLoading(false);
