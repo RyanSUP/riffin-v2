@@ -5,6 +5,10 @@ import { useTheme } from "@mui/material/styles";
 // MUI
 import { TextareaAutosize } from "@mui/material";
 
+/**
+ * * NoteTextarea is the textarea above the tablature. It allows users to take multi-line notes. The length of the textarea fills up the space between the container's left edge and the right edge of the Options button.
+ */
+
 const NoteTextarea = (props) => {
   const theme = useTheme();
   const dispatcher = useContext(RiffinEditorDispatch);

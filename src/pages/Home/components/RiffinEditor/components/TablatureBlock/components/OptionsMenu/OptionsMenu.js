@@ -2,7 +2,6 @@
 import { useState, useContext } from 'react';
 import { RiffinEditorDispatch } from "pages/Home/components/RiffinEditor/RiffinEditor";
 import SizeSlider from './components/SizeSlider/SizeSlider';
-
 // MUI
 import { styled, alpha } from '@mui/material/styles';
 import Button from '@mui/material/Button';
@@ -12,6 +11,11 @@ import Divider from '@mui/material/Divider';
 import ArchiveIcon from '@mui/icons-material/Archive';
 import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown';
 import DeleteIcon from '@mui/icons-material/Delete';
+
+/**
+ * * Most of the this is adapted straight from the MUI documentation 
+ * https://mui.com/material-ui/react-menu/#customization
+ */
 
 const StyledMenu = styled((props) => (
   <Menu

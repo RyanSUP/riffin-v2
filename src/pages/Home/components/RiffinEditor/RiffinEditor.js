@@ -4,13 +4,16 @@ import { useParams } from "react-router-dom";
 import { TablatureContext } from "containers/TablatureProvider/TablatureProvider";
 import AddNewBlockButton from "./components/AddNewBlockButton/AddNewBlockButton";
 import LoadingPlaceholder from "containers/LoadingPlaceholder/LoadingPlaceholder";
-import BlockGroup from "./components/BlockGroup/BlockGroup";
 import MobileEditor from "./components/MobileEditor/MobileEditor";
+import TitleInput from "./components/TitleInput/TitleInput";
+import DeleteTabButton from "./components/DeleteTabButton/DeleteTabButton";
+import SaveTabButton from "./components/SaveTabButton/SaveTabButton";
+import TablatureBlock from "./components/TablatureBlock/TablatureBlock";
 // Utilties
 import * as utils from "./Utilities";
 // MUI
-import { Box } from "@mui/material";
-import Header from "./components/Header/Header";
+import { Box, Grid } from "@mui/material";
+
 
 // * RiffinEditor relies on this dispatch context to update state values from child components.
 // * Checkout React's documentation for more information:
@@ -356,8 +359,26 @@ const RiffinEditor = (props) => {
       <Box display={{ xs: 'none', sm: 'none', md: 'block', lg: 'block' }}>
         <RiffinEditorDispatch.Provider value={dispatch}>
           <LoadingPlaceholder isLoading={isLoading}>
-            <Header tablature={editor.tablature} setIsLoading={setIsLoading} tags={props.tags}/>
-            <BlockGroup tablature={editor.tablature} />
+            <Grid container rowSpacing={2} columnSpacing={4}>
+              <Grid item>
+                <TitleInput />
+              </Grid>
+              <Grid item>
+                <SaveTabButton 
+                  tablature={editor.tablature} 
+                  setIsLoading={setIsLoading} 
+                  tags={props.tags}
+                />
+              </Grid>
+              <Grid item>
+                <DeleteTabButton tablature={editor.tablature} />
+              </Grid>
+            </Grid>
+            {editor.tablature.blocks.map((block, i) => (
+            <Box sx={{my: 4}} key={i}>
+              <TablatureBlock key={i} index={i} block={block} numberOfStrings={editor.tablature.numberOfStrings} />
+            </Box>
+            ))}
             <AddNewBlockButton numberOfBlocks={editor.tablature.blocks.length} />
           </LoadingPlaceholder>
         </RiffinEditorDispatch.Provider>

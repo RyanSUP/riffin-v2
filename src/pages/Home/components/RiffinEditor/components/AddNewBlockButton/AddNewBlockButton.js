@@ -5,6 +5,10 @@ import { useContext } from 'react';
 import PlaylistAddIcon from '@mui/icons-material/PlaylistAdd';
 import { Button } from "@mui/material";
 
+/**
+ * * Button to add a new tablature block to the document.
+ */
+
 const AddNewBlockButton = (props) => {
   const dispatcher = useContext(RiffinEditorDispatch);
 

@@ -1,6 +1,10 @@
 // Components / hooks
 import { useTheme } from "@mui/material/styles";
 
+/**
+ * * DashTextarea is readonly and displays the dashes behind the input textarea. It is absolutely positioned and uses a z-index to ensure the user can't interact with the textarea (the textarea is readonly for an additional safeguard). The values are derived from the user actions in the InputTextarea.
+ */
+
 const DashTextarea = (props) => {
   const theme = useTheme();
   const dashesStyle = {

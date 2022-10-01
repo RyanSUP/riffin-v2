@@ -1,5 +1,5 @@
 // Components / hooks
-import { RiffinEditorDispatch } from "../../../../RiffinEditor";
+import { RiffinEditorDispatch } from "../../RiffinEditor";
 import { useContext } from "react";
 // MUI
 import { TextField } from "@mui/material";
