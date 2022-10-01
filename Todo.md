@@ -1,6 +1,6 @@
 Focus:
 - [ ] Write tests for Riffin Editor
-- [ ] Write documentation for Riffin Editor
+- [x] ~~Write documentation for Riffin Editor~~
 - [ ] Create constraints for the editor
   - [ ] Max blocks / max note size
 - [x] ~~Add padding to Save / Delete buttons~~
