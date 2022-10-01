@@ -13,6 +13,7 @@ import MobileEditor from "./components/MobileEditor/MobileEditor";
 import * as utils from "./Utilities";
 // MUI
 import { Box } from "@mui/material";
+import Header from "./components/Header/Header";
 
 // * RiffinEditor relies on this dispatch context to update state values from child components.
 // * Checkout React's documentation for more information:
@@ -358,11 +359,7 @@ const RiffinEditor = (props) => {
       <Box display={{ xs: 'none', sm: 'none', md: 'block', lg: 'block' }}>
         <RiffinEditorDispatch.Provider value={dispatch}>
           <LoadingPlaceholder isLoading={isLoading}>
-            <Box sx={{my: 2}}>
-              <TitleInput />
-              <SaveTabButton tablature={editor.tablature} setIsLoading={setIsLoading} tags={props.tags}/>
-              <DeleteTabButton tablature={editor.tablature} />
-            </Box>
+            <Header tablature={editor.tablature} setIsLoading={setIsLoading} tags={props.tags}/>
             <BlockGroup tablature={editor.tablature} />
             <AddNewBlockButton numberOfBlocks={editor.tablature.blocks.length} />
           </LoadingPlaceholder>
