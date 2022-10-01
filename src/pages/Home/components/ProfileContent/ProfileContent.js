@@ -13,6 +13,7 @@ const ProfileContent = () => {
   const { usersTablature } = useContext(TablatureContext);
   const navigate = useNavigate();
 
+  // TODO Handle nav for non users
   useEffect(() => {
     if(user && cognitoUsername && (user.username !== cognitoUsername)) {
       navigate(`/profile/${user.username}`)
