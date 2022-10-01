@@ -18,7 +18,7 @@ import * as utils from "./Utilities";
 
 const RiffinEditorDispatch = createContext(null);
 
-// * Note that all of these handlers get called twice while in React.StrictMode. Most work find, for example adding a character to a position twice does not have any adverse effects. However some required workarounds, such as deleteing to prevent multiple blocks from being deleted. Others have no workaround implemented.
+// * Note that all of these handlers get called twice while in React.StrictMode. Most work fine, for example adding a character to a textarea position twice does not have any adverse effects. However some required workarounds such as deleteing to prevent multiple blocks from being deleted. Others have no workaround implemented.
 
 // * React.StrictMode weirdness:
 // * handleDuplicateBlock will duplicate the blocks twice.
@@ -26,7 +26,7 @@ const RiffinEditorDispatch = createContext(null);
 /**
  * Updates the size of the block text areas. Dispatched from SizeSlider.
  * @param {Object} state - the current state of editor
- * @param {Object} action - an object specifying the action to perform and data relevant to the action..
+ * @param {Object} action - an object specifying the action to perform and data relevant to the action.
  * @returns Updated state
  */
 const handleBlockSizeChange = (state, action)=> {
@@ -181,7 +181,7 @@ const handleDeleteBlock = (state, action) => {
 /**
  * Duplicates a block's values and pushes the copy to the tablature.blocks array. Dispatched from BlockOptionsMenu
  * * In React.StrictMode this causes 2 blocks to be pushed into the blocks array.
- * * A workaround similar to handelAddNewBlock could be implemented bit would require more props.
+ * * A workaround similar to handelAddNewBlock could be implemented but would require more props.
  * @param {Object} state
  * @param {Object} action - an object specifying the action to perform and data relevant to the action.
  * @returns Updated state
@@ -223,11 +223,7 @@ const handleAddNewBlock = (state, action) => {
  */
 const handleUpdateTablatureTitle = (state, action) => {
   state.tablature.name = action.name;
-  return {
-    tablature: state.tablature,
-    selectedBlock: state.selectedBlock,
-    cursor: state.cursor
-  };
+  return state;
 };
 
 /**
