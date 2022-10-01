@@ -1,4 +1,4 @@
-import AddTablatureBlockButton from "./AddTablatureBlockButton";
+import AddNewBlockButton from "./AddNewBlockButton";
 import { testTab } from "utils/TestUtils/TestUtils";
 import userEvent from "@testing-library/user-event";
 import { render, screen } from "@testing-library/react";
@@ -6,7 +6,7 @@ import { render, screen } from "@testing-library/react";
 test('adds a note block to the editor', async () => {
   const tablature = { ...testTab}
   const refreshTablatureObject = jest.fn()
-  render(<AddTablatureBlockButton 
+  render(<AddNewBlockButton 
     tablature={tablature} 
     refreshTablatureObject={refreshTablatureObject}
   />)

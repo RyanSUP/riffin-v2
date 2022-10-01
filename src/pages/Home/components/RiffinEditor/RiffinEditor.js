@@ -3,7 +3,7 @@ import { createContext, useReducer, useEffect, useState, useContext } from "reac
 import { useParams } from "react-router-dom";
 import { TablatureContext } from "containers/TablatureProvider/TablatureProvider";
 import TablatureBlock from "./components/TablatureBlock/TablatureBlock";
-import AddTablatureBlockButton from "./components/AddTablatureBlockButton/AddTablatureBlockButton";
+import AddNewBlockButton from "./components/AddNewBlockButton/AddNewBlockButton";
 import TitleInput from "./components/TitleInput/TitleInput";
 import SaveTabButton from "./components/SaveTabButton/SaveTabButton";
 import LoadingPlaceholder from "containers/LoadingPlaceholder/LoadingPlaceholder";
@@ -196,7 +196,7 @@ const handleDuplicateBlock = (state, action) => {
 };
 
 /**
- * Pushes an empty block to the tablature blocks array. Dispatched from AddTablatureBlockButton
+ * Pushes an empty block to the tablature blocks array. Dispatched from AddNewBlock
  * @param {Object} state - the current state of editor
  * @param {Object} action - an object specifying the action to perform and data relevant to the action. 
  * @returns Updated state
@@ -361,7 +361,7 @@ const RiffinEditor = (props) => {
         {editor.tablature.blocks.map((block, i) => (
           <TablatureBlock key={i} index={i} block={block} numberOfStrings={editor.tablature.numberOfStrings} />)
         )}
-        <AddTablatureBlockButton numberOfBlocks={editor.tablature.blocks.length} />
+        <AddNewBlockButton numberOfBlocks={editor.tablature.blocks.length} />
       </LoadingPlaceholder>
     </RiffinEditorDispatch.Provider>
   );

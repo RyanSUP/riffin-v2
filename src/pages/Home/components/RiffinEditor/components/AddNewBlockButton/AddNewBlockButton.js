@@ -5,7 +5,7 @@ import { useContext } from 'react';
 import PlaylistAddIcon from '@mui/icons-material/PlaylistAdd';
 import { Button } from "@mui/material";
 
-const AddTablatureBlockButton = (props) => {
+const AddNewBlockButton = (props) => {
   const dispatcher = useContext(RiffinEditorDispatch);
 
   /**
@@ -27,4 +27,4 @@ const AddTablatureBlockButton = (props) => {
   );
 };
  
-export default AddTablatureBlockButton;
+export default AddNewBlockButton;
