@@ -5,12 +5,7 @@ export const calculateNewFirstCol = (numberOfCols, index) => (numberOfCols + 1) 
 export const calculateNewLastCol = (numberOfCols, stringNum, index) => (numberOfCols * stringNum) + index
 
 
-export const generateNewTextareaValueAfterSizeChange = (type, originalValue, characterToFill, stepCount, cols) => {
-  // * Move to dispatcher when replacing guts with callback
-  if((type === "increaseBlockSize" && cols === MAX_BLOCK_COLS) ||
-    (type === "decreateBlockSize" && cols === MIN_BLOCK_COLS)) {
-    return originalValue;
-  }
+export const generateNewTextareaValueAfterSizeChange = (type, originalValue, characterToFill, stepCount) => {
   const guitarStrings = originalValue.split('\n')
   let newValueString = ""
   for(let i = 0; i < guitarStrings.length; i++) {
@@ -19,41 +14,6 @@ export const generateNewTextareaValueAfterSizeChange = (type, originalValue, cha
       // * Replace with a callback?
       if(type === "increaseBlockSize") {
         array[array.length - 1] = characterToFill
-        array.push('|')
-      } else {
-        array.pop()
-        array[array.length - 1] = "|"
-      }
-    }
-    if(i !== guitarStrings.length - 1) { // Last string doesn't need a newline char
-      array.push("\n")
-    }
-    newValueString += array.join("")
-  }
-  return newValueString
-}
-
-/* 
-  Needs an actions object with the following properties:
-  area
-  characterToAdd
-  action
-  cols,
-  stepCount
-*/
-export const updateBlockValue = (action) => {
-  if((action.type === "increaseBlockSize" && action.cols === MAX_BLOCK_COLS) ||
-    (action.type === "decreateBlockSize" && action.cols === MIN_BLOCK_COLS)) {
-    return action.area
-  }
-
-  const guitarStrings = action.area.split('\n')
-  let newValueString = ""
-  for(let i = 0; i < guitarStrings.length; i++) {
-    const array = [...guitarStrings[i]]
-    for(let j = 0; j < Math.abs(action.stepCount); j++) {
-      if(action.type === "increaseBlockSize") {
-        array[array.length - 1] = action.characterToAdd
         array.push('|')
       } else {
         array.pop()
