@@ -23,7 +23,7 @@ const ContentRoutes = (props) => {
         <RiffinEditor key={"newGuitar"} numberOfStrings={6} tags={props.tags}/>
       }/>
       <Route path="/new/bass" element={
-        <Editor key={"bass"} numberOfStrings={4} tags={props.tags} />
+        <RiffinEditor key={"bass"} numberOfStrings={4} tags={props.tags} />
       }/>
       <Route path="/edit/:tabId" element={
         <RiffinEditor key={"editor"} tags={props.tags}/>
