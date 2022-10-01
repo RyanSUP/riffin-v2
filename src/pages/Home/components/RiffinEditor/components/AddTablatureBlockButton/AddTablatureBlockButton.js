@@ -7,6 +7,10 @@ import { Button } from "@mui/material";
 
 const AddTablatureBlockButton = (props) => {
   const dispatcher = useContext(RiffinEditorDispatch);
+
+  /**
+   * Dispatches an addNewBlock action.
+   */
   const handleClick = () => {
     const action = {
       type: 'addNewBlock',
@@ -14,12 +18,13 @@ const AddTablatureBlockButton = (props) => {
       numberOfBlocksBeforeAdding: props.numberOfBlocks
     }
     dispatcher(action);
-  }
+  };
+
   return (
     <Button variant="outlined" onClick={handleClick} endIcon={<PlaylistAddIcon />}>
       add tablature
     </Button>
   );
-}
+};
  
 export default AddTablatureBlockButton;
