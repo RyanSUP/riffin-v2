@@ -3,9 +3,6 @@ import { createContext, useReducer, useEffect, useState, useContext } from "reac
 import { useParams } from "react-router-dom";
 import { TablatureContext } from "containers/TablatureProvider/TablatureProvider";
 import AddNewBlockButton from "./components/AddNewBlockButton/AddNewBlockButton";
-import TitleInput from "./components/TitleInput/TitleInput";
-import SaveTabButton from "./components/SaveTabButton/SaveTabButton";
-import DeleteTabButton from "./components/DeleteTabButton/DeleteTabButton";
 import LoadingPlaceholder from "containers/LoadingPlaceholder/LoadingPlaceholder";
 import BlockGroup from "./components/BlockGroup/BlockGroup";
 import MobileEditor from "./components/MobileEditor/MobileEditor";

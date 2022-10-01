@@ -1,6 +1,6 @@
-import TitleInput from "../TitleInput/TitleInput";
-import SaveTabButton from "../SaveTabButton/SaveTabButton";
-import DeleteTabButton from "../DeleteTabButton/DeleteTabButton";
+import TitleInput from "./components/TitleInput/TitleInput";
+import SaveTabButton from "./components/SaveTabButton/SaveTabButton";
+import DeleteTabButton from "./components/DeleteTabButton/DeleteTabButton";
 import { Grid } from "@mui/material";
 const Header = (props) => {
 
