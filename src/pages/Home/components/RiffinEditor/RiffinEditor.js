@@ -32,7 +32,8 @@ const handleBlockSizeChange = (state, action)=> {
   const newInputs = utils.generateNewTextareaValueAfterSizeChange(action.type, action.OGBlock.inputs, " ", action.stepCount);
   const newDashes = utils.generateNewTextareaValueAfterSizeChange(action.type, action.OGBlock.dashes, "-", action.stepCount);
   // updates block proeprties
-  const { cols, maxLength } = utils.generateNewSizePropertiesAfterSizeChange(action.type, action.OGBlock, action.stepCount, state.tablature.numberOfStrings);
+  const newColumnCount = action.OGBlock.cols + action.stepCount;
+  const newMaxLength = utils.calcTextareaMaxLength(newColumnCount, state.tablature.numberOfStrings)
   const indexOfBlockToUpdate = state.tablature.blocks.findIndex((block) => {
     if(action.OGBlock.tempKey && block.tempKey) {
       return (action.OGBlock.tempKey === block.tempKey);
@@ -44,8 +45,8 @@ const handleBlockSizeChange = (state, action)=> {
     ...action.OGBlock,
     inputs: newInputs,
     dashes: newDashes,
-    cols: cols,
-    maxLength: maxLength,
+    cols: newColumnCount,
+    maxLength: newMaxLength,
   };
   return {
     tablature: state.tablature,
