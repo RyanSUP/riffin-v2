@@ -24,8 +24,8 @@ const RiffinEditorDispatch = createContext(null);
 
 /**
  * Updates the size of the block text areas. Dispatched from SizeSlider.
- * @param {{}} state 
- * @param {{}} action
+ * @param {Object} state - the current state of editor
+ * @param {Object} action - an object specifying the action to perform and data relevant to the action..
  * @returns Updated state
  */
 const handleBlockSizeChange = (state, action)=> {
@@ -56,8 +56,8 @@ const handleBlockSizeChange = (state, action)=> {
 
 /**
  * Adds a character to the dispatching block's textareas at the position of the cursor. Note that adding a character means the " " in the input textarea is replaced with the character from the action. Dashes are replaced with a " ". Dispatched from InputTextarea.
- * @param {{}} state 
- * @param {{}} action 
+ * @param {Object} state - the current state of editor
+ * @param {Object} action - an object specifying the action to perform and data relevant to the action. 
  * @returns Updated state
  */
 const handleAddCharacter = (state, action) => {
@@ -73,8 +73,8 @@ const handleAddCharacter = (state, action) => {
 
 /**
  * Removes a character in the dispatching block's textareas at the position behind the cursor. Note that 'deleting' simply replaces the values of the textareas with the default values. For input textareas, values are replaced with" ". For dash textareas values are replaced with "-". Dispatched from InputTextarea.
- * @param {{}} state 
- * @param {{}} action 
+ * @param {Object} state - the current state of editor
+ * @param {Object} action - an object specifying the action to perform and data relevant to the action. 
  * @returns Updated state
  */
 const handleDeleteCharacter = (state, action) => {
@@ -90,8 +90,8 @@ const handleDeleteCharacter = (state, action) => {
 
 /**
  * Duplicates the entire column directly behind the cursor. The duplicated column will be inserted according to the EditorConfig's DUPLICATION_COLUMN_GAP VALUE. Dispatched from InputTextarea.
- * @param {{}} state 
- * @param {{}} action 
+ * @param {Object} state - the current state of editor
+ * @param {Object} action - an object specifying the action to perform and data relevant to the action. 
  * @returns Updated state
  */
 const handleDuplicateColumn = (state, action) => {
@@ -109,8 +109,8 @@ const handleDuplicateColumn = (state, action) => {
 
 /**
  * Updates the cursor position and currently selected block depending on which block the user clicked. Dispatched from InputTextarea.
- * @param {{}} state 
- * @param {{}} action 
+ * @param {Object} state - the current state of editor
+ * @param {Object} action - an object specifying the action to perform and data relevant to the action. 
  * @returns Updated state
  */
 const handleUpdateSelection = (state, action) => {
@@ -123,8 +123,8 @@ const handleUpdateSelection = (state, action) => {
 
 /**
  * Updates the cursor position. Dispatched from InputTextarea.
- * @param {{}} state 
- * @param {{}} action 
+ * @param {Object} state - the current state of editor
+ * @param {Object} action - an object specifying the action to perform and data relevant to the action. 
  * @returns Updated state
  */
 const handleUpdateCursorPosition = (state, action) => {
@@ -137,8 +137,8 @@ const handleUpdateCursorPosition = (state, action) => {
 
 /**
  * Replaces an entire column directly behind the cursor with default values. For input textareas, values are replaced with" ". For dash textareas values are replaced with "-". Dispatched from InputTextarea.
- * @param {{}} state 
- * @param {{}} action 
+ * @param {Object} state - the current state of editor
+ * @param {Object} action - an object specifying the action to perform and data relevant to the action. 
  * @returns Updated state
  */
 const handleDeleteColumn = (state, action) => {
@@ -156,8 +156,8 @@ const handleDeleteColumn = (state, action) => {
 
 /**
  * Deletes a block from the tablature's blocks array. Dispatched from BlockOptionsMenu.
- * @param {{}} state 
- * @param {{}} action 
+ * @param {Object} state - the current state of editor
+ * @param {Object} action - an object specifying the action to perform and data relevant to the action. 
  * @returns Updated state
  */
 const handleDeleteBlock = (state, action) => {
@@ -180,8 +180,8 @@ const handleDeleteBlock = (state, action) => {
  * Duplicates a block's values and pushes the copy to the tablature.blocks array. Dispatched from BlockOptionsMenu
  * * In React.StrictMode this causes 2 blocks to be pushed into the blocks array.
  * * A workaround similar to handelAddNewBlock could be implemented bit would require more props.
- * @param {{}} state
- * @param {{}} action
+ * @param {Object} state
+ * @param {Object} action - an object specifying the action to perform and data relevant to the action.
  * @returns Updated state
  */
 const handleDuplicateBlock = (state, action) => {
@@ -196,8 +196,8 @@ const handleDuplicateBlock = (state, action) => {
 
 /**
  * Pushes an empty block to the tablature blocks array. Dispatched from AddTablatureBlockButton
- * @param {{}} state 
- * @param {{}} action 
+ * @param {Object} state - the current state of editor
+ * @param {Object} action - an object specifying the action to perform and data relevant to the action. 
  * @returns Updated state
  */
 const handleAddNewBlock = (state, action) => {
@@ -215,8 +215,8 @@ const handleAddNewBlock = (state, action) => {
 
 /**
  * Updates the tablature title. Dispatched from TitleInput.
- * @param {{}} state 
- * @param {{}} action 
+ * @param {Object} state - the current state of editor
+ * @param {Object} action - an object specifying the action to perform and data relevant to the action. 
  * @returns Updated state
  */
 const handleUpdateTablatureTitle = (state, action) => {
@@ -230,8 +230,8 @@ const handleUpdateTablatureTitle = (state, action) => {
 
 /**
  * Updates the block label. Dispatched from NoteTextarea.
- * @param {{}} state 
- * @param {{}} action 
+ * @param {Object} state - the current state of editor
+ * @param {Object} action - an object specifying the action to perform and data relevant to the action. 
  * @returns Updated state
  */
 const handleUpdateBlockLabel = (state, action) => {
@@ -245,8 +245,8 @@ const handleUpdateBlockLabel = (state, action) => {
 
 /**
  * Sets the tablature object that the RiffinEditor derives all tablature data from. Dispatched from RiffinEditor when hitting a /edit/:tabId route.
- * @param {{}} state 
- * @param {{}} action 
+ * @param {Object} state - the current state of editor
+ * @param {Object} action - an object specifying the action to perform and data relevant to the action. 
  * @returns Updated state
  */
 const handleSetTablature = (state, action) => {
@@ -261,8 +261,8 @@ const handleSetTablature = (state, action) => {
 
 /**
  * Reducer that handles the state of the RiffinEditor.
- * @param {{}} state 
- * @param {{}} action 
+ * @param {Object} state - the current state of editor
+ * @param {Object} action - an object specifying the action to perform and data relevant to the action. All actions require at least a type property.
  * @returns Updated state
  */
 function riffinReducer(state, action) {
