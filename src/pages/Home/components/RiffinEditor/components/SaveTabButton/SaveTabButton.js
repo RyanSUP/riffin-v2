@@ -14,21 +14,31 @@ import { Button } from "@mui/material";
 const SaveTabButton = (props) => {
   const { user } = useContext(UserContext);
   const { addToUsersTablature, updateUserTablature } = useContext(TablatureContext);
-  const navigate = useNavigate()
+  const navigate = useNavigate();
 
+  /**
+   * Saves a new tablature or updates an existing tablature.
+   */
   const handleSave = async () => {
     const idToken = getIdTokenFromUser(user);
-    props.tablature.tags = props.tags
-    props.tablature.owner = user.username
+    props.tablature.tags = props.tags;
+    props.tablature.owner = user.username;
 
+    /**
+     * Sends a request to the backend to update the tablature.
+     */
     const updateExistingTablature = () => {
       props.setIsLoading(true);
       tablatureServices.update(props.tablature, idToken)
       .then((res) => {
         props.setIsLoading(false);
       });
-    }
-  
+    };
+    
+    /**
+     * Sends a request to the backend to create a new tablature.
+     * @returns the id assigned to the saved tablature.
+     */
     const saveNewTablature = () => {
       props.setIsLoading(true);
       return tablatureServices
@@ -37,7 +47,7 @@ const SaveTabButton = (props) => {
         props.setIsLoading(false);
         return tablatureFromResponse;
       });
-    }
+    };
     
     if (props.tablature._id) {
       updateUserTablature(props.tablature);
@@ -54,6 +64,6 @@ const SaveTabButton = (props) => {
       SAVE
     </Button>
   );
-}
+};
  
 export default SaveTabButton;
