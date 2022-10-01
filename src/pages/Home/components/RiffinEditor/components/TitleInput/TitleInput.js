@@ -16,7 +16,7 @@ const TitleInput = () => {
     const action = {
       type: 'updateTablatureTitle',
       name: event.target.value
-    }
+    };
     dispatcher(action);
   };
 

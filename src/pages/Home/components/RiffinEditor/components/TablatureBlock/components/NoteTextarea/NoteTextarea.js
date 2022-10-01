@@ -1,9 +1,9 @@
-// MUI
-import { TextareaAutosize } from "@mui/material";
-import { useTheme } from "@mui/material/styles";
-
+// Components / hooks
 import { useContext } from "react";
 import { RiffinEditorDispatch } from "pages/Home/components/RiffinEditor/RiffinEditor";
+import { useTheme } from "@mui/material/styles";
+// MUI
+import { TextareaAutosize } from "@mui/material";
 
 const NoteTextarea = (props) => {
   const theme = useTheme();
@@ -20,16 +20,19 @@ const NoteTextarea = (props) => {
     fontSize: "1.2rem",
   };
 
+  /**
+   * Updates the value of the block's label property when a user types in the Textarea.
+   * @param {Object} event - needed so it can be prevented.
+   */
   const handleChange = (event) => {
-    event.preventDefault()
+    event.preventDefault();
     const action = {
       type: 'updateBlockLabel',
       value: event.target.value,
       index: props.index
-    }
+    };
     dispatcher(action);
   }
-
 
   return (
       <TextareaAutosize
