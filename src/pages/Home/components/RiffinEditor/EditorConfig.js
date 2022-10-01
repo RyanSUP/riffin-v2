@@ -1,16 +1,52 @@
-export const STEP_COUNT = 5
-export const BASS_STRING_COUNT = 4
-export const GUITAR_STRING_COUNT = 6
-export const MIN_BLOCK_COLS = 20
-export const DEFAULT_BLOCK_COLS = 40
-export const MAX_BLOCK_COLS = 80
-export const DUPLICATION_COLUMN_GAP = 2
+/**
+ * How many columns are between steps in the SizeSlider.
+ */
+export const STEP_COUNT = 5;
+
+/**
+ * Rows of the textarea when editing a bass tab.
+ */
+export const BASS_STRING_COUNT = 4;
+
+/**
+ * Rows of the textarea when editing a guitar tab.
+ */
+export const GUITAR_STRING_COUNT = 6;
+
+/**
+ * Minimum allowable columns the textarea can be sized down to.
+ */
+export const MIN_BLOCK_COLS = 20;
+
+/**
+ * Maximum allowable columns the textarea can be sized
+ */
+export const MAX_BLOCK_COLS = 80;
+
+/**
+ * The default amount of columns that a block starts with.
+ */
+export const DEFAULT_BLOCK_COLS = 40;
+
+/**
+ * Controls how many columns to skip when duplicating a column. A target of 2 looks as follows:
+ * [x][ ][ ] (duplicate) => [x][ ][x]
+ */
+export const DEFAULT_DUPLICATION_TARGET = 2;
+
+/**
+ * Map of allowable movement keys. The value is not used.
+ */
 export const MOVEMENT_KEYS = {
   ArrowDown: true,
   ArrowLeft: true,
   ArrowRight: true,
   ArrowUp: true,
 };
+
+/**
+ * Key/Value pairs of allowable inputs. The "key" is the pressed keyboard key and the "value" is the dispatch action associated with the key.
+ */
 export const LEGAL_INPUTS = {
   "~": "addCharacter", // vibrato
   "/": "addCharacter", // slide
@@ -31,4 +67,4 @@ export const LEGAL_INPUTS = {
   "]": "duplicateColumn", // duplicate chord
   "[": "deleteColumn", // deleteChord
   "Backspace": "deleteCharacter",
-}
+};

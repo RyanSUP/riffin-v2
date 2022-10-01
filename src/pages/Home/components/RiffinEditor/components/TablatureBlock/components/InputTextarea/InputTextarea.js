@@ -6,7 +6,7 @@ import * as utils from "../../../../Utilities";
 // MUI
 import { useTheme } from "@mui/material/styles";
 import { RiffinEditorDispatch } from "pages/Home/components/RiffinEditor/RiffinEditor";
-import { DUPLICATION_COLUMN_GAP } from "pages/Home/components/RiffinEditor/EditorConfig";
+import { DEFAULT_DUPLICATION_TARGET } from "pages/Home/components/RiffinEditor/EditorConfig";
 
 const generateTextareaPropertiesObject = (cols, numberOfStrings) => {
   return { cols, numberOfStrings}
@@ -127,7 +127,7 @@ const InputTextarea = (props) => {
       duplicationValues.push({
         inputValue: characterToDuplicate,
         dashValue: (characterToDuplicate === " ") ? "-" : " ",
-        targetPosition: position + DUPLICATION_COLUMN_GAP
+        targetPosition: position + DEFAULT_DUPLICATION_TARGET
       })
     })
     return duplicationValues;
