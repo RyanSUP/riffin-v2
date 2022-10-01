@@ -6,6 +6,7 @@ import TablatureBlock from "./components/TablatureBlock/TablatureBlock";
 import AddTablatureBlockButton from "./components/AddTablatureBlockButton/AddTablatureBlockButton";
 import TitleInput from "./components/TitleInput/TitleInput";
 import SaveTabButton from "./components/SaveTabButton/SaveTabButton";
+import LoadingPlaceholder from "containers/LoadingPlaceholder/LoadingPlaceholder";
 
 const RiffinEditorDispatch = createContext(null);
 
@@ -209,7 +210,7 @@ function riffinReducer(state, action) {
 const RiffinEditor = (props) => {
   // Note: `dispatch` won't change between re-renders
   const { tabId } = useParams();
-  const [isLoading, setIsLoading] = useState(false);
+  const [isLoading, setIsLoading] = useState(true);
   const [editor, dispatch] = useReducer(riffinReducer, {
     tablature: utils.getNewTablatureTemplateObject(props.numberOfStrings),
     selectedBlock: null,
@@ -221,34 +222,42 @@ const RiffinEditor = (props) => {
     if (editor.selectedBlock) {
       editor.selectedBlock.inputRef.current.selectionStart = editor.cursor.position;
       editor.selectedBlock.inputRef.current.selectionEnd = editor.cursor.position;
-      console.log("New editor.cursor: ", editor.cursor.position);
     }
   }, [editor.cursor, editor.selectedBlock]);
 
+  // Get the tablature data when hitting an edit route
   useEffect(() => {
-    console.log('tabId', tabId)
-    if(tabId) {
+    if(tabId && getTabFromUser) {
+      setIsLoading(true);
       const tablature = getTabFromUser(tabId)
-      const action = {
-        tablature,
-        type: 'setTablature'
+      if(tablature) {
+        const action = {
+          tablature,
+          type: 'setTablature'
+        }
+        setIsLoading(false)
+        dispatch(action);
       }
-      dispatch(action);
     }
   }, [tabId, getTabFromUser]);
 
+  // Sets loading to false when the tablature becomes defined.
+  useEffect(() => {
+    if(editor.tablature) {
+      setIsLoading(false);
+    }
+  }, [editor.tablature])
+
   return (
     <RiffinEditorDispatch.Provider value={dispatch}>
-      {!isLoading &&
-      <>
+      <LoadingPlaceholder isLoading={isLoading}>
         <TitleInput />
         <SaveTabButton tablature={editor.tablature} setIsLoading={setIsLoading} tags={props.tags}/>
         {editor.tablature.blocks.map((block, i) => (
           <TablatureBlock key={i} index={i} block={block} numberOfStrings={editor.tablature.numberOfStrings} />)
         )}
         <AddTablatureBlockButton numberOfBlocks={editor.tablature.blocks.length} />
-      </>
-      }
+      </LoadingPlaceholder>
     </RiffinEditorDispatch.Provider>
   );
 }
