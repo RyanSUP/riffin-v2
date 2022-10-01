@@ -7,11 +7,12 @@ import TitleInput from "./components/TitleInput/TitleInput";
 import SaveTabButton from "./components/SaveTabButton/SaveTabButton";
 import DeleteTabButton from "./components/DeleteTabButton/DeleteTabButton";
 import LoadingPlaceholder from "containers/LoadingPlaceholder/LoadingPlaceholder";
+import BlockGroup from "./components/BlockGroup/BlockGroup";
+import MobileEditor from "./components/MobileEditor/MobileEditor";
 // Utilties
 import * as utils from "./Utilities";
 // MUI
 import { Box } from "@mui/material";
-import BlockGroup from "./components/BlockGroup/BlockGroup";
 
 // * RiffinEditor relies on this dispatch context to update state values from child components.
 // * Checkout React's documentation for more information:
@@ -353,17 +354,24 @@ const RiffinEditor = (props) => {
   }, [editor.tablature]);
 
   return (
-    <RiffinEditorDispatch.Provider value={dispatch}>
-      <LoadingPlaceholder isLoading={isLoading}>
-        <Box sx={{my: 2}}>
-          <TitleInput />
-          <SaveTabButton tablature={editor.tablature} setIsLoading={setIsLoading} tags={props.tags}/>
-          <DeleteTabButton tablature={editor.tablature} />
-        </Box>
-        <BlockGroup tablature={editor.tablature} />
-        <AddNewBlockButton numberOfBlocks={editor.tablature.blocks.length} />
-      </LoadingPlaceholder>
-    </RiffinEditorDispatch.Provider>
+    <>
+      <Box display={{ xs: 'none', sm: 'none', md: 'block', lg: 'block' }}>
+        <RiffinEditorDispatch.Provider value={dispatch}>
+          <LoadingPlaceholder isLoading={isLoading}>
+            <Box sx={{my: 2}}>
+              <TitleInput />
+              <SaveTabButton tablature={editor.tablature} setIsLoading={setIsLoading} tags={props.tags}/>
+              <DeleteTabButton tablature={editor.tablature} />
+            </Box>
+            <BlockGroup tablature={editor.tablature} />
+            <AddNewBlockButton numberOfBlocks={editor.tablature.blocks.length} />
+          </LoadingPlaceholder>
+        </RiffinEditorDispatch.Provider>
+      </Box>
+      <Box display={{ xs: 'block', sm: 'block', md: 'none', lg: 'none' }}>
+        <MobileEditor />
+      </Box>
+    </>
   );
 }
  
