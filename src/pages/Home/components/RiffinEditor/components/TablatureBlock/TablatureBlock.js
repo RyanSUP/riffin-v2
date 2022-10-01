@@ -1,23 +1,27 @@
 import DashTextarea from "./components/DashTextarea/DashTextarea";
 import InputTextarea from "./components/InputTextarea/InputTextarea";
-import BlockOptionsMenu from "./components/BlockOptionsMenu/BlockOptionsMenu";
-import NoteTextarea from "./components/NoteTextarea/NoteTextarea";
-
-import { Box } from "@mui/material";
+import BlockHeader from "../BlockHeader/BlockHeader";
+import { useState } from "react";
 
 // TODO This has same name as anotehr component. One needs to change
 const TablatureBlock = (props) => {
+  const [showOptions, setShowOptions] = useState(false)
+
+  const handleMouseEnter = () => {
+    setShowOptions(true);
+  }
+  const handleMouseLeave = () => {
+    setShowOptions(false);
+  }
+
   return (
-    <>
-      <Box sx={{display: 'flex', justifyContent: 'space-between'}}>
-        <NoteTextarea label={props.block.label} index={props.index}/>
-        <BlockOptionsMenu block={props.block} index={props.index} />
-      </Box>
-      <div style={{ position: "relative"}}>
+    <div onMouseEnter={handleMouseEnter} onMouseLeave={handleMouseLeave}>
+      <BlockHeader block={props.block} index={props.index} showOptions={showOptions}/>
+      <div style={{ position: "relative", left: "-5px"}}>
         <InputTextarea block={props.block} index={props.index} numberOfStrings={props.numberOfStrings}/>
         <DashTextarea block={props.block} numberOfStrings={props.numberOfStrings}/>
       </div>
-    </>
+    </div>
   );
 }
  

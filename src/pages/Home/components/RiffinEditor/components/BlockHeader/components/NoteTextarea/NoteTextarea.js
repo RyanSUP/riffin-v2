@@ -15,9 +15,10 @@ const NoteTextarea = (props) => {
     resize: "none",
     outline: "none",
     border: "none",
-    borderLeft: "1px solid",
-    color: theme.palette.primary.main,
+    borderLeft: `1px solid ${theme.palette.primary.tabInput}`,
+    color: "white",
     fontSize: "1.2rem",
+    paddingLeft: "0.5rem"
   };
 
   /**
@@ -35,14 +36,14 @@ const NoteTextarea = (props) => {
   }
 
   return (
-      <TextareaAutosize
-        spellcheck="false"
-        style={inputsStyle}
-        minRows={1}
-        value={props.label}
-        onChange={handleChange}
-        placeholder={"Notes"}
-      />
+    <TextareaAutosize
+      spellcheck="false"
+      style={inputsStyle}
+      minRows={2}
+      value={props.label}
+      onChange={handleChange}
+      placeholder={"Notes"}
+    />
   );
 }
  

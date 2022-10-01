@@ -10,6 +10,9 @@ import DeleteTabButton from "./components/DeleteTabButton/DeleteTabButton";
 import LoadingPlaceholder from "containers/LoadingPlaceholder/LoadingPlaceholder";
 // Utilties
 import * as utils from "./Utilities";
+// MUI
+import { Box, Container } from "@mui/material";
+import BlockGroup from "./components/BlockGroup/BlockGroup";
 
 // * RiffinEditor relies on this dispatch context to update state values from child components.
 // * Checkout React's documentation for more information:
@@ -353,12 +356,12 @@ const RiffinEditor = (props) => {
   return (
     <RiffinEditorDispatch.Provider value={dispatch}>
       <LoadingPlaceholder isLoading={isLoading}>
-        <TitleInput />
-        <SaveTabButton tablature={editor.tablature} setIsLoading={setIsLoading} tags={props.tags}/>
-        <DeleteTabButton tablature={editor.tablature} />
-        {editor.tablature.blocks.map((block, i) => (
-          <TablatureBlock key={i} index={i} block={block} numberOfStrings={editor.tablature.numberOfStrings} />)
-        )}
+        <Box sx={{my: 2}}>
+          <TitleInput />
+          <SaveTabButton tablature={editor.tablature} setIsLoading={setIsLoading} tags={props.tags}/>
+          <DeleteTabButton tablature={editor.tablature} />
+        </Box>
+        <BlockGroup tablature={editor.tablature} />
         <AddNewBlockButton numberOfBlocks={editor.tablature.blocks.length} />
       </LoadingPlaceholder>
     </RiffinEditorDispatch.Provider>

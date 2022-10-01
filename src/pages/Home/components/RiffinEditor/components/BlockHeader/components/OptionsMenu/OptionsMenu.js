@@ -55,7 +55,7 @@ const StyledMenu = styled((props) => (
 }));
 
 
-export default function BlockOptionsMenu(props) {
+export default function OptionsMenu(props) {
   const [anchorEl, setAnchorEl] = useState(null);
   const dispatch = useContext(RiffinEditorDispatch);
   const open = Boolean(anchorEl);
