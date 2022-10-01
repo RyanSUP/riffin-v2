@@ -6,6 +6,7 @@ import TablatureBlock from "./components/TablatureBlock/TablatureBlock";
 import AddNewBlockButton from "./components/AddNewBlockButton/AddNewBlockButton";
 import TitleInput from "./components/TitleInput/TitleInput";
 import SaveTabButton from "./components/SaveTabButton/SaveTabButton";
+import DeleteTabButton from "./components/DeleteTabButton/DeleteTabButton";
 import LoadingPlaceholder from "containers/LoadingPlaceholder/LoadingPlaceholder";
 // Utilties
 import * as utils from "./Utilities";
@@ -358,6 +359,7 @@ const RiffinEditor = (props) => {
       <LoadingPlaceholder isLoading={isLoading}>
         <TitleInput />
         <SaveTabButton tablature={editor.tablature} setIsLoading={setIsLoading} tags={props.tags}/>
+        <DeleteTabButton tablature={editor.tablature} />
         {editor.tablature.blocks.map((block, i) => (
           <TablatureBlock key={i} index={i} block={block} numberOfStrings={editor.tablature.numberOfStrings} />)
         )}

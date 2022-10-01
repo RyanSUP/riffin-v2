@@ -3,13 +3,17 @@ import { UserContext } from "containers/CognitoUserProvider/CognitoUserProvider"
 import { useContext } from "react";
 import { TablatureContext } from "containers/TablatureProvider/TablatureProvider";
 import { useNavigate } from "react-router-dom";
-
 // Services / utils
 import * as tablatureServices from "services/tablatureServices";
 import { getIdTokenFromUser } from "utils/userUtils";
-
 // MUI
 import { Button } from "@mui/material";
+
+/**
+ * * Saving does not send a dispatch to the RiffinEditor because no changes are made to the frontend. In the event of saving a new tablature the user will be redirected to the edit page once the tablature is stored and the backend responds with the _id. Saving an already stored tab has no visible effects - the user can keep editing.
+ */
+
+// TODO When editing, there should be and indicator if changes haven't been saved.
 
 const SaveTabButton = (props) => {
   const { user } = useContext(UserContext);
