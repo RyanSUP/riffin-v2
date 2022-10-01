@@ -1,9 +1,8 @@
-// MUI
+// Components / hooks
 import { useTheme } from "@mui/material/styles";
 
 const DashTextarea = (props) => {
   const theme = useTheme();
-
   const dashesStyle = {
     background: "transparent",
     margin: 0,
@@ -30,6 +29,6 @@ const DashTextarea = (props) => {
       maxLength={props.block.maxLength}
     />
   );
-}
+};
  
 export default DashTextarea;
