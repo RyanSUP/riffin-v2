@@ -9,6 +9,7 @@ import TitleInput from "./components/TitleInput/TitleInput";
 import DeleteTabButton from "./components/DeleteTabButton/DeleteTabButton";
 import SaveTabButton from "./components/SaveTabButton/SaveTabButton";
 import TablatureBlock from "./components/TablatureBlock/TablatureBlock";
+import { TagContext } from "containers/TagProvider/TagProvider";
 // Utilties
 import * as utils from "./Utilities";
 // MUI
@@ -315,7 +316,8 @@ const RiffinEditor = (props) => {
     selectedBlock: null,
     cursor: {position: null}
   });
-  const { getTabFromUser } = useContext(TablatureContext)
+  const { getTabFromUser } = useContext(TablatureContext);
+  const { setTags } = useContext(TagContext);
 
   /**
    * Prevents cursor from jumping to the end of the input textarea after a key is pressed.
@@ -333,17 +335,18 @@ const RiffinEditor = (props) => {
   useEffect(() => {
     if(tabId && getTabFromUser) {
       setIsLoading(true);
-      const tablature = getTabFromUser(tabId)
+      const tablature = getTabFromUser(tabId);
       if(tablature) {
         const action = {
           tablature,
           type: 'setTablature'
         }
+        setTags(tablature.tags);
         setIsLoading(false)
         dispatch(action);
       }
     }
-  }, [tabId, getTabFromUser]);
+  }, [tabId, getTabFromUser, setTags]);
 
   /**
    * Sets loading status when tablature is defined.

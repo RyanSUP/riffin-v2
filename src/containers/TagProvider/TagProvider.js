@@ -22,6 +22,7 @@ const TagProvider = (props) => {
       addTag,
       deleteTag,
       clearTags,
+      setTags,
       tags
     }}>
       {props.children}
