@@ -50,7 +50,7 @@ function TagBar() {
   };
 
   useEffect(() => {
-    if(location.pathname.startsWith("/new")) {
+    if(location.pathname.startsWith("/new") || location.pathname.startsWith("/edit")) {
       setPlaceholder("add a tag")
     } else {
       setPlaceholder("Search")

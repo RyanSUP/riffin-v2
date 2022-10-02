@@ -7,6 +7,7 @@ Focus:
 - [x] ~~Add padding to Save / Delete buttons~~
 - [x] ~~Clear tags when leaving the editor~~
 - [x] ~~Add guitar tags to the tagbar when entering the editor~~
+- [x] When editing a tab, the tagbar doesn't switch from 'search'. It should say 'add tag'
 
 
 Extra:
@@ -14,7 +15,6 @@ Extra:
 - [ ] stop the lottie from playing while it's hidden.
 - [ ] Update readonly tablature blocks to be the same size as the editor blocks
 - [ ] Fix alignment of the tablature title / save / delete components
-- [ ] When editing a tab, the tagbar doesn't switch from 'search'. It should say 'add tag'
 
 
 Research:
