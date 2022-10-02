@@ -22,9 +22,9 @@ const TitleInput = () => {
 
   return (
     <TextField
+      label="Title"
       id="standard-basic" 
       variant="standard" 
-      placeholder="Title"
       onChange={handleChange}
     />
   );

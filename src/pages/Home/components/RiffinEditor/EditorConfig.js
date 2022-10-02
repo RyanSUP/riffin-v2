@@ -68,3 +68,13 @@ export const LEGAL_INPUTS = {
   "[": "deleteColumn", // deleteChord
   "Backspace": "deleteCharacter",
 };
+
+/**
+ * Maximum characters in the note that sits above each TablatureBlock
+ */
+export const MAX_NOTE_CHARACTERS = 256;
+
+/**
+ * Maximum number of TablatureBlocks a user can have per document.
+ */
+export const MAX_BLOCKS = 12;

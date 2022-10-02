@@ -1,12 +1,14 @@
 // Components / hooks
 import { RiffinEditorDispatch } from '../../RiffinEditor';
 import { useContext } from 'react';
+// Utilities
+import { MAX_BLOCKS } from '../../EditorConfig';
 // MUI
 import PlaylistAddIcon from '@mui/icons-material/PlaylistAdd';
 import { Button } from "@mui/material";
 
 /**
- * * Button to add a new tablature block to the document.
+ * * Button to add a new tablature block to the document. If the MAX_BLOCK count is reached, a disabled button will show instead.
  */
 
 const AddNewBlockButton = (props) => {
@@ -18,16 +20,25 @@ const AddNewBlockButton = (props) => {
   const handleClick = () => {
     const action = {
       type: 'addNewBlock',
-      // * numerOfBlocksBedoreAdding is a workaround to React.StrictMode's behavior of running reducers twice. Without this workaround, 2 blocks would be added.
+      // * numerOfBlocksBeforeAdding is a workaround to React.StrictMode's behavior of running reducers twice. Without this workaround, 2 blocks would be added.
       numberOfBlocksBeforeAdding: props.numberOfBlocks
     }
     dispatcher(action);
   };
 
   return (
-    <Button variant="outlined" onClick={handleClick} endIcon={<PlaylistAddIcon />}>
-      add tablature
-    </Button>
+    <>
+      {(props.numberOfBlocks === MAX_BLOCKS) 
+      ?
+        <Button variant="outlined" disabled>
+          You've reached the limit, dude!
+        </Button>
+      :
+        <Button variant="outlined" onClick={handleClick} endIcon={<PlaylistAddIcon />}>
+          add tablature
+        </Button>
+      }
+    </>
   );
 };
  
