@@ -9,7 +9,9 @@ import { Button } from "@mui/material";
 
 /**
  * * Button to add a new tablature block to the document. If the MAX_BLOCK count is reached, a disabled button will show instead.
+ * props: numberOfBlock
  */
+
 
 const AddNewBlockButton = (props) => {
   const dispatcher = useContext(RiffinEditorDispatch);
@@ -28,7 +30,7 @@ const AddNewBlockButton = (props) => {
 
   return (
     <>
-      {(props.numberOfBlocks === MAX_BLOCKS) 
+      {(props.numberOfBlocks >= MAX_BLOCKS) 
       ?
         <Button variant="outlined" disabled>
           You've reached the limit, dude!

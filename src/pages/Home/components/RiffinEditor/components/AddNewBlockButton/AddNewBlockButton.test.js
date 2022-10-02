@@ -1,11 +1,24 @@
-import AddNewBlockButton from "./AddNewBlockButton";
-import { testTab } from "utils/TestUtils/TestUtils";
-import userEvent from "@testing-library/user-event";
-import { render, screen } from "@testing-library/react";
+import {render, screen} from '@testing-library/react'
+import '@testing-library/jest-dom'
+import AddNewBlockButton from './AddNewBlockButton'
 
-test.todo('adds a note block to the editor')
+test('button enabled when numberOfBlocks props < MAX_BLOCKS', () => {
+  // ARRANGE
+  render(<AddNewBlockButton numberOfBlocks={6}/>)
+  // ASSERT
+  expect(screen.getByRole('button')).toBeEnabled();
+})
 
-test('is disabled when maximum number of blocks are reached', () => {
+test('button disabled when numberOfBlocks props === MAX_BLOCKS', () => {
+  // ARRANGE
   render(<AddNewBlockButton numberOfBlocks={12}/>)
-  expect(screen.getByText("You've reached the limit, dude!")).toBeInTheDocument();
+  // ASSERT
+  expect(screen.getByRole('button')).toBeDisabled();
+})
+
+test('button disabled when numberOfBlocks props >= MAX_BLOCKS', () => {
+  // ARRANGE
+  render(<AddNewBlockButton numberOfBlocks={13}/>)
+  // ASSERT
+  expect(screen.getByRole('button')).toBeDisabled();
 })
