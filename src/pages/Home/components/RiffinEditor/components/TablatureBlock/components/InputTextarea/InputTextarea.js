@@ -9,6 +9,8 @@ import { useTheme } from "@mui/material/styles";
 
 /**
  * * InputTextarea is what the user mostly interacts with and is where most of the magique happens, however it is simply an interface. Any action that happens to this textarea is dispatched to and handled by the RiffinEditor component. All state from InputTextarea (cursor position, values in the textarea, size of the textarea, etc) are derived from the editor property in the RiffinEditor component. The z-index property of InputTextarea ensures the user interacts with this textarea rather than the DashTextarea that sits absolutely positioned behind this.
+ * 
+ * props: block, numberOfStrings, index
  */
 
 // ------------- 🏗 MISC HELPERS --------------------------------

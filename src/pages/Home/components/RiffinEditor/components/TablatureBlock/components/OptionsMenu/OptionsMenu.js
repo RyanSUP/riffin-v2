@@ -15,6 +15,7 @@ import DeleteIcon from '@mui/icons-material/Delete';
 /**
  * * Most of the this is adapted straight from the MUI documentation 
  * https://mui.com/material-ui/react-menu/#customization
+ * props: block, index
  */
 
 const StyledMenu = styled((props) => (

@@ -19,6 +19,11 @@ const blockSizeAtMax = (cols) => (cols === MAX_BLOCK_COLS);
  */
 const blockSizeAtMin = (cols) => (cols === MIN_BLOCK_COLS);
 
+/**
+ * * This is the slider that allows the user to change the size of the tablature.
+ * props: block
+ */
+
 const SizeSlider = (props) => {
   const [sliderValue, setSliderValue] = useState(props.block.cols);
   const dispatch = useContext(RiffinEditorDispatch); 

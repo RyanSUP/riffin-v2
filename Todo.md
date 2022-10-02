@@ -14,3 +14,10 @@ Extra:
 - [ ] Fix alignment of the tablature title / save / delete components
 - [ ] Clear tags when leaving the editor
 - [ ] Add guitar tags to the tagbar when entering the editor
+
+
+Research:
+- [ ] Mockup fetch requests for testing
+- [ ] Mockup context for testing
+- [ ] Mockup reducer for testing
+- [ ] Testing with MUIs TextAreaAutoSize

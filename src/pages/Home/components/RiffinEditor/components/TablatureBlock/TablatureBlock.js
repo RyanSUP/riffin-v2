@@ -10,6 +10,7 @@ import { Box } from "@mui/material";
 
 /**
  * * TablatureBlock is a section of the screen dedicated to 1 piece of tablature. This component has functionality to show and hide the options menu depending on if the mouse is in the block. Note that a RiffinEditor document can have multiple TablatureBlocks.
+ * props: index, block, numberOfStrings
  */
 
 const TablatureBlock = (props) => {

@@ -14,3 +14,6 @@ test('renders correctly using a new tablatureBlock', ()=> {
     .toJSON();
   expect(tree).toMatchSnapshot();
 });
+
+// Research how to mockup reducers.
+test.todo('write unit tests for user interactions with the textarea')
