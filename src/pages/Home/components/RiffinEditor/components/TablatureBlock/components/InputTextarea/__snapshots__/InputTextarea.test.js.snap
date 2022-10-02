@@ -8,13 +8,14 @@ exports[`renders correctly using a new tablatureBlock 1`] = `
   onClick={[Function]}
   onKeyUp={[Function]}
   onPaste={[Function]}
+  rows={6}
   style={
     Object {
       "background": "transparent",
       "border": "none",
       "color": undefined,
       "fontFamily": "Fira Code",
-      "fontSize": "1.2rem",
+      "fontSize": "inherit",
       "margin": 0,
       "outline": "none",
       "padding": 0,

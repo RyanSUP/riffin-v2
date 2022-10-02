@@ -1,4 +1,4 @@
-import { getNewGuitarBlock } from "../../../../utils/EditorUtils";
+import { getNewGuitarBlock } from "pages/Home/components/RiffinEditor/Utilities";
 import DashTextarea from "./DashTextarea";
 import renderer from 'react-test-renderer';
 

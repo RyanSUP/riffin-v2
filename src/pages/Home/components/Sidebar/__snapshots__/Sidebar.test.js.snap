@@ -9,7 +9,7 @@ exports[`renders correctly 1`] = `
     className="MuiBox-root css-wbnlby"
   >
     <div
-      className="css-1qb7z1w-MuiStack-root"
+      className="css-nen11g-MuiStack-root"
     >
       <button
         className="MuiButton-root MuiButton-text MuiButton-textPrimary MuiButton-sizeLarge MuiButton-textSizeLarge MuiButton-disableElevation MuiButtonBase-root  css-b0n2bc-MuiButtonBase-root-MuiButton-root"

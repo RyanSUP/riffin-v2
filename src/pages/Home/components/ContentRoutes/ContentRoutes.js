@@ -2,16 +2,12 @@
 import { Route, Routes, Navigate } from "react-router-dom";
 import ProfileContent from "../ProfileContent/ProfileContent";
 import LoginSignupForm from "../LoginSignupForm/LoginSignupForm";
-import Editor from "../Editor/Editor";
 import { RiffinEditor } from "../RiffinEditor/RiffinEditor";
 
 const ContentRoutes = (props) => {
   return (
     <Routes>
-      <Route path="/login" element={<LoginSignupForm />} />           
-      <Route path="/new" element=
-        {<Editor tags={props.tags} />}
-      />
+      <Route path="/login" element={<LoginSignupForm />} />
       <Route
         path="/profile/:cognitoUsername"
         element={<ProfileContent />}
