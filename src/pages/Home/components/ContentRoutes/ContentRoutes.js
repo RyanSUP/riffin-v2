@@ -4,7 +4,7 @@ import ProfileContent from "../ProfileContent/ProfileContent";
 import LoginSignupForm from "../LoginSignupForm/LoginSignupForm";
 import { RiffinEditor } from "../RiffinEditor/RiffinEditor";
 
-const ContentRoutes = (props) => {
+const ContentRoutes = () => {
   return (
     <Routes>
       <Route path="/login" element={<LoginSignupForm />} />
@@ -12,17 +12,14 @@ const ContentRoutes = (props) => {
         path="/profile/:cognitoUsername"
         element={<ProfileContent />}
       />
-      {/* <Route path="/new/guitar" element={
-        <Editor key={"guitar"} numberOfStrings={6} tags={props.tags} />
-      }/> */}
       <Route path="/new/guitar" element={
-        <RiffinEditor key={"newGuitar"} numberOfStrings={6} tags={props.tags}/>
+        <RiffinEditor key={"newGuitar"} numberOfStrings={6} />
       }/>
       <Route path="/new/bass" element={
-        <RiffinEditor key={"bass"} numberOfStrings={4} tags={props.tags} />
+        <RiffinEditor key={"bass"} numberOfStrings={4}  />
       }/>
       <Route path="/edit/:tabId" element={
-        <RiffinEditor key={"editor"} tags={props.tags}/>
+        <RiffinEditor key={"editor"} />
       }/>
       <Route path="*" element={<Navigate to="/new/guitar" replace />} />
     </Routes>

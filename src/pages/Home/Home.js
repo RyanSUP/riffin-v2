@@ -17,20 +17,8 @@ import { Grid, Box, Container } from "@mui/material";
  */
 
 const Home = () => {
-  const [tags, setTags] = useState([])
   const theme = useTheme();
   const belowMediumScreen = useMediaQuery(theme.breakpoints.down("md"));
-
-  const addTag = (tag) => {
-    if(tags.includes(tag) || tag === '' || tag === ' ') {
-      return
-    }
-    setTags((prev)=> [...prev, tag])
-  }
-
-  const deleteTag = (tagToDelete) => setTags(tags.filter((tag) => tag !== tagToDelete))
-
-  const clearTags = () => setTags([])
 
   return (
     <div data-testid="Home">
@@ -46,12 +34,7 @@ const Home = () => {
             </Grid>
 
             <Grid item xs={8}>
-              <TagBar 
-                addTag={addTag}
-                deleteTag={deleteTag}
-                clearTags={clearTags}
-                tags={tags}
-              />
+              <TagBar />
             </Grid>
 
             <Grid item xs={2}>
@@ -65,16 +48,12 @@ const Home = () => {
         
         {!belowMediumScreen &&
           <Grid item xs={2}>
-            <Sidebar 
-              addTag={addTag}
-            />
+            <Sidebar />
           </Grid>
         }
 
         <Grid item xs={12} md={8}>
-          <ContentRoutes 
-            tags={tags}
-          />
+          <ContentRoutes />
         </Grid>
 
         {!belowMediumScreen &&

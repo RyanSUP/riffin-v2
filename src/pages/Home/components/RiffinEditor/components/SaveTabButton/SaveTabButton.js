@@ -3,6 +3,7 @@ import { UserContext } from "containers/CognitoUserProvider/CognitoUserProvider"
 import { useContext } from "react";
 import { TablatureContext } from "containers/TablatureProvider/TablatureProvider";
 import { useNavigate } from "react-router-dom";
+import { TagContext } from "containers/TagProvider/TagProvider";
 // Services / utils
 import * as tablatureServices from "services/tablatureServices";
 import { getIdTokenFromUser } from "utils/userUtils";
@@ -17,6 +18,7 @@ import { Button } from "@mui/material";
 
 const SaveTabButton = (props) => {
   const { user } = useContext(UserContext);
+  const { tags } = useContext(TagContext);
   const { addToUsersTablature, updateUserTablature } = useContext(TablatureContext);
   const navigate = useNavigate();
 
@@ -25,7 +27,7 @@ const SaveTabButton = (props) => {
    */
   const handleSave = async () => {
     const idToken = getIdTokenFromUser(user);
-    props.tablature.tags = props.tags;
+    props.tablature.tags = tags;
     props.tablature.owner = user.username;
 
     /**

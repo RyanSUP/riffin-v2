@@ -16,9 +16,7 @@ function Sidebar(props) {
           <CreateBassTabButton />
         </Stack>
         <Divider variant="middle" sx={{m: 2}}/>
-        <TagSuggestions 
-          addTag={props.addTag}
-        />
+        <TagSuggestions />
       </Box>
     </Container>
   )

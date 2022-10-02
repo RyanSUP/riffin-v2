@@ -367,7 +367,6 @@ const RiffinEditor = (props) => {
                 <SaveTabButton 
                   tablature={editor.tablature} 
                   setIsLoading={setIsLoading} 
-                  tags={props.tags}
                 />
               </Grid>
               <Grid item>
