@@ -4,7 +4,6 @@ import ContentRoutes from "./components/ContentRoutes/ContentRoutes";
 import HeaderLogo from './components/HeaderLogo/HeaderLogo';
 import HeaderLinks from './components/HeaderLinks/HeaderLinks';
 import TagBar from './components/TagBar/TagBar';
-import { useState } from 'react';
 import { useMediaQuery } from "@mui/material";
 import { useTheme } from "@mui/material/styles";
 // Images
@@ -13,7 +12,7 @@ import adImage from '../../assets/images/fake_ad.png'
 import { Grid, Box, Container } from "@mui/material";
 
 /**
- * * Home primary focus is the layout of the application. Currently it handles tag data as well but that should be moved out at some point.
+ * * Home primary focus is the layout of the application.
  */
 
 const Home = () => {
