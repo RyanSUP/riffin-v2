@@ -34,6 +34,7 @@ export const sampleTablatureBlock = {
 }
 
 export const testTab = {
+  _id: "_1",
   tags: [],
   name: 'test tab',
   blocks: [
