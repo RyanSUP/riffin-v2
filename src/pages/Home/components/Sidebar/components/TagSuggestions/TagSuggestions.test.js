@@ -11,10 +11,3 @@ test('renders correctly', () => {
   .toJSON();
   expect(tree).toMatchSnapshot();
 })
-
-test('clicking a button passes the tag to the onClick function', async ()=> {
-  render(<TagSuggestions addTag={mockAddTag} />)
-  const user = userEvent.setup()
-  await user.click(screen.getByText('Tasters'))
-  expect(mockAddTag).toHaveBeenCalledWith('Tasters');
-})
