@@ -5,8 +5,8 @@ Focus:
   - [x] Max blocks
   - [ ] max note size
 - [x] ~~Add padding to Save / Delete buttons~~
-- [ ] Clear tags when leaving the editor
-- [ ] Add guitar tags to the tagbar when entering the editor
+- [x] ~~Clear tags when leaving the editor~~
+- [x] ~~Add guitar tags to the tagbar when entering the editor~~
 
 
 Extra:
