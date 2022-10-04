@@ -8,8 +8,8 @@ Focus:
 - [x] ~~Clear tags when leaving the editor~~
 - [x] ~~Add guitar tags to the tagbar when entering the editor~~
 - [x] When editing a tab, the tagbar doesn't switch from 'search'. It should say 'add tag'
-- [ ] Filter users tablature based on tags
-- [ ] Show loading bar in ProfileContent while the users tablature are loading.
+- [x] Filter users tablature based on tags
+- [x] Show loading bar in ProfileContent while the users tablature are loading.
 - [x] Create loadState for TablatureProvider
 
 Extra:
