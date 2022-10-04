@@ -4,6 +4,7 @@ import { UserContext } from "containers/CognitoUserProvider/CognitoUserProvider"
 import CollectionButton from './CollectionButton';
 import {BrowserRouter, MemoryRouter} from 'react-router-dom'
 import userEvent from "@testing-library/user-event";
+import { TagProvider } from 'containers/TagProvider/TagProvider';
 
 const mockedNavigate = jest.fn();
 
@@ -15,7 +16,9 @@ jest.mock('react-router-dom', () => ({
 it('variant is "text" when not at the collections route', () => {
   const component = (
     <MemoryRouter>
-      <CollectionButton />
+      <TagProvider>
+        <CollectionButton />
+      </TagProvider>
     </MemoryRouter>
   )
   const tree = renderer
@@ -37,7 +40,9 @@ test('variant is "contained" when viewing owned collection', ()=> {
   const component = (
     <MemoryRouter initialEntries={['/profile/JarJar_Binks']}>
       <UserContext.Provider {...mockUser}>
-        <CollectionButton />
+        <TagProvider>
+          <CollectionButton />
+        </TagProvider>
       </UserContext.Provider>
     </MemoryRouter>
   )
@@ -61,7 +66,9 @@ test('routes to the current users collection on click', async ()=> {
   const component = (
     <BrowserRouter>
       <UserContext.Provider {...mockUser}>
-        <CollectionButton />
+        <TagProvider>
+          <CollectionButton />
+        </TagProvider>
       </UserContext.Provider>
     </BrowserRouter>
   )
@@ -75,7 +82,9 @@ test('routes to the current users collection on click', async ()=> {
 test('routes to login on click when there is no user', async ()=> {
   const component = (
     <BrowserRouter>
-      <CollectionButton />
+      <TagProvider>
+        <CollectionButton />
+      </TagProvider>
     </BrowserRouter>
   )
 

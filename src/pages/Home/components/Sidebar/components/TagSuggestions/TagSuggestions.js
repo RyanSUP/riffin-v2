@@ -2,6 +2,9 @@
 import Stack from '@mui/material/Stack';
 import Button from '@mui/material/Button';
 
+import { useContext } from 'react';
+import { TagContext } from 'containers/TagProvider/TagProvider';
+
 const presetTags = [
   "Tasters",
   "Basters",
@@ -21,13 +24,14 @@ const presetTags = [
 ]
 
 function TagSuggestions(props) {
+  const { addTag } = useContext(TagContext)
   return (
     <Stack direction="column">
       {presetTags.map((tag, i) => (
         <Button 
           key={i} 
           variant="text" 
-          onClick={() => props.addTag(tag)}
+          onClick={() => addTag(tag)}
           sx={{justifyContent: 'start', pl: '16px'}}
         >
           {tag}

@@ -1,0 +1,34 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`renders correctly using a new tablatureBlock 1`] = `
+<textarea
+  cols={40}
+  maxLength={251}
+  onChange={[Function]}
+  onClick={[Function]}
+  onKeyUp={[Function]}
+  onPaste={[Function]}
+  rows={6}
+  style={
+    Object {
+      "background": "transparent",
+      "border": "none",
+      "color": undefined,
+      "fontFamily": "Fira Code",
+      "fontSize": "inherit",
+      "margin": 0,
+      "outline": "none",
+      "padding": 0,
+      "position": "relative",
+      "resize": "none",
+      "zIndex": 2,
+    }
+  }
+  value="|                                      |
+|                                      |
+|                                      |
+|                                      |
+|                                      |
+|                                      |"
+/>
+`;

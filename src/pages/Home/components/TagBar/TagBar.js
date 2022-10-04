@@ -1,26 +1,28 @@
 // Components / Hooks
-import { useState, useEffect } from "react";
+import { useState, useEffect, useContext } from "react";
 import { useLocation} from "react-router-dom";
+import { TagContext } from "containers/TagProvider/TagProvider";
 
 // MUI
 import { Box } from "@mui/system";
 import { Button, Chip } from "@mui/material";
 
 
-function TagBar(props) {
+function TagBar() {
   const [searchInputValue, setSearchInputValue] = useState("");
   const location = useLocation();
   const [placeholder, setPlaceholder] = useState();
-  
+  const { deleteTag, clearTags, tags, addTag } = useContext(TagContext);
+
   const handleSubmit = (event) => {
     event.preventDefault();
-    props.addTag(searchInputValue);
+    addTag(searchInputValue);
     setSearchInputValue("");
   };
 
-  const handleDelete = (tagToDelete) => props.deleteTag(tagToDelete);
+  const handleDelete = (tagToDelete) => deleteTag(tagToDelete);
 
-  const handleClearTags = () => props.clearTags();
+  const handleClearTags = () => clearTags();
 
   const searchInputStyles = {
     background: "transparent",
@@ -48,7 +50,7 @@ function TagBar(props) {
   };
 
   useEffect(() => {
-    if(location.pathname.startsWith("/new")) {
+    if(location.pathname.startsWith("/new") || location.pathname.startsWith("/edit")) {
       setPlaceholder("add a tag")
     } else {
       setPlaceholder("Search")
@@ -58,7 +60,7 @@ function TagBar(props) {
   return (
     <>
       <Box style={inputContainer}>
-        {props.tags.map((tag, i) => (
+        {tags.map((tag, i) => (
           <Chip
             key={i}
             label={tag}
@@ -75,7 +77,7 @@ function TagBar(props) {
             onChange={(e) => setSearchInputValue(e.target.value)}
           ></input>
         </form>
-        {props.tags.length > 0 && 
+        {tags.length > 0 && 
         <Button onClick={handleClearTags}>X</Button>}
       </Box>
     </>

@@ -1,56 +1,52 @@
 // Components / hooks
-import { useEffect, useState, useContext } from "react";
-import { useParams } from "react-router-dom";
+import { useEffect, useContext, useState } from "react";
+import { useNavigate, useParams } from "react-router-dom";
 import { UserContext } from "containers/CognitoUserProvider/CognitoUserProvider";
 import { TablatureContext } from "containers/TablatureProvider/TablatureProvider";
+import { TagContext } from "containers/TagProvider/TagProvider";
 import CardGrid from "components/CardGrid/CardGrid";
-
-
-// Services
-import * as profileServices from "services/profileServices";
-
-// MUI
-import { CircularProgress } from "@mui/material";
+import LoadingPlaceholder from "containers/LoadingPlaceholder/LoadingPlaceholder";
 
 const ProfileContent = () => {
-  const [tablature, setTablature] = useState(null);
   const { cognitoUsername } = useParams();
-  const { user, userIsLoading } = useContext(UserContext);
-  const { usersTablature } = useContext(TablatureContext);
+  const { tags } = useContext(TagContext);
+  const { user } = useContext(UserContext);
+  const { usersTablature, tablatureIsLoading } = useContext(TablatureContext);
+  const [tablatureOnPage, setTablatureOnPage] = useState(null);
+  const navigate = useNavigate();
+
+  // TODO Handle nav for non users
+  useEffect(() => {
+    if(user && cognitoUsername && (user.username !== cognitoUsername)) {
+      navigate(`/profile/${user.username}`);
+    }
+  }, [cognitoUsername, user, navigate]);
 
   useEffect(() => {
-    let subscribed = true
-    if(!userIsLoading && cognitoUsername) {
-      if (user.username === cognitoUsername) {
-        setTablature(usersTablature)
+    if(tablatureIsLoading === false && tablatureOnPage === null) {
+      setTablatureOnPage(usersTablature);
+    }
+  }, [tablatureOnPage, usersTablature, tablatureIsLoading]);
+
+  useEffect(() => {
+    if(tags) {
+      if(tags.length === 0) {
+        setTablatureOnPage(usersTablature);
       } else {
-        profileServices.getUsersPublicInfo(cognitoUsername)
-        .then((res) => {
-          if(subscribed) {
-            setTablature(res.usersTablature.map((tab) => {
-              const owner = {_id: tab._id, ...res.authorInfo}
-              tab.owner = owner
-              return tab
-            }))
-          }
-        })
+        const tablatureWithMatchingTags = usersTablature.filter((tablature) => {
+          return tags.every((tag) => tablature.tags.includes(tag));
+        });
+        setTablatureOnPage(tablatureWithMatchingTags);
       }
     }
-    return () => {
-      subscribed = false
-    }
-  }, [cognitoUsername, user, userIsLoading, usersTablature]);
+  }, [tags, usersTablature]);
 
   return (
-    <div data-testid="ProfileContent">
-      {tablature === null ? (
-        <CircularProgress />
-      ) : (
-        <CardGrid 
-          tablature={tablature}
-        />
-      )}
-    </div>
+    <LoadingPlaceholder isLoading={tablatureOnPage === null}>
+      <CardGrid 
+        tablature={tablatureOnPage}
+      />
+    </LoadingPlaceholder>
   );
 };
 
