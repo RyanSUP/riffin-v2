@@ -9,10 +9,9 @@ import { getIdTokenFromUser } from "utils/userUtils";
 const TablatureContext = createContext({});
 
 const TablatureProvider = (props) => {
-  const [usersTablature, setUsersTablature] = useState([])
-  // TODO Remove liked tablature stuff
-  const [usersLikedTablature, setUsersLikedTablature] = useState({})
-  const { user } = useContext(UserContext)
+  const [usersTablature, setUsersTablature] = useState([]);
+  const [tablatureIsLoading, setTablatureIsLoading] = useState(true);
+  const { user } = useContext(UserContext);
 
   const addToUsersTablature = (tab) => {
     setUsersTablature((prev) => {
@@ -40,27 +39,12 @@ const TablatureProvider = (props) => {
     })
   }
 
-  // TODO Remove liked tablature stuff
-  const addToUsersLikedTablature = (tab_id) => {
-    setUsersLikedTablature((prev) => {
-      prev[tab_id] = true
-      return { ...prev }
-    })
-  }
-  // TODO Remove liked tablature stuff
-  const removeFromUsersLikedTablature = (tab_id) => {
-    setUsersLikedTablature((prev) => {
-      delete prev[tab_id]
-      return({...prev})
-    })
-  }
-
-  const getTabFromUser =(tab_id) => usersTablature.find((tab) => tab._id === tab_id)
+  const getTabFromUser = (tab_id) => usersTablature.find((tab) => tab._id === tab_id)
 
   useEffect(() => {
+    setTablatureIsLoading(true);
     if(user) {
       const idToken = getIdTokenFromUser(user)
-
       // Get users tablature
       profileServices
       .getProfileOfLoggedInUser(user.username, idToken)
@@ -73,30 +57,21 @@ const TablatureProvider = (props) => {
             user: user.username,
           }
           tab.owner = owner
+          setTablatureIsLoading(false)
           return tab
         })
         setUsersTablature(tabsWithOwnerInfo)
-        // TODO Remove liked tablature stuff
-        // get users liked tablature
-        const favoriteTabHash = {}
-        profile.favoriteTablature.forEach((tab) => {
-          favoriteTabHash[tab._id] = true
-        })
-        setUsersLikedTablature(favoriteTabHash)
       })
     }
-  }, [user])
+  }, [user]);
 
-  // TODO Remove liked tablature stuff
   return (
     <TablatureContext.Provider
       value={{
         usersTablature,
-        usersLikedTablature,
+        tablatureIsLoading,
         deleteFromUsersTablature,
-        addToUsersLikedTablature,
         addToUsersTablature,
-        removeFromUsersLikedTablature,
         getTabFromUser,
         updateUserTablature,
       }}

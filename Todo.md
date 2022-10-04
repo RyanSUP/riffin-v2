@@ -10,7 +10,7 @@ Focus:
 - [x] When editing a tab, the tagbar doesn't switch from 'search'. It should say 'add tag'
 - [ ] Filter users tablature based on tags
 - [ ] Show loading bar in ProfileContent while the users tablature are loading.
-- [ ] Create loadState for TablatureProvider
+- [x] Create loadState for TablatureProvider
 
 Extra:
 - [ ] Hide donate button on smaller screen sizes
