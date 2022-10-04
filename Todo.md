@@ -18,6 +18,22 @@ Extra:
 - [ ] Update readonly tablature blocks to be the same size as the editor blocks
 - [ ] Fix alignment of the tablature title / save / delete components
 - [x] Remove favoriteTablature stuff from TablatureProvider
+- [ ] Limit the number of tags a tablature can have
+- [ ] limit the number of tags the tagbar can have
+- [ ] display a message when a user tries to add too many tags to the tagbar
+- [ ] style the tagbar
+- [ ] write a better algorithm for getting matching tags
+- [ ] order users tablature by creation date
+- [ ] look into autocomplete on the tagbar based on tags the user has previously used
+- [ ] genreate a list of the users unique tags to display in the tagsuggestion area
+- [ ] Make the card divider look like -- TabName ------------- Button Button --
+- [ ] Implement "repeat" functionality in RiffinEditor
+- [ ] Replace the "expand" icon on cards
+- [ ] Delete confirmation when deleting tablature
+- [ ] display an alert when saving tablature
+- [ ] display an alert when deleting a tablature
+- [ ] Provide undo option in the alert after deleting a tablature
+- [ ] Create new mobile design mockup
 
 
 Research:
