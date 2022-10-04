@@ -26,7 +26,6 @@ const Card = (props) => {
       <Divider textAlign="left">
         <Header
           tabData={props.tabData}
-          isOwnedByUser={user?.username === props.tabData.owner.user}
           isExpanded={props.isExpanded}
           handleExpand={props.handleExpand}
         />

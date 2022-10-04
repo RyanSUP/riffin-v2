@@ -1,16 +1,17 @@
 Focus:
 - [ ] Write tests for Riffin Editor
-- [x] ~~Write documentation for Riffin Editor~~
+- [x] Write documentation for Riffin Editor
 - [ ] Create constraints for the editor
   - [x] Max blocks
   - [ ] max note size
-- [x] ~~Add padding to Save / Delete buttons~~
-- [x] ~~Clear tags when leaving the editor~~
-- [x] ~~Add guitar tags to the tagbar when entering the editor~~
+- [x] Add padding to Save / Delete buttons
+- [x] Clear tags when leaving the editor
+- [x] Add guitar tags to the tagbar when entering the editor
 - [x] When editing a tab, the tagbar doesn't switch from 'search'. It should say 'add tag'
 - [x] Filter users tablature based on tags
 - [x] Show loading bar in ProfileContent while the users tablature are loading.
 - [x] Create loadState for TablatureProvider
+- [x] Always show edit buttons
 
 Extra:
 - [ ] Hide donate button on smaller screen sizes

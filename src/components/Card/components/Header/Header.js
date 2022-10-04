@@ -31,9 +31,7 @@ const Header = (props) => {
           <span>{props.tabData.likeCount}</span>
         }
         <ShareIconButton />
-        {props.isOwnedByUser &&
-          <EditIconButton tab_id={props.tabData._id}/>
-        }
+        <EditIconButton tab_id={props.tabData._id}/>
         <ToggledIconButton
           isDisabled={false}
           iconA={<CloseFullscreenRoundedIcon />}
