@@ -38,9 +38,9 @@ const CollectionButton = () => {
       sx={{
         fontWeight: "bold",
         justifyContent: "left",
-        my: 0.5,
         textTransform: "none",
-        padding: 1.5,
+        my: 0.5,
+        px: 1.5,
       }}
       disableElevation
       variant={variant}
