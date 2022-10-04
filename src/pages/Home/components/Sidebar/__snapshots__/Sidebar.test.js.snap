@@ -12,7 +12,7 @@ exports[`renders correctly 1`] = `
       className="css-nen11g-MuiStack-root"
     >
       <button
-        className="MuiButton-root MuiButton-text MuiButton-textPrimary MuiButton-sizeLarge MuiButton-textSizeLarge MuiButton-disableElevation MuiButtonBase-root  css-b0n2bc-MuiButtonBase-root-MuiButton-root"
+        className="MuiButton-root MuiButton-text MuiButton-textPrimary MuiButton-sizeLarge MuiButton-textSizeLarge MuiButton-disableElevation MuiButtonBase-root  css-lqila7-MuiButtonBase-root-MuiButton-root"
         disabled={false}
         onBlur={[Function]}
         onClick={[Function]}
@@ -48,7 +48,7 @@ exports[`renders correctly 1`] = `
         Collection
       </button>
       <button
-        className="MuiButton-root MuiButton-text MuiButton-textPrimary MuiButton-sizeLarge MuiButton-textSizeLarge MuiButton-disableElevation MuiButtonBase-root  css-b0n2bc-MuiButtonBase-root-MuiButton-root"
+        className="MuiButton-root MuiButton-text MuiButton-textPrimary MuiButton-sizeLarge MuiButton-textSizeLarge MuiButton-disableElevation MuiButtonBase-root  css-lqila7-MuiButtonBase-root-MuiButton-root"
         disabled={false}
         onBlur={[Function]}
         onClick={[Function]}
@@ -84,7 +84,7 @@ exports[`renders correctly 1`] = `
         Guitar tab
       </button>
       <button
-        className="MuiButton-root MuiButton-text MuiButton-textPrimary MuiButton-sizeLarge MuiButton-textSizeLarge MuiButton-disableElevation MuiButtonBase-root  css-b0n2bc-MuiButtonBase-root-MuiButton-root"
+        className="MuiButton-root MuiButton-text MuiButton-textPrimary MuiButton-sizeLarge MuiButton-textSizeLarge MuiButton-disableElevation MuiButtonBase-root  css-lqila7-MuiButtonBase-root-MuiButton-root"
         disabled={false}
         onBlur={[Function]}
         onClick={[Function]}
