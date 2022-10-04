@@ -10,12 +10,14 @@ Focus:
 - [x] When editing a tab, the tagbar doesn't switch from 'search'. It should say 'add tag'
 - [ ] Filter users tablature based on tags
 - [ ] Show loading bar in ProfileContent while the users tablature are loading.
+- [ ] Create loadState for TablatureProvider
 
 Extra:
 - [ ] Hide donate button on smaller screen sizes
 - [ ] stop the lottie from playing while it's hidden.
 - [ ] Update readonly tablature blocks to be the same size as the editor blocks
 - [ ] Fix alignment of the tablature title / save / delete components
+- [ ] Remove favoriteTablature stuff from TablatureProvider
 
 
 Research:
