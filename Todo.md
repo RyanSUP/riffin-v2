@@ -17,7 +17,7 @@ Extra:
 - [ ] stop the lottie from playing while it's hidden.
 - [ ] Update readonly tablature blocks to be the same size as the editor blocks
 - [ ] Fix alignment of the tablature title / save / delete components
-- [ ] Remove favoriteTablature stuff from TablatureProvider
+- [x] Remove favoriteTablature stuff from TablatureProvider
 
 
 Research:
