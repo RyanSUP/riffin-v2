@@ -2,7 +2,7 @@
 
 exports[`variant is "contained" when viewing owned collection 1`] = `
 <button
-  className="MuiButton-root MuiButton-contained MuiButton-containedPrimary MuiButton-sizeLarge MuiButton-containedSizeLarge MuiButton-disableElevation MuiButtonBase-root  css-lys5v1-MuiButtonBase-root-MuiButton-root"
+  className="MuiButton-root MuiButton-contained MuiButton-containedPrimary MuiButton-sizeLarge MuiButton-containedSizeLarge MuiButton-disableElevation MuiButtonBase-root  css-17r5qa2-MuiButtonBase-root-MuiButton-root"
   disabled={false}
   onBlur={[Function]}
   onClick={[Function]}
@@ -44,7 +44,7 @@ exports[`variant is "contained" when viewing owned collection 1`] = `
 
 exports[`variant is "text" when not at the collections route 1`] = `
 <button
-  className="MuiButton-root MuiButton-text MuiButton-textPrimary MuiButton-sizeLarge MuiButton-textSizeLarge MuiButton-disableElevation MuiButtonBase-root  css-b0n2bc-MuiButtonBase-root-MuiButton-root"
+  className="MuiButton-root MuiButton-text MuiButton-textPrimary MuiButton-sizeLarge MuiButton-textSizeLarge MuiButton-disableElevation MuiButtonBase-root  css-17qfxqa-MuiButtonBase-root-MuiButton-root"
   disabled={false}
   onBlur={[Function]}
   onClick={[Function]}
