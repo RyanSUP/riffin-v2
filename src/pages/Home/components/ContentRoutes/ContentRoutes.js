@@ -3,15 +3,13 @@ import { Route, Routes, Navigate } from "react-router-dom";
 import ProfileContent from "../ProfileContent/ProfileContent";
 import LoginSignupForm from "../LoginSignupForm/LoginSignupForm";
 import { RiffinEditor } from "../RiffinEditor/RiffinEditor";
+import ProtectedEditRoute from "../../../../components/ProtectedEditRoute/ProtectedEditRoute";
 
 const ContentRoutes = () => {
   return (
     <Routes>
       <Route path="/login" element={<LoginSignupForm />} />
-      <Route
-        path="/profile/:cognitoUsername"
-        element={<ProfileContent />}
-      />
+      <Route path="/profile/:cognitoUsername" element={<ProfileContent />} />
       <Route path="/new/guitar" element={
         <RiffinEditor key={"newGuitar"} numberOfStrings={6} />
       }/>
@@ -24,6 +22,6 @@ const ContentRoutes = () => {
       <Route path="*" element={<Navigate to="/new/guitar" replace />} />
     </Routes>
   );
-}
- 
+};
+
 export default ContentRoutes;
