@@ -2,84 +2,62 @@
 import { useState, useEffect, useContext } from "react";
 import { useLocation} from "react-router-dom";
 import { TagContext } from "containers/TagProvider/TagProvider";
-
 // MUI
-import { Box } from "@mui/system";
-import { Button, Chip } from "@mui/material";
+import { Chip, TextField, Autocomplete } from "@mui/material";
 
+// TODO Generate a list of the users unique tags
+const testTagSuggestions = [
+  "Tasters",
+  "Basters",
+  "Slick Licks",
+  "Rock",
+  "Zep",
+  "Metal",
+  "Slap Bass",
+  "Country",
+  "Blues",
+  "Folk",
+  "Pop",
+  "Hip Hop",
+  "R&B",
+  "Metallica",
+  "AC/DC",
+]
 
 function TagBar() {
-  const [searchInputValue, setSearchInputValue] = useState("");
-  const location = useLocation();
   const [placeholder, setPlaceholder] = useState();
-  const { deleteTag, clearTags, tags, addTag } = useContext(TagContext);
-
-  const handleSubmit = (event) => {
-    event.preventDefault();
-    addTag(searchInputValue);
-    setSearchInputValue("");
-  };
-
-  const handleDelete = (tagToDelete) => deleteTag(tagToDelete);
-
-  const handleClearTags = () => clearTags();
-
-  const searchInputStyles = {
-    background: "transparent",
-    outline: "none",
-    boarder: "none",
-    width: "100%",
-    height: "100%",
-  };
-
-  const formStyles = {
-    width: "100%",
-    height: "100%",
-  };
-
-  const inputContainer = {
-    display: "flex",
-    border: "1px solid #ececec",
-    borderRadius: "40px",
-    height: "38px",
-    position: "relative",
-    boxSizing: "border-box",
-    overflow: "hidden",
-    maxWidth: "100%",
-    alignItems: "center",
-  };
+  const { setTagsInSearchbar } = useContext(TagContext);
+  const location = useLocation();
 
   useEffect(() => {
     if(location.pathname.startsWith("/new") || location.pathname.startsWith("/edit")) {
-      setPlaceholder("add a tag")
+      setPlaceholder("add tag");
     } else {
-      setPlaceholder("Search")
+      setPlaceholder("Search");
     }
-  }, [location])
+  }, [location]);
 
   return (
     <>
-      <Box style={inputContainer}>
-        {tags.map((tag, i) => (
-          <Chip
-            key={i}
-            label={tag}
+     <Autocomplete
+        onChange={(event, value) => setTagsInSearchbar(value)}
+        multiple
+        id="tags-filled"
+        options={testTagSuggestions.map((tag) => tag)}
+        freeSolo
+        renderTags={(value, getTagProps) =>
+          value.map((option, index) => (
+            <Chip variant="outlined" size="small" label={option} {...getTagProps({ index })} />
+          ))
+        }
+        renderInput={(params) => (
+          <TextField
+            {...params}
             variant="outlined"
-            onDelete={() => handleDelete(tag)}
-          />
-        ))}
-        <form onSubmit={handleSubmit} style={formStyles}>
-          <input
-            style={searchInputStyles}
-            value={searchInputValue}
-            type="text"
             placeholder={placeholder}
-            onChange={(e) => setSearchInputValue(e.target.value)}
-          ></input>
-        </form>
-        {tags.length > 0 && 
-        <Button onClick={handleClearTags}>X</Button>}
-      </Box>
+          />
+        )}
+      />
     </>
   );
 }

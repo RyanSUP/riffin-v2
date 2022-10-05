@@ -2,8 +2,6 @@
 import { useNavigate, useLocation } from "react-router-dom";
 import { useEffect, useState, useContext } from "react";
 import { UserContext } from "containers/CognitoUserProvider/CognitoUserProvider";
-import { TagContext } from "containers/TagProvider/TagProvider";
-
 // MUI
 import Button from "@mui/material/Button";
 import FavoriteIcon from "@mui/icons-material/Favorite";
@@ -13,10 +11,8 @@ const CollectionButton = () => {
   const navigate = useNavigate();
   const location = useLocation();
   const { user } = useContext(UserContext);
-  const { clearTags } = useContext(TagContext);
 
   const handleClick = () => {
-    clearTags();
     user ? navigate(`/profile/${user?.username}`) : navigate("/login");
   };
 

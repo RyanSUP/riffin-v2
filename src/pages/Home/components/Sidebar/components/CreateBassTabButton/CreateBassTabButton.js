@@ -2,7 +2,6 @@
 import { useNavigate, useLocation } from "react-router-dom";
 import { useContext, useState, useEffect } from "react";
 import { UserContext } from "containers/CognitoUserProvider/CognitoUserProvider";
-import { TagContext } from "containers/TagProvider/TagProvider";
 // MUI
 import AddCircleIcon from "@mui/icons-material/AddCircle";
 import Button from "@mui/material/Button";
@@ -12,10 +11,8 @@ const CreateBassTabButton = () => {
   const navigate = useNavigate();
   const location = useLocation();
   const { user } = useContext(UserContext);
-  const { clearTags } = useContext(TagContext);
 
   const handleClick = () => {
-    clearTags();
     user ? navigate(`/new/bass`) : navigate("/login");
   };
 

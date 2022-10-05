@@ -1,12 +1,12 @@
 // Components / hooks
-import TagSuggestions from './components/TagSuggestions/TagSuggestions'
 import CollectionButton from './components/CollectionButton/CollectionButton';
 import CreateBassTabButton from './components/CreateBassTabButton/CreateBassTabButton';
 import CreateGuitarTabButton from './components/CreateGuitarTabButton/CreateGuitarTabButton'
+import Ad from 'components/Ad/Ad';
 // MUI
 import { Container, Divider, Stack, Box } from '@mui/material'
 
-function Sidebar(props) {
+function Sidebar() {
   return (
     <Container data-testid="Sidebar">
       <Box sx={{maxWidth: "175px"}}>
@@ -16,8 +16,8 @@ function Sidebar(props) {
           <CreateBassTabButton />
         </Stack>
         <Divider variant="middle" sx={{m: 2}}/>
-        <TagSuggestions />
       </Box>
+      <Ad />
     </Container>
   )
 }

@@ -7,9 +7,8 @@ import TagBar from './components/TagBar/TagBar';
 import { useMediaQuery } from "@mui/material";
 import { useTheme } from "@mui/material/styles";
 // Images
-import adImage from '../../assets/images/fake_ad.png'
 // MUI
-import { Grid, Box, Container } from "@mui/material";
+import { Grid, Container } from "@mui/material";
 
 /**
  * * Home primary focus is the layout of the application.
@@ -51,19 +50,9 @@ const Home = () => {
           </Grid>
         }
 
-        <Grid item xs={12} md={8}>
+        <Grid item xs={12} md={10}>
           <ContentRoutes />
         </Grid>
-
-        {!belowMediumScreen &&
-          <Grid item xs={2}>
-            <Box sx={{textAlign: "right", marginTop: "100px"}}>
-              <a target="_blank" rel="noreferrer" href={'https://www.linkedin.com/in/ryanmorici/'}>
-                <img src={adImage} alt="advertisement" style={{maxWidth: "175px"}}/>
-              </a>
-            </Box>
-          </Grid>
-        }
 
       </Grid>
     </div>
