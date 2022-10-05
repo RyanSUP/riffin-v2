@@ -17,8 +17,6 @@ const darkTheme = createTheme({
     MuiChip: {
       styleOverrides: {
         root: {
-          backgroundColor: "#BF616A",
-          fontWeight: 800,
         },
       },
     },
