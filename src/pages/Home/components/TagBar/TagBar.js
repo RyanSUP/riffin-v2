@@ -26,7 +26,7 @@ const testTagSuggestions = [
 
 function TagBar() {
   const [placeholder, setPlaceholder] = useState();
-  const { setTags } = useContext(TagContext);
+  const { setTagsInSearchbar } = useContext(TagContext);
   const location = useLocation();
 
   useEffect(() => {
@@ -40,7 +40,7 @@ function TagBar() {
   return (
     <>
      <Autocomplete
-        onChange={(event, value) => setTags(value)}
+        onChange={(event, value) => setTagsInSearchbar(value)}
         multiple
         id="tags-filled"
         options={testTagSuggestions.map((tag) => tag)}

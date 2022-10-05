@@ -9,7 +9,7 @@ import LoadingPlaceholder from "containers/LoadingPlaceholder/LoadingPlaceholder
 
 const ProfileContent = () => {
   const { cognitoUsername } = useParams();
-  const { tags } = useContext(TagContext);
+  const { tagsInSearchbar } = useContext(TagContext);
   const { user } = useContext(UserContext);
   const { usersTablature, tablatureIsLoading } = useContext(TablatureContext);
   const [tablatureOnPage, setTablatureOnPage] = useState(null);
@@ -29,17 +29,17 @@ const ProfileContent = () => {
   }, [tablatureOnPage, usersTablature, tablatureIsLoading]);
 
   useEffect(() => {
-    if(tags) {
-      if(tags.length === 0) {
+    if(tagsInSearchbar) {
+      if(tagsInSearchbar.length === 0) {
         setTablatureOnPage(usersTablature);
       } else {
         const tablatureWithMatchingTags = usersTablature.filter((tablature) => {
-          return tags.every((tag) => tablature.tags.includes(tag));
+          return tagsInSearchbar.every((tag) => tablature.tags.includes(tag));
         });
         setTablatureOnPage(tablatureWithMatchingTags);
       }
     }
-  }, [tags, usersTablature]);
+  }, [tagsInSearchbar, usersTablature]);
 
   return (
     <LoadingPlaceholder isLoading={tablatureOnPage === null}>
