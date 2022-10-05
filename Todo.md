@@ -17,9 +17,7 @@ Focus:
   - [x] style the x button
   - [x] chips need margin
   - [x] chip color and text color (when typing) need to match
-- [ ] Limit the number of tags a tablature can have
-- [ ] limit the number of tags the tagbar can have
-- [ ] display a message when a user tries to add too many tags to the tagbar
+- [ ] Refactor searchbar using https://mui.com/material-ui/react-autocomplete/
 
 Extra:
 - [ ] Make footer animation like the waves in this template- https://bootstrapmade.com/demo/Selecao/
@@ -47,3 +45,9 @@ Research:
 - [ ] Mockup context for testing
 - [ ] Mockup reducer for testing
 - [ ] Testing with MUIs TextAreaAutoSize
+
+
+Abandoned:
+- [ ] Limit the number of tags a tablature can have
+- [ ] limit the number of tags the tagbar can have
+- [ ] display a message when a user tries to add too many tags to the tagbar
