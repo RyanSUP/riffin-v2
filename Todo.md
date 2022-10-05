@@ -17,7 +17,8 @@ Focus:
   - [x] style the x button
   - [x] chips need margin
   - [x] chip color and text color (when typing) need to match
-- [ ] Refactor searchbar using https://mui.com/material-ui/react-autocomplete/
+- [x] Refactor searchbar using https://mui.com/material-ui/react-autocomplete/
+- [ ] Add support for searching by title
 
 Extra:
 - [ ] Make footer animation like the waves in this template- https://bootstrapmade.com/demo/Selecao/
