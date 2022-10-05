@@ -7,9 +7,8 @@ import TagBar from './components/TagBar/TagBar';
 import { useMediaQuery } from "@mui/material";
 import { useTheme } from "@mui/material/styles";
 // Images
-import adImage from '../../assets/images/fake_ad.png'
 // MUI
-import { Grid, Box, Container } from "@mui/material";
+import { Grid, Container } from "@mui/material";
 
 /**
  * * Home primary focus is the layout of the application.

@@ -6,7 +6,7 @@ import Ad from 'components/Ad/Ad';
 // MUI
 import { Container, Divider, Stack, Box } from '@mui/material'
 
-function Sidebar(props) {
+function Sidebar() {
   return (
     <Container data-testid="Sidebar">
       <Box sx={{maxWidth: "175px"}}>
