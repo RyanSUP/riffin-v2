@@ -4,7 +4,7 @@ const TagContext = createContext([]);
 
 const TagProvider = (props) => {
   const [tagsInSearchbar, setTagsInSearchbar] = useState([])
-
+  
   return (
     <TagContext.Provider value={{
       setTagsInSearchbar,
