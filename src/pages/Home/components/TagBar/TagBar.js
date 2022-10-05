@@ -43,8 +43,8 @@ function TagBar() {
 
   const inputContainer = {
     display: "flex",
-    border: "1px solid #ececec",
-    borderRadius: "40px",
+    border: `1px solid ${theme.palette.primary.main}`,
+    borderRadius: "12px",
     height: "38px",
     position: "relative",
     boxSizing: "border-box",
