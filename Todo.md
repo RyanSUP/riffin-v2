@@ -12,6 +12,10 @@ Focus:
 - [x] Show loading bar in ProfileContent while the users tablature are loading.
 - [x] Create loadState for TablatureProvider
 - [x] Always show edit buttons
+- [ ] style the tagbar
+- [ ] Limit the number of tags a tablature can have
+- [ ] limit the number of tags the tagbar can have
+- [ ] display a message when a user tries to add too many tags to the tagbar
 
 Extra:
 - [ ] Hide donate button on smaller screen sizes
@@ -19,10 +23,6 @@ Extra:
 - [ ] Update readonly tablature blocks to be the same size as the editor blocks
 - [ ] Fix alignment of the tablature title / save / delete components
 - [x] Remove favoriteTablature stuff from TablatureProvider
-- [ ] Limit the number of tags a tablature can have
-- [ ] limit the number of tags the tagbar can have
-- [ ] display a message when a user tries to add too many tags to the tagbar
-- [ ] style the tagbar
 - [ ] write a better algorithm for getting matching tags
 - [ ] order users tablature by creation date
 - [ ] look into autocomplete on the tagbar based on tags the user has previously used
