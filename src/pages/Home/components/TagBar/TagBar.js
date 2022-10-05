@@ -6,7 +6,23 @@ import { TagContext } from "containers/TagProvider/TagProvider";
 import { Chip, TextField, Autocomplete } from "@mui/material";
 
 // TODO Generate a list of the users unique tags
-const testTagSuggestions = [ 'testing', 'user','tag','suggestions']
+const testTagSuggestions = [
+  "Tasters",
+  "Basters",
+  "Slick Licks",
+  "Rock",
+  "Zep",
+  "Metal",
+  "Slap Bass",
+  "Country",
+  "Blues",
+  "Folk",
+  "Pop",
+  "Hip Hop",
+  "R&B",
+  "Metallica",
+  "AC/DC",
+]
 
 function TagBar() {
   const [placeholder, setPlaceholder] = useState();
