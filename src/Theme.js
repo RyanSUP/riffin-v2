@@ -33,7 +33,7 @@ const darkTheme = createTheme({
     logo: {
       fontFamily: "Ultra",
       fontWeight: 800,
-      fontSize: "32px",
+      fontSize: "2rem",
       lineHeight: "100%",
       color: "#88C0D0",
       margin: "0",

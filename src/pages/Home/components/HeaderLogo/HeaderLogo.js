@@ -17,7 +17,7 @@ const HeaderLogo = () => {
         :
           <Box sx={{display: "flex"}}>
             <img src={logo} alt="logo" style={{width: "45px"}}/>
-            <Typography style={theme.typography.logo}>Riffin</Typography>
+            <Typography sx={{alignSelf: 'center'}} style={theme.typography.logo}>Riffin</Typography>
           </Box>
       }
     </>
