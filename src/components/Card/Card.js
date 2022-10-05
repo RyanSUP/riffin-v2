@@ -2,15 +2,12 @@
 import Header from "./components/Header/Header";
 import Content from "./components/Content/Content";
 import TagGroup from "./components/TagGroup/TagGroup";
-import { useContext } from "react";
-import { UserContext } from "containers/CognitoUserProvider/CognitoUserProvider";
 
 //MUI
 import { Box } from "@mui/system";
 import { Divider } from "@mui/material";
 
 const Card = (props) => {
-  const { user } = useContext(UserContext);
 
   const contentBoxStyles = {
     display: "flex",
@@ -26,7 +23,6 @@ const Card = (props) => {
       <Divider textAlign="left">
         <Header
           tabData={props.tabData}
-          isOwnedByUser={user?.username === props.tabData.owner.user}
           isExpanded={props.isExpanded}
           handleExpand={props.handleExpand}
         />

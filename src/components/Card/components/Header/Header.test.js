@@ -3,11 +3,6 @@ import { BrowserRouter } from "react-router-dom"
 import Header from './Header'
 import { testTab } from "utils/TestUtils/TestTabObject"
 
-test('does not render edit button if isOwnedByUser is false', ()=> {
-  render(<Header tabData={testTab} user={{username: 'test'}} isOwnedByUser={false} />, {wrapper: BrowserRouter})
-  expect(screen.queryByTestId('EditIcon')).not.toBeInTheDocument()
-})
-
 test('renders share button', ()=> {
   render(<Header tabData={testTab} user={{username: 'test'}} />, {wrapper: BrowserRouter})
   expect(screen.getByTestId('ShareIcon')).toBeInTheDocument()
