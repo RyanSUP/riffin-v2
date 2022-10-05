@@ -33,7 +33,8 @@ function TagBar() {
     border: "none",
     width: "100%",
     height: "100%",
-    color: theme.palette.primary.main
+    color: "#fff",
+    paddingLeft: '5px'
   };
 
   const formStyles = {
@@ -51,7 +52,6 @@ function TagBar() {
     overflow: "hidden",
     maxWidth: "100%",
     alignItems: "center",
-    padding: '5px'
   };
 
   useEffect(() => {
@@ -72,6 +72,7 @@ function TagBar() {
             variant="outlined"
             onDelete={() => handleDelete(tag)}
             size="small"
+            sx={{marginLeft: '5px'}}
           />
         ))}
         <form onSubmit={handleSubmit} style={formStyles}>
@@ -84,7 +85,7 @@ function TagBar() {
           ></input>
         </form>
         {tags.length > 0 && 
-        <Button onClick={handleClearTags}>X</Button>}
+        <Button sx={{color: "#E479B3", fontSize: "1.2rem"}} onClick={handleClearTags}>X</Button>}
       </Box>
     </>
   );

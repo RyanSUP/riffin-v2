@@ -12,12 +12,17 @@ Focus:
 - [x] Show loading bar in ProfileContent while the users tablature are loading.
 - [x] Create loadState for TablatureProvider
 - [x] Always show edit buttons
-- [ ] style the tagbar
+- [x] style the tagbar
+  - [x] Make the x button fill the available width
+  - [x] style the x button
+  - [x] chips need margin
+  - [x] chip color and text color (when typing) need to match
 - [ ] Limit the number of tags a tablature can have
 - [ ] limit the number of tags the tagbar can have
 - [ ] display a message when a user tries to add too many tags to the tagbar
 
 Extra:
+- [ ] Make footer animation like the waves in this template- https://bootstrapmade.com/demo/Selecao/
 - [ ] Hide donate button on smaller screen sizes
 - [ ] stop the lottie from playing while it's hidden.
 - [ ] Update readonly tablature blocks to be the same size as the editor blocks
