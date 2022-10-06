@@ -364,7 +364,7 @@ const RiffinEditor = (props) => {
           <LoadingPlaceholder isLoading={isLoading}>
             <Grid container rowSpacing={2} columnSpacing={4}>
               <Grid item>
-                <TitleInput />
+                <TitleInput name={editor.tablature.name}/>
               </Grid>
               <Grid item>
                 <SaveTabButton 

@@ -4,7 +4,7 @@ import { useContext } from "react";
 // MUI
 import { TextField } from "@mui/material";
 
-const TitleInput = () => {
+const TitleInput = (props) => {
   const dispatcher = useContext(RiffinEditorDispatch);
 
   /**
@@ -26,6 +26,7 @@ const TitleInput = () => {
       id="standard-basic" 
       variant="standard" 
       onChange={handleChange}
+      value={props.name || ""}
     />
   );
 }
