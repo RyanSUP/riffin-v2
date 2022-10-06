@@ -39,6 +39,7 @@ Extra:
 - [ ] display an alert when deleting a tablature
 - [ ] Provide undo option in the alert after deleting a tablature
 - [ ] Create new mobile design mockup
+- [ ] Show block options when the block is focused, not just on hover
 
 
 Research:
