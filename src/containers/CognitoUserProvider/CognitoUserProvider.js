@@ -63,17 +63,14 @@ const CognitoUserProvider = (props) => {
       // 3. Check if user is in the pool. The data returned will contain the access tokens.
       user.authenticateUser(authDetails, {
         onSuccess: (data) => {
-          console.log("onSuccess: ", data);
           setUser(user);
           resolve(user);
           navigate("/login");
         },
         onFailure: (error) => {
-          console.error("onFailure: ", error);
           reject(error);
         },
         newPasswordRequired: (data) => {
-          console.log("newPasswordRequired: ", data);
           resolve(user);
         },
       });
@@ -97,9 +94,8 @@ const CognitoUserProvider = (props) => {
   useEffect(() => {
     // If user is not set, check if there is user data in session storage. This allows users to return to the app without having to log back in each time.
     if (!user) {
-      const userFromPool = UserPool.getCurrentUser();
       setUserIsLoading(true)
-      setUserIsLoading(false)
+      const userFromPool = UserPool.getCurrentUser();
       setUser(userFromPool);
     }
     if (user && user.profile) {
@@ -108,35 +104,13 @@ const CognitoUserProvider = (props) => {
 
     // Fetch Profile from the backend if it doesn't exist in user state. Profile is the MongoDB Document associated with the user.
     if (user && !user.profile) {
-      const userFromPool = UserPool.getCurrentUser();
-      const idToken = userUtils.getIdTokenFromUser(userFromPool);
-      profileServices
-      .getProfileOfLoggedInUser(userFromPool.username, idToken)
+      const idToken = userUtils.getIdTokenFromUser(user);
+      profileServices.getProfileOfLoggedInUser(user.username, idToken)
       .then((response) => {
         const profile = response.profile;
-        userFromPool["profile"] = profile;
-        // TODO Remove tabsWithOwnerInfo -- not needed for non-public build
-        const tabsWithOwnerInfo = profile.tablature.map((tab)=> {
-          const owner = {
-            _id: tab._id,
-            preferredUsername: profile.preferredUsername,
-            user: user.username,
-          }
-          tab.owner = owner
-          return tab
-        })
-        userFromPool.profile.tablature = tabsWithOwnerInfo
-
-        // TODO Remove liked tablature stuff
-        // set favorite tablature hash
-        const favoriteTabHash = {}
-        profile.favoriteTablature.forEach((tab) => {
-          favoriteTabHash[tab._id] = true
-        })
-        userFromPool.profile.favoriteTabHash = favoriteTabHash
-
+        user["profile"] = profile;
         setUserIsLoading(false)
-        setUser(userFromPool);
+        setUser(user);
       });
     }
   }, [user]);

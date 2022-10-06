@@ -50,7 +50,7 @@ const Home = () => {
           </Grid>
         }
 
-        <Grid item xs={12} md={9}>
+        <Grid item xs={12} md={8}>
           <ContentRoutes />
         </Grid>
 

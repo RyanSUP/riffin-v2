@@ -1,11 +1,15 @@
-import { LinearProgress } from "@mui/material";
+// MUI
+import { Container, Typography, LinearProgress } from "@mui/material";
 
 const LoadingPlaceholder = (props) => {
   return (
     <>
-      {props.isLoading 
+      {props.isLoading
         ?
-          <LinearProgress />
+          <Container>
+            <LinearProgress />
+            <Typography sx={{textAlign: 'center'}}>Loading...</Typography>
+          </Container>
         :
           <>{props.children}</>
       }

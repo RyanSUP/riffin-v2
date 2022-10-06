@@ -42,6 +42,8 @@ const TablatureProvider = (props) => {
   const getTabFromUser = (tab_id) => usersTablature.find((tab) => tab._id === tab_id)
 
   useEffect(() => {
+    // console.log('================================')
+    // console.log('TabProvider useEffect running - user value ', user)
     setTablatureIsLoading(true);
     if(user) {
       const idToken = getIdTokenFromUser(user)
@@ -57,9 +59,9 @@ const TablatureProvider = (props) => {
             user: user.username,
           }
           tab.owner = owner
-          setTablatureIsLoading(false)
           return tab
         })
+        setTablatureIsLoading(false)
         setUsersTablature(tabsWithOwnerInfo)
       })
     }
