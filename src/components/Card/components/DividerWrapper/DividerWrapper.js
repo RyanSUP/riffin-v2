@@ -2,20 +2,17 @@ import { Divider, Box } from "@mui/material";
 
 const leftDividerStyle = {
   alignSelf: 'center',
-  mr: 1, 
   width: '5%', 
 };
 
 const centerDividerStyle = {
   alignSelf: 'center',
   flexGrow: 1, 
-  mx: 1, 
 };
 
 const rightDividerStyle = {
   alignSelf: 'center',
-  mr: 1, 
-  width: '9%', 
+  width: '5%', 
 };
 
 const flexBetweenContainer = {
@@ -25,6 +22,7 @@ const flexBetweenContainer = {
 
 const horizontalSpacer = {
   mx: 1,
+  alignSelf: 'center',
 };
 
 /**
@@ -38,8 +36,10 @@ const DividerWrapper = (props) => {
   return (
     <Box sx={flexBetweenContainer}>
       <Divider sx={leftDividerStyle}/>
-      {firstChild}
-      <Divider sx={centerDividerStyle}/>      
+      <Box sx={horizontalSpacer}>
+        {firstChild}
+      </Box>
+      <Divider sx={centerDividerStyle}/>
       {rest.map(child => (
         <Box sx={horizontalSpacer}>
           {child}

@@ -3,11 +3,11 @@ import { useState } from "react";
 import EditTablatureButton from "./components/EditTablatureButton/EditTablatureButton";
 import TagGroup from "./components/TagGroup/TagGroup";
 import DividerWrapper from "./components/DividerWrapper/DividerWrapper";
-import DividerText from "./components/DividerText/DividerText";
 import ExpandButton from "./components/ExpandButton/ExpandButton";
 import ButtonWrapper from "./components/ButtonWrapper/ButtonWrapper";
 import ReadonlyTablature from "components/ReadonlyTablature/ReadonlyTablature";
 import BlockContent from "./components/BlockContent/BlockContent";
+import { Typography } from "@mui/material";
 
 const Card = (props) => {
   const [expanded, setExpanded] = useState(false);
@@ -26,7 +26,7 @@ const Card = (props) => {
   return (
     <>
       <DividerWrapper>
-        <DividerText>{props.tabData.name}</DividerText>
+        <Typography>{props.tabData.name}</Typography>
         <EditTablatureButton tab_id={props.tabData._id} />
         <ExpandButton 
           expanded={expanded} 
