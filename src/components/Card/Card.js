@@ -14,12 +14,8 @@ const Card = (props) => {
     justifyContent: "center"
   }
 
-  const cardStyles = {
-    padding: "15px",
-  };
-
   return (
-    <Box style={cardStyles}>
+    <Box>
       <Divider textAlign="left">
         <Header
           tabData={props.tabData}
