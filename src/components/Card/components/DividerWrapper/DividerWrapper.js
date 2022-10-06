@@ -23,25 +23,25 @@ const flexBetweenContainer = {
   justifyContent: 'space-between'
 };
 
-const spacer = {
+const horizontalSpacer = {
   mx: 1,
 };
 
 /**
- * * Wraps children between MUI Dividers. The first child is left aligned, all remaining children are right aligned and wrapped in a spacer. A flexGrow Divider sits between the first and remaining children.
+ * * Wraps children between MUI Dividers. The first child is left aligned, all remaining children are right aligned and wrapped in a spacer. A resizable Divider sits between the first 2 children.
  * @param {Object} props - The children to wrap between divs
  * @returns The computed layout component
  */
 
 const DividerWrapper = (props) => {
-  const [ firstChild, ...rest] = props.children
+  const [ firstChild, ...rest] = props.children;
   return (
     <Box sx={flexBetweenContainer}>
       <Divider sx={leftDividerStyle}/>
       {firstChild}
       <Divider sx={centerDividerStyle}/>      
       {rest.map(child => (
-        <Box sx={spacer}>
+        <Box sx={horizontalSpacer}>
           {child}
         </Box>
       ))}

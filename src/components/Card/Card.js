@@ -1,13 +1,7 @@
-// The card should be clickable when there is more than 1 bar and the isExpanded state is false
-// When the user hovers over a clickable card, the expand button should highlight
-// There should be no expand button if a card only has 1 bar and the label is empty
-
-import { Box, Button, Divider, Grid, Typography } from "@mui/material";
+// Components / hooks
 import { useState } from "react";
-
 import EditTablatureButton from "./components/EditTablatureButton/EditTablatureButton";
 import TagGroup from "./components/TagGroup/TagGroup";
-import TablatureBlock from "components/ReadonlyTablature/ReadonlyTablature";
 import DividerWrapper from "./components/DividerWrapper/DividerWrapper";
 import DividerText from "./components/DividerText/DividerText";
 import ExpandButton from "./components/ExpandButton/ExpandButton";
@@ -25,7 +19,9 @@ const Card = (props) => {
   /**
    * Cards that have no additional content should not be expandable
    */
-  const disableExpand = (props.tabData.blocks.length < 2 || props.tabData.blocks[0].label === "")
+  const onlyOneBlock = props.tabData.blocks.length === 1;
+  const firstBlockHasNoLabel = props.tabData.blocks[0].label === ""
+  const disableExpand = (onlyOneBlock && firstBlockHasNoLabel);
 
   return (
     <>
