@@ -43,7 +43,7 @@ const NoteTextarea = (props) => {
       minRows={2}
       value={props.label}
       onChange={handleChange}
-      placeholder={"Notes.\nAs many lines as you need, almost."}
+      placeholder={"Notes.\nTake as many lines as you need."}
     />
   );
 }
