@@ -4,8 +4,8 @@ import { useNavigate, useParams } from "react-router-dom";
 import { UserContext } from "containers/CognitoUserProvider/CognitoUserProvider";
 import { TablatureContext } from "containers/TablatureProvider/TablatureProvider";
 import { TagContext } from "containers/TagProvider/TagProvider";
-import CardGrid from "components/CardGrid/CardGrid";
 import LoadingPlaceholder from "containers/LoadingPlaceholder/LoadingPlaceholder";
+import Card from "components/Card/Card";
 
 const ProfileContent = () => {
   const { cognitoUsername } = useParams();
@@ -43,9 +43,9 @@ const ProfileContent = () => {
 
   return (
     <LoadingPlaceholder isLoading={tablatureOnPage === null}>
-      <CardGrid 
-        tablature={tablatureOnPage}
-      />
+      {tablatureOnPage?.map((tab, index) => (
+        <Card tabData={tab} key={index} />
+      ))}
     </LoadingPlaceholder>
   );
 };

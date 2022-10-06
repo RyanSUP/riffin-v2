@@ -12,7 +12,7 @@ const tagBoxStyles = {
 const TagGroup = (props) => {
   return (
     <Box style={tagBoxStyles}>
-      {props.tags.map((tag, i) =>(
+      {props.tags?.map((tag, i) =>(
         <Chip 
           key={i}
           label={tag} 
