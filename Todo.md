@@ -18,6 +18,7 @@ Focus:
   - [x] chips need margin
   - [x] chip color and text color (when typing) need to match
 - [x] Refactor searchbar using https://mui.com/material-ui/react-autocomplete/
+- [ ] Make the card divider look like -- TabName ------------- Button Button --
 - [ ] Add support for searching by title
 - [ ] look into autocomplete on the tagbar based on tags the user has previously used
 - [ ] genreate a list of the users unique tags to display in the tagsuggestion area
@@ -31,7 +32,6 @@ Extra:
 - [ ] Fix alignment of the tablature title / save / delete components
 - [x] Remove favoriteTablature stuff from TablatureProvider
 - [ ] order users tablature by creation date
-- [ ] Make the card divider look like -- TabName ------------- Button Button --
 - [ ] Implement "repeat" functionality in RiffinEditor
 - [ ] Replace the "expand" icon on cards
 - [ ] Delete confirmation when deleting tablature
