@@ -18,7 +18,7 @@ const ReadonlyTablature = (props) => {
     zIndex: 2,
     outline: "none",
     border: "none",
-    color: theme.palette.primary.tabInput,
+    color: theme.palette.tabInput.main,
     fontSize: "inherit",
     padding: 0
   };
@@ -34,7 +34,7 @@ const ReadonlyTablature = (props) => {
     outline: "none",
     border: "none",
     fontFamily: "Fira Code",
-    color: theme.palette.primary.dashes,
+    color: theme.palette.dashes.main,
     fontSize: "inherit",
     padding: 0,
   };
