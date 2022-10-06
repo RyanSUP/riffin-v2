@@ -30,7 +30,6 @@ const Header = (props) => {
         {props.tabData.likeCount > 0 &&
           <span>{props.tabData.likeCount}</span>
         }
-        <ShareIconButton />
         <EditIconButton tab_id={props.tabData._id}/>
         <ToggledIconButton
           isDisabled={false}
