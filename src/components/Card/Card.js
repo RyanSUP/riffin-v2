@@ -1,5 +1,5 @@
 // Components / hooks
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import EditTablatureButton from "./components/EditTablatureButton/EditTablatureButton";
 import TagGroup from "./components/TagGroup/TagGroup";
 import DividerWrapper from "./components/DividerWrapper/DividerWrapper";
