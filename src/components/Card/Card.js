@@ -1,5 +1,5 @@
 // Components / hooks
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import EditTablatureButton from "./components/EditTablatureButton/EditTablatureButton";
 import TagGroup from "./components/TagGroup/TagGroup";
 import DividerWrapper from "./components/DividerWrapper/DividerWrapper";
@@ -24,8 +24,8 @@ const Card = (props) => {
   /**
    * Cards that have no additional content should not be expandable
    */
-  const onlyOneBlock = props.tabData.blocks.length === 1;
-  const firstBlockHasNoLabel = props.tabData.blocks[0].label === ""
+  const onlyOneBlock = (props.tabData.blocks.length === 1);
+  const firstBlockHasNoLabel = (props.tabData.blocks[0].label === undefined);
   const disableExpand = (onlyOneBlock && firstBlockHasNoLabel);
 
   return (
