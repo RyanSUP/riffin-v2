@@ -317,7 +317,7 @@ const RiffinEditor = (props) => {
     cursor: {position: null}
   });
   const { getTabFromUser } = useContext(TablatureContext);
-  const { setTags } = useContext(TagContext);
+  const { setTagsInSearchbar } = useContext(TagContext);
 
   /**
    * Prevents cursor from jumping to the end of the input textarea after a key is pressed.
@@ -341,12 +341,12 @@ const RiffinEditor = (props) => {
           tablature,
           type: 'setTablature'
         }
-        setTags(tablature.tags);
+        setTagsInSearchbar(tablature.tags);
         setIsLoading(false)
         dispatch(action);
       }
     }
-  }, [tabId, getTabFromUser, setTags]);
+  }, [tabId, getTabFromUser, setTagsInSearchbar]);
 
   /**
    * Sets loading status when tablature is defined.
