@@ -1,13 +1,5 @@
-// Components / hooks
-import Lottie from "lottie-react";
-// Images
-import guitarLoading from "./guitar-loading.json";
 // MUI
-import { Container, Typography } from "@mui/material";
-
-const lottieStyle = {
-  height: 300,
-};
+import { Container, Typography, LinearProgress } from "@mui/material";
 
 const LoadingPlaceholder = (props) => {
   return (
@@ -15,7 +7,7 @@ const LoadingPlaceholder = (props) => {
       {props.isLoading
         ?
           <Container>
-            <Lottie style={lottieStyle} animationData={guitarLoading} />;
+            <LinearProgress />
             <Typography sx={{textAlign: 'center'}}>Loading...</Typography>
           </Container>
         :
