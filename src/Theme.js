@@ -9,9 +9,13 @@ const darkTheme = createTheme({
     },
     primary: {
       main: "#88C0D0",
-      dashes: "#3A4054",
-      tabInput: "#D5A419",
     },
+    dashes: {
+      main: "#3A4054",
+    },
+    tabInput: {
+      main: "#D5A419",
+    }
   },
   components: {
     MuiChip: {
@@ -74,7 +78,8 @@ const darkTheme = createTheme({
     },
     body1: {
       fontFamily: "Montserrat",
-      fontSize: "16px",
+      fontSize: "inherit",
+      textTransform: "none",
       fontStyle: "normal",
       fontWeight: 400,
       lineHeight: "120%",

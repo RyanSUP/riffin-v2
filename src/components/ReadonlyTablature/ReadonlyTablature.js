@@ -6,7 +6,7 @@ import "./TablatureBlockStyle.css"
 
 import { useTheme } from "@mui/material/styles";
 
-const TablatureBlock = (props) => {
+const ReadonlyTablature = (props) => {
   const theme = useTheme(); // theme obtained with invoking this hook
   
   const inputsStyle = {
@@ -18,8 +18,8 @@ const TablatureBlock = (props) => {
     zIndex: 2,
     outline: "none",
     border: "none",
-    color: theme.palette.primary.tabInput,
-    fontSize: "1.2rem",
+    color: theme.palette.tabInput.main,
+    fontSize: "inherit",
     padding: 0
   };
   
@@ -34,8 +34,8 @@ const TablatureBlock = (props) => {
     outline: "none",
     border: "none",
     fontFamily: "Fira Code",
-    color: theme.palette.primary.dashes,
-    fontSize: "1.2rem",
+    color: theme.palette.dashes.main,
+    fontSize: "inherit",
     padding: 0,
   };
 
@@ -49,7 +49,7 @@ const TablatureBlock = (props) => {
             cols={props.blockData.cols}
             rows={props.numberOfStrings}
             maxLength={props.blockData.maxLength}
-            />
+          />
           <textarea
             readOnly={true}
             style={dashesStyle}
@@ -63,4 +63,4 @@ const TablatureBlock = (props) => {
   );
 };
 
-export default TablatureBlock;
+export default ReadonlyTablature;
