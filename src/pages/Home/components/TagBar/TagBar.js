@@ -24,29 +24,30 @@ const testTagSuggestions = [
   "AC/DC",
 ]
 
-function TagBar() {
+const TagBar = () => {
   const [placeholder, setPlaceholder] = useState();
-  const { setTagsInSearchbar } = useContext(TagContext);
+  const { tagsInSearchbar, setTagsInSearchbar } = useContext(TagContext);
   const location = useLocation();
 
   useEffect(() => {
+    setTagsInSearchbar([])
     if(location.pathname.startsWith("/new") || location.pathname.startsWith("/edit")) {
       setPlaceholder("add tag");
     } else {
       setPlaceholder("Search");
     }
-  }, [location]);
+  }, [location, setTagsInSearchbar]);
 
   return (
     <>
-     <Autocomplete
+      <Autocomplete
         onChange={(event, value) => setTagsInSearchbar(value)}
         multiple
         id="tags-filled"
         options={testTagSuggestions.map((tag) => tag)}
         freeSolo
         renderTags={(value, getTagProps) =>
-          value.map((option, index) => (
+          tagsInSearchbar.map((option, index) => (
             <Chip variant="outlined" size="small" label={option} {...getTagProps({ index })} />
           ))
         }
