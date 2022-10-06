@@ -30,7 +30,7 @@ Extra:
 - [ ] Hide donate button on smaller screen sizes
 - [ ] stop the lottie from playing while it's hidden.
 - [x] Update readonly tablature blocks to be the same size as the editor blocks
-- [ ] Fix alignment of the tablature title / save / delete components
+- [x] Fix alignment of the tablature title / save / delete components
 - [x] Remove favoriteTablature stuff from TablatureProvider
 - [ ] order users tablature by creation date
 - [ ] Implement "repeat" functionality in RiffinEditor
