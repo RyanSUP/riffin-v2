@@ -18,7 +18,7 @@ import { Button } from "@mui/material";
 
 const SaveTabButton = (props) => {
   const { user } = useContext(UserContext);
-  const { tags } = useContext(TagContext);
+  const { tagsInSearchbar } = useContext(TagContext);
   const { addToUsersTablature, updateUserTablature } = useContext(TablatureContext);
   const navigate = useNavigate();
 
@@ -27,7 +27,7 @@ const SaveTabButton = (props) => {
    */
   const handleSave = async () => {
     const idToken = getIdTokenFromUser(user);
-    props.tablature.tags = tags;
+    props.tablature.tags = tagsInSearchbar;
     props.tablature.owner = user.username;
 
     /**
