@@ -1,28 +1,21 @@
 // Components / hooks
-import { useLottie } from "lottie-react";
+import Lottie from "lottie-react";
+// Images
 import guitarLoading from "./guitar-loading.json";
+// MUI
 import { Container, Typography } from "@mui/material";
+
 const lottieStyle = {
   height: 300,
 };
 
 const LoadingPlaceholder = (props) => {
-  
-  const options = {
-    animationData: guitarLoading,
-    loop: true,
-    autoplay: true,
-  };
-
-  const { View } = useLottie(options, lottieStyle);
-
-
   return (
     <>
       {props.isLoading
         ?
-          <Container >
-            {View}
+          <Container>
+            <Lottie style={lottieStyle} animationData={guitarLoading} />;
             <Typography sx={{textAlign: 'center'}}>Loading...</Typography>
           </Container>
         :

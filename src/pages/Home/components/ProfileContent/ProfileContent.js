@@ -11,7 +11,7 @@ const ProfileContent = () => {
   const { cognitoUsername } = useParams();
   const { tagsInSearchbar } = useContext(TagContext);
   const { user, userIsLoading } = useContext(UserContext);
-  const { usersTablature } = useContext(TablatureContext);
+  const { usersTablature, tablatureIsLoading } = useContext(TablatureContext);
   const [tablatureOnPage, setTablatureOnPage] = useState(usersTablature);
   const navigate = useNavigate();
 
@@ -36,7 +36,7 @@ const ProfileContent = () => {
   }, [tagsInSearchbar, usersTablature]);
 
   return (
-    <LoadingPlaceholder isLoading={userIsLoading}>
+    <LoadingPlaceholder isLoading={userIsLoading && tablatureIsLoading}>
       {tablatureOnPage?.map((tab, index) => (
         <Card tabData={tab} key={index} />
       ))}
