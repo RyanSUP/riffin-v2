@@ -10,9 +10,9 @@ import Card from "components/Card/Card";
 const ProfileContent = () => {
   const { cognitoUsername } = useParams();
   const { tagsInSearchbar } = useContext(TagContext);
-  const { user } = useContext(UserContext);
-  const { usersTablature, tablatureIsLoading } = useContext(TablatureContext);
-  const [tablatureOnPage, setTablatureOnPage] = useState(null);
+  const { user, userIsLoading } = useContext(UserContext);
+  const { usersTablature } = useContext(TablatureContext);
+  const [tablatureOnPage, setTablatureOnPage] = useState(usersTablature);
   const navigate = useNavigate();
 
   // TODO Handle nav for non users
@@ -21,12 +21,6 @@ const ProfileContent = () => {
       navigate(`/profile/${user.username}`);
     }
   }, [cognitoUsername, user, navigate]);
-
-  useEffect(() => {
-    if(tablatureIsLoading === false && tablatureOnPage === null) {
-      setTablatureOnPage(usersTablature);
-    }
-  }, [tablatureOnPage, usersTablature, tablatureIsLoading]);
 
   useEffect(() => {
     if(tagsInSearchbar) {
@@ -42,7 +36,7 @@ const ProfileContent = () => {
   }, [tagsInSearchbar, usersTablature]);
 
   return (
-    <LoadingPlaceholder isLoading={tablatureOnPage === null}>
+    <LoadingPlaceholder isLoading={userIsLoading}>
       {tablatureOnPage?.map((tab, index) => (
         <Card tabData={tab} key={index} />
       ))}
