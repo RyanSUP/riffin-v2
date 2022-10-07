@@ -7,7 +7,12 @@ import ExpandButton from "./components/ExpandButton/ExpandButton";
 import ButtonWrapper from "./components/ButtonWrapper/ButtonWrapper";
 import ReadonlyTablature from "components/ReadonlyTablature/ReadonlyTablature";
 import BlockContent from "./components/BlockContent/BlockContent";
-import { Typography } from "@mui/material";
+// MUI
+import { Box, Typography } from "@mui/material";
+
+const cardBottomMargin = {
+  mb: 3
+};
 
 const Card = (props) => {
   const [expanded, setExpanded] = useState(false);
@@ -19,12 +24,12 @@ const Card = (props) => {
   /**
    * Cards that have no additional content should not be expandable
    */
-  const onlyOneBlock = props.tabData.blocks.length === 1;
-  const firstBlockHasNoLabel = props.tabData.blocks[0].label === ""
+  const onlyOneBlock = (props.tabData.blocks.length === 1);
+  const firstBlockHasNoLabel = (props.tabData.blocks[0].label === undefined);
   const disableExpand = (onlyOneBlock && firstBlockHasNoLabel);
 
   return (
-    <>
+    <Box sx={cardBottomMargin}>
       <DividerWrapper>
         <Typography>{props.tabData.name}</Typography>
         <EditTablatureButton tab_id={props.tabData._id} />
@@ -49,7 +54,7 @@ const Card = (props) => {
             />
         }
       </ButtonWrapper>
-    </>
+    </Box>
   );
 }
  

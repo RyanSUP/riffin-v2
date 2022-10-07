@@ -132,7 +132,7 @@ export const getNewGuitarBlock = (numberOfStrings = 6) => {
 export const getNewTablatureTemplateObject = (numberOfStrings) => {
   const initialBlock = getNewGuitarBlock(numberOfStrings);
   return {
-    name: "A tasty lick",
+    name: "",
     blocks: [initialBlock],
     tags: [],
     numberOfStrings

@@ -2,22 +2,32 @@
 import { Box, Chip } from "@mui/material";
 
 
-const tagBoxStyles = {
+const tagContainer = {
   display: "flex",
   width: "50%",
   alignItems: "end",
   overflow: "hidden",
+  mb: 1
+};
+
+const spacer = {
+  mr: 1,
+  mb: 1,
 }
 
 const TagGroup = (props) => {
   return (
-    <Box style={tagBoxStyles}>
+    <Box sx={tagContainer}>
       {props.tags?.map((tag, i) =>(
-        <Chip 
-          key={i}
-          label={tag} 
-          size="small" 
-        />
+        <Box sx={spacer}>
+          <Chip 
+            sx={{textTransform: "none"}}
+            key={i}
+            label={tag} 
+            size="small"
+            variant="outlined"
+          />
+        </Box>
       ))}
     </Box>
   );

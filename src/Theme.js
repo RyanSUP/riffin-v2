@@ -30,7 +30,7 @@ const darkTheme = createTheme({
           // background: "transparent",
         }
       }
-    }
+    },
   },
   typography: {
     // Main Header
@@ -139,6 +139,7 @@ const darkTheme = createTheme({
       [`@media screen and (max-width: 1200px)`]: {
         fontSize: "12px",
       },
+      textTransform: "none"
     },
   },
 });

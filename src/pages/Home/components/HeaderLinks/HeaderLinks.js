@@ -39,7 +39,7 @@ const HeaderLinks = () => {
         : <LoginButton />
         }
       </>
-      <Button variant="outlined">Donate</Button>
+      <Button variant="outlined" size="large">Donate</Button>
     </Box>
   )
 }

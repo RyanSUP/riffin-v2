@@ -19,7 +19,11 @@ const ExpandButton = (props) => {
    */
   useEffect(() => {
     setIcon(props.expanded ? <FullscreenExitIcon /> : <FullscreenIcon />);
-    setText(props.expanded ? "Collapse View" : "Expand View");
+    if(props.disabled) {
+      setText("No content");
+    } else {
+      setText(props.expanded ? "Collapse View" : "Expand view");
+    }
   }, [props]);
 
   return (

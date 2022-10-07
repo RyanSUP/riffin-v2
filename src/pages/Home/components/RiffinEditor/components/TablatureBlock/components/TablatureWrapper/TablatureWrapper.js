@@ -5,7 +5,6 @@ const TablatureWrapper = (props) => {
 
   const style= { 
     position: "relative", 
-    left: "-4px" // This compensates for some inherent padding in the textareas and aligns the left side of the textarea with the start of the container.
   };
 
   return (
