@@ -77,14 +77,24 @@ const Home = () => {
             </RiffinProvider>
           }/>
           <Route path="/new/bass" element={
-            <Grid item xs={8}>
-              <RiffinProvider key={"bass"} numberOfStrings={4}  />
-            </Grid>
+            <RiffinProvider key={"bass"} numberOfStrings={4}>
+              <Grid item xs={8}>
+                <RiffinEditor />
+              </Grid>
+              <Grid item xs={2}>
+                <RiffinDrawer />
+              </Grid>
+            </RiffinProvider>
           }/>
           <Route path="/edit/:tabId" element={
-            <Grid item xs={8}>
-              <RiffinProvider key={"editor"} />
-            </Grid>
+            <RiffinProvider key={"editor"}>
+              <Grid item xs={8}>
+                <RiffinEditor />
+              </Grid>
+              <Grid item xs={2}>
+                <RiffinDrawer />
+              </Grid>
+            </RiffinProvider>
           }/>
           <Route path="*" element={<Navigate to="/new/guitar" replace />} />
         </Routes>
