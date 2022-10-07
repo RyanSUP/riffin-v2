@@ -26,6 +26,7 @@ const RiffinDrawer = () => {
         </Box>
         <DuplicateBlockButton />
         <DeleteBlockButton block={ selectedBlock } disabled={(editor.tablature.blocks.length === 1)} />
+        <Divider />
       </Stack>
     </Container>
   );
