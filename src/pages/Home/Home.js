@@ -1,17 +1,19 @@
 // Components
 import Sidebar from './components/Sidebar/Sidebar';
-import ContentRoutes from "./components/ContentRoutes/ContentRoutes";
 import HeaderLogo from './components/HeaderLogo/HeaderLogo';
 import HeaderLinks from './components/HeaderLinks/HeaderLinks';
 import TagBar from './components/TagBar/TagBar';
 import { useMediaQuery } from "@mui/material";
 import { useTheme } from "@mui/material/styles";
-// Images
+import { Route, Routes, Navigate } from "react-router-dom";
+import ProfileContent from "./components/ProfileContent/ProfileContent";
+import LoginSignupForm from "./components/LoginSignupForm/LoginSignupForm";
+import { RiffinEditor } from "./components/RiffinEditor/RiffinEditor";
 // MUI
 import { Grid, Container } from "@mui/material";
 
 /**
- * * Home primary focus is the layout of the application.
+ * * Home handles the application layout and routing.
  */
 
 const Home = () => {
@@ -50,9 +52,34 @@ const Home = () => {
           </Grid>
         }
 
-        <Grid item xs={12} md={8}>
-          <ContentRoutes />
-        </Grid>
+        <Routes>
+          <Route path="/login" element={
+            <Grid item xs={12} md={8}>
+              <LoginSignupForm />
+            </Grid>
+          }/>
+          <Route path="/profile/:cognitoUsername" element={
+            <Grid item xs={12} md={8}>
+              <ProfileContent />
+            </Grid>
+          }/>
+          <Route path="/new/guitar" element={
+            <Grid item xs={12} md={10}>
+              <RiffinEditor key={"newGuitar"} numberOfStrings={6} />
+            </Grid>
+          }/>
+          <Route path="/new/bass" element={
+            <Grid item xs={12} md={10}>
+              <RiffinEditor key={"bass"} numberOfStrings={4}  />
+            </Grid>
+          }/>
+          <Route path="/edit/:tabId" element={
+            <Grid item xs={12} md={10}>
+              <RiffinEditor key={"editor"} />
+            </Grid>
+          }/>
+          <Route path="*" element={<Navigate to="/new/guitar" replace />} />
+        </Routes>
 
       </Grid>
     </div>
