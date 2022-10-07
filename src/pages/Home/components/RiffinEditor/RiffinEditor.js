@@ -192,8 +192,8 @@ const handleDeleteBlock = (state, action) => {
  * @param {Object} action - an object specifying the action to perform and data relevant to the action.
  * @returns Updated state
  */
-const handleDuplicateBlock = (state, action) => {
-  const newBlock = { ...action.blockToDuplicate, tempKey: Date() + Math.random() };
+const handleDuplicateBlock = (state) => {
+  const newBlock = { ...state.selectedBlock.block, tempKey: Date() + Math.random() };
   state.tablature.blocks.push(newBlock);
   return {
     tablature: state.tablature,
