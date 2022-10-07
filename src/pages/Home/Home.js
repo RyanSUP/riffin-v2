@@ -12,6 +12,8 @@ import { RiffinProvider } from './components/RiffinEditor/RiffinProvider';
 
 // MUI
 import { Grid, Container } from "@mui/material";
+import RiffinEditor from './components/RiffinEditor/RiffinEditor';
+import RiffinDrawer from './components/RiffinEditor/components/RiffinDrawer/RiffinDrawer';
 
 /**
  * * Home handles the application layout and routing.
@@ -55,27 +57,32 @@ const Home = () => {
 
         <Routes>
           <Route path="/login" element={
-            <Grid item xs={12} md={8}>
+            <Grid item xs={8}>
               <LoginSignupForm />
             </Grid>
           }/>
           <Route path="/profile/:cognitoUsername" element={
-            <Grid item xs={12} md={8}>
+            <Grid item xs={8}>
               <ProfileContent />
             </Grid>
           }/>
           <Route path="/new/guitar" element={
-            <Grid item xs={12} md={10}>
-              <RiffinProvider key={"newGuitar"} numberOfStrings={6} />
-            </Grid>
+            <RiffinProvider key={"newGuitar"} numberOfStrings={6}>
+              <Grid item xs={8}>
+                <RiffinEditor />
+              </Grid>
+              <Grid item xs={2}>
+                <RiffinDrawer />
+              </Grid>
+            </RiffinProvider>
           }/>
           <Route path="/new/bass" element={
-            <Grid item xs={12} md={10}>
+            <Grid item xs={8}>
               <RiffinProvider key={"bass"} numberOfStrings={4}  />
             </Grid>
           }/>
           <Route path="/edit/:tabId" element={
-            <Grid item xs={12} md={10}>
+            <Grid item xs={8}>
               <RiffinProvider key={"editor"} />
             </Grid>
           }/>

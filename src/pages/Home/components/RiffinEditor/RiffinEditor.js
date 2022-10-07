@@ -8,7 +8,7 @@ import { useContext } from "react";
 import { RiffinEditorDispatch } from "./RiffinProvider";
 // MUI
 import { Box, Grid } from "@mui/material";
-const Content = () => {
+const RiffinEditor = () => {
   const { editor } = useContext(RiffinEditorDispatch);
   return (
     <>
@@ -33,4 +33,4 @@ const Content = () => {
   );
 }
  
-export default Content;
+export default RiffinEditor;

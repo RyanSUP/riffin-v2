@@ -4,7 +4,6 @@ import { useParams } from "react-router-dom";
 import { TablatureContext } from "containers/TablatureProvider/TablatureProvider";
 import LoadingPlaceholder from "containers/LoadingPlaceholder/LoadingPlaceholder";
 import { TagContext } from "containers/TagProvider/TagProvider";
-import Editor from "./Editor";
 // Utilties
 import * as utils from "./Utilities";
 
@@ -162,7 +161,7 @@ const handleDeleteBlock = (state, action) => {
       cursor: state.cursor
     };
   }
-  state.tablature.blocks = state.tablature.blocks.filter((block) => {
+  const updatedBlocks = state.tablature.blocks.filter((block) => {
     // A block with either have a tempKey or an _id, depending on if the tab has been saved to the backend. This also prevents double deleting when in React.StrictMode.
     if(action.block.tempKey && block.tempKey) {
       return (action.block.tempKey !== block.tempKey);
@@ -170,6 +169,13 @@ const handleDeleteBlock = (state, action) => {
       return (action.block._id !== block._id);
     }
   });
+  const newSelectedBlock = {
+    block: updatedBlocks[updatedBlocks.length - 1],
+    index: updatedBlocks.length - 1,
+    inputRef: null
+  };
+  state.tablature.blocks = updatedBlocks;
+  state.selectedBlock = newSelectedBlock;
   return {
     tablature: state.tablature,
     selectedBlock: state.selectedBlock,
@@ -317,7 +323,7 @@ const RiffinProvider = (props) => {
    * Prevents cursor from jumping to the end of the input textarea after a key is pressed.
    */
   useEffect(() => {
-    if (editor.selectedBlock) {
+    if (editor.selectedBlock?.inputRef) {
       editor.selectedBlock.inputRef.current.selectionStart = editor.cursor.position;
       editor.selectedBlock.inputRef.current.selectionEnd = editor.cursor.position;
     }
@@ -348,13 +354,20 @@ const RiffinProvider = (props) => {
   useEffect(() => {
     if(editor.tablature) {
       setIsLoading(false);
+      const action = {
+        type: "updateSelection",
+        blockIndex: 0,
+        block: editor.tablature.blocks[0],
+        blockRef: null
+      };
+      dispatch(action);
     }
   }, [editor.tablature]);
 
   return (
     <RiffinEditorDispatch.Provider value={{dispatch, editor, setIsLoading}}>
       <LoadingPlaceholder isLoading={isLoading}>
-        <Editor />
+        {props.children}
       </LoadingPlaceholder>
     </RiffinEditorDispatch.Provider>
   );

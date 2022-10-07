@@ -30,10 +30,7 @@ const TablatureBlock = (props) => {
   return (
     <Box onMouseEnter={handleMouseEnter} onMouseLeave={handleMouseLeave}>
       <Box sx={{display: 'flex', justifyContent: 'space-between'}}>
-        <NoteTextarea label={props.block.label} index={props.index}/>
-        {showOptions &&
-          <OptionsMenu block={props.block} index={props.index} />
-        }
+      <NoteTextarea label={props.block.label} index={props.index}/>
       </Box>
       <TablatureWrapper>
         <InputTextarea 
