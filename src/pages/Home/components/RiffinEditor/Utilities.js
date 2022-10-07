@@ -140,14 +140,6 @@ export const getNewTablatureTemplateObject = (numberOfStrings) => {
 };
 
 /**
- * Mainly used for compositional purposes. Creates a selection object with the provided arguments.
- * @param {Number} blockIndex 
- * @param {Ref} blockRef 
- * @returns the selection object
- */
-export const generateSelectedBlockObject = (blockIndex, blockRef) => ({ inputRef: blockRef, index: blockIndex });
-
-/**
  * Mainly used for compositional purposes. Creates a cursor object with the provided arguments.
  * @param {Number} selectionStart 
  * @returns the cursorPosition object

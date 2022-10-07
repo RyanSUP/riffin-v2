@@ -28,7 +28,7 @@ const RiffinEditorDispatch = createContext(null);
 // * handleDuplicateBlock will duplicate the blocks twice.
 
 /**
- * Updates the size of the block text areas. Dispatched from SizeSlider.
+ * Updates the size of the block text areas. Dispatched from SizeSlider. The OGBlock is needed from the action to ensure the size updates in real-time.
  * @param {Object} state - the current state of editor
  * @param {Object} action - an object specifying the action to perform and data relevant to the action.
  * @returns Updated state
@@ -39,14 +39,7 @@ const handleBlockSizeChange = (state, action)=> {
   // updates block proeprties
   const newColumnCount = action.OGBlock.cols + action.stepCount;
   const newMaxLength = utils.calcTextareaMaxLength(newColumnCount, state.tablature.numberOfStrings)
-  const indexOfBlockToUpdate = state.tablature.blocks.findIndex((block) => {
-    if(action.OGBlock.tempKey && block.tempKey) {
-      return (action.OGBlock.tempKey === block.tempKey);
-    } else {
-      return (action.OGBlock._id === block._id);
-    }
-  });
-  state.tablature.blocks[indexOfBlockToUpdate] = {
+  state.tablature.blocks[state.selectedBlock.index] = {
     ...action.OGBlock,
     inputs: newInputs,
     dashes: newDashes,
@@ -120,9 +113,14 @@ const handleDuplicateColumn = (state, action) => {
  * @returns Updated state
  */
 const handleUpdateSelection = (state, action) => {
+  const selectedBlockData = { 
+    inputRef: action.blockRef, 
+    index: action.blockIndex,
+    block: state.tablature.blocks[action.blockIndex]
+  };
   return {
     tablature: state.tablature,
-    selectedBlock: utils.generateSelectedBlockObject(action.blockIndex, action.blockRef),
+    selectedBlock: selectedBlockData,
     cursor: utils.generateCursorPositionObject(action.selectionStart)
   };
 };
