@@ -167,6 +167,13 @@ const handleDeleteColumn = (state, action) => {
  * @returns Updated state
  */
 const handleDeleteBlock = (state, action) => {
+  if(state.tablature.blocks.length === 1) {
+    return {
+      tablature: state.tablature,
+      selectedBlock: state.selectedBlock,
+      cursor: state.cursor
+    };
+  }
   state.tablature.blocks = state.tablature.blocks.filter((block) => {
     // A block with either have a tempKey or an _id, depending on if the tab has been saved to the backend. This also prevents double deleting when in React.StrictMode.
     if(action.block.tempKey && block.tempKey) {
