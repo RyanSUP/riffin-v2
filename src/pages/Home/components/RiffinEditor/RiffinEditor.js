@@ -77,9 +77,8 @@ const handleAddCharacter = (state, action) => {
  * @returns Updated state
  */
 const handleDeleteCharacter = (state, action) => {
-  const blockToDeleteFrom = state.tablature.blocks[state.selectedBlock.index];
-  blockToDeleteFrom.inputs = utils.replaceTextareaValue(blockToDeleteFrom.inputs, " ", action.selectionStart);
-  blockToDeleteFrom.dashes = utils.replaceTextareaValue(blockToDeleteFrom.dashes, "-", action.selectionStart);
+  state.selectedBlock.block.inputs = utils.replaceTextareaValue(state.selectedBlock.block.inputs, " ", action.selectionStart);
+  state.selectedBlock.block.dashes = utils.replaceTextareaValue(state.selectedBlock.block.dashes, "-", action.selectionStart);
   return {
     tablature: state.tablature,
     selectedBlock: state.selectedBlock,
