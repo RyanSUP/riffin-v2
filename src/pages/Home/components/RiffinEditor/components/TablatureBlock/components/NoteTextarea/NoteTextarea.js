@@ -23,6 +23,20 @@ const NoteTextarea = (props) => {
   };
 
   /**
+   * Sends a dispatch to update the selected block. The new selected block will be whichever block is handling the click.
+   * @param {Object} event 
+   */
+   const handleClick = (event) => {
+    const action = {
+      type: "updateSelection",
+      blockIndex: props.index,
+      blockRef: null,
+      selectionStart: event.target.selectionStart
+    };
+    dispatch(action);
+  };
+
+  /**
    * Updates the value of the block's label property when a user types in the Textarea.
    * @param {Object} event - needed so it can be prevented.
    */
@@ -42,6 +56,7 @@ const NoteTextarea = (props) => {
       style={inputsStyle}
       minRows={2}
       value={props.label}
+      onClick={handleClick}
       onChange={handleChange}
       placeholder={"Notes.\nTake as many lines as you need."}
     />

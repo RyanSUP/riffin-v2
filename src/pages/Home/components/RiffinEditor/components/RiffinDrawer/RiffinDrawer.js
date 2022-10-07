@@ -19,7 +19,7 @@ const RiffinDrawer = () => {
   return (
     <Container sx={{mt: 4}}>
       <Stack spacing={2}>
-        <Divider>Block options</Divider>
+        <Divider>Staff options</Divider>
         <Box>
           <Typography>Size</Typography>
           <SizeSlider block={ selectedBlock }/>

@@ -37,7 +37,7 @@ const AddNewBlockButton = (props) => {
         </Button>
       :
         <Button variant="outlined" onClick={handleClick} endIcon={<PlaylistAddIcon />}>
-          add tablature block
+          Add staff
         </Button>
       }
     </>
