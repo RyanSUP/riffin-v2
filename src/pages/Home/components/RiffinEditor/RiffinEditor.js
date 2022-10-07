@@ -93,10 +93,9 @@ const handleDeleteCharacter = (state, action) => {
  * @returns Updated state
  */
 const handleDuplicateColumn = (state, action) => {
-  const duplicationBlock = state.tablature.blocks[state.selectedBlock.index];
   for(let value of action.duplicationValues) {
-    duplicationBlock.inputs = utils.replaceTextareaValue(duplicationBlock.inputs, value.inputValue, value.targetPosition);
-    duplicationBlock.dashes = utils.replaceTextareaValue(duplicationBlock.dashes, value.dashValue, value.targetPosition);
+    state.selectedBlock.block.inputs = utils.replaceTextareaValue(state.selectedBlock.block.inputs, value.inputValue, value.targetPosition);
+    state.selectedBlock.block.dashes = utils.replaceTextareaValue(state.selectedBlock.block.dashes, value.dashValue, value.targetPosition);
   }
   return {
     tablature: state.tablature,
