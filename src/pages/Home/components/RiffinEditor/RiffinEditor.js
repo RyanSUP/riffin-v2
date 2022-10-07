@@ -4,7 +4,6 @@ import { useParams } from "react-router-dom";
 import { TablatureContext } from "containers/TablatureProvider/TablatureProvider";
 import AddNewBlockButton from "./components/AddNewBlockButton/AddNewBlockButton";
 import LoadingPlaceholder from "containers/LoadingPlaceholder/LoadingPlaceholder";
-import MobileEditor from "./components/MobileEditor/MobileEditor";
 import TitleInput from "./components/TitleInput/TitleInput";
 import DeleteTabButton from "./components/DeleteTabButton/DeleteTabButton";
 import SaveTabButton from "./components/SaveTabButton/SaveTabButton";
@@ -358,37 +357,30 @@ const RiffinEditor = (props) => {
   }, [editor.tablature]);
 
   return (
-    <>
-      <Box display={{ xs: 'none', sm: 'none', md: 'block', lg: 'block' }}>
-        <RiffinEditorDispatch.Provider value={dispatch}>
-          <LoadingPlaceholder isLoading={isLoading}>
-            <Grid container rowSpacing={2} columnSpacing={4} sx={{alignItems: "end"}}>
-              <Grid item>
-                <TitleInput name={editor.tablature.name}/>
-              </Grid>
-              <Grid item>
-                <SaveTabButton 
-                  tablature={editor.tablature} 
-                  setIsLoading={setIsLoading} 
-                />
-              </Grid>
-              <Grid item>
-                <DeleteTabButton tablature={editor.tablature} />
-              </Grid>
-            </Grid>
-            {editor.tablature.blocks.map((block, i) => (
-            <Box sx={{my: 4}} key={i}>
-              <TablatureBlock key={i} index={i} block={block} numberOfStrings={editor.tablature.numberOfStrings} />
-            </Box>
-            ))}
-            <AddNewBlockButton numberOfBlocks={editor.tablature.blocks.length} />
-          </LoadingPlaceholder>
-        </RiffinEditorDispatch.Provider>
-      </Box>
-      <Box display={{ xs: 'block', sm: 'block', md: 'none', lg: 'none' }}>
-        <MobileEditor />
-      </Box>
-    </>
+    <RiffinEditorDispatch.Provider value={dispatch}>
+      <LoadingPlaceholder isLoading={isLoading}>
+        <Grid container rowSpacing={2} columnSpacing={4} sx={{alignItems: "end"}}>
+          <Grid item>
+            <TitleInput name={editor.tablature.name}/>
+          </Grid>
+          <Grid item>
+            <SaveTabButton 
+              tablature={editor.tablature} 
+              setIsLoading={setIsLoading} 
+            />
+          </Grid>
+          <Grid item>
+            <DeleteTabButton tablature={editor.tablature} />
+          </Grid>
+        </Grid>
+        {editor.tablature.blocks.map((block, i) => (
+        <Box sx={{my: 4}} key={i}>
+          <TablatureBlock key={i} index={i} block={block} numberOfStrings={editor.tablature.numberOfStrings} />
+        </Box>
+        ))}
+        <AddNewBlockButton numberOfBlocks={editor.tablature.blocks.length} />
+      </LoadingPlaceholder>
+    </RiffinEditorDispatch.Provider>
   );
 }
  
