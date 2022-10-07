@@ -144,10 +144,9 @@ const handleUpdateCursorPosition = (state, action) => {
  * @returns Updated state
  */
 const handleDeleteColumn = (state, action) => {
-  const deletionBlock = state.tablature.blocks[state.selectedBlock.index];
   for(let position of action.positionsToDelete) {
-    deletionBlock.inputs = utils.replaceTextareaValue(deletionBlock.inputs, " ", position);
-    deletionBlock.dashes = utils.replaceTextareaValue(deletionBlock.dashes, "-", position);
+    state.selectedBlock.block.inputs = utils.replaceTextareaValue(state.selectedBlock.block.inputs, " ", position);
+    state.selectedBlock.block.dashes = utils.replaceTextareaValue(state.selectedBlock.block.dashes, "-", position);
   }
   return {
     tablature: state.tablature,
