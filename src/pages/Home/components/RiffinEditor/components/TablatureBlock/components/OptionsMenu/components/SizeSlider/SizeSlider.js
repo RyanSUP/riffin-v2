@@ -1,5 +1,5 @@
 // Components / hooks
-import { RiffinEditorDispatch } from "pages/Home/components/RiffinEditor/RiffinEditor";
+import { RiffinEditorDispatch } from "pages/Home/components/RiffinEditor/RiffinProvider";
 import { useState, useContext } from "react";
 import {MAX_BLOCK_COLS, MIN_BLOCK_COLS} from "../../../../../../EditorConfig";
 // MUI
@@ -26,7 +26,7 @@ const blockSizeAtMin = (cols) => (cols === MIN_BLOCK_COLS);
 
 const SizeSlider = (props) => {
   const [sliderValue, setSliderValue] = useState(props.block.cols);
-  const dispatch = useContext(RiffinEditorDispatch); 
+  const { dispatch } = useContext(RiffinEditorDispatch); 
 
   /**
    * Dispatches an increaseBlockSize or decreaseBlockSize action to the editor reducer.

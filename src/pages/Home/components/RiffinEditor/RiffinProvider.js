@@ -2,20 +2,13 @@
 import { createContext, useReducer, useEffect, useState, useContext } from "react";
 import { useParams } from "react-router-dom";
 import { TablatureContext } from "containers/TablatureProvider/TablatureProvider";
-import AddNewBlockButton from "./components/AddNewBlockButton/AddNewBlockButton";
 import LoadingPlaceholder from "containers/LoadingPlaceholder/LoadingPlaceholder";
-import TitleInput from "./components/TitleInput/TitleInput";
-import DeleteTabButton from "./components/DeleteTabButton/DeleteTabButton";
-import SaveTabButton from "./components/SaveTabButton/SaveTabButton";
-import TablatureBlock from "./components/TablatureBlock/TablatureBlock";
 import { TagContext } from "containers/TagProvider/TagProvider";
+import Editor from "./Editor";
 // Utilties
 import * as utils from "./Utilities";
-// MUI
-import { Box, Grid } from "@mui/material";
 
-
-// * RiffinEditor relies on this dispatch context to update state values from child components.
+// * RiffinProvider relies on this dispatch context to update state values from child components.
 // * Checkout React's documentation for more information:
 // * https://reactjs.org/docs/hooks-reference.html#usereducer
 // * https://reactjs.org/docs/hooks-faq.html#how-to-avoid-passing-callbacks-down
@@ -285,7 +278,7 @@ function riffinReducer(state, action) {
       return handleDeleteColumn(state, action);
     case 'duplicateBlock':
       // * In React.StrictMode this causes 2 blocks to be pushed into the blocks array.
-      return handleDuplicateBlock(state, action);
+      return handleDuplicateBlock(state);
     case 'deleteBlock':
       return handleDeleteBlock(state, action);
     case 'increaseBlockSize':
@@ -309,7 +302,7 @@ function riffinReducer(state, action) {
   }
 }
 
-const RiffinEditor = (props) => {
+const RiffinProvider = (props) => {
   const { tabId } = useParams();
   const [isLoading, setIsLoading] = useState(true);
   const [editor, dispatch] = useReducer(riffinReducer, {
@@ -359,31 +352,12 @@ const RiffinEditor = (props) => {
   }, [editor.tablature]);
 
   return (
-    <RiffinEditorDispatch.Provider value={dispatch}>
+    <RiffinEditorDispatch.Provider value={{dispatch, editor, setIsLoading}}>
       <LoadingPlaceholder isLoading={isLoading}>
-        <Grid container rowSpacing={2} columnSpacing={4} sx={{alignItems: "end"}}>
-          <Grid item>
-            <TitleInput name={editor.tablature.name}/>
-          </Grid>
-          <Grid item>
-            <SaveTabButton 
-              tablature={editor.tablature} 
-              setIsLoading={setIsLoading} 
-            />
-          </Grid>
-          <Grid item>
-            <DeleteTabButton tablature={editor.tablature} />
-          </Grid>
-        </Grid>
-        {editor.tablature.blocks.map((block, i) => (
-        <Box sx={{my: 4}} key={i}>
-          <TablatureBlock key={i} index={i} block={block} numberOfStrings={editor.tablature.numberOfStrings} />
-        </Box>
-        ))}
-        <AddNewBlockButton numberOfBlocks={editor.tablature.blocks.length} />
+        <Editor />
       </LoadingPlaceholder>
     </RiffinEditorDispatch.Provider>
   );
 }
  
-export { RiffinEditor, RiffinEditorDispatch };
+export { RiffinProvider, RiffinEditorDispatch };

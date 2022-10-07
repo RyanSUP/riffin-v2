@@ -8,7 +8,8 @@ import { useTheme } from "@mui/material/styles";
 import { Route, Routes, Navigate } from "react-router-dom";
 import ProfileContent from "./components/ProfileContent/ProfileContent";
 import LoginSignupForm from "./components/LoginSignupForm/LoginSignupForm";
-import { RiffinEditor } from "./components/RiffinEditor/RiffinEditor";
+import { RiffinProvider } from './components/RiffinEditor/RiffinProvider';
+
 // MUI
 import { Grid, Container } from "@mui/material";
 
@@ -65,17 +66,17 @@ const Home = () => {
           }/>
           <Route path="/new/guitar" element={
             <Grid item xs={12} md={10}>
-              <RiffinEditor key={"newGuitar"} numberOfStrings={6} />
+              <RiffinProvider key={"newGuitar"} numberOfStrings={6} />
             </Grid>
           }/>
           <Route path="/new/bass" element={
             <Grid item xs={12} md={10}>
-              <RiffinEditor key={"bass"} numberOfStrings={4}  />
+              <RiffinProvider key={"bass"} numberOfStrings={4}  />
             </Grid>
           }/>
           <Route path="/edit/:tabId" element={
             <Grid item xs={12} md={10}>
-              <RiffinEditor key={"editor"} />
+              <RiffinProvider key={"editor"} />
             </Grid>
           }/>
           <Route path="*" element={<Navigate to="/new/guitar" replace />} />

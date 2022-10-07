@@ -1,6 +1,6 @@
 // Components / hooks
 import { useRef, useEffect, useState, useContext } from "react";
-import { RiffinEditorDispatch } from "pages/Home/components/RiffinEditor/RiffinEditor";
+import { RiffinEditorDispatch } from "pages/Home/components/RiffinEditor/RiffinProvider";
 // Utils / services
 import * as utils from "../../../../Utilities";
 import { DEFAULT_DUPLICATION_TARGET } from "pages/Home/components/RiffinEditor/EditorConfig";
@@ -123,7 +123,7 @@ const InputTextarea = (props) => {
   const [mapOfFirstColumnIndexes, setMapOfFirstColumnIndexes] = useState(
     utils.getMapOfFirstColumnIndexes({cols: props.block.cols,numberOfStrings: props.numberOfStrings})
   );
-  const dispatch = useContext(RiffinEditorDispatch);
+  const { dispatch } = useContext(RiffinEditorDispatch);
   const ref = useRef();
   const theme = useTheme();
   

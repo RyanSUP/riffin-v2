@@ -2,9 +2,10 @@
 import DashTextarea from "./components/DashTextarea/DashTextarea";
 import InputTextarea from "./components/InputTextarea/InputTextarea";
 import TablatureWrapper from "./components/TablatureWrapper/TablatureWrapper";
-import { useState } from "react";
+import { useState, useContext } from "react";
 import NoteTextarea from "./components/NoteTextarea/NoteTextarea";
-import OptionsMenu from "./components/OptionsMenu/OptionsMenu"
+import OptionsMenu from "./components/OptionsMenu/OptionsMenu";
+import { RiffinEditorDispatch } from "../../RiffinProvider";
 // MUI
 import { Box } from "@mui/material";
 
@@ -15,7 +16,7 @@ import { Box } from "@mui/material";
 
 const TablatureBlock = (props) => {
   const [showOptions, setShowOptions] = useState(false)
-
+  const { editor } = useContext(RiffinEditorDispatch);
   /**
    * Shows the options menu when the mouse enters the TablatureBlock.
    */
@@ -38,11 +39,11 @@ const TablatureBlock = (props) => {
         <InputTextarea 
           block={props.block} 
           index={props.index} 
-          numberOfStrings={props.numberOfStrings}
+          numberOfStrings={editor.tablature.numberOfStrings}
         />
         <DashTextarea 
           block={props.block} 
-          numberOfStrings={props.numberOfStrings}
+          numberOfStrings={editor.tablature.numberOfStrings}
         />
       </TablatureWrapper>
     </Box>

@@ -1,6 +1,6 @@
 // Components / hooks
 import { useState, useContext } from 'react';
-import { RiffinEditorDispatch } from "pages/Home/components/RiffinEditor/RiffinEditor";
+import { RiffinEditorDispatch } from "pages/Home/components/RiffinEditor/RiffinProvider";
 import SizeSlider from './components/SizeSlider/SizeSlider';
 // MUI
 import { styled, alpha } from '@mui/material/styles';

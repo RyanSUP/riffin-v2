@@ -3,6 +3,7 @@ import { useContext } from "react";
 import { useNavigate } from "react-router-dom";
 import { TablatureContext } from "containers/TablatureProvider/TablatureProvider";
 import { UserContext } from "containers/CognitoUserProvider/CognitoUserProvider";
+import { RiffinEditorDispatch } from "../../RiffinProvider";
 // Services / utils
 import * as tablatureServices from "services/tablatureServices";
 import { getIdTokenFromUser } from "utils/userUtils";
@@ -19,16 +20,17 @@ import { Button } from "@mui/material";
 const DeleteTabButton = (props) => {
   const { user } = useContext(UserContext);
   const { deleteFromUsersTablature } = useContext(TablatureContext);
+  const { editor } = useContext(RiffinEditorDispatch);
   const navigate = useNavigate();
 
   /**
    * Sends a request to the backend to delete the tablature, then navigates the user to their profile. If a user does not own the tab they will just be redirected to their profile (this is a defensive catch as a non-owner should never have a access to editing a tab they don't own).
    */
   const handleDelete = () => {
-    if(props.tablature.owner.user === user.username) {
-      deleteFromUsersTablature(props.tablature._id);
+    if(editor.tablature.owner.user === user.username) {
+      deleteFromUsersTablature(editor.tablature._id);
       const idToken = getIdTokenFromUser(user);
-      tablatureServices.delete(props.tablature._id, idToken)
+      tablatureServices.delete(editor.tablature._id, idToken)
       .then((res) => {
         console.log(res);
       });
@@ -38,7 +40,7 @@ const DeleteTabButton = (props) => {
   
   return (
     <>
-      {props.tablature._id &&
+      {editor.tablature._id &&
         <Button variant="outlined" onClick={handleDelete}>Delete</Button>
       }
     </>

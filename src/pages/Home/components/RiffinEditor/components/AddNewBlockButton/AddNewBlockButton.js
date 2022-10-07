@@ -1,5 +1,5 @@
 // Components / hooks
-import { RiffinEditorDispatch } from '../../RiffinEditor';
+import { RiffinEditorDispatch } from '../../RiffinProvider';
 import { useContext } from 'react';
 // Utilities
 import { MAX_BLOCKS } from '../../EditorConfig';
@@ -14,7 +14,7 @@ import { Button } from "@mui/material";
 
 
 const AddNewBlockButton = (props) => {
-  const dispatcher = useContext(RiffinEditorDispatch);
+  const { dispatch, editor } = useContext(RiffinEditorDispatch);
 
   /**
    * Dispatches an addNewBlock action.
@@ -23,14 +23,14 @@ const AddNewBlockButton = (props) => {
     const action = {
       type: 'addNewBlock',
       // * numerOfBlocksBeforeAdding is a workaround to React.StrictMode's behavior of running reducers twice. Without this workaround, 2 blocks would be added.
-      numberOfBlocksBeforeAdding: props.numberOfBlocks
+      numberOfBlocksBeforeAdding: editor.tablature.blocks.length
     }
-    dispatcher(action);
+    dispatch(action);
   };
 
   return (
     <>
-      {(props.numberOfBlocks >= MAX_BLOCKS) 
+      {(editor.tablature.blocks.length >= MAX_BLOCKS) 
       ?
         <Button variant="outlined" disabled>
           You've reached the limit, dude!

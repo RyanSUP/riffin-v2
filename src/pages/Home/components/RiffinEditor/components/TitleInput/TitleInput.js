@@ -1,11 +1,11 @@
 // Components / hooks
-import { RiffinEditorDispatch } from "../../RiffinEditor";
+import { RiffinEditorDispatch } from "../../RiffinProvider";
 import { useContext } from "react";
 // MUI
 import { TextField } from "@mui/material";
 
-const TitleInput = (props) => {
-  const dispatcher = useContext(RiffinEditorDispatch);
+const TitleInput = () => {
+  const { dispatch, editor } = useContext(RiffinEditorDispatch);
 
   /**
    * Dispatches an action to update the tablature title when the user types in the TextField.
@@ -17,7 +17,7 @@ const TitleInput = (props) => {
       type: 'updateTablatureTitle',
       name: event.target.value
     };
-    dispatcher(action);
+    dispatch(action);
   };
 
   return (
@@ -26,7 +26,7 @@ const TitleInput = (props) => {
       id="standard-basic" 
       variant="standard" 
       onChange={handleChange}
-      value={props.name || ""}
+      value={editor.tablature.name || ""}
     />
   );
 }

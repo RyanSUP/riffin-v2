@@ -1,6 +1,6 @@
 // Components / hooks
 import { useContext } from "react";
-import { RiffinEditorDispatch } from "pages/Home/components/RiffinEditor/RiffinEditor";
+import { RiffinEditorDispatch } from "pages/Home/components/RiffinEditor/RiffinProvider";
 // MUI
 import { TextareaAutosize } from "@mui/material";
 
@@ -9,7 +9,7 @@ import { TextareaAutosize } from "@mui/material";
  */
 
 const NoteTextarea = (props) => {
-  const dispatcher = useContext(RiffinEditorDispatch);
+  const { dispatch } = useContext(RiffinEditorDispatch);
   const inputsStyle = {
     width: "60%",
     background: "transparent",
@@ -33,7 +33,7 @@ const NoteTextarea = (props) => {
       value: event.target.value,
       index: props.index
     };
-    dispatcher(action);
+    dispatch(action);
   };
 
   return (
