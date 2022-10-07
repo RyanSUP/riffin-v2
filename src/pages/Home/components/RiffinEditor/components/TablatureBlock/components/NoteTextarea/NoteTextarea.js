@@ -11,7 +11,7 @@ import { TextareaAutosize } from "@mui/material";
 const NoteTextarea = (props) => {
   const { dispatch } = useContext(RiffinEditorDispatch);
   const inputsStyle = {
-    width: "60%",
+    width: "100%",
     background: "transparent",
     margin: 0,
     resize: "none",

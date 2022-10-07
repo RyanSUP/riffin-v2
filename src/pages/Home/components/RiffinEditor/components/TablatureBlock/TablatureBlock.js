@@ -15,25 +15,14 @@ import { Box } from "@mui/material";
  */
 
 const TablatureBlock = (props) => {
-  const [showOptions, setShowOptions] = useState(false)
   const { editor } = useContext(RiffinEditorDispatch);
-  /**
-   * Shows the options menu when the mouse enters the TablatureBlock.
-   */
-  const handleMouseEnter = () => setShowOptions(true);
 
-  /**
-   * Hides the options menu when the mouse leaves the TablatureBlock
-   */
-  const handleMouseLeave = () => setShowOptions(false);
 
   return (
-    <Box onMouseEnter={handleMouseEnter} onMouseLeave={handleMouseLeave}>
-      <Box sx={{display: 'flex', justifyContent: 'space-between'}}>
+    <Box>
       <NoteTextarea label={props.block.label} index={props.index}/>
-      </Box>
       <TablatureWrapper>
-        <InputTextarea 
+        <InputTextarea
           block={props.block} 
           index={props.index} 
           numberOfStrings={editor.tablature.numberOfStrings}
