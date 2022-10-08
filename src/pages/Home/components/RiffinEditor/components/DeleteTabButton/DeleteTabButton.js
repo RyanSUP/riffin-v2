@@ -11,8 +11,6 @@ import { getIdTokenFromUser } from "utils/userUtils";
 import { Button } from "@mui/material";
 
 /**
- * * The DeleteTabButton controls its own visibility. Tabs that are stored on the backend show the delete button while new tabs don't show any delete button.
- * 
  *  * No dispatch is sent to the RiffinEditor since deleting navigates the user.
  *  props: tablature
  */
@@ -39,11 +37,7 @@ const DeleteTabButton = (props) => {
   };
   
   return (
-    <>
-      {editor.tablature._id &&
-        <Button variant="outlined" onClick={handleDelete}>Delete</Button>
-      }
-    </>
+    <Button variant="outlined" onClick={handleDelete}>Delete</Button>
   );
 };
  

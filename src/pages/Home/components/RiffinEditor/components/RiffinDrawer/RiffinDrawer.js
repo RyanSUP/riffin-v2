@@ -5,6 +5,8 @@ import DuplicateBlockButton from "./components/DuplicateBlockButton/DuplicateBlo
 
 import { Box, Container, Divider, Stack, Typography } from "@mui/material";
 import DeleteBlockButton from "./components/DeleteBlockButton/DeleteBlockButton";
+import SaveTabButton from "../SaveTabButton/SaveTabButton";
+import DeleteTabButton from "../DeleteTabButton/DeleteTabButton";
 
 const RiffinDrawer = () => {
   const { editor } = useContext(RiffinEditorDispatch);
@@ -17,18 +19,25 @@ const RiffinDrawer = () => {
   }, [editor])
 
   return (
-    <Container sx={{mt: 4}}>
-      <Stack spacing={2}>
-        <Divider>Staff options</Divider>
-        <Box>
-          <Typography>Size</Typography>
-          <SizeSlider block={ selectedBlock }/>
-        </Box>
-        <DuplicateBlockButton />
-        <DeleteBlockButton block={ selectedBlock } disabled={(editor.tablature.blocks.length === 1)} />
-        <Divider />
-      </Stack>
-    </Container>
+    <>
+      <Container sx={{mt: 4}}>
+        <Stack spacing={2}>
+          <SaveTabButton />
+          <DeleteTabButton />
+        </Stack>
+      </Container>
+      <Container sx={{mt: 4}}>
+        <Stack spacing={2}>
+          <Divider>Staff options</Divider>
+          <Box>
+            <Typography>Size</Typography>
+            <SizeSlider block={ selectedBlock }/>
+          </Box>
+          <DuplicateBlockButton />
+          <DeleteBlockButton block={ selectedBlock } disabled={(editor.tablature.blocks.length === 1)} />
+        </Stack>
+      </Container>
+    </>
   );
 }
  

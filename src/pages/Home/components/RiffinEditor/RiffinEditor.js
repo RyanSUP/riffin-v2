@@ -1,8 +1,6 @@
 // Components / hooks
 import AddNewBlockButton from "./components/AddNewBlockButton/AddNewBlockButton";
 import TitleInput from "./components/TitleInput/TitleInput";
-import DeleteTabButton from "./components/DeleteTabButton/DeleteTabButton";
-import SaveTabButton from "./components/SaveTabButton/SaveTabButton";
 import TablatureBlock from "./components/TablatureBlock/TablatureBlock";
 import { useContext, useState } from "react";
 import { RiffinEditorDispatch } from "./RiffinProvider";
@@ -18,14 +16,6 @@ const RiffinEditor = () => {
         <Grid item>
           <TitleInput />
         </Grid>
-        <Grid item>
-          <SaveTabButton />
-        </Grid>
-        {editor.tablature._id &&
-          <Grid item>
-            <DeleteTabButton />
-          </Grid>
-        } 
         <Grid item>
           <Button variant="outlined" onClick={() => setPreview(prev => !prev)}>
             {preview ? "Edit" : "Preview"}
