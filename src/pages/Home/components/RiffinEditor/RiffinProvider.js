@@ -228,7 +228,11 @@ const handleAddNewBlock = (state, action) => {
  */
 const handleUpdateTablatureTitle = (state, action) => {
   state.tablature.name = action.name;
-  return state;
+  return {
+    tablature: state.tablature,
+    selectedBlock: state.selectedBlock,
+    cursor: state.cursor
+  };
 };
 
 /**
