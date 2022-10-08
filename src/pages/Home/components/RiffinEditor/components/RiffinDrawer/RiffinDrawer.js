@@ -23,7 +23,9 @@ const RiffinDrawer = () => {
       <Container sx={{mt: 4}}>
         <Stack spacing={2}>
           <SaveTabButton />
-          <DeleteTabButton />
+          {editor.tablature._id &&
+            <DeleteTabButton />
+          }
         </Stack>
       </Container>
       <Container sx={{mt: 4}}>
