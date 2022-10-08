@@ -54,7 +54,7 @@ export const LEGAL_INPUTS = {
   "x": "addCharacter", // mute
   "p": "addCharacter", // pull off
   "h": "addCharacter", // hammer on
-  "|": "addCharacter",
+  "|": "addCharacter", // Staff line
   0: "addCharacter",
   1: "addCharacter",
   2: "addCharacter",
