@@ -2,27 +2,21 @@
 import AddNewBlockButton from "./components/AddNewBlockButton/AddNewBlockButton";
 import TitleInput from "./components/TitleInput/TitleInput";
 import TablatureBlock from "./components/TablatureBlock/TablatureBlock";
-import { useContext, useState } from "react";
+import { useContext } from "react";
 import { RiffinEditorDispatch } from "./RiffinProvider";
 // MUI
-import { Box, Button, Grid } from "@mui/material";
+import { Box, Grid } from "@mui/material";
 import BlockContent from "components/Card/components/BlockContent/BlockContent";
 const RiffinEditor = () => {
   const { editor } = useContext(RiffinEditorDispatch);
-  const [preview, setPreview] = useState(false);
   return (
     <>
       <Grid container rowSpacing={2} columnSpacing={4} sx={{alignItems: "end"}}>
         <Grid item>
           <TitleInput />
         </Grid>
-        <Grid item>
-          <Button variant="outlined" onClick={() => setPreview(prev => !prev)}>
-            {preview ? "Edit" : "Preview"}
-          </Button>
-        </Grid>
       </Grid>
-      {preview
+      {editor.previewMode
         ?
           <Box sx={{my:4}}>
             <BlockContent blocks={editor.tablature.blocks} numberOfStrings={editor.tablature.numberOfStrings}/>

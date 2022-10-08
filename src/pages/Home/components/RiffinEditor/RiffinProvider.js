@@ -260,7 +260,14 @@ const handleSetTablature = (state, action) => {
   }
 };
 
-// TODO find a better way to access selected block rather than state.tablature.blocks[state.selectedBlock.index];
+const handlePreviewMode = (state, action) => {
+  return {
+    tablature: state.tablature,
+    selectedBlock: state.selectedBlock,
+    cursor: state.cursor,
+    previewMode: action.mode
+  }
+};
 
 /**
  * Reducer that handles the state of the RiffinEditor.
@@ -299,6 +306,8 @@ function riffinReducer(state, action) {
       return handleUpdateBlockLabel(state, action);
     case 'setTablature':
       return handleSetTablature(state, action);
+    case 'setPreviewMode':
+      return handlePreviewMode(state, action);
     default:
       return {
         tablature: state.tablature,
@@ -314,7 +323,8 @@ const RiffinProvider = (props) => {
   const [editor, dispatch] = useReducer(riffinReducer, {
     tablature: utils.getNewTablatureTemplateObject(props.numberOfStrings),
     selectedBlock: null,
-    cursor: {position: null}
+    cursor: {position: null},
+    previewMode: false,
   });
   const { getTabFromUser } = useContext(TablatureContext);
   const { setTagsInSearchbar } = useContext(TagContext);
