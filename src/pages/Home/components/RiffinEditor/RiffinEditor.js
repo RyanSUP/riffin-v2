@@ -10,7 +10,7 @@ import BlockContent from "components/Card/components/BlockContent/BlockContent";
 const RiffinEditor = () => {
   const { editor } = useContext(RiffinEditorDispatch);
   return (
-    <>
+    <Box sx={{mb: 12}}>
       <Grid container rowSpacing={2} columnSpacing={4} sx={{alignItems: "end"}}>
         <Grid item>
           <TitleInput />
@@ -23,15 +23,15 @@ const RiffinEditor = () => {
           </Box>
         :
           <>
-          {editor.tablature.blocks.map((block, i) => (
-            <Box sx={{my: 4}} key={i}>
-              <TablatureBlock key={i} index={i} block={block} />
-            </Box>
-          ))}
-          <AddNewBlockButton />
+            {editor.tablature.blocks.map((block, i) => (
+              <Box sx={{my: 4}} key={i}>
+                <TablatureBlock key={i} index={i} block={block} />
+              </Box>
+            ))}
+            <AddNewBlockButton />
           </>
       }
-    </>
+    </Box>
   );
 }
  
