@@ -67,11 +67,11 @@ export default function Legend() {
         subheader={<li />}
       >
         {legend.map((section) => (
-          <li key={`section-${section}`}>
+          <li key={`section-${section.subheader}`}>
             <ul>
               <ListSubheader sx={{bgcolor: 'background.default', color: 'primary.main'}}>{`${section.subheader}`}</ListSubheader>
-              {section.items.map((item) => (
-                <ListItemButton key={`item-${section}-${item}`}>
+              {section.items.map((item, i) => (
+                <ListItemButton key={`item-${section.subheader}-${item.value}`}>
                     <ListItemText sx={{fontSize: '18px', color: 'tabInput.main'}} primary={`${item.value}`} />
                     <div style={{textAlign: 'right', fontSize: '14px'}}>
                       <ListItemText primary={`${item.label}`} />
