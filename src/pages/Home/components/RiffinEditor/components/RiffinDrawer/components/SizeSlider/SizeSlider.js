@@ -1,7 +1,7 @@
 // Components / hooks
-import { RiffinEditorDispatch } from "pages/Home/components/RiffinEditor/RiffinEditor";
+import { RiffinEditorDispatch } from "pages/Home/components/RiffinEditor/RiffinProvider";
 import { useState, useContext } from "react";
-import {MAX_BLOCK_COLS, MIN_BLOCK_COLS} from "../../../../../../EditorConfig";
+import {MAX_BLOCK_COLS, MIN_BLOCK_COLS} from "../../../../EditorConfig";
 // MUI
 import Slider from '@mui/material/Slider';
 
@@ -21,12 +21,12 @@ const blockSizeAtMin = (cols) => (cols === MIN_BLOCK_COLS);
 
 /**
  * * This is the slider that allows the user to change the size of the tablature.
- * props: block
+ * props: block. This needs to be the block object from state.tablature, not state.selectedBlock, otherwise the slider value lags behind the actual position. I believe this is because reducers only run during rendering.
  */
 
 const SizeSlider = (props) => {
-  const [sliderValue, setSliderValue] = useState(props.block.cols);
-  const dispatch = useContext(RiffinEditorDispatch); 
+  const { dispatch } = useContext(RiffinEditorDispatch); 
+  const [sliderValue, setSliderValue] = useState(props.block?.cols);
 
   /**
    * Dispatches an increaseBlockSize or decreaseBlockSize action to the editor reducer.
@@ -40,10 +40,10 @@ const SizeSlider = (props) => {
     }
     const difference = value - sliderValue;
     let type = (difference > 0) ? "increaseBlockSize" : "decreaseBlockSize"
-    if(type === "increaseBlockSize" && blockSizeAtMax(props.block.cols)) {
+    if(type === "increaseBlockSize" && blockSizeAtMax(props.block?.cols)) {
       return;
     }
-    if(type === "decreaseBlockSize" && blockSizeAtMin(props.block.cols)) {
+    if(type === "decreaseBlockSize" && blockSizeAtMin(props.block?.cols)) {
       return;
     }
     const action = {
@@ -57,7 +57,8 @@ const SizeSlider = (props) => {
 
   return (
     <Slider
-      aria-label="Columns in tablature"
+      disabled={!props.block?.cols}
+      aria-label="Columns"
       value={sliderValue}
       step={5}
       marks

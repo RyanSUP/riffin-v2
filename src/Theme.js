@@ -15,7 +15,12 @@ const darkTheme = createTheme({
     },
     tabInput: {
       main: "#D5A419",
-    }
+    },
+    error: {
+      main: "#EA0004",
+      light: "#FF8670",
+      dark: "#640006",
+    },
   },
   components: {
     MuiChip: {
@@ -132,14 +137,6 @@ const darkTheme = createTheme({
       fontSize: "10px",
       lineHeight: "166%",
       letterSpacing: "0.4px",
-    },
-    button: {
-      fontFamily: "Montserrat",
-      fontSize: "0.8125rem",
-      [`@media screen and (max-width: 1200px)`]: {
-        fontSize: "12px",
-      },
-      textTransform: "none"
     },
   },
 });

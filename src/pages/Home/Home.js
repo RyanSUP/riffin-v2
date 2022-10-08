@@ -1,17 +1,22 @@
 // Components
 import Sidebar from './components/Sidebar/Sidebar';
-import ContentRoutes from "./components/ContentRoutes/ContentRoutes";
 import HeaderLogo from './components/HeaderLogo/HeaderLogo';
 import HeaderLinks from './components/HeaderLinks/HeaderLinks';
 import TagBar from './components/TagBar/TagBar';
 import { useMediaQuery } from "@mui/material";
 import { useTheme } from "@mui/material/styles";
-// Images
+import { Route, Routes, Navigate } from "react-router-dom";
+import ProfileContent from "./components/ProfileContent/ProfileContent";
+import LoginSignupForm from "./components/LoginSignupForm/LoginSignupForm";
+import { RiffinProvider } from './components/RiffinEditor/RiffinProvider';
+
 // MUI
 import { Grid, Container } from "@mui/material";
+import RiffinEditor from './components/RiffinEditor/RiffinEditor';
+import RiffinDrawer from './components/RiffinEditor/components/RiffinDrawer/RiffinDrawer';
 
 /**
- * * Home primary focus is the layout of the application.
+ * * Home handles the application layout and routing.
  */
 
 const Home = () => {
@@ -50,9 +55,49 @@ const Home = () => {
           </Grid>
         }
 
-        <Grid item xs={12} md={8}>
-          <ContentRoutes />
-        </Grid>
+        <Routes>
+          <Route path="/login" element={
+            <Grid item xs={8}>
+              <LoginSignupForm />
+            </Grid>
+          }/>
+          <Route path="/profile/:cognitoUsername" element={
+            <Grid item xs={8}>
+              <ProfileContent />
+            </Grid>
+          }/>
+          <Route path="/new/guitar" element={
+            <RiffinProvider key={"newGuitar"} numberOfStrings={6}>
+              <Grid item xs={8}>
+                <RiffinEditor />
+              </Grid>
+              <Grid item xs={2}>
+                <RiffinDrawer />
+              </Grid>
+            </RiffinProvider>
+          }/>
+          <Route path="/new/bass" element={
+            <RiffinProvider key={"bass"} numberOfStrings={4}>
+              <Grid item xs={8}>
+                <RiffinEditor />
+              </Grid>
+              <Grid item xs={2}>
+                <RiffinDrawer />
+              </Grid>
+            </RiffinProvider>
+          }/>
+          <Route path="/edit/:tabId" element={
+            <RiffinProvider key={"editor"}>
+              <Grid item xs={8}>
+                <RiffinEditor />
+              </Grid>
+              <Grid item xs={2}>
+                <RiffinDrawer />
+              </Grid>
+            </RiffinProvider>
+          }/>
+          <Route path="*" element={<Navigate to="/new/guitar" replace />} />
+        </Routes>
 
       </Grid>
     </div>

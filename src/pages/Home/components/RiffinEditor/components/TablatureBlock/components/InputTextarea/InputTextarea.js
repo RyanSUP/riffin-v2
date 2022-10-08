@@ -1,6 +1,6 @@
 // Components / hooks
 import { useRef, useEffect, useState, useContext } from "react";
-import { RiffinEditorDispatch } from "pages/Home/components/RiffinEditor/RiffinEditor";
+import { RiffinEditorDispatch } from "pages/Home/components/RiffinEditor/RiffinProvider";
 // Utils / services
 import * as utils from "../../../../Utilities";
 import { DEFAULT_DUPLICATION_TARGET } from "pages/Home/components/RiffinEditor/EditorConfig";
@@ -117,16 +117,17 @@ import { useTheme } from "@mui/material/styles";
   };
 
 const InputTextarea = (props) => {
+  const [hover, setHover] = useState(false);
   const [mapOfLastColumnIndexes, setMapOfLastColumnIndexes] = useState(
     utils.getMapOfLastColumnIndexes({cols: props.block.cols,numberOfStrings: props.numberOfStrings})
   );
   const [mapOfFirstColumnIndexes, setMapOfFirstColumnIndexes] = useState(
     utils.getMapOfFirstColumnIndexes({cols: props.block.cols,numberOfStrings: props.numberOfStrings})
   );
-  const dispatch = useContext(RiffinEditorDispatch);
+  const { dispatch, editor } = useContext(RiffinEditorDispatch);
   const ref = useRef();
   const theme = useTheme();
-  
+
   const inputsStyle = {
     background: "transparent",
     margin: 0,
@@ -136,12 +137,22 @@ const InputTextarea = (props) => {
     zIndex: 2,
     outline: "none",
     border: "none",
-    color: theme.palette.tabInput.main,
+    color: (hover || editor.selectedBlock.index === props.index) ? theme.palette.tabInput.main : theme.palette.dashes.main,
     fontSize: "inherit",
     padding: 0
   };
 
   // ------------- 🖐 HANDLERS --------------------------------
+  
+  /**
+   * Set hover state when mousing over the input.
+   */
+   const handleMouseEnter = () => setHover(true);
+
+   /**
+    * Set hover state when mouse exits the input.
+    */
+   const handleMouseLeave = () => setHover(false);
 
   /**
    * Sends a dispatch to update the selected block. The new selected block will be whichever block is handling the click.
@@ -311,6 +322,8 @@ const InputTextarea = (props) => {
 
   return (
     <textarea
+      onMouseEnter={handleMouseEnter}
+      onMouseLeave={handleMouseLeave}
       style={inputsStyle}
       value={props.block.inputs}
       onChange={handleChange}

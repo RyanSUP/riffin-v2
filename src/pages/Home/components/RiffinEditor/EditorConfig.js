@@ -26,7 +26,7 @@ export const MAX_BLOCK_COLS = 80;
 /**
  * The default amount of columns that a block starts with.
  */
-export const DEFAULT_BLOCK_COLS = 40;
+export const DEFAULT_BLOCK_COLS = 50;
 
 /**
  * Controls how many columns to skip when duplicating a column. A target of 2 looks as follows:
@@ -54,6 +54,7 @@ export const LEGAL_INPUTS = {
   "x": "addCharacter", // mute
   "p": "addCharacter", // pull off
   "h": "addCharacter", // hammer on
+  "|": "addCharacter",
   0: "addCharacter",
   1: "addCharacter",
   2: "addCharacter",

@@ -1,6 +1,6 @@
 // Components / hooks
 import { useContext } from "react";
-import { RiffinEditorDispatch } from "pages/Home/components/RiffinEditor/RiffinEditor";
+import { RiffinEditorDispatch } from "pages/Home/components/RiffinEditor/RiffinProvider";
 // MUI
 import { TextareaAutosize } from "@mui/material";
 
@@ -9,9 +9,9 @@ import { TextareaAutosize } from "@mui/material";
  */
 
 const NoteTextarea = (props) => {
-  const dispatcher = useContext(RiffinEditorDispatch);
+  const { dispatch } = useContext(RiffinEditorDispatch);
   const inputsStyle = {
-    width: "60%",
+    width: "100%",
     background: "transparent",
     margin: 0,
     resize: "none",
@@ -20,6 +20,20 @@ const NoteTextarea = (props) => {
     color: "white",
     fontSize: "inherit",
     padding: 0
+  };
+
+  /**
+   * Sends a dispatch to update the selected block. The new selected block will be whichever block is handling the click.
+   * @param {Object} event 
+   */
+   const handleClick = (event) => {
+    const action = {
+      type: "updateSelection",
+      blockIndex: props.index,
+      blockRef: null,
+      selectionStart: event.target.selectionStart
+    };
+    dispatch(action);
   };
 
   /**
@@ -33,7 +47,7 @@ const NoteTextarea = (props) => {
       value: event.target.value,
       index: props.index
     };
-    dispatcher(action);
+    dispatch(action);
   };
 
   return (
@@ -42,6 +56,7 @@ const NoteTextarea = (props) => {
       style={inputsStyle}
       minRows={2}
       value={props.label}
+      onClick={handleClick}
       onChange={handleChange}
       placeholder={"Notes.\nTake as many lines as you need."}
     />
