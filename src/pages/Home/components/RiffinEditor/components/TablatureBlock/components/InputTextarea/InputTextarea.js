@@ -282,27 +282,44 @@ const InputTextarea = (props) => {
   };
 
   /**
+   * moves the cursor position over 1 when spacebar is pressed.
+   * @param {Number} selectionStart 
+   */
+  const handleUpdateCursorPosition = (selectionStart) => {
+    let action = {};
+    if(selectionIsOnLastColumn(selectionStart - 1, mapOfLastColumnIndexes)) {
+      action = {
+        type: 'updateCursorPosition',
+        selectionStart: selectionStart - 1
+      };
+    } else {
+      action = {
+        type: "updateCursorPosition",
+        selectionStart: selectionStart
+      };
+    }
+    dispatch(action);
+  }
+
+  /**
    * Checks the pressed key and routes to the appropriate dispatch handler.
    * @param {Object} event 
    */
   const handleChange = (event) => {
     event.preventDefault();
-    const key = event.nativeEvent.data || "Backspace";
+    const key = event.nativeEvent.data || event.nativeEvent.inputType;
+    console.log(key)
     const dispatchType = utils.getDispatchTypeOfPressedKey(key);
-    if(dispatchType === undefined) {
-      let action = {
-        type: 'updateCursorPosition',
-        selectionStart: event.target.selectionStart - 1
-      };
-      dispatch(action);
-    } else if(dispatchType === "addCharacter") {
-      handleAddCharacter(event.target.selectionStart, key);
+    if(dispatchType === "updateCursorPosition") {
+      handleUpdateCursorPosition(event.target.selectionStart);
     } else if(dispatchType === "deleteCharacter") {
       handleDeleteCharacter(event.target.selectionStart);
     } else if(dispatchType === "duplicateColumn") {
       handleDuplicateColumn(event.target.selectionStart);
     } else if(dispatchType === "deleteColumn") {
       handleDeleteColumn(event.target.selectionStart);
+    } else if(key.length === 1) {
+      handleAddCharacter(event.target.selectionStart, key);
     }
   };
 

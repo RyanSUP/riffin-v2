@@ -8,6 +8,7 @@ import DeleteBlockButton from "./components/DeleteBlockButton/DeleteBlockButton"
 import SaveTabButton from "../SaveTabButton/SaveTabButton";
 import DeleteTabButton from "../DeleteTabButton/DeleteTabButton";
 import CustomizedSwitches from "../ModeSwitch/ModeSwitch";
+import Legend from "./components/Legend/Legend";
 
 const RiffinDrawer = () => {
   const { editor } = useContext(RiffinEditorDispatch);
@@ -29,10 +30,9 @@ const RiffinDrawer = () => {
             <DeleteTabButton />
           }
         </Stack>
-      </Container>
-      {!editor.previewMode &&
-        <Container sx={{mt: 4}}>
-          <Stack spacing={2}>
+        {!editor.previewMode &&
+        <>        
+          <Stack spacing={2} sx={{my: 4}}>
             <Divider>Staff menu</Divider>
             <Box>
               <Typography>Size</Typography>
@@ -41,8 +41,11 @@ const RiffinDrawer = () => {
             <DuplicateBlockButton />
             <DeleteBlockButton block={ selectedBlock } disabled={(editor.tablature.blocks.length === 1)} />
           </Stack>
-        </Container>
-      }
+          <Divider />
+          <Legend />
+        </>
+        }
+      </Container>
     </>
   );
 }

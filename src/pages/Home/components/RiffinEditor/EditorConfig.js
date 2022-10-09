@@ -54,7 +54,8 @@ export const LEGAL_INPUTS = {
   "x": "addCharacter", // mute
   "p": "addCharacter", // pull off
   "h": "addCharacter", // hammer on
-  "|": "addCharacter",
+  "|": "addCharacter", // Staff line
+  " ": "updateCursorPosition",
   0: "addCharacter",
   1: "addCharacter",
   2: "addCharacter",
@@ -67,7 +68,8 @@ export const LEGAL_INPUTS = {
   9: "addCharacter",
   "]": "duplicateColumn", // duplicate chord
   "[": "deleteColumn", // deleteChord
-  "Backspace": "deleteCharacter",
+  "deleteContentBackward": "deleteCharacter",
+  "insertLineBreak": "updateCursorPosition"
 };
 
 /**
