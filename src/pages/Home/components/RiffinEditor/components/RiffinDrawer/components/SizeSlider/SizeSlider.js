@@ -1,6 +1,6 @@
 // Components / hooks
 import { RiffinEditorDispatch } from "pages/Home/components/RiffinEditor/RiffinProvider";
-import { useState, useContext } from "react";
+import { useState, useContext, useEffect } from "react";
 import {MAX_BLOCK_COLS, MIN_BLOCK_COLS} from "../../../../EditorConfig";
 // MUI
 import Slider from '@mui/material/Slider';
@@ -54,6 +54,10 @@ const SizeSlider = (props) => {
     setSliderValue((prev) => prev + difference);
     dispatch(action);
   };
+
+  useEffect(() => {
+    setSliderValue(props.block.cols);
+  }, [props.block])
 
   return (
     <Slider
