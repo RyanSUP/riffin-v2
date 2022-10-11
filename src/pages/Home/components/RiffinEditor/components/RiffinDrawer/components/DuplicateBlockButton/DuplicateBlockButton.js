@@ -1,10 +1,12 @@
+// Components / hooks
 import { useContext } from "react";
 import { RiffinEditorDispatch } from "pages/Home/components/RiffinEditor/RiffinProvider";
+// MUI
 import { Button } from "@mui/material";
 
 const buttonStyle = {
-  width: "100%"
-}
+  width: "100%",
+};
 
 const DuplicateBlockButton = () => {
   const { dispatch } = useContext(RiffinEditorDispatch);
@@ -16,12 +18,13 @@ const DuplicateBlockButton = () => {
       type: 'duplicateBlock',
     };
     dispatch(action);
-  }
+  };
 
   return (
     <Button 
       onClick={handleDuplicate}
       variant="outlined"
+      color="tabInput"
       sx={buttonStyle}
     >
       Duplicate

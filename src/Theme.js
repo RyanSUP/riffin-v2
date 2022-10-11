@@ -23,19 +23,6 @@ const darkTheme = createTheme({
     },
   },
   components: {
-    MuiChip: {
-      styleOverrides: {
-        root: {
-        },
-      },
-    },
-    Box: {
-      styleOverrides: {
-        root: {
-          // background: "transparent",
-        }
-      }
-    },
   },
   typography: {
     // Main Header

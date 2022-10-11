@@ -1,5 +1,8 @@
+// Components / hooks
 import { useContext } from "react";
 import { RiffinEditorDispatch } from "pages/Home/components/RiffinEditor/RiffinProvider";
+// MUI
+import DeleteIcon from '@mui/icons-material/Delete';
 import { Button, Tooltip } from "@mui/material";
 
 const buttonStyle = {
@@ -23,9 +26,11 @@ const DeleteBlockButton = (props) => {
     <Tooltip title={props.disabled ? "You cannot delete the only block" : "" }>
       <span>
         <Button 
+          endIcon={<DeleteIcon />}
           onClick={handleDelete}
           variant="outlined"
           sx={buttonStyle}
+          color="tabInput"
           disabled={props.disabled}
         >
           Delete
