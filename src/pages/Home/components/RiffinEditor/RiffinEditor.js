@@ -7,6 +7,9 @@ import { RiffinEditorDispatch } from "./RiffinProvider";
 // MUI
 import { Box, Grid } from "@mui/material";
 import BlockContent from "components/Card/components/BlockContent/BlockContent";
+import SaveTabButton from "./components/SaveTabButton/SaveTabButton";
+import DeleteTabButton from "./components/DeleteTabButton/DeleteTabButton";
+import ModeSwitch from "./components/ModeSwitch/ModeSwitch";
 const RiffinEditor = () => {
   const { editor } = useContext(RiffinEditorDispatch);
   return (
@@ -14,6 +17,15 @@ const RiffinEditor = () => {
       <Grid container rowSpacing={2} columnSpacing={4} sx={{alignItems: "end"}}>
         <Grid item>
           <TitleInput />
+        </Grid>
+        <Grid item>
+          <SaveTabButton />
+        </Grid>
+        <Grid item>
+          <DeleteTabButton />
+        </Grid>
+        <Grid item>
+          <ModeSwitch />
         </Grid>
       </Grid>
       {editor.previewMode

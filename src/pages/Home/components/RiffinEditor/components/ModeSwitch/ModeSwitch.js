@@ -53,7 +53,7 @@ const MaterialUISwitch = styled(Switch)(({ theme }) => ({
   },
 }));
 
-export default function CustomizedSwitches() {
+export default function ModeSwitch() {
   const [previewMode, setPreviewMode] = useState(false);
   const { dispatch } = useContext(RiffinEditorDispatch);
   
@@ -69,7 +69,7 @@ export default function CustomizedSwitches() {
   return (
     <FormGroup>
       <FormControlLabel
-        control={<MaterialUISwitch onChange={handleChange} sx={{ m: 1, mr: 0 }} />}
+        control={<MaterialUISwitch onChange={handleChange} />}
         label="Display mode"
       />
     </FormGroup>
