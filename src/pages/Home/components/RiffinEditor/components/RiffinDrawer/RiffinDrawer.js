@@ -6,7 +6,8 @@ import DuplicateBlockButton from "./components/DuplicateBlockButton/DuplicateBlo
 import DeleteBlockButton from "./components/DeleteBlockButton/DeleteBlockButton";
 import Legend from "./components/Legend/Legend";
 // MUI
-import { Box, Container, Divider, Stack, Typography } from "@mui/material";
+import { Box, Container, Stack, Typography } from "@mui/material";
+import StaffMenuHeader from "./components/StaffMenuHeader/StaffMenuHeader";
 
 /**
  * * The RiffinDrawer sits next to the RiffinEditor and provides additional controls for the selected block, as well as a legend that displays special inputs and tablature notation.
@@ -30,7 +31,7 @@ const RiffinDrawer = () => {
       {!editor.previewMode &&
         <Container sx={{mt: 4}}>
             <Stack spacing={2} sx={{my: 4}}>
-              <Divider>Staff menu</Divider>
+              <StaffMenuHeader />
               <Box>
                 <Typography>Size</Typography>
                 <SizeSlider block={ selectedBlock }/>
