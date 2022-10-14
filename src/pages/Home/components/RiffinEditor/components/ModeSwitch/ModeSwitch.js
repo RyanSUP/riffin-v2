@@ -1,10 +1,19 @@
+// Components / hooks
+import { RiffinEditorDispatch } from '../../RiffinProvider';
+import { useState, useContext } from 'react';
+// MUI
 import { styled } from '@mui/material/styles';
 import FormGroup from '@mui/material/FormGroup';
 import FormControlLabel from '@mui/material/FormControlLabel';
 import Switch from '@mui/material/Switch';
-import { RiffinEditorDispatch } from '../../RiffinProvider';
-import { useState, useContext } from 'react';
 
+/**
+ * * Switch that changes which mode the editor is in. There are 2 modes: Edit, Preview. Edit mode allows the user to edit the tablature and displays all editor controls. Preview mode allows the user to preview the tablature as if it were on the collections page.
+ */
+
+/**
+ * This builds the style of the switch and is straight from the MUI documentation.
+ */
 const MaterialUISwitch = styled(Switch)(({ theme }) => ({
   width: 62,
   height: 34,
@@ -56,7 +65,9 @@ const MaterialUISwitch = styled(Switch)(({ theme }) => ({
 export default function ModeSwitch() {
   const [previewMode, setPreviewMode] = useState(false);
   const { dispatch } = useContext(RiffinEditorDispatch);
-  
+  /**
+   * Dispatches a setPreviewMode action to the editor and updates the switch component state.
+   */
   const handleChange = () => {
     const action = {
       type: 'setPreviewMode',
