@@ -7,6 +7,7 @@ import { TagContext } from "containers/TagProvider/TagProvider";
 // Utilties
 import * as utils from "./Utilities";
 
+// * RiffinEditor and RiffinDrawer must be children of RiffinProvider for the editor to work. This provider handles the editor data.
 // * RiffinProvider relies on this dispatch context to update state values from child components.
 // * Checkout React's documentation for more information:
 // * https://reactjs.org/docs/hooks-reference.html#usereducer

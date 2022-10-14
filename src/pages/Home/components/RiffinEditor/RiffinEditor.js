@@ -4,12 +4,17 @@ import TitleInput from "./components/TitleInput/TitleInput";
 import TablatureBlock from "./components/TablatureBlock/TablatureBlock";
 import { useContext } from "react";
 import { RiffinEditorDispatch } from "./RiffinProvider";
-// MUI
-import { Box, Grid } from "@mui/material";
 import BlockContent from "components/Card/components/BlockContent/BlockContent";
 import SaveTabButton from "./components/SaveTabButton/SaveTabButton";
 import DeleteTabButton from "./components/DeleteTabButton/DeleteTabButton";
 import ModeSwitch from "./components/ModeSwitch/ModeSwitch";
+// MUI
+import { Box, Grid } from "@mui/material";
+
+/**
+ * * Displays the fields for editing a tablature.
+ * @returns 
+ */
 const RiffinEditor = () => {
   const { editor } = useContext(RiffinEditorDispatch);
   return (
