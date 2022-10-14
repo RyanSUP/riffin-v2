@@ -15,14 +15,14 @@ const RiffinEditor = () => {
   return (
     <Box sx={{mb: 12}}>
       <Grid container rowSpacing={2} columnSpacing={4} sx={{alignItems: "end"}}>
-        <Grid item>
+        <Grid item xs={12}>
           <TitleInput />
         </Grid>
         <Grid item>
           <SaveTabButton />
         </Grid>
         <Grid item>
-          <DeleteTabButton />
+          <DeleteTabButton disabled={!editor.tablature._id} />
         </Grid>
         <Grid item>
           <ModeSwitch />

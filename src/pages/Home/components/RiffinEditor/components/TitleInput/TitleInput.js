@@ -27,6 +27,7 @@ const TitleInput = () => {
       variant="standard" 
       onChange={handleChange}
       value={editor.tablature.name || ""}
+      sx={{width: '50%'}}
     />
   );
 }

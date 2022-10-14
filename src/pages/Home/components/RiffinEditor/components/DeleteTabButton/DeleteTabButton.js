@@ -37,7 +37,13 @@ const DeleteTabButton = (props) => {
   };
   
   return (
-    <Button variant="outlined" onClick={handleDelete}>Delete</Button>
+    <Button 
+      variant="outlined" 
+      onClick={handleDelete}
+      disabled={props.disabled}
+    >
+      Delete
+    </Button>
   );
 };
  
