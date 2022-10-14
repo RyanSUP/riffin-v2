@@ -9,6 +9,12 @@ const buttonStyle = {
   width: "100%"
 }
 
+/**
+ * * Handles deleting the selected block. A dispatch is sent out to handle deleting.
+ * @param {Object} props - disabled
+ * @returns 
+ */
+
 const DeleteBlockButton = (props) => {
   const { dispatch } = useContext(RiffinEditorDispatch);
   /**
