@@ -30,7 +30,7 @@ const DeleteBlockButton = (props) => {
           onClick={handleDelete}
           variant="outlined"
           sx={buttonStyle}
-          color="tabInput"
+          color="error"
           disabled={props.disabled}
         >
           Delete

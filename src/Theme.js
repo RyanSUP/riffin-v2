@@ -17,7 +17,7 @@ const darkTheme = createTheme({
       main: "#D5A419",
     },
     error: {
-      main: "#EA0004",
+      main: "#BF616A",
       light: "#FF8670",
       dark: "#640006",
     },

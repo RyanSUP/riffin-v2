@@ -9,6 +9,7 @@ import * as tablatureServices from "services/tablatureServices";
 import { getIdTokenFromUser } from "utils/userUtils";
 // MUI
 import { Button } from "@mui/material";
+import DeleteIcon from '@mui/icons-material/Delete';
 
 /**
  *  * No dispatch is sent to the RiffinEditor since deleting navigates the user.
@@ -41,6 +42,8 @@ const DeleteTabButton = (props) => {
       variant="outlined" 
       onClick={handleDelete}
       disabled={props.disabled}
+      color="error"
+      endIcon={<DeleteIcon />}
     >
       Delete
     </Button>
