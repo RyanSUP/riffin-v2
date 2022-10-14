@@ -20,7 +20,7 @@ const StaffMenuHeader = () => {
     <Divider>
       <Box sx={wrapperStyle}>
         Staff Menu
-        <Tooltip sx={tooltipStyle} title="This menu provides additional options for the selected staff. The currently selected staff is colorized, while deslected staff appear grayed out.">
+        <Tooltip sx={tooltipStyle} title="This menu provides additional options for the selected staff. The currently selected staff is colorized while deslected staff appear grayed out.">
           <HelpIcon />
         </Tooltip>
       </Box>
