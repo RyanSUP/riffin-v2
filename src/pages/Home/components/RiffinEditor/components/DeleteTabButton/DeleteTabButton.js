@@ -9,10 +9,11 @@ import * as tablatureServices from "services/tablatureServices";
 import { getIdTokenFromUser } from "utils/userUtils";
 // MUI
 import { Button } from "@mui/material";
+import DeleteIcon from '@mui/icons-material/Delete';
 
 /**
- *  * No dispatch is sent to the RiffinEditor since deleting navigates the user.
- *  props: tablature
+ *  * Handles deleting the tablature. No dispatch is sent to the RiffinEditor since deleting navigates the user.
+ *  props: tablature, disabled
  */
 
 const DeleteTabButton = (props) => {
@@ -37,7 +38,15 @@ const DeleteTabButton = (props) => {
   };
   
   return (
-    <Button variant="outlined" onClick={handleDelete}>Delete</Button>
+    <Button 
+      variant="outlined" 
+      onClick={handleDelete}
+      disabled={props.disabled}
+      color="error"
+      endIcon={<DeleteIcon />}
+    >
+      Delete
+    </Button>
   );
 };
  

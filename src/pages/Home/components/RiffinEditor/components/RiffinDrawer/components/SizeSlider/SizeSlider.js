@@ -69,6 +69,7 @@ const SizeSlider = (props) => {
       onChange={handleSliderChange}
       min={MIN_BLOCK_COLS}
       max={MAX_BLOCK_COLS}
+      color="tabInput"
     />
   );
 }
