@@ -21,9 +21,9 @@ Focus:
 - [x] Make the card divider look like -- TabName ------------- Button Button --
 - [x] Fix ProfileContent loading bug
 - [ ] Add support for searching by title
-- [ ] genreate a list of the users unique tags to display in the tagsuggestion area
-- [ ] look into autocomplete on the tagbar based on tags the user has previously used
-- [ ] order users tablature by creation date
+- [x] genreate a list of the users unique tags to display in the tagsuggestion area
+- [x] look into autocomplete on the tagbar based on tags the user has previously used
+- [x] order users tablature by creation date
 - [ ] Load current tablature's tags when mounting the RiffinEditor component
 
 Extra:

@@ -19,11 +19,11 @@ function App() {
       <CognitoUserProvider>
         <CssBaseline />
         {/* <Button onClick={() => setLight((prev) => !prev)}>Toggle Theme</Button> */}
-        <TagProvider>
-          <TablatureProvider>
+        <TablatureProvider>
+          <TagProvider>
             <Home />
-          </TablatureProvider>
-        </TagProvider>
+          </TagProvider>
+        </TablatureProvider>
       </CognitoUserProvider>
     </ThemeProvider>
   );

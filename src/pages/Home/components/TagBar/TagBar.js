@@ -2,30 +2,13 @@
 import { useState, useEffect, useContext } from "react";
 import { useLocation} from "react-router-dom";
 import { TagContext } from "containers/TagProvider/TagProvider";
+import { TablatureContext } from "containers/TablatureProvider/TablatureProvider";
 // MUI
 import { Chip, TextField, Autocomplete } from "@mui/material";
 
-// TODO Generate a list of the users unique tags
-const testTagSuggestions = [
-  "Tasters",
-  "Basters",
-  "Slick Licks",
-  "Rock",
-  "Zep",
-  "Metal",
-  "Slap Bass",
-  "Country",
-  "Blues",
-  "Folk",
-  "Pop",
-  "Hip Hop",
-  "R&B",
-  "Metallica",
-  "AC/DC",
-]
-
 const TagBar = () => {
   const [placeholder, setPlaceholder] = useState();
+  const { usersTags } = useContext(TablatureContext);
   const { tagsInSearchbar, setTagsInSearchbar } = useContext(TagContext);
   const location = useLocation();
 
@@ -44,7 +27,7 @@ const TagBar = () => {
         onChange={(event, value) => setTagsInSearchbar(value)}
         multiple
         id="tags-filled"
-        options={testTagSuggestions.map((tag) => tag)}
+        options={Object.keys(usersTags).sort((a,b) => usersTags[b] - usersTags[a])}
         freeSolo
         renderTags={(value, getTagProps) =>
           tagsInSearchbar.map((option, index) => (
