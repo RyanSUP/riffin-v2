@@ -7,24 +7,41 @@ import { getIdTokenFromUser } from "utils/userUtils";
 
 const TablatureContext = createContext({});
 
+/**
+ * * Tablature provider requests the user's tablature data from the backend and stores it on the client. Since it is a context provider, all children have access to the tablature data. TablatureProvider also stores a list of unique tags derived from all tablature which is used to generate a list of suggestions in the searchbar.
+ * @param {Object} props 
+ * @returns 
+ */
 const TablatureProvider = (props) => {
   const [usersTablature, setUsersTablature] = useState([]);
   const [usersTags, setUsersTags] = useState({});
   const [tablatureIsLoading, setTablatureIsLoading] = useState(true);
   const { user } = useContext(UserContext);
 
+  /**
+   * Adds a tablature to state. This allows the user's tablature to stay up-to-date without additional calls to the backend.
+   * @param {Object} tab 
+   */
   const addToUsersTablature = (tab) => {
     setUsersTablature((prev) => {
       return [tab, ...prev];
     });
   };
 
+  /**
+   * Deletes a tablature from state. This allows the user's tablature to stay up-to-date without additional calls to the backend.
+   * @param {String} tab_id 
+   */
   const deleteFromUsersTablature = (tab_id) => {
     setUsersTablature((prev) => {
       return prev.filter((tab) => tab._id !== tab_id);
     });
   };
 
+  /**
+   * Updates a tablature in state. This allows the user's tablature to stay up-to-date without additional calls to the backend.
+   * @param {Object} updatedTab 
+   */
   const updateUserTablature = (updatedTab) => {
     setUsersTablature((prev) => {
       return prev.map((tab) => {
@@ -34,15 +51,20 @@ const TablatureProvider = (props) => {
         } else {
           tabObject = { ...tab };
         }
-        return tabObject
+        return tabObject;
       });
     });
   };
 
+  /**
+   * Getter for accessing a specific tab based on the given _id.
+   * @param {String} tab_id 
+   * @returns The tablature object, or undefined if no tab was found.
+   */
   const getTabFromUser = (tab_id) => usersTablature.find((tab) => tab._id === tab_id);
 
   /**
-   * When the User data loads, add user info to tablature and sorts user's tablature in descenging order based on creation date.
+   * When the User data loads, add user info to the tablature object and sorts user's tablature in descending order based on creation date.
    */
   useEffect(() => {
     setTablatureIsLoading(true);
