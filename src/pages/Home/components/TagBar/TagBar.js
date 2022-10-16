@@ -13,11 +13,17 @@ const TagBar = () => {
   const location = useLocation();
 
   useEffect(() => {
-    setTagsInSearchbar([])
-    if(location.pathname.startsWith("/new") || location.pathname.startsWith("/edit")) {
+    if(location.pathname.startsWith("/new")) {
+      setTagsInSearchbar([])
+      setPlaceholder("add tag");
+    } else if(location.pathname.startsWith("/profile")) {
+      setTagsInSearchbar([])
+      setPlaceholder("search");
+    } else if(location.pathname.startsWith("/edit")) {
       setPlaceholder("add tag");
     } else {
-      setPlaceholder("Search");
+      setTagsInSearchbar([])
+      setPlaceholder("search");
     }
   }, [location, setTagsInSearchbar]);
 
@@ -29,8 +35,9 @@ const TagBar = () => {
         id="tags-filled"
         options={Object.keys(usersTags).sort((a,b) => usersTags[b] - usersTags[a])}
         freeSolo
+        value={tagsInSearchbar}
         renderTags={(value, getTagProps) =>
-          tagsInSearchbar.map((option, index) => (
+          value.map((option, index) => (
             <Chip variant="outlined" size="small" label={option} {...getTagProps({ index })} />
           ))
         }
