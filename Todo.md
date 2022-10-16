@@ -19,12 +19,13 @@ Focus:
   - [x] chip color and text color (when typing) need to match
 - [x] Refactor searchbar using https://mui.com/material-ui/react-autocomplete/
 - [x] Make the card divider look like -- TabName ------------- Button Button --
-- [ ] Fix ProfileContent loading bug
+- [x] Fix ProfileContent loading bug
+- [ ] Add support for searching by title
+- [ ] genreate a list of the users unique tags to display in the tagsuggestion area
+- [ ] look into autocomplete on the tagbar based on tags the user has previously used
+- [ ] order users tablature by creation date
 
 Extra:
-- [ ] Add support for searching by title
-- [ ] look into autocomplete on the tagbar based on tags the user has previously used
-- [ ] genreate a list of the users unique tags to display in the tagsuggestion area
 - [ ] write a better algorithm for getting matching tags
 - [ ] Make footer animation like the waves in this template- https://bootstrapmade.com/demo/Selecao/
 - [ ] Hide donate button on smaller screen sizes
@@ -32,7 +33,6 @@ Extra:
 - [x] Update readonly tablature blocks to be the same size as the editor blocks
 - [x] Fix alignment of the tablature title / save / delete components
 - [x] Remove favoriteTablature stuff from TablatureProvider
-- [ ] order users tablature by creation date
 - [ ] Implement "repeat" functionality in RiffinEditor
 - [x] Replace the "expand" icon on cards
 - [ ] Delete confirmation when deleting tablature
@@ -40,7 +40,6 @@ Extra:
 - [ ] display an alert when deleting a tablature
 - [ ] Provide undo option in the alert after deleting a tablature
 - [ ] Create new mobile design mockup
-- [ ] Show block options when the block is focused, not just on hover
 
 
 Research:
@@ -51,6 +50,7 @@ Research:
 
 
 Abandoned:
+- [ ] Show block options when the block is focused, not just on hover
 - [ ] Limit the number of tags a tablature can have
 - [ ] limit the number of tags the tagbar can have
 - [ ] display a message when a user tries to add too many tags to the tagbar
