@@ -24,6 +24,7 @@ Focus:
 - [ ] genreate a list of the users unique tags to display in the tagsuggestion area
 - [ ] look into autocomplete on the tagbar based on tags the user has previously used
 - [ ] order users tablature by creation date
+- [ ] Load current tablature's tags when mounting the RiffinEditor component
 
 Extra:
 - [ ] write a better algorithm for getting matching tags
