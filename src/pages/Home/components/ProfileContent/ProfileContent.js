@@ -28,7 +28,7 @@ const ProfileContent = () => {
         setTablatureOnPage(usersTablature);
       } else {
         const tablatureWithMatchingTags = usersTablature.filter((tablature) => {
-          return tagsInSearchbar.every((tag) => tablature.tags.includes(tag));
+          return tagsInSearchbar.every((tag) => tablature.tags.map((tag) => tag.toLowerCase()).includes(tag.toLowerCase()));
         });
         setTablatureOnPage(tablatureWithMatchingTags);
       }

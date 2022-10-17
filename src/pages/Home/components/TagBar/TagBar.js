@@ -11,8 +11,9 @@ import { Chip, TextField, Autocomplete } from "@mui/material";
  * @returns 
  */
 const TagBar = () => {
+  const [usersTags, setUsersTags] = useState({});
   const [placeholder, setPlaceholder] = useState();
-  const { usersTags } = useContext(TablatureContext);
+  const { usersTablature } = useContext(TablatureContext);
   const { tagsInSearchbar, setTagsInSearchbar } = useContext(TagContext);
   const location = useLocation();
 
@@ -34,12 +35,31 @@ const TagBar = () => {
     }
   }, [location, setTagsInSearchbar]);
 
+  /**
+   * Update usersTags when usersTablature changes. This keeps the tagbar suggestions up to date.
+   */
+   useEffect(() => {
+    if(usersTablature) {
+      const tagMapWithCount = {};
+      usersTablature.forEach((tab) => {
+        tab.tags.forEach((tag) => {
+          if(tagMapWithCount[tag]) {
+            tagMapWithCount[tag] = tagMapWithCount[tag] + 1;
+          } else {
+            tagMapWithCount[tag] = 1;
+          }
+        });
+        setUsersTags(tagMapWithCount);
+      });
+    }
+  }, [usersTablature]);
+
   return (
     <Autocomplete
       onChange={(event, value) => setTagsInSearchbar(value)}
       multiple
       id="tags-filled"
-      options={Object.keys(usersTags).sort((a,b) => usersTags[b] - usersTags[a])} // Frequently used tags are top suggestions
+      options={Object.keys(usersTags).filter((tag) => !tagsInSearchbar.includes(tag)).sort((a,b) => usersTags[b] - usersTags[a])} // Frequently used tags are top suggestions. Dont suggest tags that are already in the search bar.
       freeSolo
       value={tagsInSearchbar}
       renderTags={(value, getTagProps) =>

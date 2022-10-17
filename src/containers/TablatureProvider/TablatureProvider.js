@@ -14,7 +14,6 @@ const TablatureContext = createContext({});
  */
 const TablatureProvider = (props) => {
   const [usersTablature, setUsersTablature] = useState([]);
-  const [usersTags, setUsersTags] = useState({});
   const [tablatureIsLoading, setTablatureIsLoading] = useState(true);
   const { user } = useContext(UserContext);
 
@@ -91,31 +90,12 @@ const TablatureProvider = (props) => {
     }
   }, [user]);
 
-  /**
-   * Update usersTags when usersTablature changes. This keeps the tagbar suggestions up to date.
-   */
-  useEffect(() => {
-    if(usersTablature) {
-      const tagMapWithCount = {};
-      usersTablature.forEach((tab) => {
-        tab.tags.forEach((tag) => {
-          if(tagMapWithCount[tag]) {
-            tagMapWithCount[tag] = tagMapWithCount[tag] + 1;
-          } else {
-            tagMapWithCount[tag] = 1;
-          }
-        });
-        setUsersTags(tagMapWithCount);
-      });
-    }
-  }, [usersTablature]);
 
   return (
     <TablatureContext.Provider
       value={{
         usersTablature,
         tablatureIsLoading,
-        usersTags,
         deleteFromUsersTablature,
         addToUsersTablature,
         getTabFromUser,
