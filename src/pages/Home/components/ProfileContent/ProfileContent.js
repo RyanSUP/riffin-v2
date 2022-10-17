@@ -28,8 +28,11 @@ const ProfileContent = () => {
         setTablatureOnPage(usersTablature);
       } else {
         const tablatureWithMatchingTags = usersTablature.filter((tablature) => {
-          return tagsInSearchbar.every((tag) => tablature.tags.map((tag) => tag.toLowerCase()).includes(tag.toLowerCase()));
+          return tagsInSearchbar.every((tag) => tablature.tags.map((tag) => tag.toLowerCase()).includes(tag.value.toLowerCase()));
         });
+        const tablatureWithMatchingName = usersTablature.filter((tablature) => {
+          // TODO FIND ALL TABS WITH MATCHING NAME
+        })
         setTablatureOnPage(tablatureWithMatchingTags);
       }
     }

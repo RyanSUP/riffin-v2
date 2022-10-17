@@ -11,7 +11,9 @@ import { Chip, TextField, Autocomplete } from "@mui/material";
  * @returns 
  */
 const TagBar = () => {
-  const [usersTags, setUsersTags] = useState({});
+  // const [tagSuggestions, setTagSuggestions] = useState({});
+  // const [nameSuggestions, setNameSuggestions] = useState({});
+  const [options, setOptions] = useState([]);
   const [placeholder, setPlaceholder] = useState();
   const { usersTablature } = useContext(TablatureContext);
   const { tagsInSearchbar, setTagsInSearchbar } = useContext(TagContext);
@@ -35,13 +37,43 @@ const TagBar = () => {
     }
   }, [location, setTagsInSearchbar]);
 
+  // /**
+  //  * Update tagSuggestions when usersTablature changes. This keeps the tagbar suggestions up to date.
+  //  */
+  //  useEffect(() => {
+  //   if(usersTablature) {
+  //     const tagMapWithCount = {};
+  //     const tablatureNames = [];
+  //     usersTablature.forEach((tab) => {
+  //       tablatureNames.push(tab.name);
+  //       tab.tags.forEach((tag) => {
+  //         if(tagMapWithCount[tag]) {
+  //           tagMapWithCount[tag] = tagMapWithCount[tag] + 1;
+  //         } else {
+  //           tagMapWithCount[tag] = 1;
+  //         }
+  //       });
+  //       setNameSuggestions(tablatureNames);
+  //       setTagSuggestions(tagMapWithCount);
+  //     });
+  //   }
+  // }, [usersTablature]);
+
   /**
-   * Update usersTags when usersTablature changes. This keeps the tagbar suggestions up to date.
+   * Update tagSuggestions when usersTablature changes. This keeps the tagbar suggestions up to date.
    */
    useEffect(() => {
     if(usersTablature) {
+      const nameSuggestions = [];
       const tagMapWithCount = {};
       usersTablature.forEach((tab) => {
+
+        const name = {
+          label: "Tablature",
+          value: tab.name
+        }
+        nameSuggestions.push(name);
+
         tab.tags.forEach((tag) => {
           if(tagMapWithCount[tag]) {
             tagMapWithCount[tag] = tagMapWithCount[tag] + 1;
@@ -49,22 +81,32 @@ const TagBar = () => {
             tagMapWithCount[tag] = 1;
           }
         });
-        setUsersTags(tagMapWithCount);
       });
+      let tagSuggestions = Object.keys(tagMapWithCount).sort((a,b) => tagMapWithCount[b] - tagMapWithCount[a]);
+      tagSuggestions = Object.keys(tagMapWithCount).map((tag) => {
+        return {
+          label: "Tags",
+          value: tag
+        }
+      })
+      setOptions([...tagSuggestions, ...nameSuggestions])
     }
   }, [usersTablature]);
+
 
   return (
     <Autocomplete
       onChange={(event, value) => setTagsInSearchbar(value)}
       multiple
       id="tags-filled"
-      options={Object.keys(usersTags).filter((tag) => !tagsInSearchbar.includes(tag)).sort((a,b) => usersTags[b] - usersTags[a])} // Frequently used tags are top suggestions. Dont suggest tags that are already in the search bar.
+      options={options}
+      getOptionLabel={(option) => option.value}
+      groupBy={(option) => option.label}
       freeSolo
       value={tagsInSearchbar}
       renderTags={(value, getTagProps) =>
         value.map((option, index) => (
-          <Chip variant="outlined" size="small" label={option} {...getTagProps({ index })} />
+          <Chip variant="outlined" size="small" label={option.value} {...getTagProps({ index })} />
         ))
       }
       renderInput={(params) => (

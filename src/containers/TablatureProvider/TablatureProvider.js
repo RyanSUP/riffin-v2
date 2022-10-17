@@ -8,7 +8,7 @@ import { getIdTokenFromUser } from "utils/userUtils";
 const TablatureContext = createContext({});
 
 /**
- * * Tablature provider requests the user's tablature data from the backend and stores it on the client. Since it is a context provider, all children have access to the tablature data. TablatureProvider also stores a list of unique tags derived from all tablature which is used to generate a list of suggestions in the searchbar.
+ * * Tablature provider requests the user's tablature data from the backend and stores it on the client. Since it is a context provider, all children have access to the tablature data.
  * @param {Object} props 
  * @returns 
  */
