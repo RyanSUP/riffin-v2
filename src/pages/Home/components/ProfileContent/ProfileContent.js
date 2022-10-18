@@ -27,8 +27,9 @@ const ProfileContent = () => {
       if(tagsInSearchbar.length === 0) {
         setTablatureOnPage(usersTablature);
       } else {
+        // Get all tablature objects whose tags or name match all tags in the searchbar.
         const tablatureWithMatchingTags = usersTablature.filter((tablature) => {
-          return tagsInSearchbar.every((tag) => tablature.tags.includes(tag));
+          return tagsInSearchbar.every((tag) => tablature.tags.map((tag) => tag.toLowerCase()).includes(tag.toLowerCase()) || tablature.name.toLowerCase() === tag.toLowerCase());
         });
         setTablatureOnPage(tablatureWithMatchingTags);
       }

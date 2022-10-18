@@ -19,7 +19,7 @@ const TagGroup = (props) => {
   return (
     <Box sx={tagContainer}>
       {props.tags?.map((tag, i) =>(
-        <Box sx={spacer}>
+        <Box sx={spacer} key={tag + i}>
           <Chip 
             sx={{textTransform: "none"}}
             key={i}

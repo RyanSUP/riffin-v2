@@ -40,8 +40,8 @@ const DividerWrapper = (props) => {
         {firstChild}
       </Box>
       <Divider sx={centerDividerStyle}/>
-      {rest.map(child => (
-        <Box sx={horizontalSpacer}>
+      {rest.map((child,i) => (
+        <Box sx={horizontalSpacer} key={i}>
           {child}
         </Box>
       ))}
