@@ -11,8 +11,6 @@ import { Chip, TextField, Autocomplete } from "@mui/material";
  * @returns 
  */
 const TagBar = () => {
-  // const [tagSuggestions, setTagSuggestions] = useState({});
-  // const [nameSuggestions, setNameSuggestions] = useState({});
   const [options, setOptions] = useState([]);
   const [placeholder, setPlaceholder] = useState();
   const { usersTablature } = useContext(TablatureContext);
@@ -23,18 +21,20 @@ const TagBar = () => {
    * Set the TagProvider state and placeholder text depending on the current location
    */
   useEffect(() => {
-    if(location.pathname.startsWith("/new")) {
-      setTagsInSearchbar([]);
-      setPlaceholder("add tag");
-    } else if(location.pathname.startsWith("/profile")) {
-      setTagsInSearchbar([]);
-      setPlaceholder("search");
-    } else if(location.pathname.startsWith("/edit")) {
-      setPlaceholder("add tag");
-    } else {
-      setTagsInSearchbar([]);
-      setPlaceholder("search");
-    }
+    const updateTagsInSearchbarBasedOnLocation = (pathname) => {
+      if(!pathname.startsWith("/edit")) {
+        setTagsInSearchbar([]);
+      }
+    };
+    const updatePlaceholderTextBasedOnLocation = (pathname) => {
+      if(pathname.startsWith("/edit") || pathname.startsWith("/new")) {
+        setPlaceholder("add tag");
+      } else {
+        setPlaceholder("search");
+      }
+    };
+    updateTagsInSearchbarBasedOnLocation(location.pathname);
+    updatePlaceholderTextBasedOnLocation(location.pathname);
   }, [location, setTagsInSearchbar]);
 
   /**
@@ -60,8 +60,7 @@ const TagBar = () => {
           }
         });
       });
-      let tagSuggestions = Object.keys(tagMapWithCount).sort((a,b) => tagMapWithCount[b] - tagMapWithCount[a]);
-      tagSuggestions = Object.keys(tagMapWithCount).map((tag) => {
+      let tagSuggestions = Object.keys(tagMapWithCount).map((tag) => {
         return {
           label: "Tags",
           value: tag
