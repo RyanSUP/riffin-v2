@@ -37,28 +37,6 @@ const TagBar = () => {
     }
   }, [location, setTagsInSearchbar]);
 
-  // /**
-  //  * Update tagSuggestions when usersTablature changes. This keeps the tagbar suggestions up to date.
-  //  */
-  //  useEffect(() => {
-  //   if(usersTablature) {
-  //     const tagMapWithCount = {};
-  //     const tablatureNames = [];
-  //     usersTablature.forEach((tab) => {
-  //       tablatureNames.push(tab.name);
-  //       tab.tags.forEach((tag) => {
-  //         if(tagMapWithCount[tag]) {
-  //           tagMapWithCount[tag] = tagMapWithCount[tag] + 1;
-  //         } else {
-  //           tagMapWithCount[tag] = 1;
-  //         }
-  //       });
-  //       setNameSuggestions(tablatureNames);
-  //       setTagSuggestions(tagMapWithCount);
-  //     });
-  //   }
-  // }, [usersTablature]);
-
   /**
    * Update tagSuggestions when usersTablature changes. This keeps the tagbar suggestions up to date.
    */
@@ -96,7 +74,9 @@ const TagBar = () => {
 
   return (
     <Autocomplete
-      onChange={(event, value) => setTagsInSearchbar(value)}
+      onChange={(event, value) => {
+        setTagsInSearchbar(value.map((val) => (val["label"]) ? val["value"] : val))
+      }}
       multiple
       id="tags-filled"
       options={options}
@@ -106,7 +86,7 @@ const TagBar = () => {
       value={tagsInSearchbar}
       renderTags={(value, getTagProps) =>
         value.map((option, index) => (
-          <Chip variant="outlined" size="small" label={option.value} {...getTagProps({ index })} />
+          <Chip variant="outlined" size="small" label={option} {...getTagProps({ index })} />
         ))
       }
       renderInput={(params) => (
