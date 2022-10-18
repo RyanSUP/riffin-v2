@@ -84,7 +84,8 @@ const TagBar = () => {
           }
         });
       });
-      setOptions([...tagSuggestions, ...nameSuggestions, ...riffinSuggestions.filter((suggestion) => !tagSuggestions.map(tag => tag.value).includes(suggestion.value))])
+      const filteredRiffinSuggestions = riffinSuggestions.filter((suggestion) => !tagSuggestions.map(tag => tag.value).includes(suggestion.value));
+      setOptions([...tagSuggestions, ...nameSuggestions, ...filteredRiffinSuggestions])
     }
   }, [usersTablature]);
 
