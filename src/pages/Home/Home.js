@@ -11,9 +11,10 @@ import LoginSignupForm from "./components/LoginSignupForm/LoginSignupForm";
 import { RiffinProvider } from './components/RiffinEditor/RiffinProvider';
 
 // MUI
-import { Grid, Container } from "@mui/material";
+import { Grid } from "@mui/material";
 import RiffinEditor from './components/RiffinEditor/RiffinEditor';
 import RiffinDrawer from './components/RiffinEditor/components/RiffinDrawer/RiffinDrawer';
+import GutterContainer from 'containers/GutterContainer/GutterContainer';
 
 /**
  * * Home handles the application layout and routing.
@@ -25,15 +26,15 @@ const Home = () => {
 
   return (
     <div data-testid="Home">
-      <Grid container>
+      <Grid container xs={{position: 'relative'}}>
 
         <Grid item xs={12} sx={{position: 'sticky', top: 0, backgroundColor: 'background.default', zIndex: '5'}}>
           <Grid container sx={{alignItems: "center", my: "16px"}}>
 
             <Grid item xs={2}>
-              <Container>
+              <GutterContainer justifyContent="end">
                 <HeaderLogo />
-              </Container>
+              </GutterContainer>
             </Grid>
 
             <Grid item xs={8}>
@@ -41,17 +42,17 @@ const Home = () => {
             </Grid>
 
             <Grid item xs={2}>
-              <Container>
-                <HeaderLinks />
-              </Container>
+              <HeaderLinks />
             </Grid>
             
           </Grid> 
         </Grid>
         
         {!belowMediumScreen &&
-          <Grid item xs={2} sx={{height: '85vh', position: 'sticky', top: '90px'}}>
-            <Sidebar />
+          <Grid item xs={2} sx={{height: 'fit-content', position: 'sticky', top: '90px'}}>
+            <GutterContainer justifyContent="end">
+              <Sidebar />
+            </GutterContainer>
           </Grid>
         }
 
@@ -71,7 +72,7 @@ const Home = () => {
               <Grid item xs={8}>
                 <RiffinEditor />
               </Grid>
-              <Grid item xs={2} sx={{height: '85vh', position: 'sticky', top: '90px'}}>
+              <Grid item xs={2} sx={{height: 'fit-content', position: 'sticky', top: '90px'}}>
                 <RiffinDrawer />
               </Grid>
             </RiffinProvider>
