@@ -51,10 +51,6 @@ const legend = [
         label: "hammer on",
         value: "h"
       },
-      {
-        label: "staff line",
-        value: "|"
-      },
     ]
   },
 ];

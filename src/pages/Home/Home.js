@@ -27,7 +27,7 @@ const Home = () => {
     <div data-testid="Home">
       <Grid container>
 
-        <Grid item xs={12}>
+        <Grid item xs={12} sx={{position: 'sticky', top: 0, backgroundColor: 'background.default', zIndex: '5'}}>
           <Grid container sx={{alignItems: "center", my: "16px"}}>
 
             <Grid item xs={2}>
@@ -50,7 +50,7 @@ const Home = () => {
         </Grid>
         
         {!belowMediumScreen &&
-          <Grid item xs={2}>
+          <Grid item xs={2} sx={{height: '85vh', position: 'sticky', top: '90px'}}>
             <Sidebar />
           </Grid>
         }
@@ -71,7 +71,7 @@ const Home = () => {
               <Grid item xs={8}>
                 <RiffinEditor />
               </Grid>
-              <Grid item xs={2}>
+              <Grid item xs={2} sx={{height: '85vh', position: 'sticky', top: '90px'}}>
                 <RiffinDrawer />
               </Grid>
             </RiffinProvider>
@@ -81,7 +81,7 @@ const Home = () => {
               <Grid item xs={8}>
                 <RiffinEditor />
               </Grid>
-              <Grid item xs={2}>
+              <Grid item xs={2} sx={{height: '85vh', position: 'sticky', top: '90px'}}>
                 <RiffinDrawer />
               </Grid>
             </RiffinProvider>
@@ -91,7 +91,7 @@ const Home = () => {
               <Grid item xs={8}>
                 <RiffinEditor />
               </Grid>
-              <Grid item xs={2}>
+              <Grid item xs={2} sx={{height: '85vh', position: 'sticky', top: '90px'}}>
                 <RiffinDrawer />
               </Grid>
             </RiffinProvider>

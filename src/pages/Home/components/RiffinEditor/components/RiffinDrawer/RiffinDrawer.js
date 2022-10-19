@@ -29,8 +29,8 @@ const RiffinDrawer = () => {
   return (
     <>    
       {!editor.previewMode &&
-        <Container sx={{mt: 4}}>
-            <Stack spacing={2} sx={{my: 4}}>
+        <Container>
+            <Stack spacing={2}>
               <StaffMenuHeader />
               <Box>
                 <Typography>Size</Typography>

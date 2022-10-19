@@ -352,12 +352,14 @@ const RiffinProvider = (props) => {
       setIsLoading(true);
       const tablature = getTabFromUser(tabId);
       if(tablature) {
+        const tablatureStringify = JSON.stringify(tablature);
+        const tablatureDeepCopy = JSON.parse(tablatureStringify);
         const action = {
-          tablature,
+          tablature: tablatureDeepCopy,
           type: 'setTablature'
-        }
+        };
         setTagsInSearchbar(tablature.tags);
-        setIsLoading(false)
+        setIsLoading(false);
         dispatch(action);
       }
     }
