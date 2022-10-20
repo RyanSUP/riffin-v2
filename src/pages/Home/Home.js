@@ -3,109 +3,192 @@ import Sidebar from './components/Sidebar/Sidebar';
 import Logo from './components/Logo/Logo';
 import HeaderLinks from './components/HeaderLinks/HeaderLinks';
 import TagBar from './components/TagBar/TagBar';
-import { useMediaQuery } from "@mui/material";
-import { useTheme } from "@mui/material/styles";
 import { Route, Routes, Navigate } from "react-router-dom";
 import ProfileContent from "./components/ProfileContent/ProfileContent";
 import LoginSignupForm from "./components/LoginSignupForm/LoginSignupForm";
 import { RiffinProvider } from './components/RiffinEditor/RiffinProvider';
 // MUI
-import { Grid } from "@mui/material";
+import { Box } from "@mui/material";
 import RiffinEditor from './components/RiffinEditor/RiffinEditor';
 import RiffinDrawer from './components/RiffinEditor/components/RiffinDrawer/RiffinDrawer';
-import GutterBox from 'containers/GutterBox/GutterBox';
 
-/**
- * * Home handles the application layout and routing.
- */
+const header = {
+  width: "100%",
+  margin: "0 auto",
+  position: "fixed",
+  top: "0",
+  left: "0",
+  zIndex: "5",
+  padding: "10px 0",
+  background: "#0f1627",
+}
 
-const Home = () => {
-  const theme = useTheme();
-  const belowMediumScreen = useMediaQuery(theme.breakpoints.down("md"));
+const wrap = {
+  maxWidth: "1700px",
+  margin: "0 auto",
+  position: "relative",
+}
 
+const flex = {
+  display: "flex",
+  justifyContent: "space-between",
+  alignItems: "center",
+}
+
+const containerDefaults = {
+  padding: "0 20px",
+  boxSizing: "border-box",
+}
+
+const left = {
+  minWidth: "200px",
+}
+
+const right = {
+  minWidth: "260px",
+  maxWidth: "260px",
+  justifyContent: "flex-end"
+}
+
+const middle = {
+  width: "100%",
+  overflowX: "clip",
+}
+
+const filterContainer = {
+  width: "100%",
+  overflowX: "clip",
+}
+
+const main = {
+  alignItems: "flex-start"
+}
+
+const sidebarStyle = {
+  overflowY: "scroll",
+  height: "calc(100vh - 90px)",
+  position: "sticky",
+  top: '80px'
+}
+
+const rightSidebarStyle = {
+  height: "calc(100vh - 90px)",
+  position: "sticky",
+  top: '80px'
+}
+
+const page = {
+  width: "100%",
+  boxSizing: "border-box",
+}
+
+const feed = {
+  padding: "5px 20px 30px",
+  display: "grid",
+  marginTop: "5px",
+}
+
+const HomeTwo = () => {
   return (
-    <div data-testid="Home">
-      <Grid container xs={{position: 'relative'}}>
+    <Box sx={{paddingTop: '80px'}}>
+      {/* Header */}
+      <Box sx={header}>
+        <Box sx={{...wrap, ...flex}}>
+          {/* left */}
+          <Box sx={{...left, ...containerDefaults}}>
+            <Logo />
+          </Box>
+          
+          {/* Middle filter container */}
+          <Box sx={{...middle, ...containerDefaults, ...filterContainer}}>
+            <TagBar />
+          </Box>
 
-        <Grid item xs={12} sx={{position: 'sticky', top: 0, backgroundColor: 'background.default', zIndex: '5'}}>
-          <Grid container sx={{alignItems: "center", my: "16px"}}>
+          {/* right */}
+          <Box sx={{...right, ...containerDefaults}}>
+            <HeaderLinks />
+          </Box>
+        </Box>
+      </Box>
 
-            <Grid item xs={2}>
-              <GutterBox justifyContent="end">
-                <Logo />
-              </GutterBox>
-            </Grid>
-
-            <Grid item xs={7}>
-              <TagBar />
-            </Grid>
-
-            <Grid item xs={3}>
-              <GutterBox justifyContent="start">
-                <HeaderLinks />
-              </GutterBox>
-            </Grid>
-            
-          </Grid> 
-        </Grid>
-        
-        {!belowMediumScreen &&
-          <Grid item xs={2} sx={{height: 'fit-content', position: 'sticky', top: '90px'}}>
-            <GutterBox justifyContent="end">
-              <Sidebar />
-            </GutterBox>
-          </Grid>
-        }
+      {/* Main */}
+      <Box sx={{...wrap, ...flex, ...main}}>
+        {/* Left */}
+        <Box sx={{...left, ...containerDefaults, ...sidebarStyle}}>
+          <Sidebar />
+        </Box>
 
         <Routes>
           <Route path="/login" element={
-            <Grid item xs={7}>
-              <LoginSignupForm />
-            </Grid>
+            <>
+            {/* Center */}
+            <Box sx={page}>
+              <Box sx={feed}>
+                <LoginSignupForm />
+              </Box>
+            </Box>
+            {/* Right */}
+            <Box sx={{...right, ...rightSidebarStyle}}>
+
+            </Box>
+          </>
           }/>
           <Route path="/profile/:cognitoUsername" element={
-            <Grid item xs={7}>
-              <ProfileContent />
-            </Grid>
+            <>
+              {/* Center */}
+              <Box sx={page}>
+                <Box sx={feed}>
+                  <ProfileContent />
+                </Box>
+              </Box>
+              {/* Right */}
+              <Box sx={{...right, ...rightSidebarStyle}}>
+
+              </Box>
+            </>
           }/>
           <Route path="/new/guitar" element={
-            <RiffinProvider key={"newGuitar"} numberOfStrings={6}>
-              <Grid item xs={7}>
-                <RiffinEditor />
-              </Grid>
-              <Grid item xs={2} sx={{height: 'fit-content', position: 'sticky', top: '90px'}}>
-                <GutterBox justifyContent="start">
-                  <RiffinDrawer />
-                </GutterBox>
-              </Grid>
+            <RiffinProvider key="newGuitar" numberOfStrings={6}>
+              <Box sx={page}>
+                <Box sx={feed}>
+                  <RiffinEditor />
+                </Box>
+              </Box>
+              <Box sx={{...right, ...rightSidebarStyle}}>
+                <RiffinDrawer />
+              </Box>
             </RiffinProvider>
           }/>
           <Route path="/new/bass" element={
-            <RiffinProvider key={"bass"} numberOfStrings={4}>
-              <Grid item xs={7}>
+            <RiffinProvider key="newBass" numberOfStrings={4}>
+            <Box sx={page}>
+              <Box sx={feed}>
                 <RiffinEditor />
-              </Grid>
-              <Grid item xs={3} sx={{height: '85vh', position: 'sticky', top: '90px'}}>
-                <RiffinDrawer />
-              </Grid>
-            </RiffinProvider>
+              </Box>
+            </Box>
+            <Box sx={{...right, ...rightSidebarStyle}}>
+              <RiffinDrawer />
+            </Box>
+          </RiffinProvider>
           }/>
           <Route path="/edit/:tabId" element={
-            <RiffinProvider key={"editor"}>
-              <Grid item xs={7}>
+            <RiffinProvider key="editor">
+            <Box sx={page}>
+              <Box sx={feed}>
                 <RiffinEditor />
-              </Grid>
-              <Grid item xs={3} sx={{height: '85vh', position: 'sticky', top: '90px'}}>
-                <RiffinDrawer />
-              </Grid>
-            </RiffinProvider>
+              </Box>
+            </Box>
+            <Box sx={{...right, ...rightSidebarStyle}}>
+              <RiffinDrawer />
+            </Box>
+          </RiffinProvider>
           }/>
           <Route path="*" element={<Navigate to="/new/guitar" replace />} />
         </Routes>
 
-      </Grid>
-    </div>
+      </Box>
+    </Box>
   );
 }
  
-export default Home;
+export default HomeTwo;
