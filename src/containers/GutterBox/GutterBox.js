@@ -1,26 +1,26 @@
 // MUI
-import { Box, Container } from "@mui/material";
+import { Box } from "@mui/material";
 
 const childWrapperStyle = {
-  maxWidth: '175px', 
   display: 'flex', 
   flexDirection: 'column',
 };
 
-const GutterContainer = (props) => {
+const GutterBox = (props) => {
   
   const gutterStyle = {
     display: 'flex', 
     justifyContent: props.justifyContent,
+    mx: 4
   };
 
   return (
-    <Container sx={gutterStyle}>
+    <Box fixed sx={gutterStyle}>
       <Box sx={childWrapperStyle}>
         {props.children}
       </Box>
-    </Container>
+    </Box>
   );
 }
  
-export default GutterContainer;
+export default GutterBox;

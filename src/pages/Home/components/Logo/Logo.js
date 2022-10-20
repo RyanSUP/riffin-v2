@@ -6,7 +6,7 @@ import { useMediaQuery } from "@mui/material";
 import logo from "../../../../assets/images/riffin_logo.png";
 import mobileLogo from "../../../../assets/images/riffin_mobile_logo.png";
 
-const HeaderLogo = () => {
+const Logo = () => {
   const theme = useTheme();
   const belowMediumScreen = useMediaQuery(theme.breakpoints.down("md"));
 
@@ -24,4 +24,4 @@ const HeaderLogo = () => {
   );
 };
 
-export default HeaderLogo;
+export default Logo;

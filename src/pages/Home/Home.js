@@ -1,6 +1,6 @@
 // Components
 import Sidebar from './components/Sidebar/Sidebar';
-import HeaderLogo from './components/HeaderLogo/HeaderLogo';
+import Logo from './components/Logo/Logo';
 import HeaderLinks from './components/HeaderLinks/HeaderLinks';
 import TagBar from './components/TagBar/TagBar';
 import { useMediaQuery } from "@mui/material";
@@ -9,12 +9,11 @@ import { Route, Routes, Navigate } from "react-router-dom";
 import ProfileContent from "./components/ProfileContent/ProfileContent";
 import LoginSignupForm from "./components/LoginSignupForm/LoginSignupForm";
 import { RiffinProvider } from './components/RiffinEditor/RiffinProvider';
-
 // MUI
 import { Grid } from "@mui/material";
 import RiffinEditor from './components/RiffinEditor/RiffinEditor';
 import RiffinDrawer from './components/RiffinEditor/components/RiffinDrawer/RiffinDrawer';
-import GutterContainer from 'containers/GutterContainer/GutterContainer';
+import GutterBox from 'containers/GutterBox/GutterBox';
 
 /**
  * * Home handles the application layout and routing.
@@ -32,17 +31,19 @@ const Home = () => {
           <Grid container sx={{alignItems: "center", my: "16px"}}>
 
             <Grid item xs={2}>
-              <GutterContainer justifyContent="end">
-                <HeaderLogo />
-              </GutterContainer>
+              <GutterBox justifyContent="end">
+                <Logo />
+              </GutterBox>
             </Grid>
 
-            <Grid item xs={8}>
+            <Grid item xs={7}>
               <TagBar />
             </Grid>
 
-            <Grid item xs={2}>
-              <HeaderLinks />
+            <Grid item xs={3}>
+              <GutterBox justifyContent="start">
+                <HeaderLinks />
+              </GutterBox>
             </Grid>
             
           </Grid> 
@@ -50,49 +51,51 @@ const Home = () => {
         
         {!belowMediumScreen &&
           <Grid item xs={2} sx={{height: 'fit-content', position: 'sticky', top: '90px'}}>
-            <GutterContainer justifyContent="end">
+            <GutterBox justifyContent="end">
               <Sidebar />
-            </GutterContainer>
+            </GutterBox>
           </Grid>
         }
 
         <Routes>
           <Route path="/login" element={
-            <Grid item xs={8}>
+            <Grid item xs={7}>
               <LoginSignupForm />
             </Grid>
           }/>
           <Route path="/profile/:cognitoUsername" element={
-            <Grid item xs={8}>
+            <Grid item xs={7}>
               <ProfileContent />
             </Grid>
           }/>
           <Route path="/new/guitar" element={
             <RiffinProvider key={"newGuitar"} numberOfStrings={6}>
-              <Grid item xs={8}>
+              <Grid item xs={7}>
                 <RiffinEditor />
               </Grid>
               <Grid item xs={2} sx={{height: 'fit-content', position: 'sticky', top: '90px'}}>
-                <RiffinDrawer />
+                <GutterBox justifyContent="start">
+                  <RiffinDrawer />
+                </GutterBox>
               </Grid>
             </RiffinProvider>
           }/>
           <Route path="/new/bass" element={
             <RiffinProvider key={"bass"} numberOfStrings={4}>
-              <Grid item xs={8}>
+              <Grid item xs={7}>
                 <RiffinEditor />
               </Grid>
-              <Grid item xs={2} sx={{height: '85vh', position: 'sticky', top: '90px'}}>
+              <Grid item xs={3} sx={{height: '85vh', position: 'sticky', top: '90px'}}>
                 <RiffinDrawer />
               </Grid>
             </RiffinProvider>
           }/>
           <Route path="/edit/:tabId" element={
             <RiffinProvider key={"editor"}>
-              <Grid item xs={8}>
+              <Grid item xs={7}>
                 <RiffinEditor />
               </Grid>
-              <Grid item xs={2} sx={{height: '85vh', position: 'sticky', top: '90px'}}>
+              <Grid item xs={3} sx={{height: '85vh', position: 'sticky', top: '90px'}}>
                 <RiffinDrawer />
               </Grid>
             </RiffinProvider>

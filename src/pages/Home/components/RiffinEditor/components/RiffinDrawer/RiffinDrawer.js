@@ -29,21 +29,19 @@ const RiffinDrawer = () => {
   return (
     <>    
       {!editor.previewMode &&
-        <Container>
-            <Stack spacing={2}>
-              <StaffMenuHeader />
-              <Box>
-                <Typography>Size</Typography>
-                <SizeSlider block={ selectedBlock }/>
-              </Box>
-              <DuplicateBlockButton />
-              <DeleteBlockButton 
-                block={ selectedBlock } 
-                disabled={(editor.tablature.blocks.length === 1)} 
-              />
-              <Legend />
-            </Stack>
-        </Container>
+        <Stack spacing={2} sx={{width: '220px'}}>
+          <StaffMenuHeader />
+          <Box>
+            <Typography>Size</Typography>
+            <SizeSlider block={ selectedBlock }/>
+          </Box>
+          <DuplicateBlockButton />
+          <DeleteBlockButton 
+            block={ selectedBlock } 
+            disabled={(editor.tablature.blocks.length === 1)} 
+          />
+          <Legend />
+        </Stack>
       }
     </>
   );
