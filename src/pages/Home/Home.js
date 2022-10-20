@@ -88,7 +88,7 @@ const feed = {
   marginTop: "5px",
 }
 
-const HomeTwo = () => {
+const Home = () => {
   return (
     <Box sx={{paddingTop: '80px'}}>
       {/* Header */}
@@ -191,4 +191,4 @@ const HomeTwo = () => {
   );
 }
  
-export default HomeTwo;
+export default Home;
