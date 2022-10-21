@@ -7,6 +7,7 @@ import ExpandButton from "./components/ExpandButton/ExpandButton";
 import ButtonWrapper from "./components/ButtonWrapper/ButtonWrapper";
 import ReadonlyTablature from "components/ReadonlyTablature/ReadonlyTablature";
 import BlockContent from "./components/BlockContent/BlockContent";
+import { useMediaQuery, useTheme } from "@mui/material";
 // MUI
 import { Box, Typography } from "@mui/material";
 
@@ -15,7 +16,10 @@ const cardBottomMargin = {
 };
 
 const Card = (props) => {
+  const theme = useTheme();
   const [expanded, setExpanded] = useState(false);
+  const belowMediumScreen = useMediaQuery(theme.breakpoints.up("md"));
+
   /**
    * Toggles expanded state, which determines the content view of the card.
    */
@@ -32,7 +36,9 @@ const Card = (props) => {
     <Box sx={cardBottomMargin}>
       <DividerWrapper>
         <Typography>{props.tabData.name}</Typography>
-        <EditTablatureButton tab_id={props.tabData._id} />
+        {belowMediumScreen &&
+          <EditTablatureButton tab_id={props.tabData._id} />
+        }
         <ExpandButton 
           expanded={expanded} 
           disabled={disableExpand}

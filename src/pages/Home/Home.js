@@ -103,7 +103,6 @@ const Home = () => {
   };
 
   return (
-    <>
     <Box sx={{paddingTop: '80px'}}>
       {/* Header */}
       <Box sx={header}>
@@ -206,7 +205,6 @@ const Home = () => {
         </Routes>
       </Box>
     </Box>
-    </>
   );
 }
  
