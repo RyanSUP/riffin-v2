@@ -102,9 +102,6 @@ const Home = () => {
   const middle = {
     width: "100%",
     overflowX: "clip",
-    [theme.breakpoints.down('md')]: {
-      paddingRight: 0,
-    }
   };
   
 

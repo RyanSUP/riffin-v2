@@ -6,7 +6,7 @@ import MoreHorizIcon from '@mui/icons-material/MoreHoriz';
 import Menu from "@mui/material/Menu";
 import Tooltip from "@mui/material/Tooltip";
 import MenuItem from "@mui/material/MenuItem";
-import { Button } from "@mui/material";
+import { Button, IconButton } from "@mui/material";
 
 const UserMenu = (props) => {
   // const { logout } = useContext(UserContext);  
@@ -30,9 +30,9 @@ const UserMenu = (props) => {
   return (
     <Box>
       <Tooltip title="Open settings">
-        <Button onClick={handleOpenUserMenu}>
+        <IconButton onClick={handleOpenUserMenu} sx={{color: "primary.main"}}>
           <MoreHorizIcon />
-        </Button>
+        </IconButton>
       </Tooltip>
       <Menu
         sx={{ mt: "45px" }}
