@@ -1,5 +1,4 @@
 // Components
-import Sidebar from './components/Sidebar/Sidebar';
 import Logo from './components/Logo/Logo';
 import HeaderLinks from './components/HeaderLinks/HeaderLinks';
 import TagBar from './components/TagBar/TagBar';
@@ -8,9 +7,12 @@ import ProfileContent from "./components/ProfileContent/ProfileContent";
 import LoginSignupForm from "./components/LoginSignupForm/LoginSignupForm";
 import { RiffinProvider } from './components/RiffinEditor/RiffinProvider';
 // MUI
+import { Button, useTheme } from '@mui/material';
 import { Box } from "@mui/material";
 import RiffinEditor from './components/RiffinEditor/RiffinEditor';
 import RiffinDrawer from './components/RiffinEditor/components/RiffinDrawer/RiffinDrawer';
+import NavStack from './components/Sidebar/components/NavStack/NavStack';
+import Ad from 'components/Ad/Ad';
 
 const header = {
   width: "100%",
@@ -40,16 +42,6 @@ const containerDefaults = {
   boxSizing: "border-box",
 }
 
-const left = {
-  minWidth: "200px",
-}
-
-const right = {
-  minWidth: "260px",
-  maxWidth: "260px",
-  justifyContent: "flex-end"
-}
-
 const middle = {
   width: "100%",
   overflowX: "clip",
@@ -60,22 +52,14 @@ const filterContainer = {
   overflowX: "clip",
 }
 
-const main = {
-  alignItems: "flex-start"
-}
 
 const sidebarStyle = {
-  overflowY: "scroll",
   height: "calc(100vh - 90px)",
   position: "sticky",
-  top: '80px'
+  top: '80px',
 }
 
-const rightSidebarStyle = {
-  height: "calc(100vh - 90px)",
-  position: "sticky",
-  top: '80px'
-}
+
 
 const page = {
   width: "100%",
@@ -88,8 +72,51 @@ const feed = {
   marginTop: "5px",
 }
 
+
 const Home = () => {
+
+  const theme = useTheme();
+
+  const rightSidebarStyle = {
+    height: "calc(100vh - 90px)",
+    position: "sticky",
+    top: '80px',
+  }
+  const right = {
+    minWidth: "260px",
+    maxWidth: "260px",
+    justifyContent: "flex-end",
+  }
+
+  const left = {
+    minWidth: "200px",
+    [theme.breakpoints.down('md')]: {
+      display: 'none',
+    }
+  }
+  const mobileNav= {
+    display: 'none',
+    [theme.breakpoints.down('md')]: {
+      display: 'block',
+      height: "90px",
+      position: "fixed",
+      width: "100%",
+      bottom: "0",
+      top: "auto"
+    }
+  }
+
+const main = {
+  alignItems: "flex-start",
+  flexDirection: "row",
+  [theme.breakpoints.down('md')]: {
+    flexDirection: "column",
+  }
+}
+
+
   return (
+    <>
     <Box sx={{paddingTop: '80px'}}>
       {/* Header */}
       <Box sx={header}>
@@ -115,7 +142,8 @@ const Home = () => {
       <Box sx={{...wrap, ...flex, ...main}}>
         {/* Left */}
         <Box sx={{...left, ...containerDefaults, ...sidebarStyle}}>
-          <Sidebar />
+          <NavStack />
+          <Ad />
         </Box>
 
         <Routes>
@@ -143,7 +171,7 @@ const Home = () => {
               </Box>
               {/* Right */}
               <Box sx={{...right, ...rightSidebarStyle}}>
-
+                <Button variant="outlined" size="large">Donate</Button>
               </Box>
             </>
           }/>
@@ -185,9 +213,12 @@ const Home = () => {
           }/>
           <Route path="*" element={<Navigate to="/new/guitar" replace />} />
         </Routes>
-
       </Box>
     </Box>
+    <Box sx={mobileNav}>
+      <NavStack />
+    </Box>
+    </>
   );
 }
  
