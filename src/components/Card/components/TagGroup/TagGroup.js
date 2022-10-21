@@ -4,7 +4,7 @@ import { Box, Chip } from "@mui/material";
 
 const tagContainer = {
   display: "flex",
-  width: "50%",
+  maxWidth: "80%",
   alignItems: "end",
   overflow: "hidden",
   mb: 1
