@@ -15,6 +15,7 @@ import Ad from 'components/Ad/Ad';
 import CollectionButton from './components/Sidebar/components/CollectionButton/CollectionButton';
 import CreateGuitarTabButton from './components/Sidebar/components/CreateGuitarTabButton/CreateGuitarTabButton';
 import CreateBassTabButton from './components/Sidebar/components/CreateBassTabButton/CreateBassTabButton';
+import Donate from './components/Donate/Donate';
 
 const header = {
   width: "100%",
@@ -179,7 +180,7 @@ const Home = () => {
               </Box>
               {/* Right */}
               <Box sx={{...right, ...rightSidebarStyle}}>
-                <Button variant="outlined" size="large">Donate</Button>
+                <Donate />
               </Box>
             </>
           }/>
