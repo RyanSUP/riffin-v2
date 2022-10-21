@@ -102,6 +102,13 @@ const Home = () => {
     }
   };
 
+  const headerLinksStyle = {
+    [theme.breakpoints.down('md')]: {
+      minWidth: 0,
+      paddingLeft: 0,
+    }
+  };
+
   return (
     <Box sx={{paddingTop: '80px'}}>
       {/* Header */}
@@ -112,13 +119,13 @@ const Home = () => {
             <Logo />
           </Box>
           
-          {/* Middle filter container */}
+          {/* Center */}
           <Box sx={{...middle, ...containerDefaults, ...filterContainer}}>
             <TagBar />
           </Box>
 
           {/* right */}
-          <Box sx={{...right, ...containerDefaults}}>
+          <Box sx={{...right, ...containerDefaults, ...headerLinksStyle}}>
             <HeaderLinks />
           </Box>
         </Box>
@@ -128,7 +135,7 @@ const Home = () => {
       <Box sx={{...wrap, ...flex, ...main}}>
         {/* Left */}
         <Box sx={{...left, ...containerDefaults, ...sidebarStyle}}>
-          <Stack direction="column">
+          <Stack direction="column" sx={{mb: 2}}>
             <CollectionButton />
             <CreateGuitarTabButton />
             <CreateBassTabButton />
