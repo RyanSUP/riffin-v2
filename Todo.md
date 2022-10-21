@@ -25,12 +25,14 @@ Focus:
 - [x] look into autocomplete on the tagbar based on tags the user has previously used
 - [x] order users tablature by creation date
 - [x] Load current tablature's tags when mounting the RiffinEditor component
+- [x] Mobile responsive interface
+- [x] Prevent edit on mobile screens
 
 Extra:
+- [ ] Show demo tab for non users
+- [ ] Clamp SizeSlider
 - [ ] write a better algorithm for getting matching tags
 - [ ] Make footer animation like the waves in this template- https://bootstrapmade.com/demo/Selecao/
-- [ ] Hide donate button on smaller screen sizes
-- [ ] stop the lottie from playing while it's hidden.
 - [x] Update readonly tablature blocks to be the same size as the editor blocks
 - [x] Fix alignment of the tablature title / save / delete components
 - [x] Remove favoriteTablature stuff from TablatureProvider
@@ -40,7 +42,7 @@ Extra:
 - [ ] display an alert when saving tablature
 - [ ] display an alert when deleting a tablature
 - [ ] Provide undo option in the alert after deleting a tablature
-- [ ] Create new mobile design mockup
+
 
 
 Research:
@@ -51,6 +53,8 @@ Research:
 
 
 Abandoned:
+- [ ] stop the lottie from playing while it's hidden.
+- [ ] Hide donate button on smaller screen sizes
 - [ ] Show block options when the block is focused, not just on hover
 - [ ] Limit the number of tags a tablature can have
 - [ ] limit the number of tags the tagbar can have

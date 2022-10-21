@@ -1,106 +1,188 @@
 // Components
-import Sidebar from './components/Sidebar/Sidebar';
-import HeaderLogo from './components/HeaderLogo/HeaderLogo';
+import Logo from './components/Logo/Logo';
 import HeaderLinks from './components/HeaderLinks/HeaderLinks';
 import TagBar from './components/TagBar/TagBar';
-import { useMediaQuery } from "@mui/material";
-import { useTheme } from "@mui/material/styles";
 import { Route, Routes, Navigate } from "react-router-dom";
 import ProfileContent from "./components/ProfileContent/ProfileContent";
 import LoginSignupForm from "./components/LoginSignupForm/LoginSignupForm";
 import { RiffinProvider } from './components/RiffinEditor/RiffinProvider';
-
-// MUI
-import { Grid, Container } from "@mui/material";
 import RiffinEditor from './components/RiffinEditor/RiffinEditor';
 import RiffinDrawer from './components/RiffinEditor/components/RiffinDrawer/RiffinDrawer';
+import Ad from 'components/Ad/Ad';
+import CollectionButton from './components/Sidebar/components/CollectionButton/CollectionButton';
+import CreateGuitarTabButton from './components/Sidebar/components/CreateGuitarTabButton/CreateGuitarTabButton';
+import CreateBassTabButton from './components/Sidebar/components/CreateBassTabButton/CreateBassTabButton';
+import Donate from './components/Donate/Donate';
+import ContentLayout from 'containers/ContentLayout/ContentLayout';
+// MUI
+import { Stack, useTheme } from '@mui/material';
+import { Box } from "@mui/material";
 
-/**
- * * Home handles the application layout and routing.
- */
+const header = {
+  width: "100%",
+  margin: "0 auto",
+  position: "fixed",
+  top: "0",
+  left: "0",
+  zIndex: "5",
+  padding: "10px 0",
+  background: "#0f1627",
+};
+
+const wrap = {
+  maxWidth: "1700px",
+  margin: "0 auto",
+  position: "relative",
+};
+
+const flex = {
+  display: "flex",
+  justifyContent: "space-between",
+  alignItems: "center",
+};
+
+const containerDefaults = {
+  padding: "0 20px",
+  boxSizing: "border-box",
+};
+
+
+const filterContainer = {
+  width: "100%",
+  overflowX: "clip",
+};
+
+const sidebarStyle = {
+  height: "calc(100vh - 90px)",
+  position: "sticky",
+  top: '80px',
+};
 
 const Home = () => {
+
   const theme = useTheme();
-  const belowMediumScreen = useMediaQuery(theme.breakpoints.down("md"));
+
+  const left = {
+    minWidth: "200px",
+    [theme.breakpoints.down('md')]: {
+      display: 'none',
+    }
+  };
+
+  const right = {
+    minWidth: "260px",
+    maxWidth: "260px",
+    justifyContent: "flex-end",
+    [theme.breakpoints.down('md')]: {
+      maxWidth: "100%",
+    }
+  };
+
+  const logo = {
+    [theme.breakpoints.down('md')]: {
+      display: 'block',
+      minWidth: '55px',
+      padding: "0",
+      paddingLeft: '10px'
+    }
+  }
+
+  const middle = {
+    width: "100%",
+    overflowX: "clip",
+  };
+  
+
+  const main = {
+    alignItems: "flex-start",
+    flexDirection: "row",
+    [theme.breakpoints.down('md')]: {
+      flexDirection: "column",
+    }
+  };
+
+  const headerLinksStyle = {
+    [theme.breakpoints.down('md')]: {
+      minWidth: 0,
+      paddingLeft: 0,
+    }
+  };
 
   return (
-    <div data-testid="Home">
-      <Grid container>
+    <Box sx={{paddingTop: '80px'}}>
+      {/* Header */}
+      <Box sx={header}>
+        <Box sx={{...wrap, ...flex}}>
+          {/* left */}
+          <Box sx={{...left, ...containerDefaults, ...logo}}>
+            <Logo />
+          </Box>
+          
+          {/* Center */}
+          <Box sx={{...middle, ...containerDefaults, ...filterContainer}}>
+            <TagBar />
+          </Box>
 
-        <Grid item xs={12}>
-          <Grid container sx={{alignItems: "center", my: "16px"}}>
+          {/* right */}
+          <Box sx={{...right, ...containerDefaults, ...headerLinksStyle}}>
+            <HeaderLinks />
+          </Box>
+        </Box>
+      </Box>
 
-            <Grid item xs={2}>
-              <Container>
-                <HeaderLogo />
-              </Container>
-            </Grid>
-
-            <Grid item xs={8}>
-              <TagBar />
-            </Grid>
-
-            <Grid item xs={2}>
-              <Container>
-                <HeaderLinks />
-              </Container>
-            </Grid>
-            
-          </Grid> 
-        </Grid>
-        
-        {!belowMediumScreen &&
-          <Grid item xs={2}>
-            <Sidebar />
-          </Grid>
-        }
+      {/* Main */}
+      <Box sx={{...wrap, ...flex, ...main}}>
+        {/* Left */}
+        <Box sx={{...left, ...containerDefaults, ...sidebarStyle}}>
+          <Stack direction="column" sx={{mb: 2}}>
+            <CollectionButton />
+            <CreateGuitarTabButton />
+            <CreateBassTabButton />
+          </Stack>
+          <Ad />
+        </Box>
 
         <Routes>
           <Route path="/login" element={
-            <Grid item xs={8}>
+            <ContentLayout>
               <LoginSignupForm />
-            </Grid>
+              <Donate />
+            </ContentLayout>
           }/>
           <Route path="/profile/:cognitoUsername" element={
-            <Grid item xs={8}>
+            <ContentLayout>
               <ProfileContent />
-            </Grid>
+              <Donate />
+            </ContentLayout>
           }/>
           <Route path="/new/guitar" element={
-            <RiffinProvider key={"newGuitar"} numberOfStrings={6}>
-              <Grid item xs={8}>
+            <RiffinProvider key="newGuitar" numberOfStrings={6}>
+              <ContentLayout>
                 <RiffinEditor />
-              </Grid>
-              <Grid item xs={2}>
                 <RiffinDrawer />
-              </Grid>
+              </ContentLayout>
             </RiffinProvider>
           }/>
           <Route path="/new/bass" element={
-            <RiffinProvider key={"bass"} numberOfStrings={4}>
-              <Grid item xs={8}>
+            <RiffinProvider key="newBass" numberOfStrings={4}>
+              <ContentLayout>
                 <RiffinEditor />
-              </Grid>
-              <Grid item xs={2}>
                 <RiffinDrawer />
-              </Grid>
+              </ContentLayout>
             </RiffinProvider>
           }/>
           <Route path="/edit/:tabId" element={
-            <RiffinProvider key={"editor"}>
-              <Grid item xs={8}>
+            <RiffinProvider key="editor">
+              <ContentLayout>
                 <RiffinEditor />
-              </Grid>
-              <Grid item xs={2}>
                 <RiffinDrawer />
-              </Grid>
+              </ContentLayout>
             </RiffinProvider>
           }/>
           <Route path="*" element={<Navigate to="/new/guitar" replace />} />
         </Routes>
-
-      </Grid>
-    </div>
+      </Box>
+    </Box>
   );
 }
  

@@ -1,5 +1,5 @@
 // MUI
-import { Box, Divider, Tooltip } from "@mui/material";
+import { Box, Container, Divider, Tooltip } from "@mui/material";
 import HelpIcon from '@mui/icons-material/Help';
 
 const wrapperStyle = { 
@@ -17,14 +17,16 @@ const tooltipStyle = {
  */
 const StaffMenuHeader = () => {
   return (
-    <Divider>
-      <Box sx={wrapperStyle}>
-        Staff Menu
-        <Tooltip sx={tooltipStyle} title="This menu provides additional options for the selected staff. The currently selected staff is colorized while deslected staff appear grayed out.">
-          <HelpIcon />
-        </Tooltip>
-      </Box>
-    </Divider>
+    <Box>
+      <Divider>
+        <Box sx={wrapperStyle}>
+          Staff Menu
+          <Tooltip sx={tooltipStyle} title="This menu provides additional options for the selected staff. The currently selected staff is colorized while deslected staff appear grayed out.">
+            <HelpIcon />
+          </Tooltip>
+        </Box>
+      </Divider>
+    </Box>
   );
 }
  

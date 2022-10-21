@@ -1,16 +1,14 @@
 // Services
 import { useState} from "react";
-
 // Components
 import Box from "@mui/material/Box";
-import IconButton from "@mui/material/IconButton";
-
+import MoreHorizIcon from '@mui/icons-material/MoreHoriz';
 import Menu from "@mui/material/Menu";
-import Avatar from "@mui/material/Avatar";
 import Tooltip from "@mui/material/Tooltip";
 import MenuItem from "@mui/material/MenuItem";
+import { Button, IconButton } from "@mui/material";
 
-const AvatarMenu = (props) => {
+const UserMenu = (props) => {
   // const { logout } = useContext(UserContext);  
   const [anchorElUser, setAnchorElUser] = useState(null);
   // const { user } = useContext(UserContext);  
@@ -30,10 +28,10 @@ const AvatarMenu = (props) => {
     onClick();
   }
   return (
-    <Box sx={{ flexGrow: 0 }}>
+    <Box>
       <Tooltip title="Open settings">
-        <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
-          <Avatar alt="Remy Sharp" src="/static/images/avatar/2.jpg" />
+        <IconButton onClick={handleOpenUserMenu} sx={{color: "primary.main"}}>
+          <MoreHorizIcon />
         </IconButton>
       </Tooltip>
       <Menu
@@ -65,4 +63,4 @@ const AvatarMenu = (props) => {
   );
 };
 
-export default AvatarMenu;
+export default UserMenu;

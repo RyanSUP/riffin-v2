@@ -114,6 +114,11 @@ const CognitoUserProvider = (props) => {
       });
     }
   }, [user]);
+
+  /**
+   * Utility for navigating to the profile page. Navs to login if there is no user.
+   */
+  const navToProfile = () => user.username ? navigate(`/profile/${user.username}`) : navigate(`/login`);
  
   return (
     <UserContext.Provider
@@ -123,7 +128,8 @@ const CognitoUserProvider = (props) => {
         logout,
         user,
         setUser,
-        userIsLoading
+        userIsLoading,
+        navToProfile
       }}
     >
       {props.children}

@@ -4,8 +4,10 @@ import { useParams } from "react-router-dom";
 import { TablatureContext } from "containers/TablatureProvider/TablatureProvider";
 import LoadingPlaceholder from "containers/LoadingPlaceholder/LoadingPlaceholder";
 import { TagContext } from "containers/TagProvider/TagProvider";
+import { useMediaQuery, useTheme } from "@mui/material";
 // Utilties
 import * as utils from "./Utilities";
+import { UserContext } from "containers/CognitoUserProvider/CognitoUserProvider";
 
 // * RiffinEditor and RiffinDrawer must be children of RiffinProvider for the editor to work. This provider handles the editor data.
 // * RiffinProvider relies on this dispatch context to update state values from child components.
@@ -331,8 +333,11 @@ const RiffinProvider = (props) => {
     cursor: {position: null},
     previewMode: false,
   });
+  const { navToProfile } = useContext(UserContext);
   const { getTabFromUser } = useContext(TablatureContext);
   const { setTagsInSearchbar } = useContext(TagContext);
+  const theme = useTheme();
+  const belowMediumScreen = useMediaQuery(theme.breakpoints.down("md"));
 
   /**
    * Prevents cursor from jumping to the end of the input textarea after a key is pressed.
@@ -352,12 +357,14 @@ const RiffinProvider = (props) => {
       setIsLoading(true);
       const tablature = getTabFromUser(tabId);
       if(tablature) {
+        const tablatureStringify = JSON.stringify(tablature);
+        const tablatureDeepCopy = JSON.parse(tablatureStringify);
         const action = {
-          tablature,
+          tablature: tablatureDeepCopy,
           type: 'setTablature'
-        }
+        };
         setTagsInSearchbar(tablature.tags);
-        setIsLoading(false)
+        setIsLoading(false);
         dispatch(action);
       }
     }
@@ -378,6 +385,15 @@ const RiffinProvider = (props) => {
       dispatch(action);
     }
   }, [editor.tablature]);
+
+  /**
+   * Redirects mobile users to their profile content
+   */
+  useEffect(() => {
+    if(belowMediumScreen) {
+      navToProfile();
+    }
+  }, [belowMediumScreen, navToProfile]);
 
   return (
     <RiffinEditorDispatch.Provider value={{dispatch, editor, setIsLoading}}>

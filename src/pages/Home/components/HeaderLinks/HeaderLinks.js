@@ -1,21 +1,22 @@
+// Components / hooks
 import { React, useContext } from 'react'
 import { useNavigate } from 'react-router-dom';
-import AvatarMenu from './AvatarMenu/AvatarMenu';
 import { UserContext } from 'containers/CognitoUserProvider/CognitoUserProvider'
+import LoginButton from './LoginButton/LoginButton'
+import UserMenu from './UserMenu/UserMenu';
+// MUI
 import LogoutIcon from '@mui/icons-material/Logout';
 import LoginIcon from '@mui/icons-material/Login';
-import LoginButton from './LoginButton/LoginButton'
-import { Box, Button } from "@mui/material"
 
 const HeaderLinks = () => {
   const navigate = useNavigate()
   const { user, logout } = useContext(UserContext)
   
-  const headerLinks = [      
+  const headerLinks = [
     {
       "name": "Login",
       "onClick": () => navigate('/login'),
-      "icon": (<LoginIcon />),      
+      "icon": (<LoginIcon />),
       "belongsTo": "avatar",
     },
     {
@@ -28,19 +29,16 @@ const HeaderLinks = () => {
   ]
 
   return (
-    <Box sx={{display: "flex", justifyContent: "space-around"}}>
-      <>    
-        {user ?
-        <AvatarMenu 
-          headerLinks={headerLinks.filter((link) => {
-            return link.belongsTo === "avatar" && link.isLoggedInUser === true
-          })}
-        />
-        : <LoginButton />
-        }
-      </>
-      <Button variant="outlined" size="large">Donate</Button>
-    </Box>
+    <>
+      {user ?
+      <UserMenu
+        headerLinks={headerLinks.filter((link) => {
+          return link.belongsTo === "avatar" && link.isLoggedInUser === true
+        })}
+      />
+      : <LoginButton />
+      }
+    </>
   )
 }
 
