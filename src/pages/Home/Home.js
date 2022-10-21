@@ -44,10 +44,6 @@ const containerDefaults = {
   boxSizing: "border-box",
 };
 
-const middle = {
-  width: "100%",
-  overflowX: "clip",
-};
 
 const filterContainer = {
   width: "100%",
@@ -94,6 +90,24 @@ const Home = () => {
     }
   };
 
+  const logo = {
+    [theme.breakpoints.down('md')]: {
+      display: 'block',
+      minWidth: '55px',
+      padding: "0",
+      paddingLeft: '10px'
+    }
+  }
+
+  const middle = {
+    width: "100%",
+    overflowX: "clip",
+    [theme.breakpoints.down('md')]: {
+      paddingRight: 0,
+    }
+  };
+  
+
   const main = {
     alignItems: "flex-start",
     flexDirection: "row",
@@ -115,7 +129,7 @@ const Home = () => {
       <Box sx={header}>
         <Box sx={{...wrap, ...flex}}>
           {/* left */}
-          <Box sx={{...left, ...containerDefaults}}>
+          <Box sx={{...left, ...containerDefaults, ...logo}}>
             <Logo />
           </Box>
           
