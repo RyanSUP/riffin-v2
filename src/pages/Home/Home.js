@@ -7,7 +7,7 @@ import ProfileContent from "./components/ProfileContent/ProfileContent";
 import LoginSignupForm from "./components/LoginSignupForm/LoginSignupForm";
 import { RiffinProvider } from './components/RiffinEditor/RiffinProvider';
 // MUI
-import { Button, Stack, useTheme } from '@mui/material';
+import { Stack, useTheme } from '@mui/material';
 import { Box } from "@mui/material";
 import RiffinEditor from './components/RiffinEditor/RiffinEditor';
 import RiffinDrawer from './components/RiffinEditor/components/RiffinDrawer/RiffinDrawer';
@@ -69,7 +69,6 @@ const feed = {
 };
 
 const rightSidebarStyle = {
-  height: "calc(100vh - 90px)",
   position: "sticky",
   top: '80px',
 };
@@ -88,6 +87,15 @@ const Home = () => {
     minWidth: "200px",
     [theme.breakpoints.down('md')]: {
       display: 'none',
+    }
+  };
+
+  const right = {
+    minWidth: "260px",
+    maxWidth: "260px",
+    justifyContent: "flex-end",
+    [theme.breakpoints.down('md')]: {
+      maxWidth: "100%",
     }
   };
 
