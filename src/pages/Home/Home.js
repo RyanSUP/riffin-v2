@@ -7,12 +7,14 @@ import ProfileContent from "./components/ProfileContent/ProfileContent";
 import LoginSignupForm from "./components/LoginSignupForm/LoginSignupForm";
 import { RiffinProvider } from './components/RiffinEditor/RiffinProvider';
 // MUI
-import { Button, useTheme } from '@mui/material';
+import { Button, Stack, useTheme } from '@mui/material';
 import { Box } from "@mui/material";
 import RiffinEditor from './components/RiffinEditor/RiffinEditor';
 import RiffinDrawer from './components/RiffinEditor/components/RiffinDrawer/RiffinDrawer';
-import NavStack from './components/Sidebar/components/NavStack/NavStack';
 import Ad from 'components/Ad/Ad';
+import CollectionButton from './components/Sidebar/components/CollectionButton/CollectionButton';
+import CreateGuitarTabButton from './components/Sidebar/components/CreateGuitarTabButton/CreateGuitarTabButton';
+import CreateBassTabButton from './components/Sidebar/components/CreateBassTabButton/CreateBassTabButton';
 
 const header = {
   width: "100%",
@@ -23,97 +25,82 @@ const header = {
   zIndex: "5",
   padding: "10px 0",
   background: "#0f1627",
-}
+};
 
 const wrap = {
   maxWidth: "1700px",
   margin: "0 auto",
   position: "relative",
-}
+};
 
 const flex = {
   display: "flex",
   justifyContent: "space-between",
   alignItems: "center",
-}
+};
 
 const containerDefaults = {
   padding: "0 20px",
   boxSizing: "border-box",
-}
+};
 
 const middle = {
   width: "100%",
   overflowX: "clip",
-}
+};
 
 const filterContainer = {
   width: "100%",
   overflowX: "clip",
-}
-
+};
 
 const sidebarStyle = {
   height: "calc(100vh - 90px)",
   position: "sticky",
   top: '80px',
-}
-
-
+};
 
 const page = {
   width: "100%",
   boxSizing: "border-box",
-}
+};
 
 const feed = {
   padding: "5px 20px 30px",
   display: "grid",
   marginTop: "5px",
-}
+};
 
+const rightSidebarStyle = {
+  height: "calc(100vh - 90px)",
+  position: "sticky",
+  top: '80px',
+};
+
+const right = {
+  minWidth: "260px",
+  maxWidth: "260px",
+  justifyContent: "flex-end",
+};
 
 const Home = () => {
 
   const theme = useTheme();
-
-  const rightSidebarStyle = {
-    height: "calc(100vh - 90px)",
-    position: "sticky",
-    top: '80px',
-  }
-  const right = {
-    minWidth: "260px",
-    maxWidth: "260px",
-    justifyContent: "flex-end",
-  }
 
   const left = {
     minWidth: "200px",
     [theme.breakpoints.down('md')]: {
       display: 'none',
     }
-  }
-  const mobileNav= {
-    display: 'none',
+  };
+
+  const main = {
+    alignItems: "flex-start",
+    flexDirection: "row",
     [theme.breakpoints.down('md')]: {
-      display: 'block',
-      height: "90px",
-      position: "fixed",
-      width: "100%",
-      bottom: "0",
-      top: "auto"
+      flexDirection: "column",
     }
-  }
-
-const main = {
-  alignItems: "flex-start",
-  flexDirection: "row",
-  [theme.breakpoints.down('md')]: {
-    flexDirection: "column",
-  }
-}
-
+  };
 
   return (
     <>
@@ -142,7 +129,11 @@ const main = {
       <Box sx={{...wrap, ...flex, ...main}}>
         {/* Left */}
         <Box sx={{...left, ...containerDefaults, ...sidebarStyle}}>
-          <NavStack />
+          <Stack direction="column">
+            <CollectionButton />
+            <CreateGuitarTabButton />
+            <CreateBassTabButton />
+          </Stack>
           <Ad />
         </Box>
 
@@ -214,9 +205,6 @@ const main = {
           <Route path="*" element={<Navigate to="/new/guitar" replace />} />
         </Routes>
       </Box>
-    </Box>
-    <Box sx={mobileNav}>
-      <NavStack />
     </Box>
     </>
   );
