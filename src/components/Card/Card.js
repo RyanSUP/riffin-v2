@@ -18,7 +18,7 @@ const cardBottomMargin = {
 const Card = (props) => {
   const theme = useTheme();
   const [expanded, setExpanded] = useState(false);
-  const belowMediumScreen = useMediaQuery(theme.breakpoints.up("md"));
+  const aboveMediumScreen = useMediaQuery(theme.breakpoints.up("md"));
 
   /**
    * Toggles expanded state, which determines the content view of the card.
@@ -36,7 +36,7 @@ const Card = (props) => {
     <Box sx={cardBottomMargin}>
       <DividerWrapper>
         <Typography>{props.tabData.name}</Typography>
-        {belowMediumScreen &&
+        {aboveMediumScreen &&
           <EditTablatureButton tab_id={props.tabData._id} />
         }
         <ExpandButton 

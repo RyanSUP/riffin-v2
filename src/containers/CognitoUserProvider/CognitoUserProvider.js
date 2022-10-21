@@ -114,6 +114,8 @@ const CognitoUserProvider = (props) => {
       });
     }
   }, [user]);
+
+  const navToProfile = () => navigate(`/profile/${user.username}`);
  
   return (
     <UserContext.Provider
@@ -123,7 +125,8 @@ const CognitoUserProvider = (props) => {
         logout,
         user,
         setUser,
-        userIsLoading
+        userIsLoading,
+        navToProfile
       }}
     >
       {props.children}
