@@ -6,9 +6,6 @@ import { Route, Routes, Navigate } from "react-router-dom";
 import ProfileContent from "./components/ProfileContent/ProfileContent";
 import LoginSignupForm from "./components/LoginSignupForm/LoginSignupForm";
 import { RiffinProvider } from './components/RiffinEditor/RiffinProvider';
-// MUI
-import { Stack, useTheme } from '@mui/material';
-import { Box } from "@mui/material";
 import RiffinEditor from './components/RiffinEditor/RiffinEditor';
 import RiffinDrawer from './components/RiffinEditor/components/RiffinDrawer/RiffinDrawer';
 import Ad from 'components/Ad/Ad';
@@ -16,6 +13,10 @@ import CollectionButton from './components/Sidebar/components/CollectionButton/C
 import CreateGuitarTabButton from './components/Sidebar/components/CreateGuitarTabButton/CreateGuitarTabButton';
 import CreateBassTabButton from './components/Sidebar/components/CreateBassTabButton/CreateBassTabButton';
 import Donate from './components/Donate/Donate';
+import ContentLayout from 'containers/ContentLayout/ContentLayout';
+// MUI
+import { Stack, useTheme } from '@mui/material';
+import { Box } from "@mui/material";
 
 const header = {
   width: "100%",
@@ -55,28 +56,6 @@ const sidebarStyle = {
   height: "calc(100vh - 90px)",
   position: "sticky",
   top: '80px',
-};
-
-const page = {
-  width: "100%",
-  boxSizing: "border-box",
-};
-
-const feed = {
-  padding: "5px 20px 30px",
-  display: "grid",
-  marginTop: "5px",
-};
-
-const rightSidebarStyle = {
-  position: "sticky",
-  top: '80px',
-};
-
-const right = {
-  minWidth: "260px",
-  maxWidth: "260px",
-  justifyContent: "flex-end",
 };
 
 const Home = () => {
@@ -165,68 +144,40 @@ const Home = () => {
 
         <Routes>
           <Route path="/login" element={
-            <>
-            {/* Center */}
-            <Box sx={page}>
-              <Box sx={feed}>
-                <LoginSignupForm />
-              </Box>
-            </Box>
-            {/* Right */}
-            <Box sx={{...right, ...rightSidebarStyle}}>
-
-            </Box>
-          </>
+            <ContentLayout>
+              <LoginSignupForm />
+              <Donate />
+            </ContentLayout>
           }/>
           <Route path="/profile/:cognitoUsername" element={
-            <>
-              {/* Center */}
-              <Box sx={page}>
-                <Box sx={feed}>
-                  <ProfileContent />
-                </Box>
-              </Box>
-              {/* Right */}
-              <Box sx={{...right, ...rightSidebarStyle}}>
-                <Donate />
-              </Box>
-            </>
+            <ContentLayout>
+              <ProfileContent />
+              <Donate />
+            </ContentLayout>
           }/>
           <Route path="/new/guitar" element={
             <RiffinProvider key="newGuitar" numberOfStrings={6}>
-              <Box sx={page}>
-                <Box sx={feed}>
-                  <RiffinEditor />
-                </Box>
-              </Box>
-              <Box sx={{...right, ...rightSidebarStyle}}>
+              <ContentLayout>
+                <RiffinEditor />
                 <RiffinDrawer />
-              </Box>
+              </ContentLayout>
             </RiffinProvider>
           }/>
           <Route path="/new/bass" element={
             <RiffinProvider key="newBass" numberOfStrings={4}>
-            <Box sx={page}>
-              <Box sx={feed}>
+              <ContentLayout>
                 <RiffinEditor />
-              </Box>
-            </Box>
-            <Box sx={{...right, ...rightSidebarStyle}}>
-              <RiffinDrawer />
-            </Box>
-          </RiffinProvider>
+                <RiffinDrawer />
+              </ContentLayout>
+            </RiffinProvider>
           }/>
           <Route path="/edit/:tabId" element={
             <RiffinProvider key="editor">
-            <Box sx={page}>
-              <Box sx={feed}>
+              <ContentLayout>
                 <RiffinEditor />
-              </Box>
-            </Box>
-            <Box sx={{...right, ...rightSidebarStyle}}>
-              <RiffinDrawer />
-            </Box>
-          </RiffinProvider>
+                <RiffinDrawer />
+              </ContentLayout>
+            </RiffinProvider>
           }/>
           <Route path="*" element={<Navigate to="/new/guitar" replace />} />
         </Routes>
