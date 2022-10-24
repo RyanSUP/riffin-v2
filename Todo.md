@@ -27,10 +27,28 @@ Focus:
 - [x] Load current tablature's tags when mounting the RiffinEditor component
 - [x] Mobile responsive interface
 - [x] Prevent edit on mobile screens
+- [ ] Delete confirmation when deleting tablature
+- [ ] display an alert when saving tablature
+- [ ] display an alert when deleting a tablature
+- [ ] Provide undo option in the alert after deleting a tablature
+- [ ] deploy different environments
+- [ ] create descriptive right sidebar
+- [ ] export tab button
+- [ ] rearrange blocks
+- [ ] fix note preview bug
+- [ ] provide demo tab to new / non users
+- [ ] test non-user views
+- [ ] add ads
+- [ ] add donate button
+- [ ] form validation when logging in / signup
+- [ ] customize colors
+- [ ] password change form
+- [ ] design logo
+- [ ] create 404 / construction pages
+- [ ] save / delete indicators
+- [ ] clamp sizeslider
 
 Extra:
-- [ ] Show demo tab for non users
-- [ ] Clamp SizeSlider
 - [ ] write a better algorithm for getting matching tags
 - [ ] Make footer animation like the waves in this template- https://bootstrapmade.com/demo/Selecao/
 - [x] Update readonly tablature blocks to be the same size as the editor blocks
@@ -38,10 +56,6 @@ Extra:
 - [x] Remove favoriteTablature stuff from TablatureProvider
 - [ ] Implement "repeat" functionality in RiffinEditor
 - [x] Replace the "expand" icon on cards
-- [ ] Delete confirmation when deleting tablature
-- [ ] display an alert when saving tablature
-- [ ] display an alert when deleting a tablature
-- [ ] Provide undo option in the alert after deleting a tablature
 
 
 

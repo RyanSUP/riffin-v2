@@ -12,7 +12,6 @@ import Ad from 'components/Ad/Ad';
 import CollectionButton from './components/Sidebar/components/CollectionButton/CollectionButton';
 import CreateGuitarTabButton from './components/Sidebar/components/CreateGuitarTabButton/CreateGuitarTabButton';
 import CreateBassTabButton from './components/Sidebar/components/CreateBassTabButton/CreateBassTabButton';
-import Donate from './components/Donate/Donate';
 import ContentLayout from 'containers/ContentLayout/ContentLayout';
 // MUI
 import { Stack, useTheme } from '@mui/material';
@@ -146,13 +145,13 @@ const Home = () => {
           <Route path="/login" element={
             <ContentLayout>
               <LoginSignupForm />
-              <Donate />
+              <></>
             </ContentLayout>
           }/>
           <Route path="/profile/:cognitoUsername" element={
             <ContentLayout>
               <ProfileContent />
-              <Donate />
+              <></>
             </ContentLayout>
           }/>
           <Route path="/new/guitar" element={
