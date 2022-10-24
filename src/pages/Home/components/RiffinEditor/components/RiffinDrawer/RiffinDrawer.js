@@ -6,7 +6,7 @@ import DuplicateBlockButton from "./components/DuplicateBlockButton/DuplicateBlo
 import DeleteBlockButton from "./components/DeleteBlockButton/DeleteBlockButton";
 import Legend from "./components/Legend/Legend";
 // MUI
-import { Box, Container, Stack, Typography } from "@mui/material";
+import { Box, Stack, Typography } from "@mui/material";
 import StaffMenuHeader from "./components/StaffMenuHeader/StaffMenuHeader";
 
 /**

@@ -46,7 +46,7 @@ Focus:
 - [ ] design logo
 - [ ] create 404 / construction pages
 - [ ] save / delete indicators
-- [ ] clamp sizeslider
+- [x] clamp sizeslider
 
 Extra:
 - [ ] write a better algorithm for getting matching tags

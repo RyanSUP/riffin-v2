@@ -5,19 +5,17 @@ import {MAX_BLOCK_COLS, MIN_BLOCK_COLS} from "../../../../EditorConfig";
 // MUI
 import Slider from '@mui/material/Slider';
 
-/**
- * Checks if the block is at the maximum number of columns set by the EditorConfig.
- * @param {Number} cols - the number of current columns in the block
- * @returns true if the number of columns equals the maximum columns. Otherwise returns false.
- */
-const blockSizeAtMax = (cols) => (cols === MAX_BLOCK_COLS);
 
 /**
- * Checks if the block is at the minimum number of columns set by the EditorConfig.
- * @param {Number} cols - the number of current columns in the block
- * @returns true if the number of columns equals the minimum columns. Otherwise returns false.
+ * Checks if the slider value is beyond MAX_BLOCK_COLS or MIN_BLOCK_COLS, which can happen if the user handles the slider like a maniac.
+ * @param {Number} value 
+ * @returns True if the slider value is out of bounds, false otherwise.
  */
-const blockSizeAtMin = (cols) => (cols === MIN_BLOCK_COLS);
+const sliderIsOutOfBounds = (value) => {
+  if(value > MAX_BLOCK_COLS) return true;
+  if(value < MIN_BLOCK_COLS) return true;
+  return false;
+}
 
 /**
  * * This is the slider that allows the user to change the size of the tablature.
@@ -38,17 +36,14 @@ const SizeSlider = (props) => {
     if(value === sliderValue) { 
       return;
     }
-    const difference = value - sliderValue;
-    let type = (difference > 0) ? "increaseBlockSize" : "decreaseBlockSize"
-    if(type === "increaseBlockSize" && blockSizeAtMax(props.block?.cols)) {
-      return;
-    }
-    if(type === "decreaseBlockSize" && blockSizeAtMin(props.block?.cols)) {
+    let difference = value - sliderValue;
+    const valueOfSliderAfterChange = difference + props.block.cols;
+    if(sliderIsOutOfBounds(valueOfSliderAfterChange)) {
       return;
     }
     const action = {
       OGBlock: props.block,
-      type: type,
+      type: (difference > 0) ? "increaseBlockSize" : "decreaseBlockSize",
       stepCount: difference,
     };
     setSliderValue((prev) => prev + difference);
@@ -57,7 +52,7 @@ const SizeSlider = (props) => {
 
   useEffect(() => {
     setSliderValue(props.block.cols);
-  }, [props.block])
+  }, [props.block]);
 
   return (
     <Slider
