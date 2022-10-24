@@ -6,7 +6,7 @@ import MoreHorizIcon from '@mui/icons-material/MoreHoriz';
 import Menu from "@mui/material/Menu";
 import Tooltip from "@mui/material/Tooltip";
 import MenuItem from "@mui/material/MenuItem";
-import { Button, IconButton } from "@mui/material";
+import { IconButton } from "@mui/material";
 
 const UserMenu = (props) => {
   // const { logout } = useContext(UserContext);  
