@@ -14,31 +14,36 @@ const TablatureContext = createContext({});
  */
 const TablatureProvider = (props) => {
   const [usersTablature, setUsersTablature] = useState([]);
+  const [ownerObject, setOwnerObject] = useState({})
   const [tablatureIsLoading, setTablatureIsLoading] = useState(true);
   const { user } = useContext(UserContext);
 
   /**
-   * Adds a tablature to state. This allows the user's tablature to stay up-to-date without additional calls to the backend.
+   * Adds a tablature to state.
    * @param {Object} tab 
    */
-  const addToUsersTablature = (tab) => {
+   const addToUsersTablature = (tab) => {
+    if(typeof tab["owner"] === "string") {
+      console.log('addign owner: , ', ownerObject)
+      tab["owner"] = ownerObject;
+    }
     setUsersTablature((prev) => {
       return [tab, ...prev];
     });
   };
 
   /**
-   * Deletes a tablature from state. This allows the user's tablature to stay up-to-date without additional calls to the backend.
+   * Deletes a tablature from state.
    * @param {String} tab_id 
    */
-  const deleteFromUsersTablature = (tab_id) => {
+  const deleteFromUsersTablature = (tablature) => {
     setUsersTablature((prev) => {
-      return prev.filter((tab) => tab._id !== tab_id);
+      return prev.filter((tab) => tab._id !== tablature._id);
     });
   };
 
   /**
-   * Updates a tablature in state. This allows the user's tablature to stay up-to-date without additional calls to the backend.
+   * Updates a tablature in state.
    * @param {Object} updatedTab 
    */
   const updateUserTablature = (updatedTab) => {
@@ -73,15 +78,16 @@ const TablatureProvider = (props) => {
       .getProfileOfLoggedInUser(user.username, idToken)
       .then((response) => {
         const profile = response.profile;
+        const owner = {
+          _id: profile._id,
+          preferredUsername: profile.preferredUsername,
+          user: user.username,
+        }
+        setOwnerObject(owner)
         const sortedTabsWithOwnerInfo = [];
         for(let i = profile.tablature.length - 1; i >= 0; i--) {
           const tab = profile.tablature[i];
-          const owner = {
-            _id: tab._id,
-            preferredUsername: profile.preferredUsername,
-            user: user.username,
-          };
-          tab.owner = owner;
+          tab.owner = {...owner};
           sortedTabsWithOwnerInfo.push(tab);
         }
         setTablatureIsLoading(false);
@@ -89,7 +95,6 @@ const TablatureProvider = (props) => {
       });
     }
   }, [user]);
-
 
   return (
     <TablatureContext.Provider
@@ -99,7 +104,7 @@ const TablatureProvider = (props) => {
         deleteFromUsersTablature,
         addToUsersTablature,
         getTabFromUser,
-        updateUserTablature,
+        updateUserTablature
       }}
     >
       {props.children}
