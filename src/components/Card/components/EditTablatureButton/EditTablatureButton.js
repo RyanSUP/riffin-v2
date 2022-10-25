@@ -20,7 +20,7 @@ const EditIconButton = (props) => {
       variant="outlined" 
       size="small" 
       onClick={handleClick} 
-      endIcon={<EditIcon />}
+      startIcon={<EditIcon />}
     >
       Edit
     </Button>

@@ -32,7 +32,7 @@ const ExpandButton = (props) => {
       variant="outlined" 
       size="small" 
       onClick={props.onClick} 
-      endIcon={icon}
+      startIcon={icon}
     >
         {text}
     </Button>
