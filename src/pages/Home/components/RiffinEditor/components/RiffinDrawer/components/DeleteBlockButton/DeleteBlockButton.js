@@ -32,7 +32,7 @@ const DeleteBlockButton = (props) => {
     <Tooltip title={props.disabled ? "You cannot delete the only block" : "" }>
       <span>
         <Button 
-          endIcon={<DeleteIcon />}
+          startIcon={<DeleteIcon />}
           onClick={handleDelete}
           variant="outlined"
           sx={buttonStyle}

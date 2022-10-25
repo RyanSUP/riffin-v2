@@ -11,6 +11,7 @@ import * as tablatureServices from "services/tablatureServices";
 import { getIdTokenFromUser } from "utils/userUtils";
 // MUI
 import { Button } from "@mui/material";
+import SaveIcon from '@mui/icons-material/Save';
 
 /**
  * * In the event of saving a new tablature the user will be redirected to the edit page once the tablature is stored and the backend responds with the _id. Saving an already stored tab has no visible effects - the user can keep editing.
@@ -35,18 +36,19 @@ const SaveTabButton = (props) => {
     editor.tablature.owner = user.username;
 
     /**
-     * Sends a request to the backend to update the tablature.
+     * Sends a request to the backend to update the tablature and displays a snackbar when a response is received.
      */
     const updateExistingTablature = () => {
       setIsLoading(true);
       tablatureServices.update(editor.tablature, idToken)
       .then((res) => {
         setIsLoading(false);
+        enqueueSnackbar("Tab saved!", {variant: "success"});
       });
     };
     
     /**
-     * Sends a request to the backend to create a new tablature.
+     * Sends a request to the backend to create a new tablature and displays a snackbar when the response is received.
      * @returns the id assigned to the saved tablature.
      */
     const saveNewTablature = () => {
@@ -71,7 +73,7 @@ const SaveTabButton = (props) => {
   };
 
   return (
-    <Button variant="outlined" onClick={handleSave}>
+    <Button startIcon={<SaveIcon />} variant="outlined" onClick={handleSave}>
       SAVE
     </Button>
   );

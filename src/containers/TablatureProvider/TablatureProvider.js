@@ -19,12 +19,11 @@ const TablatureProvider = (props) => {
   const { user } = useContext(UserContext);
 
   /**
-   * Adds a tablature to state.
+   * Adds a tablature to state. The owner object needs to be appended to the tablature since the returned tablature from the backend does not have an owner object.
    * @param {Object} tab 
    */
    const addToUsersTablature = (tab) => {
     if(typeof tab["owner"] === "string") {
-      console.log('addign owner: , ', ownerObject)
       tab["owner"] = ownerObject;
     }
     setUsersTablature((prev) => {
