@@ -10,6 +10,7 @@ import BlockContent from "./components/BlockContent/BlockContent";
 import { useMediaQuery, useTheme } from "@mui/material";
 // MUI
 import { Box, Typography } from "@mui/material";
+import CopyToClipboard from "./components/CopyToClipboardButton/CopyToClipboard";
 
 const cardBottomMargin = {
   mb: 3
@@ -44,6 +45,7 @@ const Card = (props) => {
           disabled={disableExpand}
           onClick={toggleExpand}
         />
+        <CopyToClipboard tabData={props.tabData} />
       </DividerWrapper>
       <ButtonWrapper onClick={toggleExpand} disabled={disableExpand}>
         <TagGroup tags={props.tabData.tags} />
