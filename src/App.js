@@ -2,6 +2,7 @@
 import { ThemeProvider } from "@mui/material/styles";
 import { darkTheme } from "./Theme";
 import { CssBaseline } from "@mui/material";
+import { SnackbarProvider } from "notistack";
 // import { useState } from "react";
 // import Button from "@mui/material/Button";
 
@@ -16,15 +17,17 @@ function App() {
 
   return (
     <ThemeProvider theme={darkTheme}>
-      <CognitoUserProvider>
-        <CssBaseline />
-        {/* <Button onClick={() => setLight((prev) => !prev)}>Toggle Theme</Button> */}
-        <TablatureProvider>
-          <TagProvider>
-            <Home />
-          </TagProvider>
-        </TablatureProvider>
-      </CognitoUserProvider>
+      <SnackbarProvider maxSnack={3} autoHideDuration={5000}>
+        <CognitoUserProvider>
+          <CssBaseline />
+          {/* <Button onClick={() => setLight((prev) => !prev)}>Toggle Theme</Button> */}
+          <TablatureProvider>
+            <TagProvider>
+              <Home />
+            </TagProvider>
+          </TablatureProvider>
+        </CognitoUserProvider>
+      </SnackbarProvider>
     </ThemeProvider>
   );
 }
