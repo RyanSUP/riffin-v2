@@ -1,14 +1,17 @@
+// Services
+import { useSnackbar } from "notistack";
 // MUI
 import ContentCopyIcon from '@mui/icons-material/ContentCopy';
 import { Button, Tooltip } from '@mui/material';
 
 /**
- * This button writes the tablature document to the clipboard as a string.
+ * This button writes the tablature document to the clipboard as a string and displays a snackbar to indicate a succesful copy.
  * @param {Object} props - the tablature to copy
  * @returns 
  */
 
 const CopyToClipboard = (props) => {
+  const { enqueueSnackbar } = useSnackbar();
 
   /**
    * This function grabs all relevant information from the tablature and converts it to a string.
@@ -32,6 +35,7 @@ const CopyToClipboard = (props) => {
    */
   const handleClick = () => {
     navigator.clipboard.writeText(stringifyTablature());
+    enqueueSnackbar("Copied to clipboard!", { variant: "success" });
   }
 
   return (
