@@ -6,7 +6,7 @@ import { TablatureContext } from "containers/TablatureProvider/TablatureProvider
 // MUI
 import { Chip, TextField, Autocomplete } from "@mui/material";
 
-const riffinSuggestions = [
+const riffinOptions = [
   {
     label: "Riffin tags",
     value: "Tasters"
@@ -53,7 +53,7 @@ const TagBar = () => {
       if(pathname.startsWith("/edit") || pathname.startsWith("/new")) {
         setPlaceholder("add tag");
       } else {
-        setPlaceholder("search");
+        setPlaceholder("filter by tags or title");
       }
     };
     updateTagsInSearchbarBasedOnLocation(location.pathname);
@@ -61,43 +61,47 @@ const TagBar = () => {
   }, [location, setTagsInSearchbar]);
 
   /**
-   * Update tagSuggestions when usersTablature changes. This keeps the tagbar suggestions up to date.
+   * Build the options menu, omitting tags that are already in the searchbar.
    */
    useEffect(() => {
     if(usersTablature) {
-      const nameSuggestions = [];
-      const tagSuggestions = [];
+      const nameOptions = [];
+      const tagOptions = [];
       const tagMap = {};
       usersTablature.forEach((tab) => {
         const name = {
-          label: "Tablature",
-          value: tab.name
+          label: "Titles",
+          value: tab.name,
+          inSearchbar: tagsInSearchbar.includes(tab.name)
         }
-        nameSuggestions.push(name);
+        nameOptions.push(name);
         tab.tags.forEach((tag) => {
           if(!tagMap[tag]) {
-            tagMap[tag] = true;
-            tagSuggestions.push({
+            tagMap[tag] = true; // Arbitrary value - just setting up a hash.
+            tagOptions.push({
               label: "Your tags",
-              value: tag
+              value: tag,
+              inSearchbar: tagsInSearchbar.includes(tag)
             });
           }
         });
       });
-      const filteredRiffinSuggestions = riffinSuggestions.filter((suggestion) => !tagSuggestions.map(tag => tag.value).includes(suggestion.value));
-      setOptions([...tagSuggestions, ...nameSuggestions, ...filteredRiffinSuggestions])
+      // Remove options from the default suggestions if they're present in the list of users tags.
+      const filteredRiffinOptions = riffinOptions.filter((option) => !tagOptions.map(tag => tag.value).includes(option.value));
+      setOptions([...tagOptions, ...nameOptions, ...filteredRiffinOptions])
     }
-  }, [usersTablature]);
+  }, [usersTablature, tagsInSearchbar]);
 
 
   return (
     <Autocomplete
-      onChange={(event, value) => {
-        setTagsInSearchbar(value.map((val) => (val["label"]) ? val["value"] : val))
+      onChange={(event, valueFromAutocomplete) => {
+        const tagsFromAutocomplete = valueFromAutocomplete.map((val) => (val["label"]) ? val["value"] : val);
+        setTagsInSearchbar([...new Set(tagsFromAutocomplete)]);
       }}
       multiple
       id="tags-filled"
-      options={options}
+      options={options.filter((option) => !option.inSearchbar)}
       getOptionLabel={(option) => option.value}
       groupBy={(option) => option.label}
       freeSolo
