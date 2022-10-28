@@ -73,9 +73,11 @@ const TablatureProvider = (props) => {
     setTablatureIsLoading(true);
     if(user) {
       const idToken = getIdTokenFromUser(user);
+      console.log(user)
       profileServices
       .getProfileOfLoggedInUser(user.username, idToken)
       .then((response) => {
+        console.log(response)
         const profile = response.profile;
         const owner = {
           _id: profile._id,

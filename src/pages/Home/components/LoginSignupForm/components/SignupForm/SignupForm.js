@@ -20,14 +20,14 @@ const SignupForm = () => {
    */
   const onSubmit = (event) => {
     event.preventDefault();
-    let attributes = [
-      {
-        Name: "preferred_username",
-        Value: preferredUsername,
-      },
-    ]; // These are custom attributes that were set when the Cognito user pool was created.
+    // let attributes = [
+    //   {
+    //     Name: "preferred_username",
+    //     Value: preferredUsername,
+    //   },
+    // ]; // These are custom attributes that were set when the Cognito user pool was created.
 
-    UserPool.signUp(email, password, attributes, null, (error, data) => {
+    UserPool.signUp(email, password, [], null, (error, data) => {
       if (error) {
         console.error(error);
       } else {
@@ -37,7 +37,7 @@ const SignupForm = () => {
             let idToken = getIdTokenFromUser(user);
             let username = user.username;
             profileServices
-              .create(username, preferredUsername, idToken)
+              .create(username, idToken)
               .then((res) => {
                 console.log(
                   "🚀 ~ file: SignupForm.js ~ line 32 ~ UserPool.signUp ~ res",

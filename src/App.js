@@ -17,9 +17,9 @@ function App() {
 
   return (
     <ThemeProvider theme={darkTheme}>
+          <CssBaseline />
       <SnackbarProvider maxSnack={3} autoHideDuration={5000}>
         <CognitoUserProvider>
-          <CssBaseline />
           {/* <Button onClick={() => setLight((prev) => !prev)}>Toggle Theme</Button> */}
           <TablatureProvider>
             <TagProvider>
