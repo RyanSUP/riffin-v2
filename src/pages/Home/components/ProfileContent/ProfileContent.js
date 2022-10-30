@@ -6,6 +6,8 @@ import { TablatureContext } from "containers/TablatureProvider/TablatureProvider
 import { TagContext } from "containers/TagProvider/TagProvider";
 import LoadingPlaceholder from "containers/LoadingPlaceholder/LoadingPlaceholder";
 import Card from "components/Card/Card";
+import NoTablatureMessage from "./components/NoTablatureMessage";
+import NoMatchesMessage from "./components/NoMatchesMessage";
 
 const ProfileContent = () => {
   const { cognitoUsername } = useParams();
@@ -41,6 +43,12 @@ const ProfileContent = () => {
       {tablatureOnPage?.map((tab, index) => (
         <Card tabData={tab} key={index} />
       ))}
+      {usersTablature.length === 0 &&
+        <NoTablatureMessage />
+      }
+      {(usersTablature.length !== 0 && tablatureOnPage.length === 0 && tagsInSearchbar.length > 0) &&
+        <NoMatchesMessage />
+      }
     </LoadingPlaceholder>
   );
 };
