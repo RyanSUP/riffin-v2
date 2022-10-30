@@ -1,7 +1,5 @@
 // Services / utils
-import * as profileServices from "services/profileServices";
 import UserPool from "utils/UserPool";
-import { getIdTokenFromUser } from "utils/userUtils";
 
 // Components / hooks
 import { UserContext } from "containers/CognitoUserProvider/CognitoUserProvider";
@@ -20,39 +18,17 @@ const SignupForm = () => {
    */
   const onSubmit = (event) => {
     event.preventDefault();
-    // let attributes = [
-    //   {
-    //     Name: "preferred_username",
-    //     Value: preferredUsername,
-    //   },
-    // ]; // These are custom attributes that were set when the Cognito user pool was created.
-
     UserPool.signUp(email, password, [], null, (error, data) => {
       if (error) {
         console.error(error);
       } else {
-        authenticate(email, password)
-          .then((user) => {
-            let idToken = getIdTokenFromUser(user);
-            let username = user.username;
-            profileServices
-              .create(username, idToken)
-              .then((res) => {
-                console.log(
-                  "🚀 ~ file: SignupForm.js ~ line 32 ~ UserPool.signUp ~ res",
-                  res
-                );
-              })
-              .catch((error) => {
-                console.log(
-                  "🚀 ~ file: SignupForm.js ~ line 36 ~ UserPool.signUp ~ error",
-                  error
-                );
-              });
-          })
-          .catch((error) => {
-            console.error("Failed to sign up: ", error);
-          });
+        authenticate(email, password, "new user")
+        .then((user) => {
+          console.log("Successfully authenticated ", user)
+        })
+        .catch((error) => {
+          console.error("Failed to sign up: ", error);
+        });
       }
     });
   };

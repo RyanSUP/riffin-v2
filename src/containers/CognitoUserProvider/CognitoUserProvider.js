@@ -46,7 +46,8 @@ const CognitoUserProvider = (props) => {
    * @param {string} Username
    * @param {string} Password
    */
-  const authenticate = async (Username, Password) => {
+  const authenticate = async (Username, Password, type) => {
+    setUserIsLoading(true)
     return await new Promise((resolve, reject) => {
       // 1. Create a user object with email and pool info
       const user = new CognitoUser({
@@ -63,9 +64,37 @@ const CognitoUserProvider = (props) => {
       // 3. Check if user is in the pool. The data returned will contain the access tokens.
       user.authenticateUser(authDetails, {
         onSuccess: (data) => {
-          setUser(user);
-          resolve(user);
-          navigate("/login");
+          const idToken = userUtils.getIdTokenFromUser(user);
+          if(type === 'new user') {
+            profileServices
+            .create(user.username, idToken)
+            .then((res) => {
+              user["profile"] = res;
+              setUser(user);
+              resolve(user);
+              setUserIsLoading(false)
+              navigate(`/profile/${user.username}`);
+              console.log(
+                "🚀 ~ file: SignupForm.js ~ line 32 ~ UserPool.signUp ~ res",
+                res
+              );
+            })
+            .catch((error) => {
+              console.log(
+                "🚀 ~ file: SignupForm.js ~ line 36 ~ UserPool.signUp ~ error",
+                error
+              );
+            });
+          } else {
+            profileServices.getProfileOfLoggedInUser(user.username, idToken)
+            .then((response) => {
+              user["profile"] = response.profile;
+              setUser(user);
+              resolve(user);
+              setUserIsLoading(false)
+              navigate(`/profile/${user.username}`);
+            });
+          }
         },
         onFailure: (error) => {
           reject(error);
