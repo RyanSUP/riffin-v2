@@ -37,12 +37,6 @@ const SignupForm = () => {
     <form onSubmit={onSubmit}>
       <Stack spacing={2}>
         <TextField
-          label="Username"
-          variant="outlined"
-          onChange={(event) => setPreferredUsername(event.target.value)}
-          value={preferredUsername}
-        />
-        <TextField
           label="Email"
           variant="outlined"
           onChange={(event) => setEmail(event.target.value)}
