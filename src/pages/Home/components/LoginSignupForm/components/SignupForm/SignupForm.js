@@ -9,7 +9,6 @@ import { Button, TextField, Stack } from "@mui/material";
 const SignupForm = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const [preferredUsername, setPreferredUsername] = useState("");
   const { authenticate } = useContext(UserContext);
 
   /**
