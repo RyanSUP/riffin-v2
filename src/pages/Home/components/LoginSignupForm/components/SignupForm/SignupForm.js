@@ -31,7 +31,6 @@ const SignupForm = () => {
       if (error) {
         console.error(error);
       } else {
-        console.log(data);
         authenticate(email, password)
           .then((user) => {
             let idToken = getIdTokenFromUser(user);
