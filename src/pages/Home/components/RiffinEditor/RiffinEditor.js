@@ -41,8 +41,8 @@ const RiffinEditor = () => {
         :
           <>
             {editor.tablature.blocks.map((block, i) => (
-              <Box sx={{my: 4}} key={i}>
-                <TablatureBlock key={i} index={i} block={block} />
+              <Box sx={{my: 4}} key={(block.tempKey || block._id) + i.toString()}>
+                <TablatureBlock key={block.tempKey || block._id} index={i} block={block} />
               </Box>
             ))}
             <AddNewBlockButton />
