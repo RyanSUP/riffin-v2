@@ -5,8 +5,11 @@ import { TablatureContext } from "containers/TablatureProvider/TablatureProvider
 import LoadingPlaceholder from "containers/LoadingPlaceholder/LoadingPlaceholder";
 import { TagContext } from "containers/TagProvider/TagProvider";
 import { useMediaQuery, useTheme } from "@mui/material";
+import { DndProvider } from 'react-dnd'
+import { HTML5Backend } from 'react-dnd-html5-backend'
 // Utilties
 import * as utils from "./Utilities";
+import update from "immutability-helper";
 import { UserContext } from "containers/CognitoUserProvider/CognitoUserProvider";
 
 // * RiffinEditor and RiffinDrawer must be children of RiffinProvider for the editor to work. This provider handles the editor data.
@@ -315,6 +318,30 @@ function riffinReducer(state, action) {
       return handleSetTablature(state, action);
     case 'setPreviewMode':
       return handlePreviewMode(state, action);
+    case "order":
+      let blocks = [...state.tablature.blocks];
+      blocks = update(blocks, {
+        $splice: [
+          [action.dragIndex, 1],
+          [action.hoverIndex, 0, blocks[action.dragIndex]],
+        ],
+      });
+      state.tablature.blocks = blocks
+      console.log('dragIndex', action.dragIndex)
+      console.log('hoverIndex', action.hoverIndex)
+      const tablature = {...state.tablature}
+      const newSelectedBlock = {
+        inputRef: null,
+        index: action.hoverIndex,
+        block: blocks[action.hoverIndex]
+      } 
+
+      console.log('newSelectedBlock', newSelectedBlock)
+      return {
+        selectedBlock: newSelectedBlock,
+        cursor: state.cursor,
+        tablature: tablature
+      }
     default:
       return {
         tablature: state.tablature,
@@ -374,7 +401,8 @@ const RiffinProvider = (props) => {
    * Sets loading status when tablature is defined.
    */
   useEffect(() => {
-    if(editor.tablature) {
+    if(editor.tablature && isLoading) {
+      console.log('reseting')
       setIsLoading(false);
       const action = {
         type: "updateSelection",
@@ -384,7 +412,7 @@ const RiffinProvider = (props) => {
       };
       dispatch(action);
     }
-  }, [editor.tablature]);
+  }, [editor.tablature, isLoading]);
 
   /**
    * Redirects mobile users to their profile content
@@ -397,9 +425,11 @@ const RiffinProvider = (props) => {
 
   return (
     <RiffinEditorDispatch.Provider value={{dispatch, editor, setIsLoading}}>
-      <LoadingPlaceholder isLoading={isLoading}>
-        {props.children}
-      </LoadingPlaceholder>
+      <DndProvider backend={HTML5Backend}>
+        <LoadingPlaceholder isLoading={isLoading}>
+          {props.children}
+        </LoadingPlaceholder>
+      </DndProvider>
     </RiffinEditorDispatch.Provider>
   );
 }
