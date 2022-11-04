@@ -31,32 +31,31 @@ const ProfileContent = () => {
         setTablatureOnPage(usersTablature);
       } else {
           const searchTagsMap = {}
-          let tablatureToDisplay = new Set()
-
+          let tablatureToDisplay = []
           for (let tag of tagsInSearchbar) {
             if (!searchTagsMap[tag]) {
               searchTagsMap[tag] = true
             }
           }        
           
+          // Goal: Make sure this tablature's tags match all tags the searchbar
           usersTablature.forEach((tab) => {
-            let name = tab.name
             let tags = tab.tags
-            
+            let counter = 0;
+
             for (let tag of tags) {
               if (searchTagsMap[tag]) {
-                tablatureToDisplay.add(tag)
+                counter++
               }
             }
-          })
-          console.log(searchTagsMap, tablatureToDisplay)
-      }        
-      // Get all tablature objects whose tags or name match all tags in the searchbar.
-      const tablatureWithMatchingTags = usersTablature.filter((tablature) => {
-        return tagsInSearchbar.every((tag) => tablature.tags.map((tag) => tag.toLowerCase()).includes(tag.toLowerCase()) || tablature.name.toLowerCase() === tag.toLowerCase());
-      });
-      setTablatureOnPage(tablatureWithMatchingTags);
-      
+
+            // counter matches number of tabs
+            if(counter === tagsInSearchbar.length) {            
+              tablatureToDisplay.push(tab)
+            }
+          })          
+          setTablatureOnPage(tablatureToDisplay);
+      }              
     }
   }, [tagsInSearchbar, usersTablature]);
 
@@ -71,40 +70,3 @@ const ProfileContent = () => {
 
 export default ProfileContent;
 
-// useEffect(() => {
-  //   if(user && cognitoUsername && (user.username !== cognitoUsername)) {
-  //     navigate(`/profile/${user.username}`);
-  //   }
-  // }, [cognitoUsername, user, navigate]);
-
-  // useEffect(() => {
-  //   if(tagsInSearchbar) {
-      
-      
-  //     if(tagsInSearchbar.length === 0) {        
-  //       setTablatureOnPage(usersTablature);
-      
-  //     } else {
-  //       const nameMap = {}
-  //       const tagMap = {}
-  //       const tablatureToDisplay = []
-  //       usersTablature.forEach((tab) => {
-  //       const name = tab.name
-  //       const tags = tab.tags
-  //       let meetsCriteria = true
-  //       for (let tag of tags) {
-  //         if (!tagMap[tag]) {
-  //           tagMap[tag] = true
-  //         }
-  //       }
-  //       for (let tag of tagsInSearchbar) {
-  //         if (!tagMap[tag]) {
-            
-  //         }
-  //       }
-
-  //     })
-  //     console.log(tagMap)
-  //     }
-  //   }
-  // }, [tagsInSearchbar, usersTablature]);
