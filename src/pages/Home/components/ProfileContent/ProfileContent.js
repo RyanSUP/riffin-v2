@@ -40,6 +40,7 @@ const ProfileContent = () => {
           
           // Goal: Make sure this tablature's tags match all tags the searchbar
           usersTablature.forEach((tab) => {
+            let name = tab.name
             let tags = tab.tags
             let counter = 0;
 
@@ -48,9 +49,8 @@ const ProfileContent = () => {
                 counter++
               }
             }
-
-            // counter matches number of tabs
-            if(counter === tagsInSearchbar.length) {            
+            // counter matches number of tabs OR name matches
+            if(counter === tagsInSearchbar.length || searchTagsMap[name]) {            
               tablatureToDisplay.push(tab)
             }
           })          
