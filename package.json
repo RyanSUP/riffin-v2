@@ -5,6 +5,7 @@
   "dependencies": {
     "@emotion/react": "^11.9.3",
     "@emotion/styled": "^11.9.3",
+    "@mui/base": "^5.0.0-alpha.104",
     "@mui/icons-material": "^5.8.4",
     "@mui/lab": "^5.0.0-alpha.105",
     "@mui/material": "^5.10.11",
@@ -19,6 +20,7 @@
     "react-dnd": "^16.0.1",
     "react-dnd-html5-backend": "^16.0.1",
     "react-dom": "^18.2.0",
+    "react-hook-form": "^7.39.1",
     "react-router-dom": "^6.3.0",
     "react-scripts": "5.0.1",
     "simplebar-react": "^2.4.1",
