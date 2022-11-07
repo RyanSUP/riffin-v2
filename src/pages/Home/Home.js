@@ -16,6 +16,7 @@ import ContentLayout from 'containers/ContentLayout/ContentLayout';
 // MUI
 import { Stack, useTheme } from '@mui/material';
 import { Box } from "@mui/material";
+import ChangePasswordForm from './components/LoginSignupForm/components/ChangePasswordForm.js/ChangePasswordForm';
 
 const header = {
   width: "100%",
@@ -142,12 +143,20 @@ const Home = () => {
         </Box>
 
         <Routes>
+          {/* // TODO Refactor this to /auth => /auth/login => /auth/signup */}
           <Route path="/login" element={
             <ContentLayout>
               <LoginSignupForm />
               <></>
             </ContentLayout>
           }/>
+          <Route path="/changePassword" element={
+            <ContentLayout>
+              <ChangePasswordForm />
+              <></>
+            </ContentLayout>
+          }/>
+          {/* // TODO Refactor this route to be /profile */}
           <Route path="/profile/:cognitoUsername" element={
             <ContentLayout>
               <ProfileContent />
