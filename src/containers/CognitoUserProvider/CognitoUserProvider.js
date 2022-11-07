@@ -117,6 +117,26 @@ const CognitoUserProvider = (props) => {
     }
   };
 
+  const changePassword = (PreviousPassword, ProposedPassword) => {
+    const authDetails = new AuthenticationDetails({
+      Username: user.username,
+      Password: PreviousPassword,
+    })
+
+    const callback = (err, data) => {
+      if(err) {
+        console.error("Inside Error")
+        console.error(err.message || JSON.stringify(err));
+        return;
+      } else {
+        console.log(data) // success
+      }
+    }
+    console.log(user)
+    // Confirm previous password is correct. Confirm new passwords match
+    user.changePassword(PreviousPassword, ProposedPassword, callback);
+  }
+
   /**
    * Handle changes to user state.
    */
@@ -158,7 +178,8 @@ const CognitoUserProvider = (props) => {
         user,
         setUser,
         userIsLoading,
-        navToProfile
+        navToProfile,
+        changePassword
       }}
     >
       {props.children}

@@ -7,10 +7,11 @@ import UserMenu from './UserMenu/UserMenu';
 // MUI
 import LogoutIcon from '@mui/icons-material/Logout';
 import LoginIcon from '@mui/icons-material/Login';
+import RefreshIcon from '@mui/icons-material/Refresh';
 
 const HeaderLinks = () => {
   const navigate = useNavigate()
-  const { user, logout } = useContext(UserContext)
+  const { user, logout, changePassword } = useContext(UserContext)
   
   const headerLinks = [
     {
@@ -23,6 +24,13 @@ const HeaderLinks = () => {
       "name": "Logout",
       "onClick": () => logout(),
       "icon": (<LogoutIcon />),
+      "belongsTo": "avatar",
+      "isLoggedInUser": true
+    },
+    {
+      "name": "Change Password",
+      "onClick": () => changePassword('Password43!', 'Password23!'),
+      "icon": (<RefreshIcon />),
       "belongsTo": "avatar",
       "isLoggedInUser": true
     }
