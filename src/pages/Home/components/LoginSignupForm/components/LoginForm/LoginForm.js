@@ -7,13 +7,13 @@ import { useForm } from "react-hook-form";
 import { Button, TextField, Stack } from "@mui/material";
 
 const LoginForm = () => {
-  const { register, handleSubmit, formState: { errors } } = useForm();
+  const { register, handleSubmit } = useForm();
   const [errorMessage, setErrorMessage] = useState();
   const { authenticate } = useContext(UserContext);
 
   /**
    * Handles login form submit.
-   * @param {Object} data - the form data
+   * @param {{Email, Password}} data - the form data
    */
   const onSubmit = (data) => {
     authenticate(data["Email"], data["Password"])

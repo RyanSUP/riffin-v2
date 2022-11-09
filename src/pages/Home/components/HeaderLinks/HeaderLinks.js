@@ -29,7 +29,7 @@ const HeaderLinks = () => {
     },
     {
       "name": "Change Password",
-      "onClick": () => changePassword('Password43!', 'Password23!'),
+      "onClick": () => navigate('/changePassword'),
       "icon": (<RefreshIcon />),
       "belongsTo": "avatar",
       "isLoggedInUser": true
