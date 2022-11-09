@@ -40,6 +40,51 @@ const CognitoUserProvider = (props) => {
     return getSession();
   }, [user]);
 
+  const changePassword = async (PreviousPassword, ProposedPassword) => {
+
+      // I need to authenticate the user. To do this, I need the user's email.
+      // How do I get the email?
+      getUserSessionFromCognito()
+      .then(session => {
+        const Username = session.idToken.payload.email;
+        // 1. Create a user object with email and pool info
+        const cogUser = new CognitoUser({
+          Username,
+          Pool: UserPool,
+        });
+
+        // 2. Get the authdetails needed to authenticate the user
+        const authDetails = new AuthenticationDetails({
+          Username,
+          Password: PreviousPassword
+        });
+
+        cogUser.authenticateUser(authDetails, {
+          onSuccess: (data) => {
+            const callback = (err, data) => {
+              if(err) {
+                console.error("Inside Error")
+                console.error(err.message || JSON.stringify(err));
+                return;
+              } else {
+                console.log(data) // success
+              }
+            }
+            console.log(user)
+            // Confirm previous password is correct. Confirm new passwords match
+            cogUser.changePassword(PreviousPassword, ProposedPassword, callback);
+          },
+          onFailure: (error) => {
+            console.log(error);
+          },
+          newPasswordRequired: (data) => {
+            console.log(user);
+          },
+        });
+      });
+
+  }
+
   /**
    * Checks provided username and password against the Cognito user pool.
    * Sets 'user' state and navigates to the users profile page on successful authentication.
@@ -158,7 +203,8 @@ const CognitoUserProvider = (props) => {
         user,
         setUser,
         userIsLoading,
-        navToProfile
+        navToProfile,
+        changePassword,
       }}
     >
       {props.children}
