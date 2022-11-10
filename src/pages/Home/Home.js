@@ -17,6 +17,7 @@ import ContentLayout from 'containers/ContentLayout/ContentLayout';
 import { Stack, useTheme } from '@mui/material';
 import { Box } from "@mui/material";
 import ChangePasswordForm from './components/LoginSignupForm/components/ChangePasswordForm.js/ChangePasswordForm';
+import Donate from './components/Donate/Donate';
 
 const header = {
   width: "100%",
@@ -160,7 +161,7 @@ const Home = () => {
           <Route path="/profile/:cognitoUsername" element={
             <ContentLayout>
               <ProfileContent />
-              <></>
+              <Donate />
             </ContentLayout>
           }/>
           <Route path="/new/guitar" element={
