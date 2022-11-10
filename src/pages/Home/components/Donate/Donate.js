@@ -4,6 +4,7 @@ import LinkedInIcon from '@mui/icons-material/LinkedIn';
 
 const Donate = () => {
   return (
+    // TODO This can be maped.
     <Stack spacing={3}>
       <Stack spacing={1}>
         <Typography variant="p">Made by</Typography>
