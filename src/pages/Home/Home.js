@@ -2,7 +2,7 @@
 import Logo from './components/Logo/Logo';
 import HeaderLinks from './components/HeaderLinks/HeaderLinks';
 import TagBar from './components/TagBar/TagBar';
-import { Route, Routes, Navigate, Link } from "react-router-dom";
+import { Route, Routes, Navigate } from "react-router-dom";
 import ProfileContent from "./components/ProfileContent/ProfileContent";
 import LoginSignupForm from "./components/LoginSignupForm/LoginSignupForm";
 import { RiffinProvider } from './components/RiffinEditor/RiffinProvider';
@@ -17,7 +17,6 @@ import ContentLayout from 'containers/ContentLayout/ContentLayout';
 import { Stack, useTheme } from '@mui/material';
 import { Box } from "@mui/material";
 import ChangePasswordForm from './components/LoginSignupForm/components/ChangePasswordForm.js/ChangePasswordForm';
-import BuyMeACoffeeButton from './components/HeaderLinks/BuyMeACofeeButton/BuyMeACoffeeButton';
 
 const header = {
   width: "100%",

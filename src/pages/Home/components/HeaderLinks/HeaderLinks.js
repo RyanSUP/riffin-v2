@@ -13,7 +13,7 @@ import BuyMeACoffeeButton from './BuyMeACofeeButton/BuyMeACoffeeButton';
 
 const HeaderLinks = () => {
   const navigate = useNavigate()
-  const { user, logout, changePassword } = useContext(UserContext)
+  const { user, logout } = useContext(UserContext)
   
   const headerLinks = [
     {
