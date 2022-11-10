@@ -10,17 +10,21 @@ const LoginForm = () => {
   const { register, handleSubmit } = useForm();
   const [errorMessage, setErrorMessage] = useState();
   const { authenticate } = useContext(UserContext);
-
+  const [waitingForResponse, setWaitingForResponse] = useState(false);
   /**
    * Handles login form submit.
    * @param {{Email, Password}} data - the form data
    */
   const onSubmit = (data) => {
+    setErrorMessage(null)
+    setWaitingForResponse(true);
     authenticate(data["Email"], data["Password"])
       .then((user) => {
+        setWaitingForResponse(false);
         console.log("Logged in! ", user);
       })
       .catch((error) => {
+        setWaitingForResponse(false);
         console.error("Failed to login: ", error);
         if(error.code === 'NotAuthorizedException') {
           setErrorMessage("* Incorrect username or password, dude!")
@@ -38,7 +42,7 @@ const LoginForm = () => {
         {errorMessage &&
           <p style={{color: "red"}}>{errorMessage}</p>
         } 
-        <Button variant="contained" type="submit">
+        <Button variant="contained" type="submit" disabled={waitingForResponse}>
           <span data-testid="login-button">
             Login
           </span>
