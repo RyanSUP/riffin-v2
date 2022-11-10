@@ -41,7 +41,7 @@ const CognitoUserProvider = (props) => {
   }, [user]);
 
   const changePassword = async (PreviousPassword, ProposedPassword) => {
-
+    return new Promise((resolve, reject) => {
       // I need to authenticate the user. To do this, I need the user's email.
       // How do I get the email?
       getUserSessionFromCognito()
@@ -61,28 +61,28 @@ const CognitoUserProvider = (props) => {
 
         cogUser.authenticateUser(authDetails, {
           onSuccess: (data) => {
-            const callback = (err, data) => {
+            const callback = (err, result) => {
               if(err) {
                 console.error("Inside Error")
                 console.error(err.message || JSON.stringify(err));
-                return;
+                reject(err.message || JSON.stringify(err))
               } else {
-                console.log(data) // success
+                resolve(true);
               }
             }
-            console.log(user)
-            // Confirm previous password is correct. Confirm new passwords match
             cogUser.changePassword(PreviousPassword, ProposedPassword, callback);
           },
           onFailure: (error) => {
             console.log(error);
+            reject(error);
           },
           newPasswordRequired: (data) => {
             console.log(user);
+            resolve(true)
           },
         });
       });
-
+    })
   }
 
   /**
