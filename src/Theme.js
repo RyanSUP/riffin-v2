@@ -14,7 +14,7 @@ const darkTheme = createTheme({
       main: "#3A4054",
     },
     tabInput: {
-      main: "#D5A419",
+      main: "#FADD00",
     },
     error: {
       main: "#BF616A",
