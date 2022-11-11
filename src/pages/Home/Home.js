@@ -8,7 +8,6 @@ import LoginSignupForm from "./components/LoginSignupForm/LoginSignupForm";
 import { RiffinProvider } from './components/RiffinEditor/RiffinProvider';
 import RiffinEditor from './components/RiffinEditor/RiffinEditor';
 import RiffinDrawer from './components/RiffinEditor/components/RiffinDrawer/RiffinDrawer';
-import Ad from 'components/Ad/Ad';
 import CollectionButton from './components/Sidebar/components/CollectionButton/CollectionButton';
 import CreateGuitarTabButton from './components/Sidebar/components/CreateGuitarTabButton/CreateGuitarTabButton';
 import CreateBassTabButton from './components/Sidebar/components/CreateBassTabButton/CreateBassTabButton';
@@ -140,7 +139,7 @@ const Home = () => {
             <CreateGuitarTabButton />
             <CreateBassTabButton />
           </Stack>
-          <Ad />
+          <Donate />
         </Box>
 
         <Routes>
@@ -161,7 +160,7 @@ const Home = () => {
           <Route path="/profile/:cognitoUsername" element={
             <ContentLayout>
               <ProfileContent />
-              <Donate />
+              <></>
             </ContentLayout>
           }/>
           <Route path="/new/guitar" element={

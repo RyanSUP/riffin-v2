@@ -1,11 +1,13 @@
-import { Typography } from "@mui/material";
+import {  Typography } from "@mui/material";
 import { Box, Stack, Divider } from "@mui/material";
 import LinkedInIcon from '@mui/icons-material/LinkedIn';
+import BuyMeACoffeeButton from "../HeaderLinks/BuyMeACofeeButton/BuyMeACoffeeButton";
 
 const Donate = () => {
   return (
     // TODO This can be maped.
-    <Stack spacing={3} sx={{textAlign: 'left'}}>
+    <Stack spacing={3} sx={{textAlign: 'left', maxWidth: '160px'}}>
+      <BuyMeACoffeeButton />
       <Divider >
         <Typography variant="p">Made by</Typography>
       </Divider>
@@ -32,7 +34,7 @@ const Donate = () => {
         </a>
       </Stack>
       <Divider />
-      <Typography variant="p">Be excellent to eachother, and party on dudes!</Typography>
+
     </Stack>
   );
 }

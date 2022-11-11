@@ -8,7 +8,7 @@ import Legend from "./components/Legend/Legend";
 // MUI
 import { Box, Stack, Typography } from "@mui/material";
 import StaffMenuHeader from "./components/StaffMenuHeader/StaffMenuHeader";
-
+import 'simplebar/dist/simplebar.min.css';
 /**
  * * The RiffinDrawer sits next to the RiffinEditor and provides additional controls for the selected block, as well as a legend that displays special inputs and tablature notation.
  * @returns 
@@ -32,7 +32,7 @@ const RiffinDrawer = () => {
         <Stack spacing={2} sx={{width: '220px'}}>
           <StaffMenuHeader />
           <Box>
-            <Typography>Size</Typography>
+            <Typography>Length</Typography>
             <SizeSlider block={ selectedBlock }/>
           </Box>
           <DuplicateBlockButton />
