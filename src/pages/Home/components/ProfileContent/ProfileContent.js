@@ -33,19 +33,19 @@ const ProfileContent = () => {
           const searchTagsMap = {}
           let tablatureToDisplay = []
           for (let tag of tagsInSearchbar) {
-            if (!searchTagsMap[tag]) {
-              searchTagsMap[tag] = true
+            if (!searchTagsMap[tag.toLowerCase()]) {
+              searchTagsMap[tag.toLowerCase()] = true
             }
           }        
           
           // Goal: Make sure this tablature's tags match all tags the searchbar
           usersTablature.forEach((tab) => {
-            let name = tab.name
-            let tags = tab.tags
+            let name = tab.name.toLowerCase()
+            let tags = tab.tags            
             let counter = 0;
 
-            for (let tag of tags) {
-              if (searchTagsMap[tag]) {
+            for (let tag of tags) {              
+              if (searchTagsMap[tag.toLowerCase()]) {
                 counter++
               }
             }
