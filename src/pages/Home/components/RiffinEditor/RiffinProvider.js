@@ -1,6 +1,6 @@
 // Components / hooks
 import { createContext, useReducer, useEffect, useState, useContext } from "react";
-import { useParams } from "react-router-dom";
+import { useParams, useNavigationType } from "react-router-dom";
 import { TablatureContext } from "containers/TablatureProvider/TablatureProvider";
 import LoadingPlaceholder from "containers/LoadingPlaceholder/LoadingPlaceholder";
 import { TagContext } from "containers/TagProvider/TagProvider";
@@ -353,10 +353,14 @@ function riffinReducer(state, action) {
 
 const RiffinProvider = (props) => {
   const { tabId } = useParams();
-  const [isLoading, setIsLoading] = useState(true);
+  const [isLoading, setIsLoading] = useState(false);
   const [editor, dispatch] = useReducer(riffinReducer, {
     tablature: utils.getNewTablatureTemplateObject(props.numberOfStrings),
-    selectedBlock: null,
+    selectedBlock: {
+      inputRef: null, 
+      index: 0,
+      block: null
+    },
     cursor: {position: null},
     previewMode: false,
   });
@@ -381,7 +385,6 @@ const RiffinProvider = (props) => {
    */
   useEffect(() => {
     if(tabId && getTabFromUser) {
-      setIsLoading(true);
       const tablature = getTabFromUser(tabId);
       if(tablature) {
         const tablatureStringify = JSON.stringify(tablature);
@@ -391,18 +394,13 @@ const RiffinProvider = (props) => {
           type: 'setTablature'
         };
         setTagsInSearchbar(tablature.tags);
-        setIsLoading(false);
         dispatch(action);
       }
     }
   }, [tabId, getTabFromUser, setTagsInSearchbar]);
 
-  /**
-   * Sets loading status when tablature is defined.
-   */
   useEffect(() => {
-    if(editor.tablature && isLoading) {
-      console.log('reseting')
+    if(editor.tablature && editor.selectedBlock.block === null) {
       setIsLoading(false);
       const action = {
         type: "updateSelection",
@@ -412,7 +410,7 @@ const RiffinProvider = (props) => {
       };
       dispatch(action);
     }
-  }, [editor.tablature, isLoading]);
+  }, [editor]);
 
   /**
    * Redirects mobile users to their profile content
