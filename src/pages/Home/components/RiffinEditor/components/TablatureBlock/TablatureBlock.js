@@ -7,7 +7,7 @@ import NoteTextarea from "./components/NoteTextarea/NoteTextarea";
 import { RiffinEditorDispatch } from "../../RiffinProvider";
 import { useDrag, useDrop } from 'react-dnd';
 // MUI
-import { Box } from "@mui/material";
+import { Box, Grid } from "@mui/material";
 import DragHandleIcon from '@mui/icons-material/DragHandle';
 
 /**
@@ -86,11 +86,20 @@ const TablatureBlock = (props) => {
   drag(drop(ref))
 
   return (
-    <Box ref={ref} data-handler-id={handlerId} style={{opacity}}>
-      <Box style={{display: 'flex'}}>
-        <DragHandleIcon style={{alignSelf: 'center', opacity: '0.2'}} />
-        <Box>      
+    <Grid container style={{opacity}} data-handler-id={handlerId} ref={ref} >
+      <Grid container item xs={12}>
+        <Grid item xs={0.3}>
+        </Grid>
+        <Grid item xs={11.7}>
           <NoteTextarea label={props.block.label} index={props.index}/>
+        </Grid>
+      </Grid>
+      <Grid container item xs={12}>
+        <Grid item xs={0.3} sx={{display: 'flex', justifyContent: 'flex-end', '&:hover': {
+       cursor: "row-resize"}}}>
+          <DragHandleIcon style={{alignSelf: 'center', opacity: '0.2'}} />
+        </Grid>
+        <Grid item xs={11.7}>
           <TablatureWrapper>
             <InputTextarea
               block={props.block} 
@@ -102,9 +111,9 @@ const TablatureBlock = (props) => {
               numberOfStrings={editor.tablature.numberOfStrings}
             />
           </TablatureWrapper>
-        </Box>
-      </Box>
-    </Box>
+        </Grid>
+      </Grid>
+    </Grid>
   );
 }
  
