@@ -7,7 +7,7 @@ import NoteTextarea from "./components/NoteTextarea/NoteTextarea";
 import { RiffinEditorDispatch } from "../../RiffinProvider";
 import { useDrag, useDrop } from 'react-dnd';
 // MUI
-import { Box, Grid } from "@mui/material";
+import { Grid } from "@mui/material";
 import DragHandleIcon from '@mui/icons-material/DragHandle';
 
 /**

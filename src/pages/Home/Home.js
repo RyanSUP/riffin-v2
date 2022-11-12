@@ -17,6 +17,7 @@ import { Stack, useTheme } from '@mui/material';
 import { Box } from "@mui/material";
 import ChangePasswordForm from './components/LoginSignupForm/components/ChangePasswordForm.js/ChangePasswordForm';
 import Donate from './components/Donate/Donate';
+import DonateMobile from './components/Donate/DonateMobile';
 
 const header = {
   width: "100%",
@@ -189,6 +190,7 @@ const Home = () => {
           }/>
           <Route path="*" element={<Navigate to="/new/guitar" replace />} />
         </Routes>
+        <DonateMobile />
       </Box>
     </Box>
   );
