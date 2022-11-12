@@ -7,17 +7,10 @@ const NoTablatureMessage = () => {
   const theme = useTheme();
   const belowMediumScreen = useMediaQuery(theme.breakpoints.down("md"));
 
-  const mobileDisplay = {
-    display: 'block',
-    [theme.breakpoints.down('md')]: {
-      display: 'none',
-    }
-  };
-
   return (
     <Box sx={{margin: "25px auto", textAlign: "center"}}>
       <Typography variant="h2">Lets rock 🤘</Typography>
-      <Box sx={{display: "flex", justifyContent: "space-between"}}>
+      <Box sx={{display: "flex", justifyContent: "space-between", width: "300px", m: 2}}>
         <CreateGuitarTabButton disabled={belowMediumScreen}/>
         <CreateBassTabButton disabled={belowMediumScreen}/>
       </Box>
