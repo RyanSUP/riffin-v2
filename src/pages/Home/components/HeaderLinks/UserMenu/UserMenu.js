@@ -29,8 +29,8 @@ const UserMenu = (props) => {
   }
   return (
     <Box>
-      <Tooltip title="Open settings">
-        <IconButton onClick={handleOpenUserMenu} sx={{color: "primary.main"}}>
+      <Tooltip title="user settings">
+        <IconButton onClick={handleOpenUserMenu}  sx={{color: "primary.main", borderRadius: '25%'}}>
           <MoreHorizIcon />
         </IconButton>
       </Tooltip>

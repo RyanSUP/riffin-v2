@@ -40,13 +40,59 @@ const CognitoUserProvider = (props) => {
     return getSession();
   }, [user]);
 
+  const changePassword = async (PreviousPassword, ProposedPassword) => {
+    return new Promise((resolve, reject) => {
+      // I need to authenticate the user. To do this, I need the user's email.
+      // How do I get the email?
+      getUserSessionFromCognito()
+      .then(session => {
+        const Username = session.idToken.payload.email;
+        // 1. Create a user object with email and pool info
+        const cogUser = new CognitoUser({
+          Username,
+          Pool: UserPool,
+        });
+
+        // 2. Get the authdetails needed to authenticate the user
+        const authDetails = new AuthenticationDetails({
+          Username,
+          Password: PreviousPassword
+        });
+
+        cogUser.authenticateUser(authDetails, {
+          onSuccess: (data) => {
+            const callback = (err, result) => {
+              if(err) {
+                console.error("Inside Error")
+                console.error(err.message || JSON.stringify(err));
+                reject(err.message || JSON.stringify(err))
+              } else {
+                resolve(true);
+              }
+            }
+            cogUser.changePassword(PreviousPassword, ProposedPassword, callback);
+          },
+          onFailure: (error) => {
+            console.log(error);
+            reject(error);
+          },
+          newPasswordRequired: (data) => {
+            console.log(user);
+            resolve(true)
+          },
+        });
+      });
+    })
+  }
+
   /**
    * Checks provided username and password against the Cognito user pool.
    * Sets 'user' state and navigates to the users profile page on successful authentication.
    * @param {string} Username
    * @param {string} Password
    */
-  const authenticate = async (Username, Password) => {
+  const authenticate = async (Username, Password, type) => {
+    setUserIsLoading(true)
     return await new Promise((resolve, reject) => {
       // 1. Create a user object with email and pool info
       const user = new CognitoUser({
@@ -63,9 +109,37 @@ const CognitoUserProvider = (props) => {
       // 3. Check if user is in the pool. The data returned will contain the access tokens.
       user.authenticateUser(authDetails, {
         onSuccess: (data) => {
-          setUser(user);
-          resolve(user);
-          navigate("/login");
+          const idToken = userUtils.getIdTokenFromUser(user);
+          if(type === 'new user') {
+            profileServices
+            .create(user.username, idToken)
+            .then((res) => {
+              user["profile"] = res;
+              setUser(user);
+              resolve(user);
+              setUserIsLoading(false)
+              navigate(`/profile/${user.username}`);
+              console.log(
+                "🚀 ~ file: SignupForm.js ~ line 32 ~ UserPool.signUp ~ res",
+                res
+              );
+            })
+            .catch((error) => {
+              console.log(
+                "🚀 ~ file: SignupForm.js ~ line 36 ~ UserPool.signUp ~ error",
+                error
+              );
+            });
+          } else {
+            profileServices.getProfileOfLoggedInUser(user.username, idToken)
+            .then((response) => {
+              user["profile"] = response.profile;
+              setUser(user);
+              resolve(user);
+              setUserIsLoading(false)
+              navigate(`/profile/${user.username}`);
+            });
+          }
         },
         onFailure: (error) => {
           reject(error);
@@ -129,7 +203,8 @@ const CognitoUserProvider = (props) => {
         user,
         setUser,
         userIsLoading,
-        navToProfile
+        navToProfile,
+        changePassword,
       }}
     >
       {props.children}

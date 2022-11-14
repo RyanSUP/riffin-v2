@@ -7,6 +7,8 @@ import UserMenu from './UserMenu/UserMenu';
 // MUI
 import LogoutIcon from '@mui/icons-material/Logout';
 import LoginIcon from '@mui/icons-material/Login';
+import RefreshIcon from '@mui/icons-material/Refresh';
+import { Box } from '@mui/material';
 
 const HeaderLinks = () => {
   const navigate = useNavigate()
@@ -25,19 +27,28 @@ const HeaderLinks = () => {
       "icon": (<LogoutIcon />),
       "belongsTo": "avatar",
       "isLoggedInUser": true
+    },
+    {
+      "name": "Change Password",
+      "onClick": () => navigate('/changePassword'),
+      "icon": (<RefreshIcon />),
+      "belongsTo": "avatar",
+      "isLoggedInUser": true
     }
   ]
 
   return (
     <>
+      <Box style={{display: 'flex', justifyContent: 'space-between'}}>
       {user ?
-      <UserMenu
-        headerLinks={headerLinks.filter((link) => {
-          return link.belongsTo === "avatar" && link.isLoggedInUser === true
-        })}
-      />
-      : <LoginButton />
+        <UserMenu
+          headerLinks={headerLinks.filter((link) => {
+            return link.belongsTo === "avatar" && link.isLoggedInUser === true
+          })}
+        />
+        : <LoginButton />
       }
+      </Box>
     </>
   )
 }

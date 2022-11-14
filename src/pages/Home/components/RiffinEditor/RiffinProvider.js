@@ -1,12 +1,15 @@
 // Components / hooks
 import { createContext, useReducer, useEffect, useState, useContext } from "react";
-import { useParams } from "react-router-dom";
+import { useParams, useNavigationType } from "react-router-dom";
 import { TablatureContext } from "containers/TablatureProvider/TablatureProvider";
 import LoadingPlaceholder from "containers/LoadingPlaceholder/LoadingPlaceholder";
 import { TagContext } from "containers/TagProvider/TagProvider";
 import { useMediaQuery, useTheme } from "@mui/material";
+import { DndProvider } from 'react-dnd'
+import { HTML5Backend } from 'react-dnd-html5-backend'
 // Utilties
 import * as utils from "./Utilities";
+import update from "immutability-helper";
 import { UserContext } from "containers/CognitoUserProvider/CognitoUserProvider";
 
 // * RiffinEditor and RiffinDrawer must be children of RiffinProvider for the editor to work. This provider handles the editor data.
@@ -315,6 +318,30 @@ function riffinReducer(state, action) {
       return handleSetTablature(state, action);
     case 'setPreviewMode':
       return handlePreviewMode(state, action);
+    case "order":
+      let blocks = [...state.tablature.blocks];
+      blocks = update(blocks, {
+        $splice: [
+          [action.dragIndex, 1],
+          [action.hoverIndex, 0, blocks[action.dragIndex]],
+        ],
+      });
+      state.tablature.blocks = blocks
+      console.log('dragIndex', action.dragIndex)
+      console.log('hoverIndex', action.hoverIndex)
+      const tablature = {...state.tablature}
+      const newSelectedBlock = {
+        inputRef: null,
+        index: action.hoverIndex,
+        block: blocks[action.hoverIndex]
+      } 
+
+      console.log('newSelectedBlock', newSelectedBlock)
+      return {
+        selectedBlock: newSelectedBlock,
+        cursor: state.cursor,
+        tablature: tablature
+      }
     default:
       return {
         tablature: state.tablature,
@@ -326,10 +353,14 @@ function riffinReducer(state, action) {
 
 const RiffinProvider = (props) => {
   const { tabId } = useParams();
-  const [isLoading, setIsLoading] = useState(true);
+  const [isLoading, setIsLoading] = useState(false);
   const [editor, dispatch] = useReducer(riffinReducer, {
     tablature: utils.getNewTablatureTemplateObject(props.numberOfStrings),
-    selectedBlock: null,
+    selectedBlock: {
+      inputRef: null, 
+      index: 0,
+      block: null
+    },
     cursor: {position: null},
     previewMode: false,
   });
@@ -354,7 +385,6 @@ const RiffinProvider = (props) => {
    */
   useEffect(() => {
     if(tabId && getTabFromUser) {
-      setIsLoading(true);
       const tablature = getTabFromUser(tabId);
       if(tablature) {
         const tablatureStringify = JSON.stringify(tablature);
@@ -364,17 +394,13 @@ const RiffinProvider = (props) => {
           type: 'setTablature'
         };
         setTagsInSearchbar(tablature.tags);
-        setIsLoading(false);
         dispatch(action);
       }
     }
   }, [tabId, getTabFromUser, setTagsInSearchbar]);
 
-  /**
-   * Sets loading status when tablature is defined.
-   */
   useEffect(() => {
-    if(editor.tablature) {
+    if(editor.tablature && editor.selectedBlock.block === null) {
       setIsLoading(false);
       const action = {
         type: "updateSelection",
@@ -384,7 +410,7 @@ const RiffinProvider = (props) => {
       };
       dispatch(action);
     }
-  }, [editor.tablature]);
+  }, [editor]);
 
   /**
    * Redirects mobile users to their profile content
@@ -397,9 +423,11 @@ const RiffinProvider = (props) => {
 
   return (
     <RiffinEditorDispatch.Provider value={{dispatch, editor, setIsLoading}}>
-      <LoadingPlaceholder isLoading={isLoading}>
-        {props.children}
-      </LoadingPlaceholder>
+      <DndProvider backend={HTML5Backend}>
+        <LoadingPlaceholder isLoading={isLoading}>
+          {props.children}
+        </LoadingPlaceholder>
+      </DndProvider>
     </RiffinEditorDispatch.Provider>
   );
 }

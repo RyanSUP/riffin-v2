@@ -3,14 +3,12 @@ const BASE_URL = process.env.REACT_APP_STACK_URL;
 /**
  * Request to create a new profile document in MongoDB.
  * @param {string} cognitoUsername - refering to the Cognito user.username
- * @param {string} preferredUsername
  * @param {string} idToken
  * @returns {Object} profile document
  */
-const create = async (cogniteUsername, preferredUsername, idToken) => {
+const create = async (cogniteUsername, idToken) => {
   const payload = {
     user: cogniteUsername,
-    preferredUsername,
   };
 
   let response = await fetch(`${BASE_URL}/profile`, {
@@ -26,12 +24,12 @@ const create = async (cogniteUsername, preferredUsername, idToken) => {
 
 /**
  * Request to get profile document of the currently logged in user.
- * @param {string} cogniteUsername - refering to the Cognito user.username
+ * @param {string} cognitoUsername - refering to the Cognito user.username
  * @param {string} idToken
  * @returns {Object} profile document
  */
-const getProfileOfLoggedInUser = async (cogniteUsername, idToken) => {
-  const response = await fetch(`${BASE_URL}/profile/${cogniteUsername}`, {
+const getProfileOfLoggedInUser = async (cognitoUsername, idToken) => {
+  const response = await fetch(`${BASE_URL}/profile/${cognitoUsername}`, {
     method: "GET",
     headers: {
       Authorization: idToken,
