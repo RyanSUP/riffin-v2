@@ -27,15 +27,18 @@ const create = async (tablature, idToken) => {
  * @param {string} idToken
  * @returns {Object} { status: "" }
  */
-const update = async (tablature, idToken) => {
-
+const update = async (tablature, idToken, cognitoUsername) => {
+  const payload = {
+    tablature,
+    cognitoUsername
+  }
   const response = await fetch(`${BASE_URL}/tablature/${tablature._id}`, {
     method: "PUT",
     headers: {
       Authorization: idToken,
       "Content-Type": "application/json",
     },
-    body: JSON.stringify(tablature),
+    body: JSON.stringify(payload),
   });
   return response.json();
 };
