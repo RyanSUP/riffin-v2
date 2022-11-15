@@ -46,8 +46,11 @@ const update = async (tablature, idToken) => {
  * @param {string} idToken
  * @returns {Object} { status: "" }
  */
-const deleteTab = async (tab_id, idToken) => {
-  const payload = { tab_id };
+const deleteTab = async (tab_id, idToken, cognitoUsername) => {
+  const payload = { 
+    tab_id,
+    cognitoUsername
+  };
 
   const response = await fetch(`${BASE_URL}/tablature/${tab_id}`, {
     method: "DELETE",
@@ -60,22 +63,8 @@ const deleteTab = async (tab_id, idToken) => {
   return response.json();
 };
 
-/**
- * Request to get a tablature by id.
- * @param {string} tab_id
- * @returns {Object}
- */
-const getTablatureById = async (tab_id) => {
-  const response = await fetch(`${BASE_URL}/tablature/${tab_id}`, {
-    method: "GET",
-  });
-  return response.json();
-};
-
-
 export {
   create,
   update,
-  deleteTab as delete,
-  getTablatureById  
+  deleteTab,
 };
