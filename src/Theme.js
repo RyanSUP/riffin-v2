@@ -75,7 +75,7 @@ const darkTheme = createTheme({
       fontWeight: 400,
       lineHeight: "120%",
       textAlign: "left",
-      whiteSpace: "pre-line",
+      whiteSpace: "pre-wrap",
       [`@media screen and (max-width: 1200px)`]: {
         fontSize: "14px",
       },
@@ -243,7 +243,7 @@ const theme = createTheme({
       fontStyle: "normal",
       fontWeight: 400,
       lineHeight: "120%",
-      whiteSpace: "pre-line",
+      whiteSpace: "pre-wrap",
       textAlign: "left",
       [`@media screen and (max-width: 1200px)`]: {
         fontSize: "14px",
