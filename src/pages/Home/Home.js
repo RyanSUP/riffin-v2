@@ -12,11 +12,14 @@ import CollectionButton from './components/Sidebar/components/CollectionButton/C
 import CreateGuitarTabButton from './components/Sidebar/components/CreateGuitarTabButton/CreateGuitarTabButton';
 import CreateBassTabButton from './components/Sidebar/components/CreateBassTabButton/CreateBassTabButton';
 import ContentLayout from 'containers/ContentLayout/ContentLayout';
+import { UserContext } from 'containers/CognitoUserProvider/CognitoUserProvider';
+import { useContext } from 'react';
 // MUI
-import { Stack, useTheme } from '@mui/material';
+import { Divider, Stack, Typography, useTheme } from '@mui/material';
 import { Box } from "@mui/material";
 import ChangePasswordForm from './components/LoginSignupForm/components/ChangePasswordForm.js/ChangePasswordForm';
 import Donate from './components/Donate/Donate';
+import DonateMobile from './components/Donate/DonateMobile';
 
 const header = {
   width: "100%",
@@ -61,7 +64,7 @@ const sidebarStyle = {
 const Home = () => {
 
   const theme = useTheme();
-
+  const { user } = useContext(UserContext)
   const left = {
     minWidth: "200px",
     [theme.breakpoints.down('md')]: {
@@ -120,7 +123,12 @@ const Home = () => {
           
           {/* Center */}
           <Box sx={{...middle, ...containerDefaults, ...filterContainer}}>
-            <TagBar />
+            {user
+            ? <TagBar />
+            : <Divider textAlign='left'>
+                <Typography variant="h2">A tablature sketchpad</Typography>
+              </Divider>
+            }
           </Box>
 
           {/* right */}
@@ -189,6 +197,7 @@ const Home = () => {
           }/>
           <Route path="*" element={<Navigate to="/new/guitar" replace />} />
         </Routes>
+        <DonateMobile />
       </Box>
     </Box>
   );

@@ -6,7 +6,7 @@ import { UserContext } from "containers/CognitoUserProvider/CognitoUserProvider"
 import AddCircleIcon from "@mui/icons-material/AddCircle";
 import Button from "@mui/material/Button";
 
-const CreateGuitarTabButton = () => {
+const CreateGuitarTabButton = (props) => {
   const [variant, setVariant] = useState("text");
   const navigate = useNavigate();
   const location = useLocation();
@@ -37,6 +37,7 @@ const CreateGuitarTabButton = () => {
         my: 0.5,
         px: 1.5,
       }}
+      disabled={props.disabled}
       disableElevation
       variant={variant}
       size="large"
