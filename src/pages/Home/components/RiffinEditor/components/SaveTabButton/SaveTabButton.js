@@ -41,7 +41,7 @@ const SaveTabButton = (props) => {
      * Sends a request to the backend to update the tablature and displays a snackbar when a response is received.
      */
     const updateExistingTablature = () => {
-      tablatureServices.update(editor.tablature, idToken)
+      tablatureServices.update(editor.tablature, idToken, user.username)
       .then((res) => {
         enqueueSnackbar("Tab saved!", {variant: "success"});
         setWaitingForResponse(false);
