@@ -2,8 +2,14 @@ import { Box, Typography } from "@mui/material";
 import ReadonlyTablature from "components/ReadonlyTablature/ReadonlyTablature";
 
 const spacerStyle = {
-  my: 1
-}
+  my: 1,
+};
+
+const notesStyle = {
+  fontFamily: "monospace",
+  fontSize: "16px",
+  fontWeight: 400,
+};
 
 const BlockContent = (props) => {
   return (
@@ -11,18 +17,18 @@ const BlockContent = (props) => {
       {props.blocks?.map((block, i) => (
         <Box key={i}>
           <Box sx={spacerStyle}>
-            <Typography>{block.label}</Typography>
+            <Typography sx={notesStyle}>{block.label}</Typography>
           </Box>
           <Box sx={spacerStyle}>
-            <ReadonlyTablature 
-              numberOfStrings={props.numberOfStrings} 
-              blockData={block} 
+            <ReadonlyTablature
+              numberOfStrings={props.numberOfStrings}
+              blockData={block}
             />
           </Box>
         </Box>
       ))}
     </>
   );
-}
- 
+};
+
 export default BlockContent;
