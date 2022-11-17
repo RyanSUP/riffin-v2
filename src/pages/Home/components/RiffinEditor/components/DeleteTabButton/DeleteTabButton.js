@@ -39,7 +39,7 @@ const DeleteTabButton = (props) => {
    */
   const dispatchDeleteRequestToBackend = () => {
     const idToken = getIdTokenFromUser(user);
-    return tablatureServices.delete(editor.tablature._id, idToken)
+    return tablatureServices.deleteTab(editor.tablature._id, idToken, user.username)
     .then((res) => {
       enqueueSnackbar(`Deleted ${editor.tablature.name}!`, { variant: "success" });
     })
