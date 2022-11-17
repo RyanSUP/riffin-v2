@@ -22,8 +22,7 @@ const darkTheme = createTheme({
       dark: "#640006",
     },
   },
-  components: {
-  },
+  components: {},
   typography: {
     // Main Header
     logo: {
@@ -34,7 +33,7 @@ const darkTheme = createTheme({
       color: "#88C0D0",
       margin: "0",
     },
-    h1: { 
+    h1: {
       fontFamily: "Montserrat",
       fontWeight: 800,
       fontSize: "64px",
@@ -75,8 +74,8 @@ const darkTheme = createTheme({
       fontStyle: "normal",
       fontWeight: 400,
       lineHeight: "120%",
-      letterSpacing: "0.15px",
       textAlign: "left",
+      whiteSpace: "pre-wrap",
       [`@media screen and (max-width: 1200px)`]: {
         fontSize: "14px",
       },
@@ -85,7 +84,6 @@ const darkTheme = createTheme({
       fontFamily: "Montserrat",
       fontSize: "14px",
       textTransform: "uppercase",
-      letterSpacing: "0.15px",
       lineHeight: "143%",
       [`@media screen and (max-width: 1200px)`]: {
         fontSize: "12px",
@@ -241,11 +239,11 @@ const theme = createTheme({
     },
     body1: {
       fontFamily: "Montserrat",
-      fontSize: "16px",
+      fontSize: "14px",
       fontStyle: "normal",
       fontWeight: 400,
       lineHeight: "120%",
-      letterSpacing: "0.15px",
+      whiteSpace: "pre-wrap",
       textAlign: "left",
       [`@media screen and (max-width: 1200px)`]: {
         fontSize: "14px",
@@ -255,7 +253,7 @@ const theme = createTheme({
       fontFamily: "Montserrat",
       fontSize: "14px",
       textTransform: "uppercase",
-      letterSpacing: "0.15px",
+      // letterSpacing: "0.15px",
       lineHeight: "143%",
       [`@media screen and (max-width: 1200px)`]: {
         fontSize: "12px",
