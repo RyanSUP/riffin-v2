@@ -2,7 +2,7 @@
 import Logo from './components/Logo/Logo';
 import HeaderLinks from './components/HeaderLinks/HeaderLinks';
 import TagBar from './components/TagBar/TagBar';
-import { Route, Routes } from "react-router-dom";
+import { Navigate, Route, Routes } from "react-router-dom";
 import ProfileContent from "./components/ProfileContent/ProfileContent";
 import DemoContent from "./components/ProfileContent/DemoContent";
 import LoginSignupForm from "./components/LoginSignupForm/LoginSignupForm";
@@ -151,9 +151,9 @@ const Home = () => {
           </Stack>
           <Donate />
         </Box>
-
         <Routes>
           {/* // TODO Refactor this to /auth => /auth/login => /auth/signup */}
+          <Route path="/" element={<Navigate to={`/demo`} />} />
           <Route path="/login" element={
             <ContentLayout>
               <LoginSignupForm />
