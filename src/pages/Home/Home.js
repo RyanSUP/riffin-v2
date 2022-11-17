@@ -20,6 +20,7 @@ import { Box } from "@mui/material";
 import ChangePasswordForm from './components/LoginSignupForm/components/ChangePasswordForm.js/ChangePasswordForm';
 import Donate from './components/Donate/Donate';
 import DonateMobile from './components/Donate/DonateMobile';
+import PageNotFound from 'pages/PageNotFound/PageNotFound';
 
 const header = {
   width: "100%",
@@ -195,7 +196,7 @@ const Home = () => {
               </ContentLayout>
             </RiffinProvider>
           }/>
-          <Route path="*" element={<Navigate to="/new/guitar" replace />} />
+          <Route path="*" element={<PageNotFound />} />
         </Routes>
         <DonateMobile />
       </Box>
