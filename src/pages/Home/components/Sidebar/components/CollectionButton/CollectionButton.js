@@ -13,7 +13,7 @@ const CollectionButton = () => {
   const { user } = useContext(UserContext);
 
   const handleClick = () => {
-    user ? navigate(`/profile/${user?.username}`) : navigate("/login");
+    user ? navigate(`/profile/${user?.username}`) : navigate("/demo");
   };
 
   useEffect(() => {

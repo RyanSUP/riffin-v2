@@ -4,11 +4,11 @@ import { useNavigate } from "react-router-dom";
 // Components
 import Button from "@mui/material/Button";
 
-const LoginButton = () => {
+const LoginButton = (props) => {
   const navigate = useNavigate();
   return (
     <Button variant="contained" onClick={() => navigate("/login")}>
-      Login
+      {props.altLabel || "Login"}
     </Button>
   );
 };

@@ -2,8 +2,9 @@
 import Logo from './components/Logo/Logo';
 import HeaderLinks from './components/HeaderLinks/HeaderLinks';
 import TagBar from './components/TagBar/TagBar';
-import { Route, Routes, Navigate } from "react-router-dom";
+import { Route, Routes } from "react-router-dom";
 import ProfileContent from "./components/ProfileContent/ProfileContent";
+import DemoContent from "./components/ProfileContent/DemoContent";
 import LoginSignupForm from "./components/LoginSignupForm/LoginSignupForm";
 import { RiffinProvider } from './components/RiffinEditor/RiffinProvider';
 import RiffinEditor from './components/RiffinEditor/RiffinEditor';
@@ -196,6 +197,12 @@ const Home = () => {
               </ContentLayout>
             </RiffinProvider>
           }/>
+          <Route path="/demo" element={
+            <ContentLayout>
+              <DemoContent />
+              <></>
+            </ContentLayout>
+          } />
           <Route path="*" element={<PageNotFound />} />
         </Routes>
         <DonateMobile />
