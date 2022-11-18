@@ -2,7 +2,7 @@
 import Logo from './components/Logo/Logo';
 import HeaderLinks from './components/HeaderLinks/HeaderLinks';
 import TagBar from './components/TagBar/TagBar';
-import { Navigate, Route, Routes } from "react-router-dom";
+import { Navigate, Route, Routes, useLocation } from "react-router-dom";
 import ProfileContent from "./components/ProfileContent/ProfileContent";
 import DemoContent from "./components/ProfileContent/DemoContent";
 import LoginSignupForm from "./components/LoginSignupForm/LoginSignupForm";
@@ -64,7 +64,7 @@ const sidebarStyle = {
 };
 
 const Home = () => {
-
+  const location = useLocation()
   const theme = useTheme();
   const { user } = useContext(UserContext)
   const left = {
@@ -112,7 +112,7 @@ const Home = () => {
       paddingLeft: 0,
     }
   };
-
+  console.log(location)
   return (
     <Box sx={{paddingTop: '80px'}}>
       {/* Header */}
@@ -125,11 +125,15 @@ const Home = () => {
           
           {/* Center */}
           <Box sx={{...middle, ...containerDefaults, ...filterContainer}}>
-            {user
-            ? <TagBar />
-            : <Divider textAlign='left'>
-                <Typography variant="h2">A tablature sketchpad</Typography>
-              </Divider>
+            {!user && (location.pathname === '/demo' || location.pathname === '/edit/demo')
+            ? 
+              <TagBar />
+            : 
+              <Box sx={{height: '56px', display: 'flex', alignItems: 'center'}}>
+                <Divider textAlign='left' sx={{width: '100%'}}>
+                  <Typography variant="h2">A tablature sketchpad</Typography>
+                </Divider>
+              </Box>
             }
           </Box>
 
