@@ -21,7 +21,7 @@ const NoteTextarea = (props) => {
     color: "white",
     fontSize: "16px",
     padding: 0,
-    whiteSpace: "pre-line",
+    whiteSpace: "pre-wrap",
   };
 
   /**

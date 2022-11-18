@@ -2,8 +2,9 @@
 import Logo from './components/Logo/Logo';
 import HeaderLinks from './components/HeaderLinks/HeaderLinks';
 import TagBar from './components/TagBar/TagBar';
-import { Route, Routes, Navigate } from "react-router-dom";
+import { Navigate, Route, Routes, useLocation } from "react-router-dom";
 import ProfileContent from "./components/ProfileContent/ProfileContent";
+import DemoContent from "./components/ProfileContent/DemoContent";
 import LoginSignupForm from "./components/LoginSignupForm/LoginSignupForm";
 import { RiffinProvider } from './components/RiffinEditor/RiffinProvider';
 import RiffinEditor from './components/RiffinEditor/RiffinEditor';
@@ -20,6 +21,7 @@ import { Box } from "@mui/material";
 import ChangePasswordForm from './components/LoginSignupForm/components/ChangePasswordForm.js/ChangePasswordForm';
 import Donate from './components/Donate/Donate';
 import DonateMobile from './components/Donate/DonateMobile';
+import PageNotFound from 'pages/PageNotFound/PageNotFound';
 
 const header = {
   width: "100%",
@@ -62,7 +64,7 @@ const sidebarStyle = {
 };
 
 const Home = () => {
-
+  const location = useLocation()
   const theme = useTheme();
   const { user } = useContext(UserContext)
   const left = {
@@ -110,7 +112,7 @@ const Home = () => {
       paddingLeft: 0,
     }
   };
-
+  console.log(location)
   return (
     <Box sx={{paddingTop: '80px'}}>
       {/* Header */}
@@ -123,11 +125,15 @@ const Home = () => {
           
           {/* Center */}
           <Box sx={{...middle, ...containerDefaults, ...filterContainer}}>
-            {user
-            ? <TagBar />
-            : <Divider textAlign='left'>
-                <Typography variant="h2">A tablature sketchpad</Typography>
-              </Divider>
+            {!user && (location.pathname === '/demo' || location.pathname === '/edit/demo')
+            ? 
+              <TagBar />
+            : 
+              <Box sx={{height: '56px', display: 'flex', alignItems: 'center'}}>
+                <Divider textAlign='left' sx={{width: '100%'}}>
+                  <Typography variant="h2">A tablature sketchpad</Typography>
+                </Divider>
+              </Box>
             }
           </Box>
 
@@ -149,9 +155,9 @@ const Home = () => {
           </Stack>
           <Donate />
         </Box>
-
         <Routes>
           {/* // TODO Refactor this to /auth => /auth/login => /auth/signup */}
+          <Route path="/" element={<Navigate to={`/demo`} />} />
           <Route path="/login" element={
             <ContentLayout>
               <LoginSignupForm />
@@ -195,7 +201,13 @@ const Home = () => {
               </ContentLayout>
             </RiffinProvider>
           }/>
-          <Route path="*" element={<Navigate to="/new/guitar" replace />} />
+          <Route path="/demo" element={
+            <ContentLayout>
+              <DemoContent />
+              <></>
+            </ContentLayout>
+          } />
+          <Route path="*" element={<PageNotFound />} />
         </Routes>
         <DonateMobile />
       </Box>

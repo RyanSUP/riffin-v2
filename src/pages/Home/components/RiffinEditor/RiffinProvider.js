@@ -1,6 +1,6 @@
 // Components / hooks
 import { createContext, useReducer, useEffect, useState, useContext } from "react";
-import { useParams, useNavigationType } from "react-router-dom";
+import { useParams } from "react-router-dom";
 import { TablatureContext } from "containers/TablatureProvider/TablatureProvider";
 import LoadingPlaceholder from "containers/LoadingPlaceholder/LoadingPlaceholder";
 import { TagContext } from "containers/TagProvider/TagProvider";
@@ -8,6 +8,7 @@ import { useMediaQuery, useTheme } from "@mui/material";
 import { DndProvider } from 'react-dnd'
 import { HTML5Backend } from 'react-dnd-html5-backend'
 // Utilties
+import DemoTab from 'utils/DemoTab.json'
 import * as utils from "./Utilities";
 import update from "immutability-helper";
 import { UserContext } from "containers/CognitoUserProvider/CognitoUserProvider";
@@ -384,7 +385,16 @@ const RiffinProvider = (props) => {
    * Gets the tablature to edit when RiffinEditor is mounted via a /edit/:tabId route.
    */
   useEffect(() => {
-    if(tabId && getTabFromUser) {
+    if(tabId === "demo") {
+      const tablatureStringify = JSON.stringify(DemoTab);
+      const tablatureDeepCopy = JSON.parse(tablatureStringify);
+      const action = {
+        tablature: tablatureDeepCopy,
+        type: 'setTablature'
+      };
+      setTagsInSearchbar(DemoTab.tags);
+      dispatch(action);
+    } else if(tabId && getTabFromUser) {
       const tablature = getTabFromUser(tabId);
       if(tablature) {
         const tablatureStringify = JSON.stringify(tablature);

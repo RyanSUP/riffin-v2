@@ -4,7 +4,6 @@ import { UserContext } from "containers/CognitoUserProvider/CognitoUserProvider"
 // Services / utils
 import * as profileServices from "services/profileServices";
 import { getIdTokenFromUser } from "utils/userUtils";
-
 const TablatureContext = createContext({});
 
 /**

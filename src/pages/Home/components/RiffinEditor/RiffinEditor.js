@@ -8,6 +8,7 @@ import BlockContent from "components/Card/components/BlockContent/BlockContent";
 import SaveTabButton from "./components/SaveTabButton/SaveTabButton";
 import DeleteTabButton from "./components/DeleteTabButton/DeleteTabButton";
 import ModeSwitch from "./components/ModeSwitch/ModeSwitch";
+import { UserContext } from "containers/CognitoUserProvider/CognitoUserProvider";
 // MUI
 import { Box, Grid } from "@mui/material";
 
@@ -17,6 +18,7 @@ import { Box, Grid } from "@mui/material";
  */
 const RiffinEditor = () => {
   const { editor } = useContext(RiffinEditorDispatch);
+  const { user } = useContext(UserContext);
   return (
     <Box sx={{mb: 12}}>
       <Grid container rowSpacing={2} columnSpacing={4} sx={{alignItems: "end"}}>
@@ -24,10 +26,10 @@ const RiffinEditor = () => {
           <TitleInput />
         </Grid>
         <Grid item>
-          <SaveTabButton />
+          <SaveTabButton disabled={!user} />
         </Grid>
         <Grid item>
-          <DeleteTabButton disabled={!editor.tablature._id} />
+          <DeleteTabButton disabled={!editor.tablature._id || !user} />
         </Grid>
         <Grid item>
           <ModeSwitch />

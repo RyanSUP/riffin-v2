@@ -64,7 +64,7 @@ const SaveTabButton = (props) => {
   };
 
   return (
-    <Button disabled={waitingForResponse} startIcon={<SaveIcon />} variant="outlined" onClick={handleSave}>
+    <Button disabled={waitingForResponse || props.disabled} startIcon={<SaveIcon />} variant="outlined" onClick={handleSave}>
       SAVE
     </Button>
   );
