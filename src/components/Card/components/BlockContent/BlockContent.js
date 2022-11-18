@@ -9,6 +9,7 @@ const notesStyle = {
   fontFamily: "monospace",
   fontSize: "16px",
   fontWeight: 400,
+  whiteSpace: "pre-wrap"
 };
 
 const BlockContent = (props) => {
