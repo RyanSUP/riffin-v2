@@ -1,14 +1,12 @@
-import { Button, Typography } from "@mui/material";
-import FeedbackIcon from '@mui/icons-material/Feedback';
+import { Button, Typography, Stack } from "@mui/material";
 const ReachOut = () => {
   return (
-    <>
-      <Typography variant="h2">Reach out! <FeedbackIcon /></Typography>
-      <Typography variant="p">Submit feedback through our contact form</Typography>
-      <a href="https://airtable.com/shreuEqEiILbGu7NN" target="_blank" rel="noreferrer" style={{textDecoration: 'none', width: '100%'}}>
+    <Stack spacing={2}>
+      <Typography variant="p">Feature ideas? Questions? Found a bug?</Typography>
+      <a href="https://airtable.com/shreuEqEiILbGu7NN" target="_blank" rel="noreferrer" style={{textDecoration: 'none', width: '100%', maxWidth: '250px',margin: '25px auto'}}>
         <Button variant="outlined" style={{width: '100%'}}>Contact</Button>
       </a>
-    </>
+    </Stack>
   );
 }
  
