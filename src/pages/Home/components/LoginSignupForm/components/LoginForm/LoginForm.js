@@ -21,7 +21,6 @@ const LoginForm = () => {
     authenticate(data["Email"], data["Password"])
       .then((user) => {
         setWaitingForResponse(false);
-        console.log("Logged in! ", user);
       })
       .catch((error) => {
         setWaitingForResponse(false);

@@ -21,14 +21,11 @@ const ChangePasswordForm = () => {
     setErrorMessage(null);
     setWaitingForResponse(true);
     if(formData['New password'] !== formData['Confirm new password']) {
-      console.log('Error!');
       setWaitingForResponse(false);
       setErrorMessage("* New password and Confirm new password must match, dude!");
     } else {
-      console.log('formData', formData);
       changePassword(formData['Old password'], formData['New password'])
       .then(() => {
-        console.log('resolved to true')
         enqueueSnackbar(`Password changed!}!`, { variant: "success" });
         setWaitingForResponse(false);
         navToProfile();

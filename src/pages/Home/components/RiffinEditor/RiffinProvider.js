@@ -328,8 +328,6 @@ function riffinReducer(state, action) {
         ],
       });
       state.tablature.blocks = blocks
-      console.log('dragIndex', action.dragIndex)
-      console.log('hoverIndex', action.hoverIndex)
       const tablature = {...state.tablature}
       const newSelectedBlock = {
         inputRef: null,
@@ -337,7 +335,6 @@ function riffinReducer(state, action) {
         block: blocks[action.hoverIndex]
       } 
 
-      console.log('newSelectedBlock', newSelectedBlock)
       return {
         selectedBlock: newSelectedBlock,
         cursor: state.cursor,

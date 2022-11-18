@@ -112,7 +112,6 @@ const Home = () => {
       paddingLeft: 0,
     }
   };
-  console.log(location)
   return (
     <Box sx={{paddingTop: '80px'}}>
       {/* Header */}

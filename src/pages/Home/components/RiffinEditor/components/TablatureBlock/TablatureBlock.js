@@ -52,20 +52,12 @@ const TablatureBlock = (props) => {
       if (dragIndex > hoverIndex && hoverClientY > hoverMiddleY) {
         return
       }
-      // props.moveCard(dragIndex, hoverIndex)
-      // let blocks = [...editor.tablature.blocks]
-      // blocks = update(blocks, {
-      //   $splice: [
-      //     [dragIndex, 1],
-      //     [hoverIndex, 0, blocks[dragIndex]],
-      //   ],
-      // })
+
       const action = {
         type: "order",
         dragIndex,
         hoverIndex,
       }
-      // console.log(blocks.map((b) => b.val).join(""))
       dispatch(action);
       item.index = hoverIndex
     },
