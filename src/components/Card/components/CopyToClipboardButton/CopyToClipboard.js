@@ -2,7 +2,7 @@
 import { useSnackbar } from "notistack";
 // MUI
 import ContentCopyIcon from '@mui/icons-material/ContentCopy';
-import { Button, Tooltip } from '@mui/material';
+import { Button, IconButton, Tooltip, useMediaQuery, useTheme } from '@mui/material';
 
 /**
  * This button writes the tablature document to the clipboard as a string and displays a snackbar to indicate a succesful copy.
@@ -12,7 +12,9 @@ import { Button, Tooltip } from '@mui/material';
 
 const CopyToClipboard = (props) => {
   const { enqueueSnackbar } = useSnackbar();
-
+  const theme = useTheme();
+  const aboveMediumScreen = useMediaQuery(theme.breakpoints.up("md"));
+  
   /**
    * This function grabs all relevant information from the tablature and converts it to a string.
    * @returns {String}
@@ -39,11 +41,23 @@ const CopyToClipboard = (props) => {
   }
 
   return (
-    <Tooltip title="Copy to clipboard">
-      <Button onClick={handleClick} startIcon={<ContentCopyIcon />} variant="outlined" size="small">
-        Copy
-      </Button>
-    </Tooltip>
+
+        <>
+        {aboveMediumScreen ?
+          <Tooltip title="Copy to clipboard">
+            <Button onClick={handleClick} startIcon={<ContentCopyIcon />} variant="outlined" size="small">
+              Copy
+            </Button>
+          </Tooltip>
+        :
+          <IconButton
+            disabled={props.disabled}
+            onClick={props.onClick}
+          >
+            <ContentCopyIcon />
+          </IconButton>
+        }
+      </>
   );
 }
  
