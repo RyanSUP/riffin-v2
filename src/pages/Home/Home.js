@@ -124,7 +124,7 @@ const Home = () => {
           
           {/* Center */}
           <Box sx={{...middle, ...containerDefaults, ...filterContainer}}>
-            {!user && (location.pathname === '/demo' || location.pathname === '/edit/demo')
+            {user || (!user && (location.pathname === '/demo' || location.pathname === '/edit/demo'))
             ? 
               <TagBar />
             : 
