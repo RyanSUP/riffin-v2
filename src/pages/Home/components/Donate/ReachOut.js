@@ -1,10 +1,11 @@
-import { Button, Typography, Stack } from "@mui/material";
+import { Button, Stack } from "@mui/material";
 const ReachOut = () => {
   return (
-    <Stack spacing={2}>
-      <Typography variant="p">Feature ideas? Questions? Found a bug?</Typography>
-      <a href="https://airtable.com/shreuEqEiILbGu7NN" target="_blank" rel="noreferrer" style={{textDecoration: 'none', width: '100%', maxWidth: '250px',margin: '25px auto'}}>
-        <Button variant="outlined" style={{width: '100%'}}>Contact</Button>
+    <Stack>
+      <a href="https://airtable.com/shreuEqEiILbGu7NN" target="_blank" rel="noreferrer" style={{textDecoration: 'none', width: '100%', maxWidth: '250px',margin: '0px auto'}}>
+        <Button variant="outlined" size="large" style={{width: '100%'}}>
+          contact
+        </Button>
       </a>
     </Stack>
   );

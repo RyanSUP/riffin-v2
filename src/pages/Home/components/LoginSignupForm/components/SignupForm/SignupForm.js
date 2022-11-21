@@ -25,7 +25,6 @@ const SignupForm = () => {
       setWaitingForResponse(true);
       UserPool.signUp(formData["Email"], formData["Password"], [], null, (error, data) => {
         if (error) {
-          console.dir(error);
           if(error.code === 'UsernameExistsException') {
             setErrorMessage('* an account with that email already exists, dude!')
           } else if(error.code === "InvalidPasswordException") {
