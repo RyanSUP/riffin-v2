@@ -65,7 +65,6 @@ const TablatureBlock = (props) => {
         dragIndex,
         hoverIndex,
       }
-      // console.log(blocks.map((b) => b.val).join(""))
       dispatch(action);
       item.index = hoverIndex
     },

@@ -9,7 +9,6 @@ const ProtectedEditRoute = (props) => {
   const navigate = useNavigate();
 
   useEffect(() => {
-    console.log("ProcRoute useEffect triggered");
     if (tabId && getTabFromUser && getTabFromUser(tabId) === undefined) {
       navigate("/new");
     }

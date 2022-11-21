@@ -308,7 +308,6 @@ const InputTextarea = (props) => {
   const handleChange = (event) => {
     event.preventDefault();
     const key = event.nativeEvent.data || event.nativeEvent.inputType;
-    console.log(key)
     const dispatchType = utils.getDispatchTypeOfPressedKey(key);
     if(dispatchType === "updateCursorPosition") {
       handleUpdateCursorPosition(event.target.selectionStart);

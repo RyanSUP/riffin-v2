@@ -15,7 +15,6 @@ const UserMenu = (props) => {
 
   // Handles opening the user avatar menu
   const handleOpenUserMenu = (event) => {
-    console.log(event.currentTarget)
     setAnchorElUser(event.currentTarget);
   };
 

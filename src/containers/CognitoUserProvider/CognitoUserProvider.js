@@ -73,11 +73,9 @@ const CognitoUserProvider = (props) => {
             cogUser.changePassword(PreviousPassword, ProposedPassword, callback);
           },
           onFailure: (error) => {
-            console.log(error);
             reject(error);
           },
           newPasswordRequired: (data) => {
-            console.log(user);
             resolve(true)
           },
         });
@@ -119,16 +117,8 @@ const CognitoUserProvider = (props) => {
               resolve(user);
               setUserIsLoading(false)
               navigate(`/profile/${user.username}`);
-              console.log(
-                "🚀 ~ file: SignupForm.js ~ line 32 ~ UserPool.signUp ~ res",
-                res
-              );
             })
             .catch((error) => {
-              console.log(
-                "🚀 ~ file: SignupForm.js ~ line 36 ~ UserPool.signUp ~ error",
-                error
-              );
             });
           } else {
             profileServices.getProfileOfLoggedInUser(user.username, idToken)

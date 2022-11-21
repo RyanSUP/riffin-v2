@@ -53,7 +53,6 @@ const DeleteTabButton = (props) => {
    */
   const handleDelete = async () => {
     if(editor.tablature.owner.user === user.username) {
-      console.log('delete if statement is true');
       deleteFromUsersTablature(editor.tablature);
       dispatchDeleteRequestToBackend();
     }

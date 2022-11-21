@@ -20,14 +20,11 @@ const SignupForm = () => {
   const onSubmit = (formData) => {
     setErrorMessage(null)
     if(formData['Password'] !== formData['Confirm Password']) {
-      console.log('Error!')
       setErrorMessage("* Password and Confirm Password must match, dude!")
     } else {
-      console.log(formData)
       setWaitingForResponse(true);
       UserPool.signUp(formData["Email"], formData["Password"], [], null, (error, data) => {
         if (error) {
-          console.dir(error);
           if(error.code === 'UsernameExistsException') {
             setErrorMessage('* an account with that email already exists, dude!')
           } else if(error.code === "InvalidPasswordException") {
@@ -39,7 +36,6 @@ const SignupForm = () => {
         } else {
           authenticate(formData["Email"], formData["Password"], "new user")
           .then((user) => {
-            console.log("Successfully authenticated ", user)
             setWaitingForResponse(false);
           })
           .catch((error) => {
