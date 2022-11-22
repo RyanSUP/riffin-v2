@@ -200,6 +200,7 @@ const handleDeleteBlock = (state, action) => {
  */
 const handleDuplicateBlock = (state) => {
   const newBlock = { ...state.selectedBlock.block, tempKey: Date() + Math.random() };
+  if(newBlock._id) delete newBlock._id;
   state.tablature.blocks.push(newBlock);
   return {
     tablature: state.tablature,
