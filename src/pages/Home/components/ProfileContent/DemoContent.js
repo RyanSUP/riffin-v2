@@ -4,13 +4,13 @@ import { TagContext } from "containers/TagProvider/TagProvider";
 import Card from "components/Card/Card";
 import NoTablatureMessage from "./components/NoTablatureMessage";
 import NoMatchesMessage from "./components/NoMatchesMessage";
-import DemoTab from "utils/DemoTab.json"
+import {demoTabs} from "utils/DemoTabs.js"
 import { UserContext } from "containers/CognitoUserProvider/CognitoUserProvider";
 import { useNavigate } from "react-router-dom";
 
 const ProfileContent = () => {
   const { tagsInSearchbar } = useContext(TagContext);
-  const demoTablature = useMemo(()=> [DemoTab], []);
+  const demoTablature = useMemo(()=> demoTabs, []);
   const [tablatureOnPage, setTablatureOnPage] = useState(demoTablature);
   const { user } = useContext(UserContext)
 

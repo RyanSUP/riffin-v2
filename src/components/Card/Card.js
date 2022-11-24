@@ -5,7 +5,6 @@ import TagGroup from "./components/TagGroup/TagGroup";
 import DividerWrapper from "./components/DividerWrapper/DividerWrapper";
 import ExpandButton from "./components/ExpandButton/ExpandButton";
 import ButtonWrapper from "./components/ButtonWrapper/ButtonWrapper";
-import ReadonlyTablature from "components/ReadonlyTablature/ReadonlyTablature";
 import BlockContent from "./components/BlockContent/BlockContent";
 import { useMediaQuery, useTheme } from "@mui/material";
 // MUI
@@ -49,18 +48,11 @@ const Card = (props) => {
       </DividerWrapper>
       <ButtonWrapper onClick={toggleExpand} disabled={disableExpand}>
         <TagGroup tags={props.tabData.tags} />
-        {expanded 
-          ? 
-            <BlockContent 
-              blocks={props.tabData.blocks} 
-              numberOfStrings={props.tabData.numberOfStrings}
-            />
-          : 
-            <ReadonlyTablature 
-              blockData={props.tabData.blocks[0]} 
-              numberOfStrings={props.tabData.numberOfStrings}
-            />
-        }
+        <BlockContent 
+          expanded={expanded}
+          blocks={props.tabData.blocks} 
+          numberOfStrings={props.tabData.numberOfStrings}
+        />
       </ButtonWrapper>
     </Box>
   );

@@ -13,21 +13,26 @@ const notesStyle = {
 };
 
 const BlockContent = (props) => {
+
+  const renderBlock = (block) => (
+    <Box key={block.tempKey || block._id}>
+      <Box sx={spacerStyle}>
+        <Typography sx={notesStyle}>{block.label}</Typography>
+      </Box>
+      <Box sx={spacerStyle}>
+        <ReadonlyTablature
+          numberOfStrings={props.numberOfStrings}
+          blockData={block}
+        />
+      </Box>
+    </Box>
+  )
+
+  const renderAllBlocks = () => props.blocks?.map((block, i) => renderBlock(block, i))
+
   return (
     <>
-      {props.blocks?.map((block, i) => (
-        <Box key={i}>
-          <Box sx={spacerStyle}>
-            <Typography sx={notesStyle}>{block.label}</Typography>
-          </Box>
-          <Box sx={spacerStyle}>
-            <ReadonlyTablature
-              numberOfStrings={props.numberOfStrings}
-              blockData={block}
-            />
-          </Box>
-        </Box>
-      ))}
+      {props.expanded ? renderAllBlocks() : renderBlock(props.blocks[0])}
     </>
   );
 };
