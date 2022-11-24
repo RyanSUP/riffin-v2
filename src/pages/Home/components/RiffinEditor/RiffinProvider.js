@@ -8,7 +8,7 @@ import { useMediaQuery, useTheme } from "@mui/material";
 import { DndProvider } from 'react-dnd'
 import { HTML5Backend } from 'react-dnd-html5-backend'
 // Utilties
-import DemoTab from 'utils/DemoTab.json'
+import {demoTabs} from 'utils/DemoTabs.js'
 import * as utils from "./Utilities";
 import update from "immutability-helper";
 import { UserContext } from "containers/CognitoUserProvider/CognitoUserProvider";
@@ -383,15 +383,24 @@ const RiffinProvider = (props) => {
    * Gets the tablature to edit when RiffinEditor is mounted via a /edit/:tabId route.
    */
   useEffect(() => {
-    if(tabId === "demo") {
-      const tablatureStringify = JSON.stringify(DemoTab);
+    if(tabId === "demo_blues_riff") {
+      const tablatureStringify = JSON.stringify(demoTabs[0]);
       const tablatureDeepCopy = JSON.parse(tablatureStringify);
       const action = {
         tablature: tablatureDeepCopy,
         type: 'setTablature'
       };
-      setTagsInSearchbar(DemoTab.tags);
+      setTagsInSearchbar(demoTabs[0].tags);
       dispatch(action);
+    } else if(tabId === "riffin_sketchpad_tutorial") {
+        const tablatureStringify = JSON.stringify(demoTabs[1]);
+        const tablatureDeepCopy = JSON.parse(tablatureStringify);
+        const action = {
+          tablature: tablatureDeepCopy,
+          type: 'setTablature'
+        };
+        setTagsInSearchbar(demoTabs[1].tags);
+        dispatch(action);
     } else if(tabId && getTabFromUser) {
       const tablature = getTabFromUser(tabId);
       if(tablature) {
