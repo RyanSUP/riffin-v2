@@ -86,9 +86,7 @@ const TagBar = () => {
           }
         });
       });
-      // Remove options from the default suggestions if they're present in the list of users tags.
-      const filteredRiffinOptions = riffinOptions.filter((option) => !tagOptions.map(tag => tag.value).includes(option.value));
-      setOptions([...tagOptions, ...nameOptions, ...filteredRiffinOptions])
+      setOptions([...tagOptions, ...nameOptions])
     }
   }, [usersTablature, tagsInSearchbar]);
 
