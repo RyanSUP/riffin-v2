@@ -36,6 +36,7 @@ const SaveTabButton = (props) => {
     const idToken = getIdTokenFromUser(user);
     editor.tablature.tags = tagsInSearchbar;
     editor.tablature.owner = user.username;
+    enqueueSnackbar("saving...!");
 
     /**
      * Sends a request to the backend to update the tablature and displays a snackbar when a response is received.
