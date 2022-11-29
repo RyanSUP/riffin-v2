@@ -102,7 +102,7 @@ export const demoTabs = [
           }
       ],
       "tags": [
-          "Practice"
+          "practice"
       ]
   }
 ]
