@@ -1,70 +1,69 @@
-# Getting Started with Create React App
+# RIFFIN :metal:
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+### By guitarists, for guitarists.
 
-## Available Scripts
+### Step aside notepad.exe. Riffin uses a no-nonsense, custom-built editor that takes the hassle out of writing guitar tablature. 
 
-In the project directory, you can run:
+---
 
-### `npm start`
+![Riffin Logo](https://i.imgur.com/Uw4krZs.jpg)
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+---
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+## :arrow_down: Use the App Below :arrow_down:
 
-### `npm test`
+### ➡ [RIFFIN.IO](https://www.riffin.io/)
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+---
 
-### `npm run build`
+![Imgur](https://i.imgur.com/dpDtRNB.gif)
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+---
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+## ⚙ Technologies Used
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+![React](https://img.shields.io/badge/-React-white?style=for-the-badge&logo=React&logoColor=blue)
+![JavaScript](https://img.shields.io/badge/-JavaScript-white?style=for-the-badge&logo=javascript&logoColor=black)
+![HTML5](https://img.shields.io/badge/-HTML5-white?style=for-the-badge&logo=html5)
+![Node](https://img.shields.io/badge/Node-white?style=for-the-badge&logo=node.js)
 
-### `npm run eject`
+![AWS Lambda](https://img.shields.io/badge/-AWS_Lambda-white?style=for-the-badge&logo=awslambda)
+![AWS Cognito](https://img.shields.io/badge/-AWS_Cognito-white?style=for-the-badge&logo=amazon-aws&logoColor=black)
+![AWS API Gateway](https://img.shields.io/badge/-AWS_API_Gateway-white?style=for-the-badge&logo=amazon%20api%20gateway)
 
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
+![MongoDB](https://img.shields.io/badge/-MongoDB-white?style=for-the-badge&logo=MongoDB)
+![Postman](https://img.shields.io/badge/Postman-white?style=for-the-badge&logo=postman)
+![ReactRouter](https://img.shields.io/badge/-React_Router-white?style=for-the-badge&for-the-badge&logo=react-router)
 
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+![Jest](https://img.shields.io/badge/Jest-white?style=for-the-badge&logo=jest&logoColor=black)
+![Git](https://img.shields.io/badge/-Git-white?style=for-the-badge&logo=git)
+![GitHub](https://img.shields.io/badge/-GitHub-white?style=for-the-badge&logo=github&logoColor=black)
+![Airtable](https://img.shields.io/badge/Airtable-white?style=for-the-badge&logo=Airtable&logoColor=18BFFF)
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
+![Material UI](https://img.shields.io/badge/-Material_UI-white?style=for-the-badge&logo=mui)
+![CSS3](https://img.shields.io/badge/-CSS3-white?style=for-the-badge&logo=css3&logoColor=1572B6)
 
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
+---
 
-## Learn More
+## ⚙ Created By
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+### Project Lead
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+- [Ryan Morici](https://github.com/RyanSUP)
 
-### Code Splitting
+### Contributors
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
+- [Dave Collis](https://github.com/dcollis92)
+- [Tim Crisp](https://github.com/timcrisp94)
 
-### Analyzing the Bundle Size
+---
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
+## ⚙ Credits
 
-### Making a Progressive Web App
+- [Attributions](https://github.com/ryanSUP/riffin-v2/../../../../attributions.md) can be found here
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
+---
 
-### Advanced Configuration
+## ⚙ Ice Box
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+- [ ] Light/Dark Mode
