@@ -1,26 +1,19 @@
-# RIFFIN :metal:
+![Riffin Logo](https://i.imgur.com/vZURUgf.png)
 
-### By guitarists, for guitarists.
+# Try it now for free @ [riffin.io](https://www.riffin.io/) 
 
-### Step aside notepad.exe. Riffin uses a no-nonsense, custom-built editor that takes the hassle out of writing guitar tablature. 
+Step aside notepad.exe. Riffin uses a no-nonsense, custom-built editor that takes the hassle out of writing and organizing guitar tablature.
 
----
+__How?__ By combining a text editor with a music staff. Click anywhere (yes anywhere) on the staff to write tablature. Click above the staff to write notes.
 
-![Riffin Logo](https://i.imgur.com/Uw4krZs.jpg)
+__Why?__ Some tools are too simple, some are too robust. Riffin aims to thread that needle so our users can focus on capturing the music.
 
----
-
-## :arrow_down: Use the App Below :arrow_down:
-
-### ➡ [RIFFIN.IO](https://www.riffin.io/)
-
----
 
 ![Imgur](https://i.imgur.com/dpDtRNB.gif)
 
 ---
 
-## ⚙ Technologies Used
+## 📡 Technologies Used
 
 ![React](https://img.shields.io/badge/-React-white?style=for-the-badge&logo=React&logoColor=blue)
 ![JavaScript](https://img.shields.io/badge/-JavaScript-white?style=for-the-badge&logo=javascript&logoColor=black)
@@ -45,7 +38,7 @@
 
 ---
 
-## ⚙ Created By
+## 👨‍🔬 Created By
 
 ### Project Lead
 
