@@ -11,8 +11,6 @@ __Why?__ Some tools are too simple, some are too robust. Riffin aims to thread t
 
 ![Imgur](https://i.imgur.com/dpDtRNB.gif)
 
----
-
 ## 📡 Technologies Used
 
 ![React](https://img.shields.io/badge/-React-white?style=for-the-badge&logo=React&logoColor=blue)
@@ -36,7 +34,6 @@ __Why?__ Some tools are too simple, some are too robust. Riffin aims to thread t
 ![Material UI](https://img.shields.io/badge/-Material_UI-white?style=for-the-badge&logo=mui)
 ![CSS3](https://img.shields.io/badge/-CSS3-white?style=for-the-badge&logo=css3&logoColor=1572B6)
 
----
 
 ## 👨‍🔬 Created By
 
@@ -49,13 +46,11 @@ __Why?__ Some tools are too simple, some are too robust. Riffin aims to thread t
 - [Dave Collis](https://github.com/dcollis92)
 - [Tim Crisp](https://github.com/timcrisp94)
 
----
 
 ## ⚙ Credits
 
 - [Attributions](https://github.com/ryanSUP/riffin-v2/../../../../attributions.md) can be found here
 
----
 
 ## ⚙ Ice Box
 
