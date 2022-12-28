@@ -47,7 +47,11 @@ __Why?__ Some tools are too simple, some are too robust. Riffin aims to thread t
 - [Tim Crisp](https://github.com/timcrisp94)
 
 
-## 🎬 Credits
+## 📦 Riffin uses the following packages...
 
-- [Attributions](https://github.com/ryanSUP/riffin-v2/../../../../attributions.md) can be found here
+- [React DnD](https://react-dnd.github.io/react-dnd/about) for intense drag and drop action!
+
+- [SimpleBar](https://www.npmjs.com/package/simplebar) makes the music staff scrollable on mobile devices!
+
+- [Notistack](https://notistack.com/) for stacking notifications!
 
