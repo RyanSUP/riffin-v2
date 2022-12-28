@@ -79,7 +79,7 @@ test('routes to the current users collection on click', async ()=> {
   expect(mockedNavigate).toHaveBeenCalledWith('/profile/JarJar_Binks');
 })
 
-test('routes to login on click when there is no user', async ()=> {
+test('routes to demo on click when there is no user', async ()=> {
   const component = (
     <BrowserRouter>
       <TagProvider>
@@ -91,5 +91,5 @@ test('routes to login on click when there is no user', async ()=> {
   render(component)
   const user = userEvent.setup()
   await user.click(screen.getByRole('button'))
-  expect(mockedNavigate).toHaveBeenCalledWith('/login');
+  expect(mockedNavigate).toHaveBeenCalledWith('/demo');
 })

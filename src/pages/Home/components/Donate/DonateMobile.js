@@ -26,7 +26,7 @@ const DonateMobile = () => {
             <Typography variant="h2">Ryan Morici</Typography>
           </Box>
         </a>
-        <Typography variant="p">with a little help from my friends</Typography>
+        <Typography variant="p">with help from my friends</Typography>
         <a href="https://www.linkedin.com/in/davidphilipcollis/" target="_blank" rel="noreferrer" style={{textDecoration: 'none', color: 'white'}}>
           <Box sx={{display: 'flex', justifyContent: 'center'}}>
             <LinkedInIcon />

@@ -6,7 +6,7 @@ test('has email, username, and password fields', () => {
   render(<SignupForm />, {wrapper: BrowserRouter})
   expect(screen.getByLabelText('Email')).toBeInTheDocument();
   expect(screen.getByLabelText('Password')).toBeInTheDocument();
-  expect(screen.getByLabelText('Username')).toBeInTheDocument();
+  expect(screen.getByLabelText('Confirm Password')).toBeInTheDocument();
 })
 
 // test('has "SIGNUP" button', () => {

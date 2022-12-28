@@ -50,9 +50,29 @@ const SignupForm = () => {
   return (
     <form onSubmit={handleSubmit(onSubmit)}>
       <Stack spacing={2}>
-        <TextField required type="email" variant="outlined" placeholder="Email" {...register("Email", {required: true})} />
-        <TextField required type="password" variant="outlined" placeholder="Password" {...register("Password", {required: true})} />
-        <TextField required type="password" variant="outlined" placeholder="Confirm Password" {...register("Confirm Password", {required: true})} />
+        <TextField 
+          required type="email" 
+          variant="outlined" 
+          placeholder="Email" 
+          {...register("Email", {required: true})}
+          aria-label="Email"
+        />
+        <TextField 
+          required 
+          type="password" 
+          variant="outlined" 
+          placeholder="Password" 
+          {...register("Password", {required: true})} 
+          aria-label="Password"
+        />
+        <TextField 
+          required 
+          type="password" 
+          variant="outlined" 
+          placeholder="Confirm Password" 
+          {...register("Confirm Password", {required: true})}
+          aria-label="Confirm Password"
+        />
         {errorMessage &&
           <p style={{color: "red"}}>{errorMessage}</p>
         }
