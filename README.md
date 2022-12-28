@@ -4,7 +4,7 @@
 
 Step aside notepad.exe. Riffin uses a no-nonsense, custom-built editor that takes the hassle out of writing and organizing guitar tablature.
 
-__How?__ By combining a text editor with a music staff. Click anywhere (yes anywhere) on the staff to write tablature. Click above the staff to write notes.
+__How?__ By combining a text editor with a music staff. Click anywhere (yes anywhere) on the staff to write tablature, click above the staff to write notes. Add titles and tags to your tablature so you can easily find it later.
 
 __Why?__ Some tools are too simple, some are too robust. Riffin aims to thread that needle so our users can focus on capturing the music.
 
@@ -51,7 +51,3 @@ __Why?__ Some tools are too simple, some are too robust. Riffin aims to thread t
 
 - [Attributions](https://github.com/ryanSUP/riffin-v2/../../../../attributions.md) can be found here
 
-
-## ⚙ Ice Box
-
-- [ ] Light/Dark Mode
